@@ -21,7 +21,6 @@ struct NamiActionButtonStyle: ButtonStyle {
         let configuration: ButtonStyle.Configuration
         let rank: AppearanceHierarchyRank
         let excCorner: UIRectCorner
-        @Environment(\.colors) var colors: Colors
         @Environment(\.isEnabled) var isEnabled: Bool
 
         var body: some View {
@@ -35,7 +34,7 @@ struct NamiActionButtonStyle: ButtonStyle {
             ) {
                 configuration.label
                     .foregroundColor(isEnabled ? rank.textColor : rank.disabledTextColor)
-                    .font(NamiTextStyle.headline5.font)
+//                    .font(NamiTextStyle.headline5.font)
                     .padding(18)
             }
             .scaleEffect(configuration.isPressed ? 0.95 : 1)

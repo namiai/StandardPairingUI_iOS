@@ -52,15 +52,13 @@ struct TextFieldView: UIViewRepresentable {
 
         private static func button(imageName: String, target: Coordinator, action: Selector) -> UIButton {
             let button = UIButton(type: .custom)
-            let image = UIImage(named: imageName)
+            let image = UIImage(systemName: imageName)
             button.setImage(image, for: .normal)
             button.addTarget(target, action: action, for: .touchUpInside)
             button.sizeToFit()
             return button
         }
     }
-
-    @Environment(\.images) var images: Images
 
     var font: UIFont?
     var textColor: UIColor?
@@ -72,7 +70,7 @@ struct TextFieldView: UIViewRepresentable {
     }
 
     func makeCoordinator() -> Coordinator {
-        Coordinator(text: $text, isEditing: $isEditing, showsPassword: $showsPassword, showImageName: images.eyeShow, hideImageName: images.eyeHide)
+        Coordinator(text: $text, isEditing: $isEditing, showsPassword: $showsPassword, showImageName: "eye", hideImageName: "eye.slash")
     }
 
     func makeUIView(context: Context) -> UITextField {

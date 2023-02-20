@@ -11,10 +11,6 @@ struct NamiErrorChatBubble: View {
         self.text = text
     }
 
-    // MARK: Internal
-
-    @Environment(\.images) var images: Images
-
     var text: String
 
     var body: some View {
@@ -23,7 +19,7 @@ struct NamiErrorChatBubble: View {
                 errorIndicator()
                 Text(text)
                     .multilineTextAlignment(.leading)
-                    .font(NamiTextStyle.headline4.font)
+//                    .font(NamiTextStyle.headline4.font)
                 Spacer()
             }
             .padding()
@@ -34,30 +30,8 @@ struct NamiErrorChatBubble: View {
 
     private func errorIndicator() -> some View {
         VStack {
-            Image(images.errorIndicator)
+            Image(systemName: "exclamationmark.circle.fill")
                 .offset(y: 6)
         }
-    }
-}
-
-// MARK: - NamiErrorChatBubble_Previews
-
-struct NamiErrorChatBubble_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            Color.gray
-            VStack {
-                VStack {
-                    NamiErrorChatBubble("The first thing to know is that there’s many things you can do with nami. So please take your time to check them all out.")
-                    NamiErrorChatBubble("Hello, World!")
-                }
-                VStack {
-                    NamiErrorChatBubble("The first thing to know is that there’s many things you can do with nami. So please take your time to check them all out.")
-                    NamiErrorChatBubble("Hello, World!")
-                }
-                .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)
-            }
-        }
-        .previewLayout(.fixed(width: 320, height: 740))
     }
 }

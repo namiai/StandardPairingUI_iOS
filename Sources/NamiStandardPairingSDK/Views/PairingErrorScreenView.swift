@@ -21,7 +21,7 @@ struct PairingErrorScreenView: View {
                 .edgesIgnoringSafeArea(.all)
 
             VStack {
-                NamiErrorChatBubble(I18n.Pairing.ErrorScreen.errorOccurred.localized(with: viewModel.state.error.info().description))
+                NamiErrorChatBubble(I18n.Pairing.ErrorScreen.errorOccurred.localized(with: viewModel.state.error.localizedDescription))
                     .padding(.horizontal)
                 Spacer()
                 if viewModel.state.actions.isEmpty == false {

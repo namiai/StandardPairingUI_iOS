@@ -25,7 +25,6 @@ struct NamiTextField: View {
 
     // MARK: Internal
 
-    @Environment(\.colors) var colors: Colors
     var fieldStyle: NamiTextFieldStyle = .neutral
     /// The text under the textfield. If present, will be rendered
     /// in the given ``style``.
@@ -40,15 +39,15 @@ struct NamiTextField: View {
                 strokeColor: strokeColorWithStyle
             ) {
                 TextFieldView(placeholder: placeholder, text: $text, isEditing: isEditing, returnKeyType: returnKeyType)
-                    .font(NamiTextStyle.paragraph1.uiFont)
-                    .tintColor(colors.accent)
+//                    .font(NamiTextStyle.paragraph1.uiFont)
+                    .tintColor(Color.accent)
                     .secureTextEntry(secureTextEntry)
                     .padding()
             }
             if let subTextPresent = fieldSubText {
                 HStack {
                     Text(subTextPresent)
-                        .font(NamiTextStyle.small.font)
+//                        .font(NamiTextStyle.small.font)
                         .foregroundColor(subTextColorWithStyle)
                     Spacer()
                 }
@@ -61,25 +60,25 @@ struct NamiTextField: View {
         switch fieldStyle {
         case .neutral:
             if isEditing.wrappedValue {
-                return colors.accent
+                return Color.accent
             } else {
-                return colors.borderStroke
+                return Color.borderStroke
             }
         case .positive:
-            return colors.positive
+            return Color.positive
         case .negative:
-            return colors.negative
+            return Color.negative
         }
     }
 
     var subTextColorWithStyle: Color {
         switch fieldStyle {
         case .neutral:
-            return colors.bodyText
+            return Color.bodyText
         case .positive:
-            return colors.positive
+            return Color.positive
         case .negative:
-            return colors.negative
+            return Color.negative
         }
     }
 
@@ -94,36 +93,5 @@ struct NamiTextField: View {
 
     private var isEditing: Binding<Bool> {
         isEditingExternal ?? $isEditingInternal
-    }
-}
-
-// MARK: - NamiTextField_Previews
-
-struct NamiTextField_Previews: PreviewProvider {
-    @State static var emptyText = ""
-    @State static var text = "Input text"
-    @State static var isEditing = true
-
-    static var previews: some View {
-        VStack {
-            Group {
-                NamiTextField(placeholder: "Placeholder", text: $emptyText)
-                NamiTextField(placeholder: "Placeholder", text: $text)
-                    .subText("Required")
-                NamiTextField(placeholder: "Placeholder", text: $text, isEditing: $isEditing)
-                NamiTextField(placeholder: "Placeholder", text: $text)
-                    .subText("Error message")
-                    .style(.negative)
-                NamiTextField(placeholder: "Placeholder", text: $text)
-                    .subText("Success message")
-                    .style(.positive)
-                NamiTextField(placeholder: "Placeholder", text: $emptyText)
-                    .secureTextEntry(true)
-                NamiTextField(placeholder: "Placeholder", text: $text)
-                    .secureTextEntry(true)
-            }
-            .padding()
-        }
-        .previewLayout(.fixed(width: 400, height: 800))
     }
 }

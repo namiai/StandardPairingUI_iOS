@@ -24,7 +24,7 @@ struct BluetoothUsageHintView: View {
                 NamiChatBubble(I18n.Pairing.BluetoothUsageHint.header.localized)
                     .padding(.horizontal)
                 Spacer()
-                Button(I18n.Pairing.BluetoothUsageHint.confirm.localized, action: { viewModel.send(event: .didPressOK) })
+                Button(I18n.Pairing.BluetoothUsageHint.confirm.localized, action: { viewModel.send(event: .tapNext) })
                     .disabled(viewModel.state.nextTapped)
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
             }
