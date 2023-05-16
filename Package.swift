@@ -12,7 +12,7 @@ let package = Package(
             targets: ["NamiStandardPairingSDK"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/namiai/Tomonari.git", branch: "main"),
+        .package(url: "https://github.com/namiai/Tomonari.git", branch: "remove_i18n_package"),
     ],
     targets: [
         .target(

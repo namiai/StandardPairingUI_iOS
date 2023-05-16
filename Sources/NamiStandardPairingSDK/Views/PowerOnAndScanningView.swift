@@ -2,7 +2,6 @@
 
 import Tomonari
 import SwiftUI
-import I18n
 
 // MARK: - PowerOnAndScanningView
 

@@ -6,16 +6,16 @@
       "location" : "https://github.com/namiai/CommonTypes_iOS.git",
       "state" : {
         "branch" : "main",
-        "revision" : "fcb4b394edf47bf1b851e89ef4d8119fee077bd2"
+        "revision" : "1fe3fc9f06688af1dbf843c81197ecfd0596deb8"
       }
     },
     {
-      "identity" : "i18n_ios",
+      "identity" : "downloadtranslationsplugin",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/namiai/I18n_iOS",
+      "location" : "https://github.com/namiai/DownloadTranslationsPlugin",
       "state" : {
         "branch" : "main",
-        "revision" : "8e50848b500fd5dfea606c94f68b9899b3406f22"
+        "revision" : "d1a7f14afac17033759098012b5afebc698712e7"
       }
     },
     {
@@ -93,8 +93,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/namiai/Tomonari.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "8af3a28fb6f26fe895e2be01b37ba31145cb8008"
+        "branch" : "remove_i18n_package",
+        "revision" : "b7df471afdb0cf4bed261bbb862c67d453826b7c"
       }
     },
     {
@@ -103,7 +103,7 @@
       "location" : "https://github.com/namiai/WebAPI_iOS.git",
       "state" : {
         "branch" : "main",
-        "revision" : "82a11356c42574d3ec0400f83902ffe0325e3ede"
+        "revision" : "8b8ca16f3b37daf2a9d5aef51b82e071e4bba21f"
       }
     },
     {

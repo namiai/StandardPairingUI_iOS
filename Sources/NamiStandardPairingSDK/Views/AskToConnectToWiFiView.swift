@@ -2,7 +2,6 @@
 
 import SwiftUI
 import Tomonari
-import I18n
 
 // MARK: - AskToConnectToWiFiView
 
