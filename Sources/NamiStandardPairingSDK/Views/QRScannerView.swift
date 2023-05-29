@@ -5,16 +5,16 @@ import SwiftUI
 
 // MARK: - QRScannerView
 
-struct QRScannerView: View {
+public struct QRScannerView: View {
     // MARK: Lifecycle
 
-    init(viewModel: QRScanner.ViewModel) {
+    public init(viewModel: QRScanner.ViewModel) {
         self.viewModel = viewModel
     }
 
     @ObservedObject var viewModel: QRScanner.ViewModel
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             viewModel.undecoratedScannerView
 

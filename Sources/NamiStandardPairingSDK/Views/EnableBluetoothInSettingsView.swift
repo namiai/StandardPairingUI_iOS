@@ -5,9 +5,9 @@ import SwiftUI
 
 // MARK: - EnableBluetoothInSettingsView
 
-struct EnableBluetoothInSettingsView: View {
+public struct EnableBluetoothInSettingsView: View {
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)

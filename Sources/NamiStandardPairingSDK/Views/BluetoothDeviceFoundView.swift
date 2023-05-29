@@ -5,16 +5,16 @@ import SwiftUI
 
 // MARK: - BluetoothDeviceFoundView
 
-struct BluetoothDeviceFoundView: View {
+public struct BluetoothDeviceFoundView: View {
     // MARK: Lifecycle
 
-    init(viewModel: BluetoothDeviceFound.ViewModel) {
+    public init(viewModel: BluetoothDeviceFound.ViewModel) {
         self.viewModel = viewModel
     }
 
     @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)

@@ -5,16 +5,16 @@ import SwiftUI
 
 // MARK: - BluetoothUsageHintView
 
-struct BluetoothUsageHintView: View {
+public struct BluetoothUsageHintView: View {
     // MARK: Lifecycle
 
-    init(viewModel: BluetoothUsageHint.ViewModel) {
+    public init(viewModel: BluetoothUsageHint.ViewModel) {
         self.viewModel = viewModel
     }
 
     @ObservedObject var viewModel: BluetoothUsageHint.ViewModel
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)
