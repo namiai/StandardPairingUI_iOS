@@ -4,24 +4,21 @@
 import PackageDescription
 
 let package = Package(
-    name: "NamiStandardPairingSDK",
+    name: "StandardPairingUI",
     platforms: [.iOS(.v14), .macOS(.v10_15)],
     products: [
         .library(
-            name: "NamiStandardPairingSDK",
-            targets: ["NamiStandardPairingSDK"]),
+            name: "StandardPairingUI",
+            targets: ["StandardPairingUI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/namiai/Tomonari.git", branch: "remove_i18n_package"),
+        .package(url: "https://github.com/namiai/Tomonari.git", branch: "porting_main_app_changes"),
     ],
     targets: [
         .target(
-            name: "NamiStandardPairingSDK",
+            name: "StandardPairingUI",
             dependencies: [
                 .product(name: "Tomonari", package: "Tomonari"),
             ]),
-        .testTarget(
-            name: "NamiStandardPairingSDKTests",
-            dependencies: ["NamiStandardPairingSDK"]),
     ]
 )

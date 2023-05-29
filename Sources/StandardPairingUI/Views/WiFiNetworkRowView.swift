@@ -10,7 +10,6 @@ struct WiFiNetworkRowView: View {
 
     var network: NamiWiFiNetwork
     var selected: Bool
-    var unreachble: Bool = false
 
     var body: some View {
         RoundedRectContainerView(backgroundColor: Color.white) {
@@ -40,10 +39,6 @@ struct WiFiNetworkRowView: View {
     // MARK: Private
 
     private func wifiImageName() -> String {
-        if unreachble {
-            return "WifiError"
-        }
-
         if network.rssi >= -45 {
             return "Wifi"
         } else if network.rssi < -45 && network.rssi > -85 {
