@@ -2,6 +2,7 @@
 
 import Tomonari
 import SwiftUI
+import I18n
 
 // MARK: - OtherWiFiNetworkView
 
@@ -29,7 +30,7 @@ public struct OtherWiFiNetworkView: View {
                     viewModel.state[keyPath: \.networkName] = value
                 }), returnKeyType: .done)
                     .padding()
-                Button(I18n.General.ok.localized, action: { viewModel.send(event: .didConfirmName) })
+                Button(I18n.General.OK.localized, action: { viewModel.send(event: .didConfirmName) })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
                     .disabled(viewModel.state.networkName.isEmpty)
                 Button(I18n.Pairing.OtherWiFiNetwork.backButton.localized, action: { viewModel.send(event: .goBack) })

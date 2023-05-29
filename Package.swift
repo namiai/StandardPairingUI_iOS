@@ -5,7 +5,11 @@ import PackageDescription
 
 let package = Package(
     name: "StandardPairingUI",
-    platforms: [.iOS(.v14), .macOS(.v10_15)],
+    // The supported platform version here couldn't be lower than in Tomonari.
+    platforms: [
+        .iOS(.v14),
+        .macOS(.v10_15),
+    ],
     products: [
         .library(
             name: "StandardPairingUI",
