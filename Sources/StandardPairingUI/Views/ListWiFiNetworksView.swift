@@ -6,16 +6,16 @@ import I18n
 
 // MARK: - ListWiFiNetworksView
 
-struct ListWiFiNetworksView: View {
+public struct ListWiFiNetworksView: View {
     // MARK: Lifecycle
 
-    init(viewModel: ListWiFiNetworks.ViewModel) {
+    public init(viewModel: ListWiFiNetworks.ViewModel) {
         self.viewModel = viewModel
     }
 
     @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)
@@ -35,10 +35,7 @@ struct ListWiFiNetworksView: View {
                 }
                 ScrollView {
                     if viewModel.state.shouldShowBSSIDWarning {
-//                        let network = NamiWiFiNetwork(ssid: I18n.Pairing.ListWiFiNetworks.apOutOfReach.localized, bssid: BSSID())
-//                        WiFiNetworkRowView(network: network, selected: false, unreachble: true)
-//                            .padding(.horizontal)
-                        Text("Network unreachable")
+                        Text(I18n.Pairing.ListWiFiNetworks.apOutOfReach.localized).frame(alignment: .center)
                     } else {
                         if let userAdded = viewModel.state.userAddedNetwork {
                             WiFiNetworkRowView(network: userAdded, selected: userAdded.ssid == viewModel.state.selectedNetwork?.ssid)

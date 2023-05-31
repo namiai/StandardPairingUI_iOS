@@ -6,16 +6,16 @@ import I18n
 
 // MARK: - EnterWiFiPasswordView
 
-struct EnterWiFiPasswordView: View {
+public struct EnterWiFiPasswordView: View {
     // MARK: Lifecycle
 
-    init(viewModel: EnterWiFiPassword.ViewModel) {
+    public init(viewModel: EnterWiFiPassword.ViewModel) {
         self.viewModel = viewModel
     }
 
     @ObservedObject var viewModel: EnterWiFiPassword.ViewModel
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)

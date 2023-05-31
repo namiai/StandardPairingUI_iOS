@@ -6,16 +6,16 @@ import I18n
 
 // MARK: - PowerOnAndScanningView
 
-struct PowerOnAndScanningView: View {
+public struct PowerOnAndScanningView: View {
     // MARK: Lifecycle
 
-    init(viewModel: PowerOnAndScanning.ViewModel) {
+    public init(viewModel: PowerOnAndScanning.ViewModel) {
         self.viewModel = viewModel
     }
 
     @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)

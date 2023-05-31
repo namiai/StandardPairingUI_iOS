@@ -6,16 +6,16 @@ import I18n
 
 // MARK: - AskToConnectToWiFiView
 
-struct AskToConnectToWiFiView: View {
+public struct AskToConnectToWiFiView: View {
     // MARK: Lifecycle
 
-    init(viewModel: AskToConnectToWiFi.ViewModel) {
+    public init(viewModel: AskToConnectToWiFi.ViewModel) {
         self.viewModel = viewModel
     }
 
     @ObservedObject var viewModel: AskToConnectToWiFi.ViewModel
 
-    var body: some View {
+    public var body: some View {
         ZStack {
                         Color.lowerBackground
                             .edgesIgnoringSafeArea(.all)

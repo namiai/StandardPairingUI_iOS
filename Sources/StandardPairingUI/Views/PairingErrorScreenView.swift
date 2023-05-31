@@ -6,16 +6,16 @@ import I18n
 
 // MARK: - PairingErrorScreenView
 
-struct PairingErrorScreenView: View {
+public struct PairingErrorScreenView: View {
     // MARK: Lifecycle
 
-    init(viewModel: PairingErrorScreen.ViewModel) {
+    public init(viewModel: PairingErrorScreen.ViewModel) {
         self.viewModel = viewModel
     }
 
     @ObservedObject var viewModel: PairingErrorScreen.ViewModel
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)

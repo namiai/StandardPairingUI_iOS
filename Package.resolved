@@ -6,7 +6,7 @@
       "location" : "https://github.com/namiai/CommonTypes_iOS.git",
       "state" : {
         "branch" : "main",
-        "revision" : "fcb4b394edf47bf1b851e89ef4d8119fee077bd2"
+        "revision" : "3670921239cca6d68e6c9e3a87a2f3d6f21ccbd5"
       }
     },
     {
@@ -15,16 +15,7 @@
       "location" : "https://github.com/namiai/I18n_iOS",
       "state" : {
         "branch" : "main",
-        "revision" : "8e50848b500fd5dfea606c94f68b9899b3406f22"
-      }
-    },
-    {
-      "identity" : "iso8601msecdecoder_ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/namiai/ISO8601MsecDecoder_iOS.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "13e08bb4f81d5b4e9bc915bd5ad95b81565f92e7"
+        "revision" : "ffaf32c3f68b409459c35e4879d2d2ab8dc45c5a"
       }
     },
     {
@@ -50,7 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/namiai/PacketBoat",
       "state" : {
-        "revision" : "32d0bd4af4d8ea5329307d43e24ac4c5ecb805a0"
+        "branch" : "main",
+        "revision" : "f1659c6c9fb6ee2c00276760989160b11ea03816"
       }
     },
     {
@@ -58,16 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/namiai/Seance",
       "state" : {
-        "revision" : "2ba6db465a757fcd43569d41006a3aa2cd559d4f"
-      }
-    },
-    {
-      "identity" : "securestorage_ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/namiai/SecureStorage_iOS.git",
-      "state" : {
         "branch" : "main",
-        "revision" : "0bf9a2e018c574fd8dcdc77e497ef2a3d6f68154"
+        "revision" : "2ba6db465a757fcd43569d41006a3aa2cd559d4f"
       }
     },
     {
@@ -80,39 +64,12 @@
       }
     },
     {
-      "identity" : "tokenstore_ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/namiai/TokenStore_iOS.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "21096cfb69e93fd6c0b6014d0489b935c1982381"
-      }
-    },
-    {
       "identity" : "tomonari",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/namiai/Tomonari.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "8af3a28fb6f26fe895e2be01b37ba31145cb8008"
-      }
-    },
-    {
-      "identity" : "webapi_ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/namiai/WebAPI_iOS.git",
-      "state" : {
-        "branch" : "main",
-        "revision" : "82a11356c42574d3ec0400f83902ffe0325e3ede"
-      }
-    },
-    {
-      "identity" : "wifistorage_ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/namiai/WiFiStorage_iOS",
-      "state" : {
-        "branch" : "main",
-        "revision" : "737ee8258b3e82819b821a7f4cb393c9c3e263f9"
+        "branch" : "porting_main_app_changes",
+        "revision" : "7e88252c35883a22b250e71721e7f4457863a809"
       }
     }
   ],

@@ -6,9 +6,9 @@ import I18n
 
 // MARK: - FinishingSetupView
 
-struct FinishingSetupView: View {
+public struct FinishingSetupView: View {
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)

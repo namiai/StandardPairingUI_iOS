@@ -4,8 +4,8 @@ import SwiftUI
 
 // MARK: - PongView
 
-struct PongView: View {
-    var body: some View {
+public struct PongView: View {
+    public var body: some View {
         ZStack {
             GeometryReader { geo in
                 // ball

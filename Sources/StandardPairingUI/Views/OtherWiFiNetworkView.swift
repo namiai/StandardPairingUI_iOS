@@ -6,16 +6,16 @@ import I18n
 
 // MARK: - OtherWiFiNetworkView
 
-struct OtherWiFiNetworkView: View {
+public struct OtherWiFiNetworkView: View {
     // MARK: Lifecycle
 
-    init(viewModel: OtherWiFiNetwork.ViewModel) {
+    public init(viewModel: OtherWiFiNetwork.ViewModel) {
         self.viewModel = viewModel
     }
 
     @ObservedObject var viewModel: OtherWiFiNetwork.ViewModel
 
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)
