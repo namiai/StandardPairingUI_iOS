@@ -25,7 +25,7 @@ public struct ListWiFiNetworksView: View {
                     .padding()
 
                 if viewModel.state.shouldShowProgressView {
-                    NamiChatBubble(viewModel.state.shouldShowRetryingNetworks ? I18n.Pairing.ListWiFiNetworks.retryingForNetworks.localized : I18n.Pairing.ListWiFiNetworks.lookingForNetworks.localized)
+                    NamiChatBubble(I18n.Pairing.ListWiFiNetworks.lookingForNetworks.localized)
                         .padding()
                     ProgressView()
                 }

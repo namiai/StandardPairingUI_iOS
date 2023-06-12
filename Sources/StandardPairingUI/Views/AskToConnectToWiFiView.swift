@@ -8,18 +8,18 @@ import I18n
 
 public struct AskToConnectToWiFiView: View {
     // MARK: Lifecycle
-
+    
     public init(viewModel: AskToConnectToWiFi.ViewModel) {
         self.viewModel = viewModel
     }
-
+    
     @ObservedObject var viewModel: AskToConnectToWiFi.ViewModel
-
+    
     public var body: some View {
         ZStack {
-                        Color.lowerBackground
-                            .edgesIgnoringSafeArea(.all)
-
+            Color.lowerBackground
+                .edgesIgnoringSafeArea(.all)
+            
             VStack {
                 NamiChatBubble(I18n.Pairing.AskToConnectToWiFi.header.localized)
                     .padding()

@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/namiai/Tomonari.git",
       "state" : {
-        "branch" : "porting_main_app_changes",
-        "revision" : "7e88252c35883a22b250e71721e7f4457863a809"
+        "branch" : "main",
+        "revision" : "7d303e13607fc809c3e4300b1eef252c3fe3fe94"
       }
     }
   ],

@@ -16,7 +16,7 @@ let package = Package(
             targets: ["StandardPairingUI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/namiai/Tomonari.git", branch: "porting_main_app_changes"),
+        .package(url: "https://github.com/namiai/Tomonari.git", branch: "main"),
     ],
     targets: [
         .target(
