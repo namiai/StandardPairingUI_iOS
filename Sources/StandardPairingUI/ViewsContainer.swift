@@ -1,6 +1,9 @@
 import CommonTypes
 import SwiftUI
 import Tomonari
+import NamiTextStyle
+
+typealias NamiTextStyle = NamiPortableTextStyle
 
 public struct ViewsContainer: PairingStepsContainer {
     public init() { }

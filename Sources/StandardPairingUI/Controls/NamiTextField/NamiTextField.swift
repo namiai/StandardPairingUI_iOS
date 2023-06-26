@@ -39,7 +39,7 @@ struct NamiTextField: View {
                 strokeColor: strokeColorWithStyle
             ) {
                 TextFieldView(placeholder: placeholder, text: $text, isEditing: isEditing, returnKeyType: returnKeyType)
-//                    .font(NamiTextStyle.paragraph1.uiFont)
+                    .font(NamiTextStyle.paragraph1.uiFont)
                     .tintColor(Color.accent)
                     .secureTextEntry(secureTextEntry)
                     .padding()
@@ -47,7 +47,7 @@ struct NamiTextField: View {
             if let subTextPresent = fieldSubText {
                 HStack {
                     Text(subTextPresent)
-//                        .font(NamiTextStyle.small.font)
+                        .font(NamiTextStyle.small.font)
                         .foregroundColor(subTextColorWithStyle)
                     Spacer()
                 }

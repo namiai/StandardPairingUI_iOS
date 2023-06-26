@@ -19,7 +19,7 @@ struct NamiErrorChatBubble: View {
                 errorIndicator()
                 Text(text)
                     .multilineTextAlignment(.leading)
-//                    .font(NamiTextStyle.headline4.font)
+                    .font(NamiTextStyle.headline4.font)
                 Spacer()
             }
             .padding()
