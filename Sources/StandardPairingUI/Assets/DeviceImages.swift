@@ -1,7 +1,7 @@
 
 import Foundation
 import SwiftUI
-import Tomonari
+import CommonTypes
 
 enum DeviceImages {
     static func image(for codeName: String) -> Image {
