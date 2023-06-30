@@ -16,12 +16,14 @@ let package = Package(
             targets: ["StandardPairingUI"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/namiai/NamiTextStyle_iOS.git", branch: "main"),
         .package(url: "https://github.com/namiai/Tomonari.git", branch: "main"),
     ],
     targets: [
         .target(
             name: "StandardPairingUI",
             dependencies: [
+                .product(name: "NamiTextStyle", package: "NamiTextStyle_iOS"),
                 .product(name: "Tomonari", package: "Tomonari"),
             ]),
     ]
