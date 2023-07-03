@@ -2,6 +2,7 @@
 
 import SwiftUI
 import Tomonari
+import NamiTextStyle
 
 // MARK: - WiFiNetworkRowView
 
@@ -15,16 +16,16 @@ struct WiFiNetworkRowView: View {
         RoundedRectContainerView(backgroundColor: Color.white) {
             HStack {
                 Image(wifiImageName())
-//                    .font(NamiTextStyle.paragraph1.font)
+                    .font(NamiTextStyle.paragraph1.font)
                     .foregroundColor(Color.black)
                 Text(network.ssid)
-//                    .font(NamiTextStyle.paragraph1.font)
+                    .font(NamiTextStyle.paragraph1.font)
                     .foregroundColor(Color.black)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 if network.open {
                     Image(systemName: "lock.open")
-//                        .font(NamiTextStyle.paragraph1.font)
+                        .font(NamiTextStyle.paragraph1.font)
                         .foregroundColor(Color.black)
                 }
                 Spacer()
