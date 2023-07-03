@@ -1,7 +1,6 @@
 // Copyright (c) nami.ai
 
 import SwiftUI
-import NamiTextStyle
 
 // MARK: - NamiActionButtonStyle
 
@@ -35,7 +34,6 @@ struct NamiActionButtonStyle: ButtonStyle {
             ) {
                 configuration.label
                     .foregroundColor(isEnabled ? rank.textColor : rank.disabledTextColor)
-                    .font(NamiTextStyle.headline5.font)
                     .padding(18)
             }
             .scaleEffect(configuration.isPressed ? 0.95 : 1)
