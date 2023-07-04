@@ -2,7 +2,6 @@
 
 import SwiftUI
 import NamiPairingFramework
-import NamiTextStyle
 
 // MARK: - WiFiNetworkRowView
 

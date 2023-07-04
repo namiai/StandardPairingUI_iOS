@@ -1,4 +1,3 @@
-import CommonTypes
 import SwiftUI
 import NamiPairingFramework
 

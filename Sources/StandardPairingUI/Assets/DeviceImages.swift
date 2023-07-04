@@ -1,7 +1,7 @@
 
 import Foundation
 import SwiftUI
-import CommonTypes
+import NamiPairingFramework
 
 enum DeviceImages {
     static func image(for codeName: String) -> Image {
