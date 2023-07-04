@@ -1,8 +1,7 @@
 // Copyright (c) nami.ai
 
 import SwiftUI
-import Tomonari
-import I18n
+import NamiPairingFramework
 
 // MARK: - AskToConnectToWiFiView
 

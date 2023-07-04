@@ -66,7 +66,7 @@
     {
       "identity" : "tomonari",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/namiai/Tomonari.git",
+      "location" : "https://github.com/namiai/NamiPairingFramework.git",
       "state" : {
         "branch" : "main",
         "revision" : "7d303e13607fc809c3e4300b1eef252c3fe3fe94"

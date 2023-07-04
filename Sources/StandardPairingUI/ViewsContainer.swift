@@ -1,6 +1,6 @@
 import CommonTypes
 import SwiftUI
-import Tomonari
+import NamiPairingFramework
 
 public struct ViewsContainer: PairingStepsContainer {
     public init() { }

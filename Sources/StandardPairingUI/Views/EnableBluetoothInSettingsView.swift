@@ -1,8 +1,8 @@
 // Copyright (c) nami.ai
 
-import Tomonari
+import NamiPairingFramework
 import SwiftUI
-import I18n
+
 
 // MARK: - EnableBluetoothInSettingsView
 

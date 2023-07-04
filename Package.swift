@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "StandardPairingUI",
-    // The supported platform version here couldn't be lower than in Tomonari.
+    // The supported platform version here couldn't be lower than in NamiPairingFramework.
     platforms: [
         .iOS(.v14),
         .macOS(.v10_15),
@@ -16,7 +16,6 @@ let package = Package(
             targets: ["StandardPairingUI"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/namiai/Tomonari.git", branch: "main"),
     ],
     targets: [
         .target(
