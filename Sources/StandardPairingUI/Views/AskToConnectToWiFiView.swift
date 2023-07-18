@@ -23,7 +23,7 @@ public struct AskToConnectToWiFiView: View {
             VStack {
                 NamiChatBubble(I18n.Pairing.AskToConnectToWiFi.header.localized)
                     .padding()
-                if viewModel.state.devicesCount > 1 {
+                if viewModel.state.devicesCount > 1, viewModel.state.updatingWifi == false {
                     if viewModel.state.zonesCount > 1, let zoneName = viewModel.state.zoneName {
                         NamiChatBubble(I18n.Pairing.AskToConnectToWiFi.useSameWiFiAsZone.localized(with: zoneName))
                             .padding()
