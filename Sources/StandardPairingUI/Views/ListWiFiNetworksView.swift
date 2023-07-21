@@ -8,22 +8,22 @@ import I18n
 
 public struct ListWiFiNetworksView: View {
     // MARK: Lifecycle
-
+    
     public init(viewModel: ListWiFiNetworks.ViewModel) {
         self.viewModel = viewModel
     }
-
+    
     @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
-
+    
     public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)
-
+            
             VStack {
                 NamiChatBubble(viewModel.state.shouldShowBSSIDWarning ? I18n.Pairing.ListWiFiNetworks.warning.localized : I18n.Pairing.ListWiFiNetworks.header.localized)
                     .padding()
-
+                
                 if viewModel.state.shouldShowProgressView {
                     NamiChatBubble(I18n.Pairing.ListWiFiNetworks.lookingForNetworks.localized)
                         .padding()
@@ -69,5 +69,21 @@ public struct ListWiFiNetworksView: View {
             }
             .padding()
         }
+        .alert(
+            isPresented: $viewModel.state.shouldAskAboutSavedPassword,
+            content: alertContent
+        )
+    }
+    
+    private func alertContent() -> Alert {
+        let networkName = viewModel.state.selectedNetwork?.ssid ?? ""
+        return Alert(
+            title: Text(I18n.Pairing.ListWiFiNetworks.foundSavedPassword.localized),
+            message: Text(I18n.Pairing.ListWiFiNetworks.useSavedPassword.localized(with: networkName)),
+            primaryButton:
+                    .destructive(Text(I18n.Pairing.ListWiFiNetworks.forget.localized), action: { viewModel.send(event: .didTapForgetPassword) }),
+            secondaryButton:
+                    .default(Text(I18n.General.OK.localized), action: { viewModel.send(event: .didTapUsePassword) })
+        )
     }
 }

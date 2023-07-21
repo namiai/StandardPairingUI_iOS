@@ -16,6 +16,7 @@ let package = Package(
             targets: ["StandardPairingUI"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/namiai/I18n_iOS.git", branch: "main"),
         .package(url: "https://github.com/namiai/NamiTextStyle_iOS.git", branch: "main"),
         .package(url: "https://github.com/namiai/Tomonari.git", branch: "main"),
     ],
@@ -23,6 +24,7 @@ let package = Package(
         .target(
             name: "StandardPairingUI",
             dependencies: [
+                .product(name: "I18n", package: "I18n_iOS"),
                 .product(name: "NamiTextStyle", package: "NamiTextStyle_iOS"),
                 .product(name: "Tomonari", package: "Tomonari"),
             ]),
