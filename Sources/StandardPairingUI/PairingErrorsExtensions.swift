@@ -73,6 +73,8 @@ extension Pairing.ThreadError {
             return I18n.Errors.PairingThreadSetupError.threadOperationalDatasetMissing.localized
         case .threadNetworkNotFound:
             return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound.localized
+        case .mixedEnvironment:
+            return I18n.Errors.PairingThreadSetupError.mixedEnvironment.localized
         }
     }
 }
