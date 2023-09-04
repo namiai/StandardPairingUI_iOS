@@ -21,54 +21,61 @@ public struct ListWiFiNetworksView: View {
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
-                NamiChatBubble(viewModel.state.shouldShowBSSIDWarning ? I18n.Pairing.ListWiFiNetworks.warning.localized : I18n.Pairing.ListWiFiNetworks.header.localized)
-                    .padding()
+                Text("Connect to Wi-Fi network")
+                    .font(NamiTextStyle.headline3.font)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                Text("Select a network to connect")
+                    .font(NamiTextStyle.paragraph1.font)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding([.bottom, .horizontal])
+                    .padding(.top, 4)
                 
-                if viewModel.state.shouldShowProgressView {
-                    NamiChatBubble(I18n.Pairing.ListWiFiNetworks.lookingForNetworks.localized)
-                        .padding()
-                    ProgressView()
-                }
-                if viewModel.state.shouldShowNoNetworksHint {
-                    NamiChatBubble(I18n.Pairing.ListWiFiNetworks.noNetworksFound.localized(with: I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized))
-                        .padding()
-                }
                 ScrollView {
-                    if viewModel.state.shouldShowBSSIDWarning {
-                        Text(I18n.Pairing.ListWiFiNetworks.apOutOfReach.localized).frame(alignment: .center)
-                    } else {
-                        if let userAdded = viewModel.state.userAddedNetwork {
-                            WiFiNetworkRowView(network: userAdded, selected: userAdded.ssid == viewModel.state.selectedNetwork?.ssid)
-                                .padding(.horizontal)
+                    HStack {
+                        if viewModel.state.shouldShowNoNetworksHint {
+                            Text(I18n.Pairing.ListWiFiNetworks.noNetworksFound.localized(with: I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized))
+                                .foregroundColor(Color.borderStroke)
+                        } else {
+                            Text("Available Wi-Fi networks")
+                                .foregroundColor(Color.borderStroke)
                         }
-                        if let networks = viewModel.state.networks {
-                            ForEach(networks, id: \.self) { network in
-                                WiFiNetworkRowView(network: network, selected: network.ssid == viewModel.state.selectedNetwork?.ssid)
-                                    .padding(.horizontal)
-                                    .onTapGesture {
-                                        viewModel.send(event: .selectNetwork(network))
+                        if viewModel.state.shouldShowProgressView {
+                            ProgressView()
+                                .padding(.horizontal, 4)
+                        }
+                        Spacer()
+                    }
+                    
+                    
+                    if let networks = viewModel.state.networks {
+                        RoundedRectContainerView {
+                            ForEach(Array(networks.enumerated()), id: \.offset) { item in
+                                let i = item.offset
+                                let network = item.element
+                                VStack {
+                                    WiFiNetworkRowView(network: network, selected: network.ssid == viewModel.state.selectedNetwork?.ssid)
+                                        .onTapGesture {
+                                            viewModel.send(event: .selectNetwofkAndConfirm(network))
+                                        }
+                                    if i < networks.count - 1 {
+                                        Divider()
+                                            .padding(.horizontal)
                                     }
+                                }
                             }
                         }
                     }
+                    otherNetworkRow()
+                        .padding(.bottom)
                 }
-                Spacer()
-                if viewModel.state.shouldShowBSSIDWarning {
-                    Button(I18n.Pairing.ListWiFiNetworks.refreshButton.localized, action: { viewModel.send(event: .tappedRefreshNetwork) })
-                        .buttonStyle(NamiActionButtonStyle(rank: .primary))
-                    Button(I18n.Pairing.ListWiFiNetworks.cancelPairingButton.localized, action: { viewModel.send(event: .dismissItself) })
-                        .buttonStyle(NamiActionButtonStyle(rank: .secondary))
-                } else {
-                    Button(I18n.Pairing.ListWiFiNetworks.continueButton.localized, action: { viewModel.send(event: .tappedConfirmSelection) })
-                        .disabled(viewModel.state.selectedNetwork == nil || viewModel.state.shouldShowBSSIDWarning)
-                        .buttonStyle(NamiActionButtonStyle(rank: .primary))
-                    Button(I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized, action: { viewModel.send(event: .tappedOtherNetwork) })
-                        .disabled(viewModel.state.shouldShowBSSIDWarning)
-                        .buttonStyle(NamiActionButtonStyle(rank: .secondary))
-                }
+                .padding(.horizontal)
             }
-            .padding()
         }
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(
+            Text("Device setup")
+        )
         .alert(
             isPresented: $viewModel.state.shouldAskAboutSavedPassword,
             content: alertContent
@@ -85,5 +92,23 @@ public struct ListWiFiNetworksView: View {
             secondaryButton:
                     .default(Text(I18n.General.OK.localized), action: { viewModel.send(event: .didTapUsePassword) })
         )
+    }
+    
+    private func otherNetworkRow() -> some View {
+        RoundedRectContainerView {
+            HStack {
+                Spacer().frame(width: 24, height: 24)
+                Text(I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized)
+                    .font(NamiTextStyle.paragraph1.font)
+                    .foregroundColor(Color.black)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding()
+        }
+        .onTapGesture {
+            viewModel.send(event: .tappedOtherNetwork)
+        }
     }
 }

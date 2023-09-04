@@ -21,26 +21,33 @@ public struct BluetoothDeviceFoundView: View {
                 .edgesIgnoringSafeArea(.all)
 
             VStack {
-                if let modelTitle = viewModel.state.deviceModel?.productLabel {
-                    NamiChatBubble(I18n.Pairing.BluetoothDeviceFound.header1Known.localized(with: modelTitle))
-                        .padding()
-                } else {
-                    NamiChatBubble(I18n.Pairing.BluetoothDeviceFound.header1.localized)
-                        .padding()
-                }
-                NamiChatBubble(I18n.Pairing.BluetoothDeviceFound.header2.localized)
-                    .padding()
-                ProgressView()
+                Spacer()
                 if let codeName = viewModel.state.deviceModel?.codeName {
                     DeviceImages.image(for: codeName)
                         .resizable()
                         .scaledToFit()
                         .padding()
                 }
+                if let modelTitle = viewModel.state.deviceModel?.productLabel {
+                    Text(I18n.Pairing.BluetoothDeviceFound.header1Known.localized(with: modelTitle))
+                        .font(NamiTextStyle.headline3.font)
+                        .padding(.horizontal)
+                } else {
+                    Text(I18n.Pairing.BluetoothDeviceFound.header1.localized)
+                        .padding(.horizontal)
+                }
+                Text(I18n.Pairing.BluetoothDeviceFound.header2.localized)
+                    .font(NamiTextStyle.paragraph1.font)
+                    .padding(.horizontal)
+                    .padding(.top, 4)
+                ProgressView()
                 Spacer()
             }
             .padding()
         }
         .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(
+            Text("Device setup")
+        )
     }
 }
