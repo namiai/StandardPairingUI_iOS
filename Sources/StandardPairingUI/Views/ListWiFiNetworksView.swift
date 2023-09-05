@@ -66,8 +66,10 @@ public struct ListWiFiNetworksView: View {
                             }
                         }
                     }
-                    otherNetworkRow()
-                        .padding(.bottom)
+                    if viewModel.state.couldShowAddOtherNetwork {
+                        otherNetworkRow()
+                            .padding(.bottom)
+                    }
                 }
                 .padding(.horizontal)
             }
