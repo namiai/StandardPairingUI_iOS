@@ -78,22 +78,7 @@ public struct ListWiFiNetworksView: View {
         .navigationTitle(
             Text("Device setup")
         )
-        .alert(
-            isPresented: $viewModel.state.shouldAskAboutSavedPassword,
-            content: alertContent
-        )
-    }
-    
-    private func alertContent() -> Alert {
-        let networkName = viewModel.state.selectedNetwork?.ssid ?? ""
-        return Alert(
-            title: Text(I18n.Pairing.ListWiFiNetworks.foundSavedPassword.localized),
-            message: Text(I18n.Pairing.ListWiFiNetworks.useSavedPassword.localized(with: networkName)),
-            primaryButton:
-                    .destructive(Text(I18n.Pairing.ListWiFiNetworks.forget.localized), action: { viewModel.send(event: .didTapForgetPassword) }),
-            secondaryButton:
-                    .default(Text(I18n.General.OK.localized), action: { viewModel.send(event: .didTapUsePassword) })
-        )
+        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel)
     }
     
     private func otherNetworkRow() -> some View {

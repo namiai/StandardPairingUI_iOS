@@ -8,18 +8,21 @@ import I18n
 
 public struct OtherWiFiNetworkView: View {
     // MARK: Lifecycle
-
+    
     public init(viewModel: OtherWiFiNetwork.ViewModel) {
         self.viewModel = viewModel
     }
-
+    
     @ObservedObject var viewModel: OtherWiFiNetwork.ViewModel
-
+    @State var nameIsEditing: Bool = false
+    @State var passwordIsEditing: Bool = false
+    @State var startedEditingFirstTime: Bool = false
+    
     public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)
-
+            
             VStack {
                 NamiChatBubble(I18n.Pairing.OtherWiFiNetwork.header.localized)
                     .padding()
@@ -28,8 +31,19 @@ public struct OtherWiFiNetworkView: View {
                     viewModel.state[keyPath: \.networkName]
                 }, set: { value in
                     viewModel.state[keyPath: \.networkName] = value
-                }), returnKeyType: .done)
-                    .padding()
+                }),
+                              isEditing: $nameIsEditing,
+                              returnKeyType: .done)
+                .padding()
+                NamiTextField(placeholder: I18n.Pairing.EnterWiFiPassword.passwordPlaceholder.localized, text: Binding(get: {
+                    viewModel.state.password
+                }, set: { value in
+                    viewModel.state[keyPath: \.password] = value
+                }),
+                              isEditing: $passwordIsEditing,
+                              returnKeyType: .done)
+                .secureTextEntry(true)
+                .padding()
                 Button(I18n.General.OK.localized, action: { viewModel.send(event: .didConfirmName) })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
                     .disabled(viewModel.state.networkName.isEmpty)
@@ -40,5 +54,17 @@ public struct OtherWiFiNetworkView: View {
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel)
+        .onChange(of: passwordIsEditing) { isEditing in
+            if isEditing, viewModel.state.networkName.isEmpty == false, viewModel.state.password.isEmpty, startedEditingFirstTime == false {
+                startedEditingFirstTime = true
+                viewModel.send(event: .lookForSavedPassword)
+            }
+        }
+        .onChange(of: nameIsEditing) { isEditing in
+            if isEditing {
+                startedEditingFirstTime = false
+            }
+        }
     }
 }
