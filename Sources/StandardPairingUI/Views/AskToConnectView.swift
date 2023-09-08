@@ -20,9 +20,8 @@ public struct AskToConnectView: View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)
-            
-            if viewModel.state.doneLoading {
-                VStack {
+            VStack {
+                if viewModel.state.doneLoading {
                     VStack {
                         Text(title(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
                             .font(NamiTextStyle.headline3.font)
@@ -31,17 +30,19 @@ public struct AskToConnectView: View {
                         Text(description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
                             .font(NamiTextStyle.paragraph1.font)
                             .padding(.horizontal)
+                            .padding(.top, 4)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    Spacer()
-                    Button(I18n.General.next.localized, action: { viewModel.send(event: .tapNext) } )
-                        .buttonStyle(NamiActionButtonStyle())
-                        .disabled(viewModel.state.nextTapped)
+                } else {
+                    ProgressView()
                 }
-                .padding()
-            } else {
-                ProgressView()
+                Spacer()
+                Button(I18n.General.next.localized, action: { viewModel.send(event: .tapNext) } )
+                    .buttonStyle(NamiActionButtonStyle())
+                    .disabled(viewModel.state.nextTapped)
             }
+            .padding()
+            
         }
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(
