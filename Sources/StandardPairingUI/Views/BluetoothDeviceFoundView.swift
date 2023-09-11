@@ -16,11 +16,7 @@ public struct BluetoothDeviceFoundView: View {
     @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel
 
     public var body: some View {
-        ZStack {
-            Color.lowerBackground
-                .edgesIgnoringSafeArea(.all)
-
-            VStack {
+        DeviceSetupScreen {
                 Spacer()
                 if let codeName = viewModel.state.deviceModel?.codeName {
                     DeviceImages.image(for: codeName)
@@ -42,12 +38,6 @@ public struct BluetoothDeviceFoundView: View {
                     .padding(.top, 4)
                 ProgressView()
                 Spacer()
-            }
-            .padding()
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(
-            Text("Device setup")
-        )
     }
 }

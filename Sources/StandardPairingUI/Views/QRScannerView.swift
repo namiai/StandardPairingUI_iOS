@@ -55,7 +55,6 @@ public struct QRScannerView: View {
                         .foregroundColor(.clear)
                     
                 }
-                
                 .padding()
             }
         }

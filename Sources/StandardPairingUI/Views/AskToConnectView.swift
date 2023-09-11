@@ -17,10 +17,7 @@ public struct AskToConnectView: View {
     
     public var body: some View {
         
-        ZStack {
-            Color.lowerBackground
-                .edgesIgnoringSafeArea(.all)
-            VStack {
+        DeviceSetupScreen {
                 if viewModel.state.doneLoading {
                     VStack {
                         Text(title(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
@@ -30,9 +27,10 @@ public struct AskToConnectView: View {
                         Text(description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
                             .font(NamiTextStyle.paragraph1.font)
                             .padding(.horizontal)
-                            .padding(.top, 4)
+                            .padding(.top, 8)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    .padding()
                 } else {
                     ProgressView()
                 }
@@ -40,14 +38,8 @@ public struct AskToConnectView: View {
                 Button(I18n.General.next.localized, action: { viewModel.send(event: .tapNext) } )
                     .buttonStyle(NamiActionButtonStyle())
                     .disabled(viewModel.state.nextTapped)
-            }
-            .padding()
-            
+                    .padding()
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(
-            Text("Device setup")
-        )
     }
     
     private func title(devicesCount: Int, hasThread: Bool) -> String {

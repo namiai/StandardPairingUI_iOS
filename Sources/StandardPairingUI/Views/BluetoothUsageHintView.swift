@@ -16,10 +16,7 @@ public struct BluetoothUsageHintView: View {
     @ObservedObject var viewModel: BluetoothUsageHint.ViewModel
     
     public var body: some View {
-        ZStack {
-            Color.lowerBackground
-                .edgesIgnoringSafeArea(.all)
-            
+        DeviceSetupScreen {
             VStack {
                 Text("Connect device to power outlet")
                     .font(NamiTextStyle.headline3.font)
@@ -28,16 +25,12 @@ public struct BluetoothUsageHintView: View {
                 Text("The LED will pulse dark blue to let you know that the device is ready to pair")
                     .font(NamiTextStyle.paragraph1.font)
                     .padding(.horizontal)
-                    .padding(.top, 4)
+                    .padding(.top, 8)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
             }
             .padding()
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(
-            Text("Device setup")
-        )
         .onAppear {
             viewModel.send(event: .tapNext)
         }
