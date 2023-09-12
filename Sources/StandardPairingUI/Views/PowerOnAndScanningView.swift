@@ -16,10 +16,7 @@ public struct PowerOnAndScanningView: View {
     @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
     
     public var body: some View {
-        ZStack {
-            Color.lowerBackground
-                .edgesIgnoringSafeArea(.all)
-            
+        DeviceSetupScreen {
             VStack {
                 Text("Connect device to power outlet")
                     .font(NamiTextStyle.headline3.font)
@@ -45,9 +42,5 @@ public struct PowerOnAndScanningView: View {
             }
             .padding()
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(
-            Text("Device setup")
-        )
     }
 }

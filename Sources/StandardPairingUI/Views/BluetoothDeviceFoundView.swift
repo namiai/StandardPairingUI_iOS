@@ -32,6 +32,7 @@ public struct BluetoothDeviceFoundView: View {
                     .padding(.horizontal)
             } else {
                 Text(I18n.Pairing.BluetoothDeviceFound.header1.localized)
+                    .font(NamiTextStyle.headline3.font)
                     .padding(.horizontal)
             }
             
@@ -53,7 +54,6 @@ public struct BluetoothDeviceFoundView: View {
                 ProgressView()
                 Spacer()
             }
-            
         }
     }
 }
