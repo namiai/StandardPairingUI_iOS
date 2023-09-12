@@ -19,10 +19,7 @@ public struct OtherWiFiNetworkView: View {
     @State var startedEditingFirstTime: Bool = false
     
     public var body: some View {
-        ZStack {
-            Color.lowerBackground
-                .edgesIgnoringSafeArea(.all)
-            
+        DeviceSetupScreen {
             VStack {
                 NamiChatBubble(I18n.Pairing.OtherWiFiNetwork.header.localized)
                     .padding()
@@ -47,13 +44,9 @@ public struct OtherWiFiNetworkView: View {
                 Button(I18n.General.OK.localized, action: { viewModel.send(event: .didConfirmName) })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
                     .disabled(viewModel.state.networkName.isEmpty)
-                Button(I18n.Pairing.OtherWiFiNetwork.backButton.localized, action: { viewModel.send(event: .goBack) })
-                    .buttonStyle(NamiActionButtonStyle(rank: .secondary))
             }
             .padding()
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel)
         .onChange(of: passwordIsEditing) { isEditing in
             if isEditing, viewModel.state.networkName.isEmpty == false, viewModel.state.password.isEmpty, startedEditingFirstTime == false {

@@ -15,7 +15,7 @@ public struct BluetoothDeviceFoundView: View {
     }
     
     @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel
-    @State var deviceName: String 
+    @State var deviceName: String
     
     public var body: some View {
         DeviceSetupScreen {
@@ -30,15 +30,23 @@ public struct BluetoothDeviceFoundView: View {
                 Text(I18n.Pairing.BluetoothDeviceFound.header1Known.localized(with: modelTitle))
                     .font(NamiTextStyle.headline3.font)
                     .padding(.horizontal)
+                    .frame(maxWidth: .infinity)
             } else {
                 Text(I18n.Pairing.BluetoothDeviceFound.header1.localized)
                     .font(NamiTextStyle.headline3.font)
                     .padding(.horizontal)
+                    .frame(maxWidth: .infinity)
             }
             
             if viewModel.state.deviceModel != nil {
+                Text("How woud you like to name the device?")
+                    .font(NamiTextStyle.paragraph1.font)
+                    .padding(.horizontal)
+                    .padding(.top, 4)
+                    .frame(maxWidth: .infinity)
                 NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName)
                     .padding(.horizontal)
+                    .frame(maxWidth: .infinity)
                 Spacer()
                 Button("Next") {
                     viewModel.send(event: .deviceNameConfirmed(deviceName))
@@ -51,6 +59,7 @@ public struct BluetoothDeviceFoundView: View {
                     .font(NamiTextStyle.paragraph1.font)
                     .padding(.horizontal)
                     .padding(.top, 4)
+                    .frame(maxWidth: .infinity)
                 ProgressView()
                 Spacer()
             }
