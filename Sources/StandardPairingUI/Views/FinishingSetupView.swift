@@ -23,6 +23,7 @@ public struct FinishingSetupView: View {
                 Spacer()
                 PongView()
                     .frame(maxHeight: 300)
+                    .padding()
             }
             .padding()
         }
