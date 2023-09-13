@@ -2,15 +2,15 @@
 import SwiftUI
 import I18n
 
-struct DeviceSetupScreen<Subview: View>: View {
+public struct DeviceSetupScreen<Subview: View>: View {
     
-    init(@ViewBuilder subview: @escaping () -> Subview) {
+    public init(@ViewBuilder subview: @escaping () -> Subview) {
         self.subview = subview
     }
     
     private let subview: () -> Subview
     
-    var body: some View {
+    public var body: some View {
         ZStack {
             Color.lowerBackground
                 .edgesIgnoringSafeArea(.all)
@@ -18,6 +18,7 @@ struct DeviceSetupScreen<Subview: View>: View {
                 subview()
             }
         }
+        .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(
             Text("Device setup")
