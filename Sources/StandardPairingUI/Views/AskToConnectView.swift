@@ -32,6 +32,7 @@ public struct AskToConnectView: View {
                     }
                     .padding()
                 } else {
+                    Spacer() // To center the spinner.
                     ProgressView()
                 }
                 Spacer()

@@ -37,7 +37,6 @@ public struct PongView: View {
                     }
             }
         }
-        .padding(EdgeInsets(top: 0, leading: 16, bottom: 32, trailing: 16))
     }
 
     @State private var ballCoords: CGPoint = Self.startBallCoords
