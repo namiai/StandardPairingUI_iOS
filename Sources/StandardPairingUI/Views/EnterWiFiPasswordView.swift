@@ -27,7 +27,7 @@ public struct EnterWiFiPasswordView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                     .padding(.top, 8)
-                Spacer()
+                    .padding(.bottom)
                 NamiTextField(placeholder: I18n.Pairing.EnterWiFiPassword.passwordPlaceholder.localized, text: Binding(get: {
                     viewModel.state.password
                 }, set: { value in
@@ -36,6 +36,7 @@ public struct EnterWiFiPasswordView: View {
                     .secureTextEntry(true)
                     .subText("This Wi-Fi network credentials will be used to set up other devices in this zone.")
                     .padding()
+                Spacer()
                 Button(I18n.Pairing.EnterWiFiPassword.readyToConnect.localized, action: { viewModel.send(event: .confirmPassword) })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
             }

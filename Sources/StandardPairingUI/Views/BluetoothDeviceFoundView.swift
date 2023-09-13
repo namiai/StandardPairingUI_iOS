@@ -41,9 +41,9 @@ public struct BluetoothDeviceFoundView: View {
             if viewModel.state.deviceModel != nil {
                 Text("How woud you like to name the device?")
                     .font(NamiTextStyle.paragraph1.font)
+                    .frame(maxWidth: .infinity)
                     .padding(.horizontal)
                     .padding(.top, 4)
-                    .frame(maxWidth: .infinity)
                 NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName)
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity)
@@ -57,9 +57,9 @@ public struct BluetoothDeviceFoundView: View {
             } else {
                 Text(I18n.Pairing.BluetoothDeviceFound.header2.localized)
                     .font(NamiTextStyle.paragraph1.font)
+                    .frame(maxWidth: .infinity)
                     .padding(.horizontal)
                     .padding(.top, 4)
-                    .frame(maxWidth: .infinity)
                 ProgressView()
                 Spacer()
             }
