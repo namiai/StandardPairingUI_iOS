@@ -3,6 +3,7 @@
 import Tomonari
 import SwiftUI
 import I18n
+import CommonTypes
 
 // MARK: - BluetoothDeviceFoundView
 
@@ -20,49 +21,59 @@ public struct BluetoothDeviceFoundView: View {
     public var body: some View {
         DeviceSetupScreen {
             Spacer()
-            if let codeName = viewModel.state.deviceModel?.codeName {
-                DeviceImages.image(for: codeName)
-                    .resizable()
-                    .scaledToFit()
-                    .padding()
-            }
-            if let modelTitle = viewModel.state.deviceModel?.productLabel {
-                Text(I18n.Pairing.BluetoothDeviceFound.header1Known.localized(with: modelTitle))
-                    .font(NamiTextStyle.headline3.font)
-                    .padding(.horizontal)
-                    .frame(maxWidth: .infinity)
-            } else {
-                Text(I18n.Pairing.BluetoothDeviceFound.header1.localized)
-                    .font(NamiTextStyle.headline3.font)
-                    .padding(.horizontal)
-                    .frame(maxWidth: .infinity)
-            }
             
-            if viewModel.state.deviceModel != nil {
-                Text("How woud you like to name the device?")
-                    .font(NamiTextStyle.paragraph1.font)
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal)
-                    .padding(.top, 4)
-                NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName)
-                    .padding(.horizontal)
-                    .frame(maxWidth: .infinity)
-                Spacer()
-                Button("Next") {
-                    viewModel.send(event: .deviceNameConfirmed(deviceName))
-                }
-                .buttonStyle(NamiActionButtonStyle())
-                .disabled(viewModel.state.deviceName.isEmpty)
-                .padding([.bottom, .horizontal])
+            if let deviceModel = viewModel.state.deviceModel {
+                viewModel.state.deviceNameConfirmed ?
+                AnyView(DevicePresentingLoadingView(deviceName: deviceName, deviceModel: deviceModel)) :
+                AnyView(askToName(model: deviceModel))
             } else {
-                Text(I18n.Pairing.BluetoothDeviceFound.header2.localized)
-                    .font(NamiTextStyle.paragraph1.font)
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal)
-                    .padding(.top, 4)
-                ProgressView()
-                Spacer()
+                deviceDiscovered()
             }
+        }
+    }
+    
+    private func deviceDiscovered() -> some View {
+        VStack {
+            Spacer()
+            
+            Text(I18n.Pairing.BluetoothDeviceFound.header1.localized)
+                .font(NamiTextStyle.headline3.font)
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity)
+            
+            Text(I18n.Pairing.BluetoothDeviceFound.header2.localized)
+                .font(NamiTextStyle.paragraph1.font)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal)
+                .padding(.top, 4)
+            ProgressView()
+            
+            Spacer()
+        }
+    }
+    
+    private func askToName(model: NamiDeviceModel) -> some View {
+        VStack {
+            Text(I18n.Pairing.BluetoothDeviceFound.header1Known.localized(with: model.productLabel))
+                .font(NamiTextStyle.headline3.font)
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity)
+            
+            Text("How woud you like to name the device?")
+                .font(NamiTextStyle.paragraph1.font)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal)
+                .padding(.top, 4)
+            NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName)
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity)
+            Spacer()
+            Button("Next") {
+                viewModel.send(event: .deviceNameConfirmed(deviceName))
+            }
+            .buttonStyle(NamiActionButtonStyle())
+            .disabled(viewModel.state.deviceName.isEmpty)
+            .padding([.bottom, .horizontal])
         }
     }
 }

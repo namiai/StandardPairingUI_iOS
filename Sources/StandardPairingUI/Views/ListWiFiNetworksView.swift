@@ -16,68 +16,59 @@ public struct ListWiFiNetworksView: View {
     @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
     
     public var body: some View {
-        ZStack {
-            Color.lowerBackground
-                .edgesIgnoringSafeArea(.all)
+        DeviceSetupScreen {
+            Text("Connect to Wi-Fi network")
+                .font(NamiTextStyle.headline3.font)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
+            Text("Select a network to connect")
+                .font(NamiTextStyle.paragraph1.font)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding([.bottom, .horizontal])
+                .padding(.top, 4)
             
-            VStack {
-                Text("Connect to Wi-Fi network")
-                    .font(NamiTextStyle.headline3.font)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                Text("Select a network to connect")
-                    .font(NamiTextStyle.paragraph1.font)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding([.bottom, .horizontal])
-                    .padding(.top, 4)
-                
-                ScrollView {
-                    HStack {
-                        if viewModel.state.shouldShowNoNetworksHint {
-                            Text(I18n.Pairing.ListWiFiNetworks.noNetworksFound.localized(with: I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized))
-                                .foregroundColor(Color.borderStroke)
-                        } else {
-                            Text("Available Wi-Fi networks")
-                                .foregroundColor(Color.borderStroke)
-                        }
-                        if viewModel.state.shouldShowProgressView {
-                            ProgressView()
-                                .padding(.horizontal, 4)
-                        }
-                        Spacer()
+            ScrollView {
+                HStack {
+                    if viewModel.state.shouldShowNoNetworksHint {
+                        Text(I18n.Pairing.ListWiFiNetworks.noNetworksFound.localized(with: I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized))
+                            .foregroundColor(Color.borderStroke)
+                    } else {
+                        Text("Available Wi-Fi networks")
+                            .foregroundColor(Color.borderStroke)
                     }
-                    
-                    
-                    if let networks = viewModel.state.networks {
-                        RoundedRectContainerView {
-                            ForEach(Array(networks.enumerated()), id: \.offset) { item in
-                                let i = item.offset
-                                let network = item.element
-                                VStack {
-                                    WiFiNetworkRowView(network: network, selected: network.ssid == viewModel.state.selectedNetwork?.ssid)
-                                        .onTapGesture {
-                                            viewModel.send(event: .selectNetwofkAndConfirm(network))
-                                        }
-                                    if i < networks.count - 1 {
-                                        Divider()
-                                            .padding(.horizontal)
+                    if viewModel.state.shouldShowProgressView {
+                        ProgressView()
+                            .padding(.horizontal, 4)
+                    }
+                    Spacer()
+                }
+                
+                
+                if let networks = viewModel.state.networks {
+                    RoundedRectContainerView {
+                        ForEach(Array(networks.enumerated()), id: \.offset) { item in
+                            let i = item.offset
+                            let network = item.element
+                            VStack {
+                                WiFiNetworkRowView(network: network, selected: network.ssid == viewModel.state.selectedNetwork?.ssid)
+                                    .onTapGesture {
+                                        viewModel.send(event: .selectNetwofkAndConfirm(network))
                                     }
+                                if i < networks.count - 1 {
+                                    Divider()
+                                        .padding(.horizontal)
                                 }
                             }
                         }
                     }
-                    if viewModel.state.couldShowAddOtherNetwork {
-                        otherNetworkRow()
-                            .padding(.bottom)
-                    }
                 }
-                .padding(.horizontal)
+                if viewModel.state.couldShowAddOtherNetwork {
+                    otherNetworkRow()
+                        .padding(.bottom)
+                }
             }
+            .padding(.horizontal)
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(
-            Text("Device setup")
-        )
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel)
     }
     

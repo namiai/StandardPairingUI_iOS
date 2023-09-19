@@ -31,15 +31,15 @@ public struct AskToConnectView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .padding()
+                    Spacer()
+                    Button(I18n.General.next.localized, action: { viewModel.send(event: .tapNext) } )
+                        .buttonStyle(NamiActionButtonStyle())
+                        .disabled(viewModel.state.nextTapped)
+                        .padding()
                 } else {
-                    Spacer() // To center the spinner.
-                    ProgressView()
+                    DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: viewModel.state.deviceModel)
                 }
-                Spacer()
-                Button(I18n.General.next.localized, action: { viewModel.send(event: .tapNext) } )
-                    .buttonStyle(NamiActionButtonStyle())
-                    .disabled(viewModel.state.nextTapped)
-                    .padding()
+                
         }
     }
     
@@ -57,7 +57,7 @@ public struct AskToConnectView: View {
     private func description(devicesCount: Int, hasThread: Bool) -> String {
         switch (devicesCount > 0, hasThread) {
         case (true, true):
-            return "This device will connect to existing thread network in the place.\nThe device will connect to the existing Wi-Fi network in the sensing zone."
+            return "This device will connect to existing Thread network in the place.\nThe device will connect to the existing Wi-Fi network in the sensing zone."
         case (true, false):
             return "This device will connect to the same Wi-Fi access point used by other devices in \(viewModel.state.zoneName ?? "")\nEnsure your device within 30 ft from the Wi-Fi router"
         case (false, true):
