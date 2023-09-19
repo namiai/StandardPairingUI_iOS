@@ -23,7 +23,7 @@ struct DevicePresentingLoadingView: View {
                 .scaledToFit()
                 .padding()
             
-            Text(I18n.Pairing.BluetoothDeviceFound.header1Known.localized(with: deviceName))
+            Text("Connecting to \(deviceName)")
                 .font(NamiTextStyle.headline3.font)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)

@@ -20,8 +20,6 @@ public struct BluetoothDeviceFoundView: View {
     
     public var body: some View {
         DeviceSetupScreen {
-            Spacer()
-            
             if let deviceModel = viewModel.state.deviceModel {
                 viewModel.state.deviceNameConfirmed ?
                 AnyView(DevicePresentingLoadingView(deviceName: deviceName, deviceModel: deviceModel)) :
@@ -54,14 +52,14 @@ public struct BluetoothDeviceFoundView: View {
     
     private func askToName(model: NamiDeviceModel) -> some View {
         VStack {
-            Text(I18n.Pairing.BluetoothDeviceFound.header1Known.localized(with: model.productLabel))
+            Text("\(model.productLabel.capitalized) found!")
                 .font(NamiTextStyle.headline3.font)
                 .padding(.horizontal)
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("How woud you like to name the device?")
+            Text("Name tour \(model.productLabel) to identify it easier among other devices")
                 .font(NamiTextStyle.paragraph1.font)
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
                 .padding(.top, 4)
             NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName)
@@ -72,7 +70,7 @@ public struct BluetoothDeviceFoundView: View {
                 viewModel.send(event: .deviceNameConfirmed(deviceName))
             }
             .buttonStyle(NamiActionButtonStyle())
-            .disabled(viewModel.state.deviceName.isEmpty)
+            .disabled(deviceName.isEmpty)
             .padding([.bottom, .horizontal])
         }
     }
