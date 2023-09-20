@@ -15,7 +15,7 @@ public struct EnableBluetoothInSettingsView: View {
                 BluetoothLogo()
                     .padding()
                     .frame(width: 128, height: 128)
-                Text("Bluetooth disabled")
+                Text(I18n.Pairing.EnableBluetoothInSettings.bluetoothDisabled.localized)
                     .font(NamiTextStyle.headline3.font)
                 Text(I18n.Pairing.EnableBluetoothInSettings.header.localized)
                     .font(NamiTextStyle.paragraph1.font)

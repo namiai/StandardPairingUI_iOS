@@ -22,7 +22,7 @@ public struct PairingErrorScreenView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 128, height: 128)
-            Text("Error occured")
+            Text(I18n.Pairing.ErrorScreen.errorOccurredTitle.localized)
                 .font(NamiTextStyle.headline3.font)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal)

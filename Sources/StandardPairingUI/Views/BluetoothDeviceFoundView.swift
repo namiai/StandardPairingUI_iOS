@@ -52,12 +52,12 @@ public struct BluetoothDeviceFoundView: View {
     
     private func askToName(model: NamiDeviceModel) -> some View {
         VStack {
-            Text("\(model.productLabel.capitalized) found!")
+            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceHeader.localized(with: model.productLabel.capitalized))
                 .font(NamiTextStyle.headline3.font)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("Name tour \(model.productLabel) to identify it easier among other devices")
+            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained.localized(with: model.productLabel))
                 .font(NamiTextStyle.paragraph1.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
@@ -66,7 +66,7 @@ public struct BluetoothDeviceFoundView: View {
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)
             Spacer()
-            Button("Next") {
+            Button(I18n.Pairing.BluetoothDeviceFound.nextButton.localized) {
                 viewModel.send(event: .deviceNameConfirmed(deviceName))
             }
             .buttonStyle(NamiActionButtonStyle())

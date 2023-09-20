@@ -23,7 +23,7 @@ struct DevicePresentingLoadingView: View {
                 .scaledToFit()
                 .padding()
             
-            Text("Connecting to \(deviceName)")
+            Text(I18n.Pairing.LoadingDevice.connecting.localized(with: deviceName))
                 .font(NamiTextStyle.headline3.font)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)

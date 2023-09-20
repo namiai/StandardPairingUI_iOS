@@ -25,7 +25,7 @@ public struct OtherWiFiNetworkView: View {
                     .font(NamiTextStyle.headline3.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
-                Text("nami devices only work with 2.4GHz Wi-Fi networks")
+                Text(I18n.Pairing.OtherWiFiNetwork.deviceConnectivityHint.localized)
                     .font(NamiTextStyle.paragraph1.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])

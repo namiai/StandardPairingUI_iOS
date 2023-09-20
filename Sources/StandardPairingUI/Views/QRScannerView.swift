@@ -24,11 +24,11 @@ public struct QRScannerView: View {
             
             VStack {
                 VStack {
-                    Text("Scan device")
+                    Text(I18n.QRScanner.title.localized)
                         .font(NamiTextStyle.headline3.font)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
-                    Text("Look for the QR code on the device. Ensure your device is not connected to power.")
+                    Text(I18n.QRScanner.whereIsQR.localized)
                         .font(NamiTextStyle.paragraph1.font)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.bottom, .horizontal])

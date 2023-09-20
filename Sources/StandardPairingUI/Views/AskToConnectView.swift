@@ -46,24 +46,24 @@ public struct AskToConnectView: View {
     private func title(devicesCount: Int, hasThread: Bool) -> String {
         switch (devicesCount > 0, hasThread) {
         case (true, true):
-            return "Remaining Thread devices"
+            return I18n.Pairing.AskToConnect.remainingThreadDevice.localized
         case (false, true):
-            return "Thread border router"
+            return I18n.Pairing.AskToConnect.threadBorderRouter.localized
         default:
-            return "Connect to Wi-Fi network"
+            return I18n.Pairing.AskToConnect.connectToWifi.localized
         }
     }
     
     private func description(devicesCount: Int, hasThread: Bool) -> String {
         switch (devicesCount > 0, hasThread) {
         case (true, true):
-            return "This device will connect to existing Thread network in the place.\nThe device will connect to the existing Wi-Fi network in the sensing zone."
+            return I18n.Pairing.AskToConnect.remainingThreadDeviceDescription.localized
         case (true, false):
-            return "This device will connect to the same Wi-Fi access point used by other devices in \(viewModel.state.zoneName ?? "")\nEnsure your device within 30 ft from the Wi-Fi router"
+            return I18n.Pairing.AskToConnect.connectToWifiRemainingDescription.localized(with: viewModel.state.zoneName ?? "")
         case (false, true):
-            return "The first Thread device on the sensing zone will be set up as Thread border router.\nYou will need to connect this device to Wi-Fi network, and other devices will use the same network."
+            return I18n.Pairing.AskToConnect.threadBorderRouterDescription.localized
         case (false, false):
-            return "The access point this device connects to will be used by all other devices in this zone\nSelect the Wi-Fi access pointmost central in the area you want to cover"
+            return I18n.Pairing.AskToConnect.connectToWifiFIrstDescription.localized
         }
     }
 }

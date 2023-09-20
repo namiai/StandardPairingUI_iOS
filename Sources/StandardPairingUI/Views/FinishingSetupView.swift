@@ -15,7 +15,7 @@ public struct FinishingSetupView: View {
                     .font(NamiTextStyle.headline3.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
-                Text("Fancy a game of pong?")
+                Text(I18n.Pairing.FinishingSetup.gameOfPong.localized)
                     .font(NamiTextStyle.paragraph1.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)

@@ -18,11 +18,11 @@ public struct BluetoothUsageHintView: View {
     public var body: some View {
         DeviceSetupScreen {
             VStack {
-                Text("Connect device to power outlet")
+                Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower.localized)
                     .font(NamiTextStyle.headline3.font)
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("The LED will pulse dark blue to let you know that the device is ready to pair")
+                Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair.localized)
                     .font(NamiTextStyle.paragraph1.font)
                     .padding(.horizontal)
                     .padding(.top, 8)

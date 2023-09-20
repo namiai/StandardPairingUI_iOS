@@ -18,7 +18,7 @@ public struct EnterWiFiPasswordView: View {
     public var body: some View {
         DeviceSetupScreen {
             VStack {
-                Text("Enter password")
+                Text(I18n.Pairing.EnterWiFiPassword.enterPassword.localized)
                     .font(NamiTextStyle.headline3.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
@@ -34,7 +34,7 @@ public struct EnterWiFiPasswordView: View {
                     viewModel.state[keyPath: \.password] = value
                 }), returnKeyType: .done)
                     .secureTextEntry(true)
-                    .subText("This Wi-Fi network credentials will be used to set up other devices in this zone.")
+                    .subText(I18n.Pairing.EnterWiFiPassword.passwordEntryFieldHint.localized)
                     .padding()
                 Spacer()
                 Button(I18n.Pairing.EnterWiFiPassword.readyToConnect.localized, action: { viewModel.send(event: .confirmPassword) })

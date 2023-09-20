@@ -17,11 +17,11 @@ public struct ListWiFiNetworksView: View {
     
     public var body: some View {
         DeviceSetupScreen {
-            Text("Connect to Wi-Fi network")
+            Text(I18n.Pairing.ListWiFiNetworks.connectWifiTitle.localized)
                 .font(NamiTextStyle.headline3.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
-            Text("Select a network to connect")
+            Text(I18n.Pairing.ListWiFiNetworks.selectNetwork.localized)
                 .font(NamiTextStyle.paragraph1.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.bottom, .horizontal])
@@ -33,7 +33,7 @@ public struct ListWiFiNetworksView: View {
                         Text(I18n.Pairing.ListWiFiNetworks.noNetworksFound.localized(with: I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized))
                             .foregroundColor(Color.borderStroke)
                     } else {
-                        Text("Available Wi-Fi networks")
+                        Text(I18n.Pairing.ListWiFiNetworks.availableNetworks.localized)
                             .foregroundColor(Color.borderStroke)
                     }
                     if viewModel.state.shouldShowProgressView {
