@@ -3,6 +3,7 @@
 import Tomonari
 import SwiftUI
 import I18n
+import BottomSheet
 
 // MARK: - QRScannerView
 
@@ -14,11 +15,18 @@ public struct QRScannerView: View {
     }
     
     @ObservedObject var viewModel: QRScanner.ViewModel
+    @State var bottomSheetHeight: CGFloat = 0
     
     public var body: some View {
         ZStack {
             Color.lowerBackground
                 .ignoresSafeArea()
+            
+            // Hack to get the available view height to calculate the bottom sheet height.
+            GeometryReader { geometry in
+                Color.clear
+                    .preference(key: ViewHeightKey.self, value: geometry.size.height)
+            }
             
             viewModel.undecoratedScannerView
             
@@ -47,7 +55,7 @@ public struct QRScannerView: View {
                     
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .stroke(
-                            Color.white,
+                            viewModel.state.error == nil ? Color.white : Color.negative,
                             style: viewfinderStrokeStyle(cornerStrokeLength: cornerStrokeLength, width: frameWidth, height: frameWidth, cornerRadius: cornerRadius)
                         )
                         .position(centerPoint)
@@ -58,6 +66,18 @@ public struct QRScannerView: View {
                 .padding()
             }
         }
+        .onPreferenceChange(ViewHeightKey.self) { newValue in
+            bottomSheetHeight = newValue * 0.5
+        }
+        .onChange(of: viewModel.state.error) { error in
+            if error != nil {
+                viewModel.send(event: .pauseScanning)
+            } else {
+                viewModel.send(event: .dismissScanError)
+            }
+        }
+        .bottomSheet(item: $viewModel.state.error, height: bottomSheetHeight, content: { _ in qrErrorSheet() })
+        
     }
     
     private func roundedRectPerimeter(width: CGFloat, height: CGFloat, cornerRadius radius: CGFloat) -> CGFloat {
@@ -85,4 +105,30 @@ public struct QRScannerView: View {
         )
     }
     
+    private func qrErrorSheet() -> some View {
+        VStack {
+            HStack {
+                Image("Warning")
+                    .frame(width: 32)
+                Text(I18n.UpdateWiFi.qrCodeError.localized)
+                    .font(NamiTextStyle.headline4.font)
+            }
+            Text(I18n.UpdateWiFi.notNamiQrCodeNoZone.localized)
+                .font(NamiTextStyle.paragraph1.font)
+            Button(I18n.Pairing.ErrorScreen.actionTryAgain.localized) {
+                viewModel.send(event: .dismissScanError)
+            }
+            .buttonStyle(NamiActionButtonStyle())
+        }
+        .ignoresSafeArea()
+    }
+    
+}
+
+struct ViewHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
 }
