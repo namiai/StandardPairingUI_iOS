@@ -35,6 +35,8 @@ struct DevicePresentingLoadingView: View {
     }
 }
 
-#Preview {
-    DevicePresentingLoadingView(deviceName: "Plug in the living room", deviceModel: .unknown)
+struct DevicePresentingLoadingView_Previews: PreviewProvider {
+    static var previews: some View {
+        DevicePresentingLoadingView(deviceName: "Plug in the living room", deviceModel: .unknown)
+    }
 }
