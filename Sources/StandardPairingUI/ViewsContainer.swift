@@ -12,7 +12,7 @@ public struct ViewsContainer: PairingStepsContainer {
     public var powerOnAndScanning: (PowerOnAndScanning.ViewModel) -> PowerOnAndScanningView = PowerOnAndScanningView.init
     public var enableBluetoothInSettings: () -> EnableBluetoothInSettingsView = EnableBluetoothInSettingsView.init
     public var bluetoothDeviceFound: (BluetoothDeviceFound.ViewModel) -> BluetoothDeviceFoundView = BluetoothDeviceFoundView.init
-    public var askToConnectToWiFi: (AskToConnectToWiFi.ViewModel) -> AskToConnectToWiFiView = AskToConnectToWiFiView.init
+    public var askToConnect: (AskToConnect.ViewModel) -> AskToConnectView = AskToConnectView.init
     public var qrCodeScanner: (QRScanner.ViewModel) -> QRScannerView = QRScannerView.init
     public var listWiFiNetworks: (ListWiFiNetworks.ViewModel) -> ListWiFiNetworksView = ListWiFiNetworksView.init
     public var otherWiFiNetwork: (OtherWiFiNetwork.ViewModel) -> OtherWiFiNetworkView = OtherWiFiNetworkView.init

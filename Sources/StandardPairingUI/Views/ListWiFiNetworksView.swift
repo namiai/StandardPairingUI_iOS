@@ -16,74 +16,77 @@ public struct ListWiFiNetworksView: View {
     @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
     
     public var body: some View {
-        ZStack {
-            Color.lowerBackground
-                .edgesIgnoringSafeArea(.all)
+        DeviceSetupScreen {
+            Text(I18n.Pairing.ListWiFiNetworks.connectWifiTitle.localized)
+                .font(NamiTextStyle.headline3.font)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
+            Text(I18n.Pairing.ListWiFiNetworks.selectNetwork.localized)
+                .font(NamiTextStyle.paragraph1.font)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding([.bottom, .horizontal])
+                .padding(.top, 4)
             
-            VStack {
-                NamiChatBubble(viewModel.state.shouldShowBSSIDWarning ? I18n.Pairing.ListWiFiNetworks.warning.localized : I18n.Pairing.ListWiFiNetworks.header.localized)
-                    .padding()
-                
-                if viewModel.state.shouldShowProgressView {
-                    NamiChatBubble(I18n.Pairing.ListWiFiNetworks.lookingForNetworks.localized)
-                        .padding()
-                    ProgressView()
-                }
-                if viewModel.state.shouldShowNoNetworksHint {
-                    NamiChatBubble(I18n.Pairing.ListWiFiNetworks.noNetworksFound.localized(with: I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized))
-                        .padding()
-                }
-                ScrollView {
-                    if viewModel.state.shouldShowBSSIDWarning {
-                        Text(I18n.Pairing.ListWiFiNetworks.apOutOfReach.localized).frame(alignment: .center)
+            ScrollView {
+                HStack {
+                    if viewModel.state.shouldShowNoNetworksHint {
+                        Text(I18n.Pairing.ListWiFiNetworks.noNetworksFound.localized(with: I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized))
+                            .foregroundColor(Color.borderStroke)
                     } else {
-                        if let userAdded = viewModel.state.userAddedNetwork {
-                            WiFiNetworkRowView(network: userAdded, selected: userAdded.ssid == viewModel.state.selectedNetwork?.ssid)
-                                .padding(.horizontal)
-                        }
-                        if let networks = viewModel.state.networks {
-                            ForEach(networks, id: \.self) { network in
+                        Text(I18n.Pairing.ListWiFiNetworks.availableNetworks.localized)
+                            .foregroundColor(Color.borderStroke)
+                    }
+                    if viewModel.state.shouldShowProgressView {
+                        ProgressView()
+                            .padding(.horizontal, 4)
+                    }
+                    Spacer()
+                }
+                
+                
+                if let networks = viewModel.state.networks {
+                    RoundedRectContainerView {
+                        ForEach(Array(networks.enumerated()), id: \.offset) { item in
+                            let i = item.offset
+                            let network = item.element
+                            VStack {
                                 WiFiNetworkRowView(network: network, selected: network.ssid == viewModel.state.selectedNetwork?.ssid)
-                                    .padding(.horizontal)
                                     .onTapGesture {
-                                        viewModel.send(event: .selectNetwork(network))
+                                        viewModel.send(event: .selectNetwofkAndConfirm(network))
                                     }
+                                if i < networks.count - 1 {
+                                    Divider()
+                                        .padding(.horizontal)
+                                }
                             }
                         }
                     }
                 }
-                Spacer()
-                if viewModel.state.shouldShowBSSIDWarning {
-                    Button(I18n.Pairing.ListWiFiNetworks.refreshButton.localized, action: { viewModel.send(event: .tappedRefreshNetwork) })
-                        .buttonStyle(NamiActionButtonStyle(rank: .primary))
-                    Button(I18n.Pairing.ListWiFiNetworks.cancelPairingButton.localized, action: { viewModel.send(event: .dismissItself) })
-                        .buttonStyle(NamiActionButtonStyle(rank: .secondary))
-                } else {
-                    Button(I18n.Pairing.ListWiFiNetworks.continueButton.localized, action: { viewModel.send(event: .tappedConfirmSelection) })
-                        .disabled(viewModel.state.selectedNetwork == nil || viewModel.state.shouldShowBSSIDWarning)
-                        .buttonStyle(NamiActionButtonStyle(rank: .primary))
-                    Button(I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized, action: { viewModel.send(event: .tappedOtherNetwork) })
-                        .disabled(viewModel.state.shouldShowBSSIDWarning)
-                        .buttonStyle(NamiActionButtonStyle(rank: .secondary))
+                if viewModel.state.couldShowAddOtherNetwork {
+                    otherNetworkRow()
+                        .padding(.bottom)
                 }
+            }
+            .padding(.horizontal)
+        }
+        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel)
+    }
+    
+    private func otherNetworkRow() -> some View {
+        RoundedRectContainerView {
+            HStack {
+                Spacer().frame(width: 24, height: 24)
+                Text(I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized)
+                    .font(NamiTextStyle.paragraph1.font)
+                    .foregroundColor(Color.black)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding()
         }
-        .alert(
-            isPresented: $viewModel.state.shouldAskAboutSavedPassword,
-            content: alertContent
-        )
-    }
-    
-    private func alertContent() -> Alert {
-        let networkName = viewModel.state.selectedNetwork?.ssid ?? ""
-        return Alert(
-            title: Text(I18n.Pairing.ListWiFiNetworks.foundSavedPassword.localized),
-            message: Text(I18n.Pairing.ListWiFiNetworks.useSavedPassword.localized(with: networkName)),
-            primaryButton:
-                    .destructive(Text(I18n.Pairing.ListWiFiNetworks.forget.localized), action: { viewModel.send(event: .didTapForgetPassword) }),
-            secondaryButton:
-                    .default(Text(I18n.General.OK.localized), action: { viewModel.send(event: .didTapUsePassword) })
-        )
+        .onTapGesture {
+            viewModel.send(event: .tappedOtherNetwork)
+        }
     }
 }

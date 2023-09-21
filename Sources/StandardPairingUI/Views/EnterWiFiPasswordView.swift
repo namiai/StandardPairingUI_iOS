@@ -16,29 +16,31 @@ public struct EnterWiFiPasswordView: View {
     @ObservedObject var viewModel: EnterWiFiPassword.ViewModel
 
     public var body: some View {
-        ZStack {
-            Color.lowerBackground
-                .edgesIgnoringSafeArea(.all)
-
+        DeviceSetupScreen {
             VStack {
-                NamiChatBubble(I18n.Pairing.EnterWiFiPassword.header.localized(with: viewModel.state.networkName))
-                    .padding()
-                Spacer()
+                Text(I18n.Pairing.EnterWiFiPassword.enterPassword.localized)
+                    .font(NamiTextStyle.headline3.font)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                Text(I18n.Pairing.EnterWiFiPassword.header.localized(with: viewModel.state.networkName))
+                    .font(NamiTextStyle.paragraph1.font)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+                    .padding(.bottom)
                 NamiTextField(placeholder: I18n.Pairing.EnterWiFiPassword.passwordPlaceholder.localized, text: Binding(get: {
                     viewModel.state.password
                 }, set: { value in
                     viewModel.state[keyPath: \.password] = value
                 }), returnKeyType: .done)
                     .secureTextEntry(true)
+                    .subText(I18n.Pairing.EnterWiFiPassword.passwordEntryFieldHint.localized)
                     .padding()
+                Spacer()
                 Button(I18n.Pairing.EnterWiFiPassword.readyToConnect.localized, action: { viewModel.send(event: .confirmPassword) })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
-                Button(I18n.Pairing.EnterWiFiPassword.goBack.localized, action: { viewModel.send(event: .goBack) })
-                    .buttonStyle(NamiActionButtonStyle(rank: .secondary))
             }
             .padding()
         }
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
     }
 }

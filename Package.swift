@@ -19,6 +19,7 @@ let package = Package(
         .package(url: "https://github.com/namiai/I18n_iOS.git", branch: "main"),
         .package(url: "https://github.com/namiai/NamiTextStyle_iOS.git", branch: "main"),
         .package(url: "https://github.com/namiai/Tomonari.git", branch: "main"),
+        .package(url: "https://github.com/weitieda/bottom-sheet", exact: "1.0.8"), // Matches the version of BottomSheet used in main app.
     ],
     targets: [
         .target(
@@ -27,6 +28,7 @@ let package = Package(
                 .product(name: "I18n", package: "I18n_iOS"),
                 .product(name: "NamiTextStyle", package: "NamiTextStyle_iOS"),
                 .product(name: "Tomonari", package: "Tomonari"),
+                .product(name: "BottomSheet", package: "bottom-sheet"),
             ]),
     ]
 )

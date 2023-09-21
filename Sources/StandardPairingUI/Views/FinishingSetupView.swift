@@ -7,25 +7,25 @@ import I18n
 // MARK: - FinishingSetupView
 
 public struct FinishingSetupView: View {
-
+    
     public var body: some View {
-        ZStack {
-            Color.lowerBackground
-                .edgesIgnoringSafeArea(.all)
-
+        DeviceSetupScreen {
             VStack {
-                NamiChatBubble(I18n.Pairing.FinishingSetup.header.localized)
-                    .padding()
-                Spacer()
-            }
-            .padding()
-
-            VStack {
+                Text(I18n.Pairing.FinishingSetup.header.localized)
+                    .font(NamiTextStyle.headline3.font)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                Text(I18n.Pairing.FinishingSetup.gameOfPong.localized)
+                    .font(NamiTextStyle.paragraph1.font)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
+                    .padding(.top, 4)
                 Spacer()
                 PongView()
                     .frame(maxHeight: 300)
+                    .padding()
             }
+            .padding()
         }
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
