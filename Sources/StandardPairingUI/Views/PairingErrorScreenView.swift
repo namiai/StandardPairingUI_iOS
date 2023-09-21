@@ -1,20 +1,20 @@
 // Copyright (c) nami.ai
 
-import Tomonari
-import SwiftUI
 import I18n
+import SwiftUI
+import Tomonari
 
 // MARK: - PairingErrorScreenView
 
 public struct PairingErrorScreenView: View {
     // MARK: Lifecycle
-    
+
     public init(viewModel: PairingErrorScreen.ViewModel) {
         self.viewModel = viewModel
     }
-    
-    @ObservedObject var viewModel: PairingErrorScreen.ViewModel
-    
+
+    // MARK: Public
+
     public var body: some View {
         DeviceSetupScreen {
             Spacer()
@@ -41,16 +41,20 @@ public struct PairingErrorScreenView: View {
             .padding()
         }
     }
-    
+
+    // MARK: Internal
+
+    @ObservedObject var viewModel: PairingErrorScreen.ViewModel
+
     // MARK: Private
-    
+
     private func buttonForAction(at index: Int) -> some View {
         let action = viewModel.state.actions[index]
         return Button(titleForAction(action).localized, action: { viewModel.send(event: .didChooseAction(action)) })
             .disabled(viewModel.state.chosenAction != nil)
             .buttonStyle(NamiActionButtonStyle(rank: index == 0 ? .primary : .secondary))
     }
-    
+
     private func titleForAction(_ action: Pairing.ActionOnError) -> LocalizedKey {
         switch action {
         case .tryAgain:

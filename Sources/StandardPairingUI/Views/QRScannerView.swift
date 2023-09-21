@@ -1,35 +1,34 @@
 // Copyright (c) nami.ai
 
-import Tomonari
-import SwiftUI
-import I18n
 import BottomSheet
+import I18n
+import SwiftUI
+import Tomonari
 
 // MARK: - QRScannerView
 
 public struct QRScannerView: View {
     // MARK: Lifecycle
-    
+
     public init(viewModel: QRScanner.ViewModel) {
         self.viewModel = viewModel
     }
-    
-    @ObservedObject var viewModel: QRScanner.ViewModel
-    @State var bottomSheetHeight: CGFloat = 0
-    
+
+    // MARK: Public
+
     public var body: some View {
         ZStack {
             Color.lowerBackground
                 .ignoresSafeArea()
-            
+
             // Hack to get the available view height to calculate the bottom sheet height.
             GeometryReader { geometry in
                 Color.clear
                     .preference(key: ViewHeightKey.self, value: geometry.size.height)
             }
-            
+
             viewModel.undecoratedScannerView
-            
+
             VStack {
                 VStack {
                     Text(I18n.QRScanner.title.localized)
@@ -44,15 +43,15 @@ public struct QRScannerView: View {
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color.lowerBackground)
-                
+
                 GeometryReader { geometry in
                     let h = geometry.size.height
                     let w = geometry.size.width
-                    let centerPoint = CGPoint(x: w/2, y: h/2)
+                    let centerPoint = CGPoint(x: w / 2, y: h / 2)
                     let frameWidth = min(h, w) - 20
                     let cornerStrokeLength = frameWidth / 5
                     let cornerRadius: CGFloat = 25
-                    
+
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .stroke(
                             viewModel.state.error == nil ? Color.white : Color.negative,
@@ -61,7 +60,6 @@ public struct QRScannerView: View {
                         .position(centerPoint)
                         .frame(width: frameWidth, height: frameWidth)
                         .foregroundColor(.clear)
-                    
                 }
                 .padding()
             }
@@ -77,14 +75,20 @@ public struct QRScannerView: View {
             }
         }
         .bottomSheet(item: $viewModel.state.error, height: bottomSheetHeight, content: { _ in qrErrorSheet() })
-        
     }
-    
+
+    // MARK: Internal
+
+    @ObservedObject var viewModel: QRScanner.ViewModel
+    @State var bottomSheetHeight: CGFloat = 0
+
+    // MARK: Private
+
     private func roundedRectPerimeter(width: CGFloat, height: CGFloat, cornerRadius radius: CGFloat) -> CGFloat {
         // Rounded rect perimeter = 2L + 2W - 8r + 2πr = 2L + 2W - (8-2π)r
         (2 * width) + (2 * height) - ((8 - 2 * CGFloat.pi) * radius)
     }
-    
+
     private func viewfinderStrokeStyle(cornerStrokeLength: CGFloat, width: CGFloat, height: CGFloat, cornerRadius radius: CGFloat) -> StrokeStyle {
         let fourCornersLen = cornerStrokeLength * 4
         let viewfinderPerimeter = roundedRectPerimeter(width: width, height: height, cornerRadius: radius)
@@ -104,7 +108,7 @@ public struct QRScannerView: View {
             dashPhase: phaseCorrection
         )
     }
-    
+
     private func qrErrorSheet() -> some View {
         VStack {
             HStack {
@@ -122,12 +126,13 @@ public struct QRScannerView: View {
         }
         .ignoresSafeArea()
     }
-    
 }
+
+// MARK: - ViewHeightKey
 
 struct ViewHeightKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
-    
+
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = max(value, nextValue())
     }

@@ -1,8 +1,8 @@
 // Copyright (c) nami.ai
 
-import Tomonari
-import SwiftUI
 import I18n
+import SwiftUI
+import Tomonari
 
 // MARK: - EnterWiFiPasswordView
 
@@ -13,7 +13,7 @@ public struct EnterWiFiPasswordView: View {
         self.viewModel = viewModel
     }
 
-    @ObservedObject var viewModel: EnterWiFiPassword.ViewModel
+    // MARK: Public
 
     public var body: some View {
         DeviceSetupScreen {
@@ -43,4 +43,8 @@ public struct EnterWiFiPasswordView: View {
             .padding()
         }
     }
+
+    // MARK: Internal
+
+    @ObservedObject var viewModel: EnterWiFiPassword.ViewModel
 }

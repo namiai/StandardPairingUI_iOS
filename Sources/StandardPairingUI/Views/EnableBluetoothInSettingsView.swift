@@ -1,12 +1,13 @@
 // Copyright (c) nami.ai
 
-import Tomonari
-import SwiftUI
 import I18n
+import SwiftUI
+import Tomonari
 
 // MARK: - EnableBluetoothInSettingsView
 
 public struct EnableBluetoothInSettingsView: View {
+    // MARK: Public
 
     public var body: some View {
         DeviceSetupScreen {
@@ -43,14 +44,16 @@ public struct EnableBluetoothInSettingsView: View {
     }
 }
 
+// MARK: - BluetoothLogo
+
 private struct BluetoothLogo: View {
     var body: some View {
         GeometryReader { geometry in
             let width = geometry.size.width
             let height = geometry.size.height
-            
+
             let scaleFactor: CGFloat = min(width, height) / 22.0 // Scale to fit within the smaller dimension
-            
+
             Path { path in
                 path.move(to: CGPoint(x: 7 * scaleFactor, y: 17 * scaleFactor))
                 path.addLine(to: CGPoint(x: 17 * scaleFactor, y: 7 * scaleFactor))
@@ -63,4 +66,3 @@ private struct BluetoothLogo: View {
         }
     }
 }
-

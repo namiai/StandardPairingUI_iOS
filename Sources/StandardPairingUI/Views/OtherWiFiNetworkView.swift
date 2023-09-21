@@ -1,23 +1,20 @@
 // Copyright (c) nami.ai
 
-import Tomonari
-import SwiftUI
 import I18n
+import SwiftUI
+import Tomonari
 
 // MARK: - OtherWiFiNetworkView
 
 public struct OtherWiFiNetworkView: View {
     // MARK: Lifecycle
-    
+
     public init(viewModel: OtherWiFiNetwork.ViewModel) {
         self.viewModel = viewModel
     }
-    
-    @ObservedObject var viewModel: OtherWiFiNetwork.ViewModel
-    @State var nameIsEditing: Bool = false
-    @State var passwordIsEditing: Bool = false
-    @State var startedEditingFirstTime: Bool = false
-    
+
+    // MARK: Public
+
     public var body: some View {
         DeviceSetupScreen {
             VStack {
@@ -30,23 +27,28 @@ public struct OtherWiFiNetworkView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
                     .padding(.top, 4)
-                NamiTextField(placeholder: I18n.Pairing.OtherWiFiNetwork.namePlaceholder.localized, text: Binding(get: {
-                    viewModel.state[keyPath: \.networkName]
-                }, set: { value in
-                    viewModel.state[keyPath: \.networkName] = value
-                }),
-                              isEditing: $nameIsEditing,
-                              returnKeyType: .done)
+                NamiTextField(
+                    placeholder: I18n.Pairing.OtherWiFiNetwork.namePlaceholder.localized,
+                    text: Binding(get: {
+                        viewModel.state[keyPath: \.networkName]
+                    }, set: { value in
+                        viewModel.state[keyPath: \.networkName] = value
+                    }),
+                    isEditing: $nameIsEditing,
+                    returnKeyType: .done
+                )
                 .padding([.top, .horizontal])
                 let passwordBinding = Binding(get: {
                     viewModel.state.password
                 }, set: { value in
                     viewModel.state[keyPath: \.password] = value
                 })
-                NamiTextField(placeholder: I18n.Pairing.EnterWiFiPassword.passwordPlaceholder.localized,
-                              text: passwordBinding,
-                              isEditing: $passwordIsEditing,
-                              returnKeyType: .done)
+                NamiTextField(
+                    placeholder: I18n.Pairing.EnterWiFiPassword.passwordPlaceholder.localized,
+                    text: passwordBinding,
+                    isEditing: $passwordIsEditing,
+                    returnKeyType: .done
+                )
                 .secureTextEntry(true)
                 .padding()
                 Spacer()
@@ -69,4 +71,11 @@ public struct OtherWiFiNetworkView: View {
             }
         }
     }
+
+    // MARK: Internal
+
+    @ObservedObject var viewModel: OtherWiFiNetwork.ViewModel
+    @State var nameIsEditing: Bool = false
+    @State var passwordIsEditing: Bool = false
+    @State var startedEditingFirstTime: Bool = false
 }

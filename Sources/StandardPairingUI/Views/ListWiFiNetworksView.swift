@@ -1,20 +1,20 @@
 // Copyright (c) nami.ai
 
-import Tomonari
-import SwiftUI
 import I18n
+import SwiftUI
+import Tomonari
 
 // MARK: - ListWiFiNetworksView
 
 public struct ListWiFiNetworksView: View {
     // MARK: Lifecycle
-    
+
     public init(viewModel: ListWiFiNetworks.ViewModel) {
         self.viewModel = viewModel
     }
-    
-    @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
-    
+
+    // MARK: Public
+
     public var body: some View {
         DeviceSetupScreen {
             Text(I18n.Pairing.ListWiFiNetworks.connectWifiTitle.localized)
@@ -26,7 +26,7 @@ public struct ListWiFiNetworksView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.bottom, .horizontal])
                 .padding(.top, 4)
-            
+
             ScrollView {
                 HStack {
                     if viewModel.state.shouldShowNoNetworksHint {
@@ -42,8 +42,7 @@ public struct ListWiFiNetworksView: View {
                     }
                     Spacer()
                 }
-                
-                
+
                 if let networks = viewModel.state.networks {
                     RoundedRectContainerView {
                         ForEach(Array(networks.enumerated()), id: \.offset) { item in
@@ -71,7 +70,13 @@ public struct ListWiFiNetworksView: View {
         }
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel)
     }
-    
+
+    // MARK: Internal
+
+    @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
+
+    // MARK: Private
+
     private func otherNetworkRow() -> some View {
         RoundedRectContainerView {
             HStack {

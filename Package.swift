@@ -13,7 +13,8 @@ let package = Package(
     products: [
         .library(
             name: "StandardPairingUI",
-            targets: ["StandardPairingUI"]),
+            targets: ["StandardPairingUI"]
+        ),
     ],
     dependencies: [
         .package(url: "https://github.com/namiai/I18n_iOS.git", branch: "main"),
@@ -29,6 +30,7 @@ let package = Package(
                 .product(name: "NamiTextStyle", package: "NamiTextStyle_iOS"),
                 .product(name: "Tomonari", package: "Tomonari"),
                 .product(name: "BottomSheet", package: "bottom-sheet"),
-            ]),
+            ]
+        ),
     ]
 )

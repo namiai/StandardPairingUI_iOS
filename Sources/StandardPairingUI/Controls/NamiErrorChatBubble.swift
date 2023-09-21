@@ -11,6 +11,8 @@ struct NamiErrorChatBubble: View {
         self.text = text
     }
 
+    // MARK: Internal
+
     var text: String
 
     var body: some View {

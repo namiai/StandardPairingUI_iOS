@@ -1,13 +1,12 @@
 // Copyright (c) nami.ai
 
-import Tomonari
-import SwiftUI
 import I18n
+import SwiftUI
+import Tomonari
 
 // MARK: - FinishingSetupView
 
 public struct FinishingSetupView: View {
-    
     public var body: some View {
         DeviceSetupScreen {
             VStack {

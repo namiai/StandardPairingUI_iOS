@@ -1,7 +1,7 @@
 // Copyright (c) nami.ai
 
-import SwiftUI
 import NamiTextStyle
+import SwiftUI
 
 // MARK: - NamiActionButtonStyle
 

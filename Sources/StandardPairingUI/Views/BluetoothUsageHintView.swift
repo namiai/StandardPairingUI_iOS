@@ -1,20 +1,20 @@
 // Copyright (c) nami.ai
 
-import Tomonari
-import SwiftUI
 import I18n
+import SwiftUI
+import Tomonari
 
 // MARK: - BluetoothUsageHintView
 
 public struct BluetoothUsageHintView: View {
     // MARK: Lifecycle
-    
+
     public init(viewModel: BluetoothUsageHint.ViewModel) {
         self.viewModel = viewModel
     }
-    
-    @ObservedObject var viewModel: BluetoothUsageHint.ViewModel
-    
+
+    // MARK: Public
+
     public var body: some View {
         DeviceSetupScreen {
             VStack {
@@ -35,4 +35,8 @@ public struct BluetoothUsageHintView: View {
             viewModel.send(event: .tapNext)
         }
     }
+
+    // MARK: Internal
+
+    @ObservedObject var viewModel: BluetoothUsageHint.ViewModel
 }

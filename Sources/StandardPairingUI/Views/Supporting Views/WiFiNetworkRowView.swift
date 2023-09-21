@@ -1,8 +1,8 @@
 // Copyright (c) nami.ai
 
+import NamiTextStyle
 import SwiftUI
 import Tomonari
-import NamiTextStyle
 
 // MARK: - WiFiNetworkRowView
 

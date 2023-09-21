@@ -1,15 +1,19 @@
+// Copyright (c) nami.ai
 
-import SwiftUI
 import I18n
+import SwiftUI
+
+// MARK: - DeviceSetupScreen
 
 public struct DeviceSetupScreen<Subview: View>: View {
-    
+    // MARK: Lifecycle
+
     public init(@ViewBuilder subview: @escaping () -> Subview) {
         self.subview = subview
     }
-    
-    private let subview: () -> Subview
-    
+
+    // MARK: Public
+
     public var body: some View {
         ZStack {
             Color.lowerBackground
@@ -24,7 +28,13 @@ public struct DeviceSetupScreen<Subview: View>: View {
             Text(I18n.Pairing.DeviceSetup.navigagtionTitle.localized)
         )
     }
+
+    // MARK: Private
+
+    private let subview: () -> Subview
 }
+
+// MARK: - DeviceSetupScreen_Previews
 
 struct DeviceSetupScreen_Previews: PreviewProvider {
     static var previews: some View {
@@ -36,4 +46,3 @@ struct DeviceSetupScreen_Previews: PreviewProvider {
         }
     }
 }
-

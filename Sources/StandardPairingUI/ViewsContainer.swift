@@ -1,13 +1,21 @@
+// Copyright (c) nami.ai
+
 import CommonTypes
+import NamiTextStyle
 import SwiftUI
 import Tomonari
-import NamiTextStyle
 
 typealias NamiTextStyle = NamiPortableTextStyle
 
+// MARK: - ViewsContainer
+
 public struct ViewsContainer: PairingStepsContainer {
-    public init() { }
-    
+    // MARK: Lifecycle
+
+    public init() {}
+
+    // MARK: Public
+
     public var bluetoothUsageHint: (BluetoothUsageHint.ViewModel) -> BluetoothUsageHintView = BluetoothUsageHintView.init
     public var powerOnAndScanning: (PowerOnAndScanning.ViewModel) -> PowerOnAndScanningView = PowerOnAndScanningView.init
     public var enableBluetoothInSettings: () -> EnableBluetoothInSettingsView = EnableBluetoothInSettingsView.init
@@ -19,5 +27,4 @@ public struct ViewsContainer: PairingStepsContainer {
     public var enterWiFiPassword: (EnterWiFiPassword.ViewModel) -> EnterWiFiPasswordView = EnterWiFiPasswordView.init
     public var finishingSetup: () -> FinishingSetupView = FinishingSetupView.init
     public var pairingError: (PairingErrorScreen.ViewModel) -> PairingErrorScreenView = PairingErrorScreenView.init
-    
 }

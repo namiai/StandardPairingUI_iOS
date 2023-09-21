@@ -1,9 +1,4 @@
-//
-//  File.swift
-//  
-//
-//  Created by Yachin Ilya on 14.02.2023.
-//
+// Copyright (c) nami.ai
 
 import SwiftUI
 
@@ -17,7 +12,7 @@ extension Color {
             opacity: alpha
         )
     }
-    
+
     static var accent: Color { Color("AccentColor", bundle: .module) }
     static var headline: Color { Color("Headline", bundle: .module) }
     static var bodyText: Color { Color("BodyText", bundle: .module) }
@@ -37,7 +32,7 @@ extension Color {
     static var profileTileBackground: Color { Color("ProfileTileBackground", bundle: .module) }
     static var buttonedFieldBackground: Color { Color("ButtonedFieldBackground", bundle: .module) }
     static var buttonedFieldStroke: Color { Color("ButtonedFieldStroke", bundle: .module) }
-    
+
     static var systemBackground: Self {
         Color(UIColor.systemBackground)
     }

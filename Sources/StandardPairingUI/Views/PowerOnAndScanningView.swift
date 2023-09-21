@@ -1,20 +1,20 @@
 // Copyright (c) nami.ai
 
-import Tomonari
-import SwiftUI
 import I18n
+import SwiftUI
+import Tomonari
 
 // MARK: - PowerOnAndScanningView
 
 public struct PowerOnAndScanningView: View {
     // MARK: Lifecycle
-    
+
     public init(viewModel: PowerOnAndScanning.ViewModel) {
         self.viewModel = viewModel
     }
-    
-    @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
-    
+
+    // MARK: Public
+
     public var body: some View {
         DeviceSetupScreen {
             VStack {
@@ -43,4 +43,8 @@ public struct PowerOnAndScanningView: View {
             .padding()
         }
     }
+
+    // MARK: Internal
+
+    @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
 }

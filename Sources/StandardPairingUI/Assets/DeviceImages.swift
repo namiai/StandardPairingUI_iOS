@@ -1,7 +1,8 @@
+// Copyright (c) nami.ai
 
+import CommonTypes
 import Foundation
 import SwiftUI
-import CommonTypes
 
 enum DeviceImages {
     static func image(for codeName: String) -> Image {
