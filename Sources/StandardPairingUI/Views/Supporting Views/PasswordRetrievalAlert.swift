@@ -9,12 +9,12 @@ extension View {
     func passwordRetrievalAlert(isPresented: Binding<Bool>, networkName: String, viewModel: any StoredPasswordRetrievingViewModel) -> some View {
         alert(isPresented: isPresented) {
             Alert(
-                title: Text(I18n.Pairing.ListWiFiNetworks.foundSavedPassword.localized),
-                message: Text(I18n.Pairing.ListWiFiNetworks.useSavedPassword.localized(with: networkName)),
+                title: Text(I18n.Pairing.ListWifiNetworks.foundSavedPassword),
+                message: Text(I18n.Pairing.ListWifiNetworks.useSavedPassword( networkName)),
                 primaryButton:
-                .destructive(Text(I18n.Pairing.ListWiFiNetworks.forget.localized), action: { viewModel.forgetPassword() }),
+                .destructive(Text(I18n.Pairing.ListWifiNetworks.forget), action: { viewModel.forgetPassword() }),
                 secondaryButton:
-                .default(Text(I18n.General.OK.localized), action: { viewModel.usePassword() })
+                        .default(Text(I18n.General.ok), action: { viewModel.usePassword() })
             )
         }
     }

@@ -31,7 +31,7 @@ public struct AskToConnectView: View {
                 }
                 .padding()
                 Spacer()
-                Button(I18n.General.next.localized, action: { viewModel.send(event: .tapNext) })
+                Button(I18n.General.next, action: { viewModel.send(event: .tapNext) })
                     .buttonStyle(NamiActionButtonStyle())
                     .disabled(viewModel.state.nextTapped)
                     .padding()
@@ -50,24 +50,24 @@ public struct AskToConnectView: View {
     private func title(devicesCount: Int, hasThread: Bool) -> String {
         switch (devicesCount > 0, hasThread) {
         case (true, true):
-            return I18n.Pairing.AskToConnect.remainingThreadDevice.localized
+            return I18n.Pairing.AskToConnect.remainingThreadDevice
         case (false, true):
-            return I18n.Pairing.AskToConnect.threadBorderRouter.localized
+            return I18n.Pairing.AskToConnect.threadBorderRouter
         default:
-            return I18n.Pairing.AskToConnect.connectToWifi.localized
+            return I18n.Pairing.AskToConnect.connectToWifi
         }
     }
 
     private func description(devicesCount: Int, hasThread: Bool) -> String {
         switch (devicesCount > 0, hasThread) {
         case (true, true):
-            return I18n.Pairing.AskToConnect.remainingThreadDeviceDescription.localized
+            return I18n.Pairing.AskToConnect.remainingThreadDeviceDescription
         case (true, false):
-            return I18n.Pairing.AskToConnect.connectToWifiRemainingDescription.localized(with: viewModel.state.zoneName ?? "")
+            return I18n.Pairing.AskToConnect.connectToWifiRemainingDescription(viewModel.state.zoneName ?? "")
         case (false, true):
-            return I18n.Pairing.AskToConnect.threadBorderRouterDescription.localized
+            return I18n.Pairing.AskToConnect.threadBorderRouterDescription
         case (false, false):
-            return I18n.Pairing.AskToConnect.connectToWifiFIrstDescription.localized
+            return I18n.Pairing.AskToConnect.connectToWifiFirstDescription
         }
     }
 }

@@ -31,11 +31,11 @@ public struct QRScannerView: View {
 
             VStack {
                 VStack {
-                    Text(I18n.QRScanner.title.localized)
+                    Text(I18n.Qrscanner.title)
                         .font(NamiTextStyle.headline3.font)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
-                    Text(I18n.QRScanner.whereIsQR.localized)
+                    Text(I18n.Qrscanner.whereQr)
                         .font(NamiTextStyle.paragraph1.font)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.bottom, .horizontal])
@@ -114,12 +114,12 @@ public struct QRScannerView: View {
             HStack {
                 Image("Warning")
                     .frame(width: 32)
-                Text(I18n.UpdateWiFi.qrCodeError.localized)
+                Text(I18n.UpdateWifi.qrCodeError)
                     .font(NamiTextStyle.headline4.font)
             }
-            Text(I18n.UpdateWiFi.notNamiQrCodeNoZone.localized)
+            Text(I18n.UpdateWifi.notNamiQrCodeNoZone)
                 .font(NamiTextStyle.paragraph1.font)
-            Button(I18n.Pairing.ErrorScreen.actionTryAgain.localized) {
+            Button(I18n.Pairing.Errors.actionTryAgain) {
                 viewModel.send(event: .dismissScanError)
             }
             .buttonStyle(NamiActionButtonStyle())

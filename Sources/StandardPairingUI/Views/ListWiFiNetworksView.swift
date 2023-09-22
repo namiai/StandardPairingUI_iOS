@@ -17,11 +17,11 @@ public struct ListWiFiNetworksView: View {
 
     public var body: some View {
         DeviceSetupScreen {
-            Text(I18n.Pairing.ListWiFiNetworks.connectWifiTitle.localized)
+            Text(I18n.Pairing.ListWifiNetworks.connectWifiTitle)
                 .font(NamiTextStyle.headline3.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
-            Text(I18n.Pairing.ListWiFiNetworks.selectNetwork.localized)
+            Text(I18n.Pairing.ListWifiNetworks.selectNetwork)
                 .font(NamiTextStyle.paragraph1.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.bottom, .horizontal])
@@ -30,10 +30,10 @@ public struct ListWiFiNetworksView: View {
             ScrollView {
                 HStack {
                     if viewModel.state.shouldShowNoNetworksHint {
-                        Text(I18n.Pairing.ListWiFiNetworks.noNetworksFound.localized(with: I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized))
+                        Text(I18n.Pairing.ListWifiNetworks.noNetworksFound( I18n.Pairing.ListWifiNetworks.buttonOtherNetwork))
                             .foregroundColor(Color.borderStroke)
                     } else {
-                        Text(I18n.Pairing.ListWiFiNetworks.availableNetworks.localized)
+                        Text(I18n.Pairing.ListWifiNetworks.availableNetworks)
                             .foregroundColor(Color.borderStroke)
                     }
                     if viewModel.state.shouldShowProgressView {
@@ -81,7 +81,7 @@ public struct ListWiFiNetworksView: View {
         RoundedRectContainerView {
             HStack {
                 Spacer().frame(width: 24, height: 24)
-                Text(I18n.Pairing.ListWiFiNetworks.otherNetworkButton.localized)
+                Text(I18n.Pairing.ListWifiNetworks.buttonOtherNetwork)
                     .font(NamiTextStyle.paragraph1.font)
                     .foregroundColor(Color.black)
                     .lineLimit(1)

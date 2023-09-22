@@ -40,12 +40,12 @@ public struct BluetoothDeviceFoundView: View {
         VStack {
             Spacer()
 
-            Text(I18n.Pairing.BluetoothDeviceFound.header1.localized)
+            Text(I18n.Pairing.BluetoothDeviceFound.header1)
                 .font(NamiTextStyle.headline3.font)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)
 
-            Text(I18n.Pairing.BluetoothDeviceFound.header2.localized)
+            Text(I18n.Pairing.BluetoothDeviceFound.header2)
                 .font(NamiTextStyle.paragraph1.font)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal)
@@ -58,12 +58,12 @@ public struct BluetoothDeviceFoundView: View {
 
     private func askToName(model: NamiDeviceModel) -> some View {
         VStack {
-            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceHeader.localized(with: model.productLabel.capitalized))
+            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceHeader( model.productLabel.capitalized))
                 .font(NamiTextStyle.headline3.font)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained.localized(with: model.productLabel))
+            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained( model.productLabel))
                 .font(NamiTextStyle.paragraph1.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
@@ -72,7 +72,7 @@ public struct BluetoothDeviceFoundView: View {
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)
             Spacer()
-            Button(I18n.Pairing.BluetoothDeviceFound.nextButton.localized) {
+            Button(I18n.Pairing.BluetoothDeviceFound.nextButton) {
                 viewModel.send(event: .deviceNameConfirmed(deviceName))
             }
             .buttonStyle(NamiActionButtonStyle())

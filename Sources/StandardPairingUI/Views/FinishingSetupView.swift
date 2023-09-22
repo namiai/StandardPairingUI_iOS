@@ -10,11 +10,11 @@ public struct FinishingSetupView: View {
     public var body: some View {
         DeviceSetupScreen {
             VStack {
-                Text(I18n.Pairing.FinishingSetup.header.localized)
+                Text(I18n.Pairing.FinishingSetup.header)
                     .font(NamiTextStyle.headline3.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
-                Text(I18n.Pairing.FinishingSetup.gameOfPong.localized)
+                Text(I18n.Pairing.FinishingSetup.gameOfPong)
                     .font(NamiTextStyle.paragraph1.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)

@@ -18,17 +18,17 @@ public struct OtherWiFiNetworkView: View {
     public var body: some View {
         DeviceSetupScreen {
             VStack {
-                Text(I18n.Pairing.OtherWiFiNetwork.header.localized)
+                Text(I18n.Pairing.OtherWifiNetwork.header)
                     .font(NamiTextStyle.headline3.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
-                Text(I18n.Pairing.OtherWiFiNetwork.deviceConnectivityHint.localized)
+                Text(I18n.Pairing.OtherWifiNetwork.deviceConnectivityHint)
                     .font(NamiTextStyle.paragraph1.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
                     .padding(.top, 4)
                 NamiTextField(
-                    placeholder: I18n.Pairing.OtherWiFiNetwork.namePlaceholder.localized,
+                    placeholder: I18n.Pairing.OtherWifiNetwork.networkNamePlaceholder,
                     text: Binding(get: {
                         viewModel.state[keyPath: \.networkName]
                     }, set: { value in
@@ -44,7 +44,7 @@ public struct OtherWiFiNetworkView: View {
                     viewModel.state[keyPath: \.password] = value
                 })
                 NamiTextField(
-                    placeholder: I18n.Pairing.EnterWiFiPassword.passwordPlaceholder.localized,
+                    placeholder: I18n.Pairing.EnterWifiPassword.passwordPlaceholder,
                     text: passwordBinding,
                     isEditing: $passwordIsEditing,
                     returnKeyType: .done
@@ -52,7 +52,7 @@ public struct OtherWiFiNetworkView: View {
                 .secureTextEntry(true)
                 .padding()
                 Spacer()
-                Button(I18n.General.OK.localized, action: { viewModel.send(event: .didConfirmName) })
+                Button(I18n.General.ok, action: { viewModel.send(event: .didConfirmName) })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
                     .disabled(viewModel.state.networkName.isEmpty)
             }
