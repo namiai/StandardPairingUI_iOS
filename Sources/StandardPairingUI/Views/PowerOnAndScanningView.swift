@@ -18,19 +18,19 @@ public struct PowerOnAndScanningView: View {
     public var body: some View {
         DeviceSetupScreen {
             VStack {
-                Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower.localized)
+                Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
                     .font(NamiTextStyle.headline3.font)
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair.localized)
+                Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
                     .font(NamiTextStyle.paragraph1.font)
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
-                Text(I18n.Pairing.PowerOnAndScanning.scanning.localized)
+                Text(I18n.Pairing.PowerOnAndScanning.scanning)
                     .font(NamiTextStyle.headline3.font)
                     .padding(.horizontal)
-                Text(I18n.Pairing.PowerOnAndScanning.askUserToWait.localized)
+                Text(I18n.Pairing.PowerOnAndScanning.askUserToWait)
                     .font(NamiTextStyle.paragraph1.font)
                     .padding(.horizontal)
                     .padding(.top, 4)

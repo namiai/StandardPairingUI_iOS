@@ -25,7 +25,7 @@ public struct DeviceSetupScreen<Subview: View>: View {
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(
-            Text(I18n.Pairing.DeviceSetup.navigagtionTitle.localized)
+            Text(I18n.Pairing.DeviceSetup.navigagtionTitle)
         )
     }
 

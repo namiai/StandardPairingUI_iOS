@@ -22,7 +22,7 @@ public struct PairingErrorScreenView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 128, height: 128)
-            Text(I18n.Pairing.ErrorScreen.errorOccurredTitle.localized)
+            Text(I18n.Pairing.Errors.errorOccurredTitle)
                 .font(NamiTextStyle.headline3.font)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal)
@@ -50,19 +50,19 @@ public struct PairingErrorScreenView: View {
 
     private func buttonForAction(at index: Int) -> some View {
         let action = viewModel.state.actions[index]
-        return Button(titleForAction(action).localized, action: { viewModel.send(event: .didChooseAction(action)) })
+        return Button(titleForAction(action), action: { viewModel.send(event: .didChooseAction(action)) })
             .disabled(viewModel.state.chosenAction != nil)
             .buttonStyle(NamiActionButtonStyle(rank: index == 0 ? .primary : .secondary))
     }
 
-    private func titleForAction(_ action: Pairing.ActionOnError) -> LocalizedKey {
+    private func titleForAction(_ action: Pairing.ActionOnError) -> String {
         switch action {
         case .tryAgain:
-            return I18n.Pairing.ErrorScreen.actionTryAgain
+            return I18n.Pairing.Errors.actionTryAgain
         case .restart:
-            return I18n.Pairing.ErrorScreen.actionRestart
+            return I18n.Pairing.Errors.actionRestart
         case .ignore:
-            return I18n.Pairing.ErrorScreen.actionIgnore
+            return I18n.Pairing.Errors.actionIgnore
         }
     }
 }
