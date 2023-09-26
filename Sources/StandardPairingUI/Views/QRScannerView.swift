@@ -64,6 +64,9 @@ public struct QRScannerView: View {
                 .padding()
             }
         }
+        .navigationTitle(
+            Text(I18n.Pairing.DeviceSetup.navigagtionTitle)
+        )
         .onPreferenceChange(ViewHeightKey.self) { newValue in
             bottomSheetHeight = newValue * 0.5
         }
