@@ -19,15 +19,25 @@ public struct AskToConnectView: View {
         DeviceSetupScreen {
             if viewModel.state.doneLoading {
                 VStack {
-                    Text(title(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
+                    Text("Setting up this device")
                         .font(NamiTextStyle.headline3.font)
                         .padding(.horizontal)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
-                        .font(NamiTextStyle.paragraph1.font)
-                        .padding(.horizontal)
-                        .padding(.top, 8)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    ForEach(
+                        description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice)
+                            .split(separator: "\n"),
+                        id: \.self
+                    ) { substring in
+                        HStack(alignment: .top) {
+                            Text("・").font(NamiTextStyle.paragraph1.font)
+                            Text(description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
+                                .font(NamiTextStyle.paragraph1.font)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+                    
                 }
                 .padding()
                 Spacer()
