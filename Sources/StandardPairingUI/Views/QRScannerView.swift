@@ -34,12 +34,11 @@ public struct QRScannerView: View {
                     Text(I18n.Qrscanner.title)
                         .font(NamiTextStyle.headline3.font)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
+                        .padding([.horizontal, .top])
                     Text(I18n.Qrscanner.whereQr)
                         .font(NamiTextStyle.paragraph1.font)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.bottom, .horizontal])
-                        .padding(.top, 4)
                 }
                 .frame(maxWidth: .infinity)
                 .background(Color.lowerBackground)

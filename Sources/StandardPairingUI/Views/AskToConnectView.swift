@@ -21,7 +21,7 @@ public struct AskToConnectView: View {
                 VStack {
                     Text("Setting up this device")
                         .font(NamiTextStyle.headline3.font)
-                        .padding(.horizontal)
+                        .padding([.horizontal, .top])
                         .frame(maxWidth: .infinity, alignment: .center)
                     ForEach(
                         description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice)
