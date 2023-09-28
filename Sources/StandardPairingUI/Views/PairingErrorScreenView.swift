@@ -22,6 +22,8 @@ public struct PairingErrorScreenView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 128, height: 128)
+            // TODO: Switch to use `viewModel.state.error.errorMessageTitle` when there's the values for it in I18n but not hardcoded strings.
+            // The preparation is done in `PairingErrorsExtensions`.
             Text(I18n.Pairing.Errors.errorOccurredTitle)
                 .font(NamiTextStyle.headline3.font)
                 .frame(maxWidth: .infinity, alignment: .center)
