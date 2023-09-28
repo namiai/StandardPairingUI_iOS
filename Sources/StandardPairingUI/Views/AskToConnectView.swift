@@ -62,16 +62,35 @@ public struct AskToConnectView: View {
         switch (devicesCount > 0, hasThread) {
             // Non-first, Thread.
         case (true, true):
-            return [I18n.Pairing.AskToConnect.remainingThreadDeviceDescription]
+            return [
+                I18n.Pairing.AskToConnect.NonFirstThreadDevice.description1,
+                I18n.Pairing.AskToConnect.NonFirstThreadDevice.description2,
+                I18n.Pairing.AskToConnect.NonFirstThreadDevice.description3(viewModel.state.zoneName ?? ""),
+            ]
             // Non-first, WiFi.
         case (true, false):
-            return [I18n.Pairing.AskToConnect.connectToWifiRemainingDescription(viewModel.state.zoneName ?? "")]
+            return [
+                I18n.Pairing.AskToConnect.NonFirstWifiDevice.description1(viewModel.state.zoneName ?? ""),
+                measurementSystem == .metric ?
+                I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description :
+                    I18n.Pairing.AskToConnect.WifiDeviceImperialDistance.description,
+            ]
             // First, Thread.
         case (false, true):
-            return [I18n.Pairing.AskToConnect.threadBorderRouterDescription]
+            return [
+                I18n.Pairing.AskToConnect.FirstThreadDevice.description1,
+                I18n.Pairing.AskToConnect.FirstThreadDevice.description2,
+                I18n.Pairing.AskToConnect.FirstThreadDevice.description3,
+            ]
             // First, WiFi
         case (false, false):
-            return [I18n.Pairing.AskToConnect.connectToWifiFirstDescription]
+            return [
+                I18n.Pairing.AskToConnect.FirstWifiDevice.description1(viewModel.state.zoneName ?? ""),
+                I18n.Pairing.AskToConnect.FirstWifiDevice.description2,
+                measurementSystem == .metric ?
+                I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description :
+                    I18n.Pairing.AskToConnect.WifiDeviceImperialDistance.description,
+            ]
         }
     }
 }
