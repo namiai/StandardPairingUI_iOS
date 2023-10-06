@@ -20,12 +20,11 @@ public struct ListWiFiNetworksView: View {
             Text(I18n.Pairing.ListWifiNetworks.connectWifiTitle)
                 .font(NamiTextStyle.headline3.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal)
+                .padding([.horizontal, .top])
             Text(I18n.Pairing.ListWifiNetworks.selectNetwork)
                 .font(NamiTextStyle.paragraph1.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.bottom, .horizontal])
-                .padding(.top, 4)
 
             ScrollView {
                 HStack {
@@ -42,6 +41,7 @@ public struct ListWiFiNetworksView: View {
                     }
                     Spacer()
                 }
+                .padding(.horizontal)
 
                 if let networks = viewModel.state.networks {
                     RoundedRectContainerView {
@@ -60,13 +60,15 @@ public struct ListWiFiNetworksView: View {
                             }
                         }
                     }
+                    .padding(.horizontal)
                 }
+                
                 if viewModel.state.couldShowAddOtherNetwork {
                     otherNetworkRow()
-                        .padding(.bottom)
+                        .padding([.horizontal, .bottom])
                 }
             }
-            .padding(.horizontal)
+            
         }
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel)
     }

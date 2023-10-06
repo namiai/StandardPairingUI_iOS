@@ -42,14 +42,13 @@ public struct BluetoothDeviceFoundView: View {
 
             Text(I18n.Pairing.BluetoothDeviceFound.header1)
                 .font(NamiTextStyle.headline3.font)
-                .padding(.horizontal)
+                .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity)
 
             Text(I18n.Pairing.BluetoothDeviceFound.header2)
                 .font(NamiTextStyle.paragraph1.font)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal)
-                .padding(.top, 4)
             ProgressView()
 
             Spacer()
@@ -60,14 +59,13 @@ public struct BluetoothDeviceFoundView: View {
         VStack {
             Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceHeader( model.productLabel.capitalized))
                 .font(NamiTextStyle.headline3.font)
-                .padding(.horizontal)
+                .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained( model.productLabel))
                 .font(NamiTextStyle.paragraph1.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
-                .padding(.top, 4)
             NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)

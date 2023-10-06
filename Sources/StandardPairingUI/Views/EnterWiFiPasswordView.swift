@@ -21,13 +21,11 @@ public struct EnterWiFiPasswordView: View {
                 Text(I18n.Pairing.EnterWifiPassword.enterPassword)
                     .font(NamiTextStyle.headline3.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
+                    .padding([.horizontal, .top])
                 Text(I18n.Pairing.EnterWifiPassword.header( viewModel.state.networkName))
                     .font(NamiTextStyle.paragraph1.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                    .padding(.top, 8)
-                    .padding(.bottom)
+                    .padding([.horizontal, .bottom])
                 NamiTextField(placeholder: I18n.Pairing.EnterWifiPassword.passwordPlaceholder, text: Binding(get: {
                     viewModel.state.password
                 }, set: { value in

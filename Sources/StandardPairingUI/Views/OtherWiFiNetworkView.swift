@@ -21,12 +21,11 @@ public struct OtherWiFiNetworkView: View {
                 Text(I18n.Pairing.OtherWifiNetwork.header)
                     .font(NamiTextStyle.headline3.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding([.horizontal, .top])
+                    .padding([.horizontal])
                 Text(I18n.Pairing.OtherWifiNetwork.deviceConnectivityHint)
                     .font(NamiTextStyle.paragraph1.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
-                    .padding(.top, 4)
                 NamiTextField(
                     placeholder: I18n.Pairing.OtherWifiNetwork.networkNamePlaceholder,
                     text: Binding(get: {
