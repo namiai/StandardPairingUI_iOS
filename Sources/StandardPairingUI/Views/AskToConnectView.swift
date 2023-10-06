@@ -3,6 +3,7 @@
 import I18n
 import SwiftUI
 import Tomonari
+import CommonTypes
 
 // MARK: - AskToConnectView
 
@@ -19,15 +20,24 @@ public struct AskToConnectView: View {
         DeviceSetupScreen {
             if viewModel.state.doneLoading {
                 VStack {
-                    Text(title(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
+                    Text(I18n.Pairing.ConnectWifi.settingUpThisDevice)
                         .font(NamiTextStyle.headline3.font)
-                        .padding(.horizontal)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    Text(description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
-                        .font(NamiTextStyle.paragraph1.font)
-                        .padding(.horizontal)
-                        .padding(.top, 8)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding([.horizontal, .top])
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    ForEach(
+                        description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice),
+                        id: \.self
+                    ) { substring in
+                        HStack(alignment: .top) {
+                            Text("・").font(NamiTextStyle.paragraph1.font)
+                            Text(substring)
+                                .font(NamiTextStyle.paragraph1.font)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 8)
+                    
                 }
                 .padding()
                 Spacer()
@@ -44,30 +54,43 @@ public struct AskToConnectView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: AskToConnect.ViewModel
+    @Environment(\.measurementSystem) var measurementSystem: MeasurementSystem
 
     // MARK: Private
 
-    private func title(devicesCount: Int, hasThread: Bool) -> String {
+    private func description(devicesCount: Int, hasThread: Bool) -> [String] {
         switch (devicesCount > 0, hasThread) {
+            // Non-first, Thread.
         case (true, true):
-            return I18n.Pairing.AskToConnect.remainingThreadDevice
-        case (false, true):
-            return I18n.Pairing.AskToConnect.threadBorderRouter
-        default:
-            return I18n.Pairing.AskToConnect.connectToWifi
-        }
-    }
-
-    private func description(devicesCount: Int, hasThread: Bool) -> String {
-        switch (devicesCount > 0, hasThread) {
-        case (true, true):
-            return I18n.Pairing.AskToConnect.remainingThreadDeviceDescription
+            return [
+                I18n.Pairing.AskToConnect.NonFirstThreadDevice.description1,
+                I18n.Pairing.AskToConnect.NonFirstThreadDevice.description2,
+                I18n.Pairing.AskToConnect.NonFirstThreadDevice.description3(viewModel.state.zoneName ?? ""),
+            ]
+            // Non-first, WiFi.
         case (true, false):
-            return I18n.Pairing.AskToConnect.connectToWifiRemainingDescription(viewModel.state.zoneName ?? "")
+            return [
+                I18n.Pairing.AskToConnect.NonFirstWifiDevice.description1(viewModel.state.zoneName ?? ""),
+                measurementSystem == .metric ?
+                I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description :
+                    I18n.Pairing.AskToConnect.WifiDeviceImperialDistance.description,
+            ]
+            // First, Thread.
         case (false, true):
-            return I18n.Pairing.AskToConnect.threadBorderRouterDescription
+            return [
+                I18n.Pairing.AskToConnect.FirstThreadDevice.description1,
+                I18n.Pairing.AskToConnect.FirstThreadDevice.description2,
+                I18n.Pairing.AskToConnect.FirstThreadDevice.description3,
+            ]
+            // First, WiFi
         case (false, false):
-            return I18n.Pairing.AskToConnect.connectToWifiFirstDescription
+            return [
+                I18n.Pairing.AskToConnect.FirstWifiDevice.description1(viewModel.state.zoneName ?? ""),
+                I18n.Pairing.AskToConnect.FirstWifiDevice.description2,
+                measurementSystem == .metric ?
+                I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description :
+                    I18n.Pairing.AskToConnect.WifiDeviceImperialDistance.description,
+            ]
         }
     }
 }

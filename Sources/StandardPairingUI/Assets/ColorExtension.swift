@@ -1,7 +1,6 @@
 // Copyright (c) nami.ai
 
 import SwiftUI
-import SharedAssets
 
 extension Color {
     init(hex: UInt, alpha: Double = 1.0) {
@@ -13,28 +12,25 @@ extension Color {
             opacity: alpha
         )
     }
-    
-    private static let colors = Colors()
 
-    static var accent: Color = colors.accent
-    static var headline: Color = colors.headline
-    static var bodyText: Color = colors.bodyText
-    static var darkText: Color = colors.darkText
-    static var primary: Color = colors.primary
-    static var linkText: Color = colors.linkText
-    static var lowerBackground: Color = colors.lowerBackground
-    static var negative: Color = colors.negative
-    static var warning: Color = colors.warning
-    static var positive: Color = colors.positive
-    static var allGood: Color = colors.allGood
-    static var borderStroke: Color = colors.borderStroke
-    static var graphLines: Color = colors.graphLines
-    static var placeholder: Color = colors.placeholder
-    static var authButtonStroke: Color = colors.authButtonStroke
-    static var profileTileBackground: Color = colors.profileTileBackground
-    static var buttonedFieldBackground: Color = colors.buttonedFieldBackground
-    static var buttonedFieldStroke: Color = colors.buttonedFieldStroke
-    
+    static var accent: Color { Color("AccentColor", bundle: .module) }
+    static var headline: Color { Color("Headline", bundle: .module) }
+    static var bodyText: Color { Color("BodyText", bundle: .module) }
+    static var darkText: Color { Color("DarkText", bundle: .module) }
+    static var primary: Color { Color("Primary", bundle: .module) }
+    static var linkText: Color { Color("LinkText", bundle: .module) }
+    static var lowerBackground: Color { Color("Background", bundle: .module) }
+    static var negative: Color { Color("Negative", bundle: .module) }
+    static var warning: Color { Color("Warning", bundle: .module) }
+    static var positive: Color { Color("Positive", bundle: .module) }
+    static var allGood: Color { Color("AllGood", bundle: .module) }
+    static var borderStroke: Color { Color("TertiaryBlack", bundle: .module) }
+    static var graphLines: Color { Color("Line", bundle: .module) }
+    static var placeholder: Color { Color("Placeholder", bundle: .module) }
+    static var authButtonStroke: Color { Color("AuthButtonStroke", bundle: .module) }
+    static var buttonedFieldBackground: Color { Color("ButtonedFieldBackground", bundle: .module) }
+    static var buttonedFieldStroke: Color { Color("ButtonedFieldStroke", bundle: .module) }
+
     static var systemBackground: Self {
         Color(UIColor.systemBackground)
     }

@@ -20,7 +20,7 @@ public struct PowerOnAndScanningView: View {
             VStack {
                 Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
                     .font(NamiTextStyle.headline3.font)
-                    .padding(.horizontal)
+                    .padding([.horizontal, .top])
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
                     .font(NamiTextStyle.paragraph1.font)
