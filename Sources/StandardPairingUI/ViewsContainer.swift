@@ -4,8 +4,10 @@ import CommonTypes
 import NamiTextStyle
 import SwiftUI
 import Tomonari
+import SharedAssets
 
 typealias NamiTextStyle = NamiPortableTextStyle
+typealias DeviceImages = SharedAssets.DeviceImages
 
 // MARK: - ViewsContainer
 
