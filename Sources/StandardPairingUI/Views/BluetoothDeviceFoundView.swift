@@ -12,7 +12,6 @@ public struct BluetoothDeviceFoundView: View {
 
     public init(viewModel: BluetoothDeviceFound.ViewModel) {
         self.viewModel = viewModel
-        deviceName = viewModel.state.deviceName
     }
 
     // MARK: Public
@@ -27,12 +26,15 @@ public struct BluetoothDeviceFoundView: View {
                 deviceDiscovered()
             }
         }
+        .onAppear {
+            deviceName = viewModel.state.deviceName
+        }
     }
 
     // MARK: Internal
 
     @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel
-    @State var deviceName: String
+    @State var deviceName: String = ""
 
     // MARK: Private
 
