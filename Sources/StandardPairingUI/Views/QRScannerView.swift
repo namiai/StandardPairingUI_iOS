@@ -31,11 +31,11 @@ public struct QRScannerView: View {
 
             VStack {
                 VStack {
-                    Text(I18n.Qrscanner.title)
+                    Text(I18n.Pairing.ScanQr.title)
                         .font(NamiTextStyle.headline3.font)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.horizontal, .top])
-                    Text(I18n.Qrscanner.whereQr)
+                    Text(I18n.Pairing.ScanQr.subtitle)
                         .font(NamiTextStyle.paragraph1.font)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.bottom, .horizontal])

@@ -37,6 +37,10 @@ public struct OtherWiFiNetworkView: View {
                     returnKeyType: .done
                 )
                 .padding([.top, .horizontal])
+                .onAppear{
+                    nameIsEditing = true
+                }
+                
                 let passwordBinding = Binding(get: {
                     viewModel.state.password
                 }, set: { value in
@@ -51,11 +55,10 @@ public struct OtherWiFiNetworkView: View {
                 .secureTextEntry(true)
                 .padding()
                 Spacer()
-                Button(I18n.General.ok, action: { viewModel.send(event: .didConfirmName) })
+                Button(I18n.Pairing.EnterWifiPassword.buttonReadyToConnect, action: { viewModel.send(event: .didConfirmName) })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
                     .disabled(viewModel.state.networkName.isEmpty)
             }
-            .padding()
         }
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel)
         .onChange(of: passwordIsEditing) { isEditing in

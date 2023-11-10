@@ -33,7 +33,8 @@ struct WiFiNetworkRowView: View {
                     Image("Checkmark")
                 }
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.vertical, 8)
         }
     }
 

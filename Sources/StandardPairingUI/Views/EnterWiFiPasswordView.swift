@@ -22,6 +22,7 @@ public struct EnterWiFiPasswordView: View {
                     .font(NamiTextStyle.headline3.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
+                    .padding(.bottom, 8)
                 Text(I18n.Pairing.EnterWifiPassword.header( viewModel.state.networkName))
                     .font(NamiTextStyle.paragraph1.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -30,19 +31,25 @@ public struct EnterWiFiPasswordView: View {
                     viewModel.state.password
                 }, set: { value in
                     viewModel.state[keyPath: \.password] = value
-                }), returnKeyType: .done)
+                }), 
+                              isEditing: $textIsEditing,
+                              
+                              returnKeyType: .done)
                     .secureTextEntry(true)
                     .subText(I18n.Pairing.EnterWifiPassword.passwordEntryFieldHint)
                     .padding()
+                    .onAppear {
+                        textIsEditing = true
+                    }
                 Spacer()
                 Button(I18n.Pairing.EnterWifiPassword.buttonReadyToConnect, action: { viewModel.send(event: .confirmPassword) })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
             }
-            .padding()
         }
     }
 
     // MARK: Internal
 
     @ObservedObject var viewModel: EnterWiFiPassword.ViewModel
+    @SwiftUI.State var textIsEditing = false
 }

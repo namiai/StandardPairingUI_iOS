@@ -33,6 +33,7 @@ public struct ListWiFiNetworksView: View {
                             .foregroundColor(Color.borderStroke)
                     } else {
                         Text(I18n.Pairing.ListWifiNetworks.availableNetworks)
+                            .font(NamiTextStyle.headline5.font)
                             .foregroundColor(Color.borderStroke)
                     }
                     if viewModel.state.shouldShowProgressView {
