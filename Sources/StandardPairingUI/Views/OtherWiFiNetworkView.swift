@@ -37,10 +37,10 @@ public struct OtherWiFiNetworkView: View {
                     returnKeyType: .done
                 )
                 .padding([.top, .horizontal])
-                .onAppear{
+                .onAppear {
                     nameIsEditing = true
                 }
-                
+
                 let passwordBinding = Binding(get: {
                     viewModel.state.password
                 }, set: { value in
@@ -77,7 +77,7 @@ public struct OtherWiFiNetworkView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: OtherWiFiNetwork.ViewModel
-    @State var nameIsEditing: Bool = false
-    @State var passwordIsEditing: Bool = false
-    @State var startedEditingFirstTime: Bool = false
+    @State var nameIsEditing = false
+    @State var passwordIsEditing = false
+    @State var startedEditingFirstTime = false
 }

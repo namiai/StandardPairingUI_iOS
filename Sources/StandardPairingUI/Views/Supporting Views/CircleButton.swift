@@ -1,14 +1,9 @@
-//
-//  SwiftUIView.swift
-//  
-//
-//  Created by Yachin Ilya on 11.10.2023.
-//
+// Copyright (c) nami.ai
 
 import SwiftUI
 
 public struct CircleButton: View {
-    // MARK: Internal
+    // MARK: Public
 
     public var body: some View {
         ZStack {
@@ -27,7 +22,7 @@ public struct CircleButton: View {
 
     // MARK: Private
 
-    private let image: Image = Image(systemName: "chevron.backward")
-    private let foregroundColor: Color = Color.black
-    private let backgroundColor: Color = Color(UIColor.systemBackground)
+    private let image = Image(systemName: "chevron.backward")
+    private let foregroundColor = Color.black
+    private let backgroundColor = Color(UIColor.systemBackground)
 }

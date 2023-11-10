@@ -29,7 +29,7 @@ public struct ListWiFiNetworksView: View {
             ScrollView {
                 HStack {
                     if viewModel.state.shouldShowNoNetworksHint {
-                        Text(I18n.Pairing.ListWifiNetworks.noNetworksFound( I18n.Pairing.ListWifiNetworks.buttonOtherNetwork))
+                        Text(I18n.Pairing.ListWifiNetworks.noNetworksFound(I18n.Pairing.ListWifiNetworks.buttonOtherNetwork))
                             .foregroundColor(Color.borderStroke)
                     } else {
                         Text(I18n.Pairing.ListWifiNetworks.availableNetworks)
@@ -63,13 +63,12 @@ public struct ListWiFiNetworksView: View {
                     }
                     .padding(.horizontal)
                 }
-                
+
                 if viewModel.state.couldShowAddOtherNetwork {
                     otherNetworkRow()
                         .padding([.horizontal, .bottom])
                 }
             }
-            
         }
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel)
     }

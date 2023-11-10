@@ -34,7 +34,7 @@ public struct BluetoothDeviceFoundView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel
-    @State var deviceName: String = ""
+    @State var deviceName = ""
 
     // MARK: Private
 
@@ -59,13 +59,13 @@ public struct BluetoothDeviceFoundView: View {
 
     private func askToName(model: NamiDeviceModel) -> some View {
         VStack {
-            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceHeader( model.productLabel.capitalized))
+            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceHeader(model.productLabel.capitalized))
                 .font(NamiTextStyle.headline3.font)
                 .padding([.horizontal, .top])
                 .padding(.bottom, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained( model.productLabel))
+            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained(model.productLabel))
                 .font(NamiTextStyle.paragraph1.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)

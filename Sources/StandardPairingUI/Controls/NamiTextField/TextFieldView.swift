@@ -122,7 +122,7 @@ struct TextFieldView: UIViewRepresentable {
         textField.font = font
         textField.adjustsFontForContentSizeCategory = true
         textField.textColor = textColor
-        if let tintColor = tintColor {
+        if let tintColor {
             textField.tintColor = tintColor
         }
 

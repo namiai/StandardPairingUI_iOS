@@ -78,8 +78,8 @@ private extension View {
 }
 
 private extension Shape {
-    func fill<Fill: ShapeStyle>(
-        _ fillStyle: Fill,
+    func fill(
+        _ fillStyle: some ShapeStyle,
         strokeColor: Color,
         lineWidth: CGFloat = 1
     ) -> some View {

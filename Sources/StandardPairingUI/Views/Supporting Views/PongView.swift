@@ -42,7 +42,7 @@ public struct PongView: View {
     @State private var ballCoords: CGPoint = Self.startBallCoords
     @State private var stickCoords: CGPoint = Self.startStickCoords
     @State private var velocity: CGPoint = Self.startVelocity
-    @State private var userRequestedGameControl: Bool = false
+    @State private var userRequestedGameControl = false
     @State private var lastGameReset = Date()
     let timer = Timer.publish(every: TimeInterval(Self.tickSpeed), on: .main, in: .common).autoconnect()
 

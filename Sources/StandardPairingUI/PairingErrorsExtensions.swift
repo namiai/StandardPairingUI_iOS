@@ -34,7 +34,7 @@ public extension Pairing.Error {
         }
         return I18n.Pairing.Errors.errorOccurredTitle
     }
-    
+
     var localizedDescription: String {
         switch self {
         case let .underlying(error):
@@ -52,7 +52,6 @@ public extension Pairing.Error {
         }
     }
 }
-
 
 extension PairingMachineError {
     var localizedDescription: String {
