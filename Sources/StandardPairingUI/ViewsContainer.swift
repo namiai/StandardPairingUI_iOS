@@ -2,9 +2,9 @@
 
 import CommonTypes
 import NamiTextStyle
+import SharedAssets
 import SwiftUI
 import Tomonari
-import SharedAssets
 
 typealias NamiTextStyle = NamiPortableTextStyle
 typealias DeviceImages = SharedAssets.DeviceImages

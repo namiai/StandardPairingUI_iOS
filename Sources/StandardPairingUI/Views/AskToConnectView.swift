@@ -1,9 +1,9 @@
 // Copyright (c) nami.ai
 
+import CommonTypes
 import I18n
 import SwiftUI
 import Tomonari
-import CommonTypes
 
 // MARK: - AskToConnectView
 
@@ -37,7 +37,6 @@ public struct AskToConnectView: View {
                     }
                     .padding(.horizontal)
                     .padding(.top, 8)
-                    
                 }
                 .padding()
                 Spacer()
@@ -60,35 +59,35 @@ public struct AskToConnectView: View {
 
     private func description(devicesCount: Int, hasThread: Bool) -> [String] {
         switch (devicesCount > 0, hasThread) {
-            // Non-first, Thread.
+        // Non-first, Thread.
         case (true, true):
             return [
                 I18n.Pairing.AskToConnect.NonFirstThreadDevice.description1,
                 I18n.Pairing.AskToConnect.NonFirstThreadDevice.description2,
                 I18n.Pairing.AskToConnect.NonFirstThreadDevice.description3(viewModel.state.zoneName ?? ""),
             ]
-            // Non-first, WiFi.
+        // Non-first, WiFi.
         case (true, false):
             return [
                 I18n.Pairing.AskToConnect.NonFirstWifiDevice.description1(viewModel.state.zoneName ?? ""),
                 measurementSystem == .metric ?
-                I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description :
+                    I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description :
                     I18n.Pairing.AskToConnect.WifiDeviceImperialDistance.description,
             ]
-            // First, Thread.
+        // First, Thread.
         case (false, true):
             return [
                 I18n.Pairing.AskToConnect.FirstThreadDevice.description1,
                 I18n.Pairing.AskToConnect.FirstThreadDevice.description2,
                 I18n.Pairing.AskToConnect.FirstThreadDevice.description3,
             ]
-            // First, WiFi
+        // First, WiFi
         case (false, false):
             return [
                 I18n.Pairing.AskToConnect.FirstWifiDevice.description1(viewModel.state.zoneName ?? ""),
                 I18n.Pairing.AskToConnect.FirstWifiDevice.description2,
                 measurementSystem == .metric ?
-                I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description :
+                    I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description :
                     I18n.Pairing.AskToConnect.WifiDeviceImperialDistance.description,
             ]
         }

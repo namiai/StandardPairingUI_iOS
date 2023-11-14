@@ -1,7 +1,7 @@
 // Copyright (c) nami.ai
 
-import SwiftUI
 import SharedAssets
+import SwiftUI
 
 extension Color {
     init(hex: UInt, alpha: Double = 1.0) {
@@ -13,7 +13,7 @@ extension Color {
             opacity: alpha
         )
     }
-    
+
     static let colors = Colors()
 
     static var accent: Color = colors.accent

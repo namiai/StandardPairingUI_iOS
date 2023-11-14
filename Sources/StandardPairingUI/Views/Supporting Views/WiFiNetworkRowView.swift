@@ -33,7 +33,8 @@ struct WiFiNetworkRowView: View {
                     Image("Checkmark")
                 }
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.vertical, 8)
         }
     }
 
@@ -42,7 +43,7 @@ struct WiFiNetworkRowView: View {
     private func wifiImageName() -> String {
         if network.rssi >= -45 {
             return "Wifi"
-        } else if network.rssi < -45 && network.rssi > -85 {
+        } else if network.rssi < -45, network.rssi > -85 {
             return "WifiMedium"
         } else if network.rssi <= -85 {
             return "WifiWeak"

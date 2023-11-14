@@ -40,7 +40,6 @@ public struct PowerOnAndScanningView: View {
                 }
                 Spacer()
             }
-            .padding()
         }
     }
 
