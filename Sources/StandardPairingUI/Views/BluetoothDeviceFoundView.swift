@@ -65,7 +65,7 @@ public struct BluetoothDeviceFoundView: View {
                 .padding(.bottom, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained(model.productLabel))
+            Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained)
                 .font(NamiTextStyle.paragraph1.font)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
