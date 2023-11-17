@@ -23,6 +23,7 @@ public struct FinishingSetupView: View {
                     .frame(maxHeight: 300)
                     .padding()
             }
+            .padding(.bottom)
         }
     }
 }
