@@ -1,12 +1,16 @@
 // Copyright (c) nami.ai
 
 import CommonTypes
-import NamiTextStyle
+import NamiSharedUIElements
 import SharedAssets
 import SwiftUI
 import Tomonari
 
-typealias NamiTextStyle = NamiPortableTextStyle
+typealias NamiTextStyle = NamiSharedUIElements.NamiTextStyle
+typealias RoundedRectContainerView = NamiSharedUIElements.RoundedRectContainerView
+typealias NamiAuthButtonStyle = NamiSharedUIElements.NamiAuthButtonStyle
+typealias NamiActionButtonStyle = NamiSharedUIElements.NamiActionButtonStyle
+typealias NamiTextField = NamiSharedUIElements.NamiTextField
 typealias DeviceImages = SharedAssets.DeviceImages
 
 // MARK: - ViewsContainer
