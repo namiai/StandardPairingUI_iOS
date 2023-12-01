@@ -33,5 +33,5 @@ public struct ViewsContainer: PairingStepsContainer {
     public var enterWiFiPassword: (EnterWiFiPassword.ViewModel) -> EnterWiFiPasswordView = EnterWiFiPasswordView.init
     public var finishingSetup: () -> FinishingSetupView = FinishingSetupView.init
     public var pairingError: (PairingErrorScreen.ViewModel) -> PairingErrorScreenView = PairingErrorScreenView.init
-    public var backButton: () -> CircleButton? = CircleButton.init
+    public var backButton: () -> NamiNavBackButton? = NamiSharedUIElements.NamiNavBackButton.init
 }
