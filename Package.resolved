@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "bottom-sheet",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/weitieda/bottom-sheet",
+      "state" : {
+        "revision" : "9233e6eddc7cf04e05afc1ff44ef2ab7f5fb81eb",
+        "version" : "1.0.8"
+      }
+    },
+    {
       "identity" : "commontypes_ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/namiai/CommonTypes_iOS.git",
@@ -12,7 +21,7 @@
     {
       "identity" : "i18n_ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/namiai/I18n_iOS",
+      "location" : "https://github.com/namiai/I18n_iOS.git",
       "state" : {
         "branch" : "main",
         "revision" : "ffaf32c3f68b409459c35e4879d2d2ab8dc45c5a"
@@ -37,6 +46,15 @@
       }
     },
     {
+      "identity" : "namishareduielements_ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/namiai/NamiSharedUIElements_iOS.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "e1904c05039ac3d5c8a8099591acbf0a64f2a102"
+      }
+    },
+    {
       "identity" : "packetboat",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/namiai/PacketBoat",
@@ -52,6 +70,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "2ba6db465a757fcd43569d41006a3aa2cd559d4f"
+      }
+    },
+    {
+      "identity" : "sharedassets_ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/namiai/SharedAssets_iOS",
+      "state" : {
+        "branch" : "main",
+        "revision" : "c24bd9b950b74d8f997bbb9ce5ac32787286ca8b"
       }
     },
     {
