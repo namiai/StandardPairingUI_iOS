@@ -46,20 +46,23 @@ public struct ListWiFiNetworksView: View {
 
                 if let networks = viewModel.state.networks {
                     RoundedRectContainerView {
-                        ForEach(Array(networks.enumerated()), id: \.offset) { item in
-                            let i = item.offset
-                            let network = item.element
-                            VStack {
-                                WiFiNetworkRowView(network: network, selected: network.ssid == viewModel.state.selectedNetwork?.ssid)
-                                    .onTapGesture {
-                                        viewModel.send(event: .selectNetwofkAndConfirm(network))
+                        VStack {
+                            ForEach(Array(networks.enumerated()), id: \.offset) { item in
+                                let i = item.offset
+                                let network = item.element
+                                VStack {
+                                    WiFiNetworkRowView(network: network, selected: network.ssid == viewModel.state.selectedNetwork?.ssid)
+                                        .onTapGesture {
+                                            viewModel.send(event: .selectNetwofkAndConfirm(network))
+                                        }
+                                    if i < networks.count - 1 {
+                                        Divider()
+                                            .padding(.horizontal)
                                     }
-                                if i < networks.count - 1 {
-                                    Divider()
-                                        .padding(.horizontal)
                                 }
                             }
                         }
+                        .padding(.vertical, 8)
                     }
                     .padding(.horizontal)
                 }
