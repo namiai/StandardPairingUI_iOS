@@ -58,6 +58,7 @@ public struct OtherWiFiNetworkView: View {
                 Button(I18n.Pairing.EnterWifiPassword.buttonReadyToConnect, action: { viewModel.send(event: .didConfirmName) })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
                     .disabled(viewModel.state.networkName.isEmpty)
+                    .padding()
             }
         }
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel)
