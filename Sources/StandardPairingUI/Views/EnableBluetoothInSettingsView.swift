@@ -12,19 +12,25 @@ public struct EnableBluetoothInSettingsView: View {
     public var body: some View {
         DeviceSetupScreen {
             VStack {
+                Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
+                    .font(NamiTextStyle.headline3.font)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
+                    .font(NamiTextStyle.paragraph1.font)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
-                BluetoothLogo()
-                    .padding()
+                Image("Bluetooth", bundle: .module)
+                    .resizable()
+                    .scaledToFit()
                     .frame(width: 128, height: 128)
                 Text(I18n.Pairing.EnableBluetoothInSettings.bluetoothDisabled)
                     .font(NamiTextStyle.headline3.font)
                 Text(I18n.Pairing.EnableBluetoothInSettings.header)
                     .font(NamiTextStyle.paragraph1.font)
-                    .padding(.horizontal)
-                    .padding(.vertical, 4)
-                Spacer()
                 Button(I18n.Pairing.EnableBluetoothInSettings.buttonSettings, action: openSettings)
-                    .buttonStyle(NamiActionButtonStyle(rank: .primary))
+                    .buttonStyle(.borderless)
+                    .padding()
+                Spacer()
             }
             .padding()
         }
@@ -44,25 +50,3 @@ public struct EnableBluetoothInSettingsView: View {
     }
 }
 
-// MARK: - BluetoothLogo
-
-private struct BluetoothLogo: View {
-    var body: some View {
-        GeometryReader { geometry in
-            let width = geometry.size.width
-            let height = geometry.size.height
-
-            let scaleFactor: CGFloat = min(width, height) / 22.0 // Scale to fit within the smaller dimension
-
-            Path { path in
-                path.move(to: CGPoint(x: 7 * scaleFactor, y: 17 * scaleFactor))
-                path.addLine(to: CGPoint(x: 17 * scaleFactor, y: 7 * scaleFactor))
-                path.addLine(to: CGPoint(x: 12 * scaleFactor, y: 2 * scaleFactor))
-                path.addLine(to: CGPoint(x: 12 * scaleFactor, y: 22 * scaleFactor))
-                path.addLine(to: CGPoint(x: 17 * scaleFactor, y: 17 * scaleFactor))
-                path.addLine(to: CGPoint(x: 7 * scaleFactor, y: 7 * scaleFactor))
-            }
-            .stroke(Color.black, lineWidth: scaleFactor)
-        }
-    }
-}
