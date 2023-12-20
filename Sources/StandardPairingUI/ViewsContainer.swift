@@ -1,12 +1,12 @@
 // Copyright (c) nami.ai
 
 import CommonTypes
-import NamiTextStyle
+import NamiSharedUIElements
 import SharedAssets
 import SwiftUI
 import Tomonari
 
-typealias NamiTextStyle = NamiPortableTextStyle
+typealias NamiTextStyle = NamiSharedUIElements.NamiTextStyle
 typealias DeviceImages = SharedAssets.DeviceImages
 
 // MARK: - ViewsContainer
