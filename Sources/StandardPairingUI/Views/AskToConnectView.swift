@@ -20,7 +20,7 @@ public struct AskToConnectView: View {
         DeviceSetupScreen {
             if viewModel.state.doneLoading {
                 VStack {
-                    Text(I18n.Pairing.ConnectWifi.settingUpThisDevice)
+                    Text(title(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
                         .font(NamiTextStyle.headline3.font)
                         .padding([.horizontal, .top])
                         .frame(maxWidth: .infinity, alignment: .center)
@@ -56,6 +56,16 @@ public struct AskToConnectView: View {
     @Environment(\.measurementSystem) var measurementSystem: MeasurementSystem
 
     // MARK: Private
+    
+    private func title(devicesCount: Int, hasThread: Bool) -> String {
+        switch (devicesCount > 0, hasThread) {
+        // First, Thread.
+        case (false, true):
+            return I18n.Pairing.ConnectWifi.setUpAsBorderRouter
+        default:
+            return I18n.Pairing.ConnectWifi.settingUpThisDevice
+        }
+    }
 
     private func description(devicesCount: Int, hasThread: Bool) -> [String] {
         switch (devicesCount > 0, hasThread) {
