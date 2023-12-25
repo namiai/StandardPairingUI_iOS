@@ -48,6 +48,7 @@ public struct EnterWiFiPasswordView: View {
                 Spacer()
                 Button(I18n.Pairing.EnterWifiPassword.buttonReadyToConnect, action: { viewModel.send(event: .confirmPassword) })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
+                    .padding()
             }
         }
     }
