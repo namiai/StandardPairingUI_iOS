@@ -68,6 +68,9 @@ public struct ListWiFiNetworksView: View {
                 }
 
                 if viewModel.state.couldShowAddOtherNetwork {
+                    if viewModel.state.networks?.isEmpty ?? true {
+                        Spacer().frame(height: 12)
+                    }
                     otherNetworkRow()
                         .padding([.horizontal, .bottom])
                 }
