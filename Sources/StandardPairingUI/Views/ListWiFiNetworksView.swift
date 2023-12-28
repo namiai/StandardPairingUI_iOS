@@ -29,7 +29,7 @@ public struct ListWiFiNetworksView: View {
             ScrollView {
                 HStack {
                     if viewModel.state.shouldShowNoNetworksHint {
-                        Text(I18n.Pairing.ListWifiNetworks.noNetworksFound(I18n.Pairing.ListWifiNetworks.buttonOtherNetwork))
+                        Text(I18n.Pairing.ListWifiNetworks.noNetworksFound)
                             .foregroundColor(Color.borderStroke)
                     } else {
                         Text(I18n.Pairing.ListWifiNetworks.availableNetworks)
