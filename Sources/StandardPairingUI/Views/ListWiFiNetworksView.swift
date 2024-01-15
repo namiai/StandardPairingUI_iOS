@@ -51,7 +51,7 @@ public struct ListWiFiNetworksView: View {
                                 let i = item.offset
                                 let network = item.element
                                 VStack {
-                                    WiFiNetworkRowView(network: network, selected: network.ssid == viewModel.state.selectedNetwork?.ssid)
+                                    WiFiNetworkRowView(network: network)
                                         .onTapGesture {
                                             viewModel.send(event: .selectNetwofkAndConfirm(network))
                                         }
