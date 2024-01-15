@@ -24,6 +24,7 @@ public struct FinishingSetupView: View {
                     .padding()
             }
             .padding(.bottom)
+            .ignoresSafeArea(.keyboard)
         }
     }
 }
