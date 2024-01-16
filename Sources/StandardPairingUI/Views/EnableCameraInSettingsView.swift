@@ -15,7 +15,7 @@ public struct EnableCameraInSettingsView: View {
                     .font(NamiTextStyle.paragraph1.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
-                Image(systemName: "camera")
+                Image("Camera", bundle: .module)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 128, height: 128)
