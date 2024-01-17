@@ -39,7 +39,7 @@ struct NamiActionButtonStyle: ButtonStyle {
                     .padding(18)
             }
             .scaleEffect(configuration.isPressed ? 0.95 : 1)
-            .frame(maxWidth: 300.0)
+            .frame(maxWidth: .infinity)
         }
     }
 

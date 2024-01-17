@@ -21,6 +21,7 @@ public struct ViewsContainer: PairingStepsContainer {
     public var bluetoothUsageHint: (BluetoothUsageHint.ViewModel) -> BluetoothUsageHintView = BluetoothUsageHintView.init
     public var powerOnAndScanning: (PowerOnAndScanning.ViewModel) -> PowerOnAndScanningView = PowerOnAndScanningView.init
     public var enableBluetoothInSettings: () -> EnableBluetoothInSettingsView = EnableBluetoothInSettingsView.init
+    public var enableCameraInSettings: () -> EnableCameraInSettingsView = EnableCameraInSettingsView.init
     public var bluetoothDeviceFound: (BluetoothDeviceFound.ViewModel) -> BluetoothDeviceFoundView = BluetoothDeviceFoundView.init
     public var askToConnect: (AskToConnect.ViewModel) -> AskToConnectView = AskToConnectView.init
     public var qrCodeScanner: (QRScanner.ViewModel) -> QRScannerView = QRScannerView.init

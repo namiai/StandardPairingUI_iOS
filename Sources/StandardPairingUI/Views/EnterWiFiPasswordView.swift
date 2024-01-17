@@ -46,8 +46,17 @@ public struct EnterWiFiPasswordView: View {
                     textIsEditing = true
                 }
                 Spacer()
-                Button(I18n.Pairing.EnterWifiPassword.buttonReadyToConnect, action: { viewModel.send(event: .confirmPassword) })
+                Button(I18n.Pairing.EnterWifiPassword.buttonReadyToConnect, action: { 
+                    DispatchQueue.main.async {
+                        textIsEditing = false
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: .main) { _ in
+                        viewModel.send(event: .confirmPassword)
+                    }
+                })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
+                    .padding()
             }
         }
     }

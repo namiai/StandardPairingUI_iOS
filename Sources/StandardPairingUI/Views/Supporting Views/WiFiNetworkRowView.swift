@@ -10,7 +10,6 @@ struct WiFiNetworkRowView: View {
     // MARK: Internal
 
     var network: NamiWiFiNetwork
-    var selected: Bool
 
     var body: some View {
         RoundedRectContainerView(backgroundColor: Color.white) {
@@ -29,9 +28,6 @@ struct WiFiNetworkRowView: View {
                         .foregroundColor(Color.black)
                 }
                 Spacer()
-                if selected {
-                    Image("Checkmark")
-                }
             }
             .padding(.horizontal)
             .padding(.vertical, 8)

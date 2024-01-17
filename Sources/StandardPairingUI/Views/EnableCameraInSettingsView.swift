@@ -1,31 +1,27 @@
-// Copyright (c) nami.ai
 
-import I18n
 import SwiftUI
-import Tomonari
+import I18n
 
-// MARK: - EnableBluetoothInSettingsView
-
-public struct EnableBluetoothInSettingsView: View {
+public struct EnableCameraInSettingsView: View {
     // MARK: Public
 
     public var body: some View {
         DeviceSetupScreen {
             VStack {
-                Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
+                Text(I18n.Pairing.ScanQr.title)
                     .font(NamiTextStyle.headline3.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
+                Text(I18n.Pairing.ScanQr.subtitle)
                     .font(NamiTextStyle.paragraph1.font)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
-                Image("Bluetooth", bundle: .module)
+                Image("Camera", bundle: .module)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 128, height: 128)
-                Text(I18n.Pairing.EnableBluetoothInSettings.bluetoothDisabled)
+                Text(I18n.Pairing.ScanQrcode.MissingCameraPermission.title)
                     .font(NamiTextStyle.headline3.font)
-                Text(I18n.Pairing.EnableBluetoothInSettings.header)
+                Text(I18n.Pairing.ScanQrcode.MissingCameraPermission.description)
                     .font(NamiTextStyle.paragraph1.font)
                 Button(I18n.Pairing.EnableBluetoothInSettings.buttonSettings, action: openSettings)
                     .buttonStyle(.borderless)
@@ -49,4 +45,3 @@ public struct EnableBluetoothInSettingsView: View {
         UIApplication.shared.open(settings, completionHandler: nil)
     }
 }
-

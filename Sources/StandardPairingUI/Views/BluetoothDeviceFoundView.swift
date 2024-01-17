@@ -71,6 +71,7 @@ public struct BluetoothDeviceFoundView: View {
                 .padding(.horizontal)
             NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName)
                 .padding(.horizontal)
+                .padding(.top, 32)
                 .frame(maxWidth: .infinity)
             Spacer()
             Button(I18n.Pairing.BluetoothDeviceFound.nextButton) {
