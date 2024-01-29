@@ -77,6 +77,7 @@ public struct ListWiFiNetworksView: View {
             }
         }
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel)
+        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: Internal
