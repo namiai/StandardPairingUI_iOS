@@ -42,7 +42,7 @@ public struct ListWiFiNetworksView: View {
                     }
                     Spacer()
                 }
-                .padding(.horizontal)
+                .padding([.horizontal, .bottom])
 
                 if let networks = viewModel.state.networks {
                     RoundedRectContainerView {
