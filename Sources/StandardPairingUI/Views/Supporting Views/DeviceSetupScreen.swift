@@ -22,6 +22,7 @@ public struct DeviceSetupScreen<Subview: View>: View {
                 subview()
             }
         }
+        .navigationBarHidden(false)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(

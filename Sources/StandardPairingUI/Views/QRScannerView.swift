@@ -63,6 +63,7 @@ public struct QRScannerView: View {
                 .padding()
             }
         }
+        .navigationBarHidden(false)
         .navigationTitle(
             Text(I18n.Pairing.DeviceSetup.navigagtionTitle)
         )
