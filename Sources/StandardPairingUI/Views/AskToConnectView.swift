@@ -43,7 +43,7 @@ public struct AskToConnectView: View {
                 Button(I18n.General.next, action: { viewModel.send(event: .tapNext) })
                     .buttonStyle(NamiActionButtonStyle())
                     .disabled(viewModel.state.nextTapped)
-                    .padding()
+                    .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
             } else {
                 DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: viewModel.state.deviceModel)
             }

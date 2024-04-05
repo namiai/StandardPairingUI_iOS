@@ -1,14 +1,14 @@
 // Copyright (c) nami.ai
 
-import NamiSharedUIElements
 import SwiftUI
+import SharedAssets
 
 // MARK: - NamiActionButtonStyle
 
-struct NamiActionButtonStyle: ButtonStyle {
+public struct NamiActionButtonStyle: ButtonStyle {
     // MARK: Lifecycle
 
-    init(
+    public init(
         rank: AppearanceHierarchyRank = .primary,
         sharpCorner: UIRectCorner = .topRight
     ) {
@@ -18,13 +18,14 @@ struct NamiActionButtonStyle: ButtonStyle {
 
     // MARK: Internal
 
-    struct NamiActionButton: View {
+    public struct NamiActionButton: View {
         let configuration: ButtonStyle.Configuration
         let rank: AppearanceHierarchyRank
         let excCorner: UIRectCorner
+        @Environment(\.colors) var colors: Colors
         @Environment(\.isEnabled) var isEnabled: Bool
 
-        var body: some View {
+        public var body: some View {
             RoundedRectContainerView(
                 excludingCorners: excCorner,
                 strokeWidth: rank.strokeWidth,
@@ -36,14 +37,15 @@ struct NamiActionButtonStyle: ButtonStyle {
                 configuration.label
                     .foregroundColor(isEnabled ? rank.textColor : rank.disabledTextColor)
                     .font(NamiTextStyle.headline5.font)
-                    .padding(18)
+                    .padding([.leading, .trailing], 24)
+                    .padding([.top, .bottom], 16)
             }
             .scaleEffect(configuration.isPressed ? 0.95 : 1)
-            .frame(maxWidth: .infinity)
+            .padding([.leading, .trailing], ConstraintLayout.LeadingToSuperView)    // In this case, the leading and trailing paddings are the same, so we can choose one of them as well.
         }
     }
 
-    enum AppearanceHierarchyRank {
+    public enum AppearanceHierarchyRank {
         case primary
         case secondary
         case tertiary
@@ -54,26 +56,26 @@ struct NamiActionButtonStyle: ButtonStyle {
         var foregroundColor: Color {
             switch self {
             case .primary:
-                return .black
+                return Color.namiColors.primary
             case .secondary:
-                return .systemBackground
+                return Color.namiColors.neutral.white
             case .tertiary:
                 return .clear
             case .destructive:
-                return .white
+                return Color.namiColors.neutral.white
             }
         }
 
         var textColor: Color {
             switch self {
             case .primary:
-                return .white
+                return Color.namiColors.neutral.white
             case .secondary:
-                return .black
+                return Color.namiColors.primary
             case .tertiary:
-                return .black
+                return Color.namiColors.primary
             case .destructive:
-                return .red
+                return Color.namiColors.negative
             }
         }
 
@@ -104,8 +106,18 @@ struct NamiActionButtonStyle: ButtonStyle {
         }
     }
 
-    func makeBody(configuration: Configuration) -> some View {
+    public func makeBody(configuration: Configuration) -> some View {
         NamiActionButton(configuration: configuration, rank: rank, excCorner: sharpCorner)
+    }
+    
+    // MARK: - the padding for NamiActionButtonStyle as a constant
+    public struct ConstraintLayout {
+        // Padding for this self
+        public static let LeadingToSuperView: CGFloat = 16
+        public static let TrailingToSuperView: CGFloat = 16
+        public static let BottomToSuperView: CGFloat = 32
+        public static let BottomToNextButton: CGFloat = 8
+        public static let BottomTokeyboard: CGFloat = 16
     }
 
     // MARK: Private

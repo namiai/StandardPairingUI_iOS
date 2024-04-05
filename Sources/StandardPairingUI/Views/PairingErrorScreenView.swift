@@ -18,7 +18,7 @@ public struct PairingErrorScreenView: View {
     public var body: some View {
         DeviceSetupScreen {
             Spacer()
-            Image("Warning")
+            Image("warning-alert")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 128, height: 128)
@@ -51,10 +51,12 @@ public struct PairingErrorScreenView: View {
     // MARK: Private
 
     private func buttonForAction(at index: Int) -> some View {
-        let action = viewModel.state.actions[index]
+        let actions = viewModel.state.actions
+        let action = actions[index]
         return Button(titleForAction(action), action: { viewModel.send(event: .didChooseAction(action)) })
             .disabled(viewModel.state.chosenAction != nil)
             .buttonStyle(NamiActionButtonStyle(rank: index == 0 ? .primary : .secondary))
+            .padding(.bottom, index == actions.count-1 ? NamiActionButtonStyle.ConstraintLayout.BottomToSuperView : NamiActionButtonStyle.ConstraintLayout.BottomToNextButton)
     }
 
     private func titleForAction(_ action: Pairing.ActionOnError) -> String {
@@ -62,8 +64,20 @@ public struct PairingErrorScreenView: View {
         case .tryAgain:
             return I18n.Pairing.Errors.actionTryAgain
         case .restart:
+            if case let .underlying(error) = viewModel.state.error {
+                if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
+                    return I18n.Pairing.Errors.actionRestartSetup
+                }
+            } 
+            
             return I18n.Pairing.Errors.actionRestart
         case .ignore:
+            if case let .underlying(error) = viewModel.state.error {
+                if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
+                    return I18n.Pairing.Errors.actionExitSetup
+                }
+            }
+            
             return I18n.Pairing.Errors.actionIgnore
         }
     }

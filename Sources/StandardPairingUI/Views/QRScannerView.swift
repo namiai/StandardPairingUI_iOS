@@ -125,6 +125,7 @@ public struct QRScannerView: View {
                 viewModel.send(event: .dismissScanError)
             }
             .buttonStyle(NamiActionButtonStyle())
+            .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
         }
         .ignoresSafeArea()
     }

@@ -12,24 +12,29 @@ public extension Pairing.Error {
             if let error = error as? PairingMachineError, case let .pairingError(e) = error {
                 switch e.error {
                 case .wifiScanError:
-                    return "The device could not find any available Wi-Fi networks"
+                    return I18n.Errors.PairingMachine.notFoundAvailableWifiTitle
                 case .wifiJoinError:
-                    return "The device could not join the select Wi-Fi network"
+                    return I18n.Errors.PairingMachine.notJoinWifiTitle
                 case .wifiJoinPasswordError:
-                    return "The password for the selected Wi-Fi network was rejected by the router"
+                    return I18n.Errors.PairingMachine.passwordWifiWasRejectedTitle
                 default:
                     break
                 }
             }
+            
             if let error = error as? Pairing.ThreadError {
                 switch error {
                 case .threadOperationalDatasetMissing:
-                    return "Thread network credentials are not found as user is using a different mobile device"
+                    return I18n.Errors.PairingThreadSetupError.threadOperationalDatasetMissingTitle
                 case .threadNetworkNotFound:
-                    return "Device is unable to find the selected Thread network or is too far from the Thread network"
+                    return I18n.Errors.PairingThreadSetupError.threadNetworkNotFoundTitle
                 case .mixedEnvironment:
-                    return "User is trying to set up a Thread device in a zone with non-Thread devices OR vice versa"
+                    return I18n.Errors.PairingThreadSetupError.mixedEnvironmentTitle
                 }
+            }
+            
+            if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
+                return I18n.Errors.PairingMachine.notSupportDevcieTypeTitle
             }
         }
         return I18n.Pairing.Errors.errorOccurredTitle
@@ -70,6 +75,8 @@ extension PairingMachineError {
             return I18n.Errors.PairingMachine.deserializationError
         case .encryptionError:
             return I18n.Errors.PairingMachine.encryptionError
+        case let .notSupportDeviceType(deviceTypes):
+            return I18n.Errors.PairingMachine.notSupportDevcieTypeDescription
         }
     }
 }

@@ -56,7 +56,13 @@ public struct EnterWiFiPasswordView: View {
                     }
                 })
                     .buttonStyle(NamiActionButtonStyle(rank: .primary))
-                    .padding()
+                    .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
+                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                        self.isKeyboardAppeared = true
+                    }
+                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                        self.isKeyboardAppeared = false
+                    }
             }
         }
     }
@@ -65,4 +71,5 @@ public struct EnterWiFiPasswordView: View {
 
     @ObservedObject var viewModel: EnterWiFiPassword.ViewModel
     @SwiftUI.State var textIsEditing = false
+    @SwiftUI.State private var isKeyboardAppeared: Bool = false
 }
