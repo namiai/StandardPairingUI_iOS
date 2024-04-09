@@ -4,6 +4,7 @@ import BottomSheet
 import I18n
 import SwiftUI
 import Tomonari
+import NamiSharedUIElements
 
 // MARK: - QRScannerView
 
@@ -18,7 +19,7 @@ public struct QRScannerView: View {
 
     public var body: some View {
         ZStack {
-            Color.lowerBackground
+            Color.namiColors.lowerBackground
                 .ignoresSafeArea()
 
             // Hack to get the available view height to calculate the bottom sheet height.
@@ -41,7 +42,7 @@ public struct QRScannerView: View {
                         .padding([.bottom, .horizontal])
                 }
                 .frame(maxWidth: .infinity)
-                .background(Color.lowerBackground)
+                .background(Color.namiColors.lowerBackground)
 
                 GeometryReader { geometry in
                     let h = geometry.size.height
@@ -53,7 +54,7 @@ public struct QRScannerView: View {
 
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .stroke(
-                            viewModel.state.error == nil ? Color.white : Color.negative,
+                            viewModel.state.error == nil ? Color.white : Color.namiColors.negative,
                             style: viewfinderStrokeStyle(cornerStrokeLength: cornerStrokeLength, width: frameWidth, height: frameWidth, cornerRadius: cornerRadius)
                         )
                         .position(centerPoint)

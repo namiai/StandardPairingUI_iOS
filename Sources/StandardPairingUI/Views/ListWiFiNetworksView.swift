@@ -3,6 +3,8 @@
 import I18n
 import SwiftUI
 import Tomonari
+import NamiSharedUIElements
+import SharedAssets
 
 // MARK: - ListWiFiNetworksView
 
@@ -30,11 +32,11 @@ public struct ListWiFiNetworksView: View {
                 HStack {
                     if viewModel.state.shouldShowNoNetworksHint {
                         Text(I18n.Pairing.ListWifiNetworks.noNetworksFound)
-                            .foregroundColor(Color.borderStroke)
+                            .foregroundColor(Color.namiColors.borderStroke)
                     } else {
                         Text(I18n.Pairing.ListWifiNetworks.availableNetworks)
                             .font(NamiTextStyle.headline5.font)
-                            .foregroundColor(Color.borderStroke)
+                            .foregroundColor(Color.namiColors.borderStroke)
                     }
                     if viewModel.state.shouldShowProgressView {
                         ProgressView()

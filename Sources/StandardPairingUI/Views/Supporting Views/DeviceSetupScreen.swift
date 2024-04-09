@@ -2,12 +2,15 @@
 
 import I18n
 import SwiftUI
+import SharedAssets
 
 // MARK: - DeviceSetupScreen
 
 public struct DeviceSetupScreen<Subview: View>: View {
     // MARK: Lifecycle
 
+//    @Environment(\.colors) var colors: Colors
+    
     public init(@ViewBuilder subview: @escaping () -> Subview) {
         self.subview = subview
     }
@@ -16,7 +19,7 @@ public struct DeviceSetupScreen<Subview: View>: View {
 
     public var body: some View {
         ZStack {
-            Color.lowerBackground
+            Color.namiColors.lowerBackground
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 subview()
