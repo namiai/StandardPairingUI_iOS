@@ -7,7 +7,7 @@ let package = Package(
     name: "StandardPairingUI",
     // The supported platform version here couldn't be lower than in Tomonari.
     platforms: [
-        .iOS(.v14),
+        .iOS("14.5.0"),
         .macOS(.v10_15),
     ],
     products: [

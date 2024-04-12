@@ -6,8 +6,8 @@ import SharedAssets
 import SwiftUI
 import Tomonari
 
-typealias NamiTextStyle = NamiSharedUIElements.NamiTextStyle
-typealias DeviceImages = SharedAssets.DeviceImages
+//typealias NamiTextStyle = NamiSharedUIElements.NamiTextStyle
+//typealias DeviceImages = SharedAssets.DeviceImages
 
 // MARK: - ViewsContainer
 
@@ -29,6 +29,11 @@ public struct ViewsContainer: PairingStepsContainer {
     public var otherWiFiNetwork: (OtherWiFiNetwork.ViewModel) -> OtherWiFiNetworkView = OtherWiFiNetworkView.init
     public var enterWiFiPassword: (EnterWiFiPassword.ViewModel) -> EnterWiFiPasswordView = EnterWiFiPasswordView.init
     public var finishingSetup: () -> FinishingSetupView = FinishingSetupView.init
+    public var howToPosition: (HowToPosition.ViewModel) -> HowToPositionView = HowToPositionView.init
+    public var initialPositioningScreen: (InitialScreen.ViewModel) -> InitialScreenView = InitialScreenView.init
+    public var positioningGuidance: (PositioningGuidance.ViewModel) -> PositioningGuidanceView = PositioningGuidanceView.init
+    public var positioningComplete: (PositioningComplete.ViewModel) -> PositioningCompleteView = PositioningCompleteView.init
+    public var positionError: (ErrorScreen.ViewModel) -> ErrorScreenView = ErrorScreenView.init
     public var pairingError: (PairingErrorScreen.ViewModel) -> PairingErrorScreenView = PairingErrorScreenView.init
     public var backButton: () -> CircleButton? = CircleButton.init
 }
