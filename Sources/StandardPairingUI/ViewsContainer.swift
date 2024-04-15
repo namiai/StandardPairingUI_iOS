@@ -6,8 +6,8 @@ import SharedAssets
 import SwiftUI
 import Tomonari
 
-//typealias NamiTextStyle = NamiSharedUIElements.NamiTextStyle
-//typealias DeviceImages = SharedAssets.DeviceImages
+typealias NamiTextStyle = NamiSharedUIElements.NamiTextStyle
+typealias DeviceImages = SharedAssets.DeviceImages
 
 // MARK: - ViewsContainer
 

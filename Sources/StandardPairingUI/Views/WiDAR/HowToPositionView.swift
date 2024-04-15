@@ -39,11 +39,11 @@ public struct HowToPositionView: View {
 //        .navigation(item: viewModel.onRouteChange(.dismissPresented)) { route in
 //            router.destination(for: route, sendToParent: viewModel.send)
 //        }
-        .onDisappear {
-            if viewModel.state.route == nil {
-                viewModel.send(.wantToDismiss)
-            }
-        }
+//        .onDisappear {
+//            if viewModel.state.route == nil {
+//                viewModel.send(.wantToDismiss)
+//            }
+//        }
     }
 
     // MARK: Private

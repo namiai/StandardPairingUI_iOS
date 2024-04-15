@@ -38,11 +38,11 @@ public struct InitialScreenView: View {
 //        .navigation(item: viewModel.onRouteChange(.dismissPresented)) { route in
 //            router.destination(for: route, sendToParent: viewModel.send)
 //        }
-        .onDisappear {
-            if viewModel.state.route == nil {
-                viewModel.send(.dismissSelf)
-            }
-        }
+//        .onDisappear {
+//            if viewModel.state.route == nil {
+//                viewModel.send(.dismissSelf)
+//            }
+//        }
     }
 
     // MARK: Private
