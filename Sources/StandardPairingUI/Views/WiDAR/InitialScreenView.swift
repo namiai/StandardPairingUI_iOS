@@ -34,15 +34,6 @@ public struct InitialScreenView: View {
             .buttonStyle(NamiActionButtonStyle())
             .padding(.vertical)
         }
-        // TODO: WIDAR - resolve this router
-//        .navigation(item: viewModel.onRouteChange(.dismissPresented)) { route in
-//            router.destination(for: route, sendToParent: viewModel.send)
-//        }
-//        .onDisappear {
-//            if viewModel.state.route == nil {
-//                viewModel.send(.dismissSelf)
-//            }
-//        }
     }
 
     // MARK: Private
