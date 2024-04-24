@@ -1,8 +1,8 @@
 // Copyright (c) nami.ai
 
+import SwiftUI
 import BottomSheet
 import SharedAssets
-import SwiftUI
 import CommonTypes
 import Tomonari
 import I18n
