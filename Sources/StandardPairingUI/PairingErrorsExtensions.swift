@@ -15,6 +15,8 @@ public extension Pairing.Error {
                     return I18n.Errors.PairingMachine.notFoundAvailableWifiTitle
                 case .wifiJoinError:
                     return I18n.Errors.PairingMachine.notJoinWifiTitle
+                case .threadJoinError:
+                    return I18n.Errors.PairingMachine.notJoinThreadTitle
                 case .wifiJoinPasswordError:
                     return I18n.Errors.PairingMachine.passwordWifiWasRejectedTitle
                 default:
@@ -62,7 +64,8 @@ extension PairingMachineError {
     var localizedDescription: String {
         switch self {
         case .unexpectedState:
-            return I18n.Errors.PairingMachine.unexpectedState
+            // We don't need a message for unexpceted state error
+            return ""
         case .unexpectedMessage:
             return I18n.Errors.PairingMachine.unexpectedMessage
         case .seanceError:
@@ -97,6 +100,11 @@ extension Pairing_Error {
             return I18n.Errors.PairingErrorDevice.wifiJoinPasswordError
         case .wifiJoinIpError:
             return I18n.Errors.PairingErrorDevice.wifiJoinIpError
+        case .threadJoinError:
+            return I18n.Errors.PairingErrorDevice.threadJoinErrorDescription1
+            + "\n\n"
+            // TODO: input zone name later
+            + I18n.Errors.PairingErrorDevice.threadJoinErrorDescription2("")
         default:
             return I18n.Errors.PairingErrorDevice.unknownUnrecognized
         }
@@ -109,8 +117,13 @@ extension Pairing.ThreadError {
         switch self {
         case .threadOperationalDatasetMissing:
             return I18n.Errors.PairingThreadSetupError.threadOperationalDatasetMissing
-        case .threadNetworkNotFound:
-            return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound
+        case let .threadNetworkNotFound(zoneName, deviceType):
+            switch deviceType {
+            case .contactSensor:
+                return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound_contactsensor(zoneName)
+            default:
+                return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound_general(zoneName)
+            }
         case .mixedEnvironment:
             return I18n.Errors.PairingThreadSetupError.mixedEnvironment
         }

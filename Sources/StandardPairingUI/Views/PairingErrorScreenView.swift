@@ -24,7 +24,7 @@ public struct PairingErrorScreenView: View {
                 .frame(width: 128, height: 128)
             // TODO: Switch to use `viewModel.state.error.errorMessageTitle` when there's the values for it in I18n but not hardcoded strings.
             // The preparation is done in `PairingErrorsExtensions`.
-            Text(I18n.Pairing.Errors.errorOccurredTitle)
+            Text(viewModel.state.error.errorMessageTitle)
                 .font(NamiTextStyle.headline3.font)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal)
@@ -72,13 +72,9 @@ public struct PairingErrorScreenView: View {
             
             return I18n.Pairing.Errors.actionRestart
         case .ignore:
-            if case let .underlying(error) = viewModel.state.error {
-                if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
-                    return I18n.Pairing.Errors.actionExitSetup
-                }
-            }
-            
             return I18n.Pairing.Errors.actionIgnore
+        case .exit:
+            return I18n.Pairing.Errors.actionExitSetup
         }
     }
 }
