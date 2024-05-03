@@ -42,6 +42,7 @@ public struct PairingErrorScreenView: View {
             }
             .padding()
         }
+        .allowSwipeBackNavigation(false)
     }
 
     // MARK: Internal
