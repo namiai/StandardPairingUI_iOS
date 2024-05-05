@@ -3,6 +3,8 @@
 import I18n
 import SwiftUI
 import Tomonari
+import NamiSharedUIElements
+import SharedAssets
 
 // MARK: - PairingErrorScreenView
 
@@ -14,6 +16,8 @@ public struct PairingErrorScreenView: View {
     }
 
     // MARK: Public
+    
+    @Environment(\.colors) var colors: Colors
 
     public var body: some View {
         DeviceSetupScreen {
@@ -34,6 +38,19 @@ public struct PairingErrorScreenView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal)
                 .padding(.top, 4)
+            if let urlLink = viewModel.state.error.FAQLink {
+                if #available(iOS 15, *) {
+                    NamiTextHyperLink(text: I18n.Errors.PairingMachine.needHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                        .font(NamiTextStyle.paragraph1.font)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.horizontal)
+                } else {
+                    NamiTextHyperLinkLegacy(text: I18n.Errors.PairingMachine.needHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                        .font(NamiTextStyle.paragraph1.font)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.horizontal)
+                }
+            }
             Spacer()
             VStack {
                 if viewModel.state.actions.isEmpty == false {

@@ -4,6 +4,7 @@ import I18n
 import SwiftUI
 import Tomonari
 import NamiSharedUIElements
+import SharedAssets
 
 // MARK: - PowerOnAndScanningView
 
@@ -35,6 +36,8 @@ public struct PowerOnAndScanningView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
+    
+    @Environment(\.colors) var colors: Colors
     
     @ViewBuilder
     private func GeneralDeviceTypeScanning() -> some View {
@@ -94,10 +97,19 @@ public struct PowerOnAndScanningView: View {
                     .padding()
             }
             Spacer()
-            Text(I18n.Pairing.BluetoothDeviceFound.FAQContactSensor)
-                .font(NamiTextStyle.paragraph1.font)
-                .padding(.horizontal)
-                .padding(.bottom, 16)
+            if #available(iOS 15, *) {
+                NamiTextHyperLink(text: I18n.Pairing.BluetoothDeviceFound.FAQContactSensor, link: URLLinks.FAQNotPulsingBlue, linkColor: colors.neutral.primaryBlack)
+                    .font(NamiTextStyle.paragraph1.font)
+                    .foregroundColor(colors.neutral.primaryBlack)
+                    .padding(.horizontal)
+                    .padding(.bottom, 16)
+            } else {
+                NamiTextHyperLinkLegacy(text: I18n.Pairing.BluetoothDeviceFound.FAQContactSensor, link: URLLinks.FAQNotPulsingBlue, linkColor: colors.neutral.primaryBlack)
+                    .font(NamiTextStyle.paragraph1.font)
+                    .foregroundColor(colors.neutral.primaryBlack)
+                    .padding(.horizontal)
+                    .padding(.bottom, 16)
+            }
         }
     }
 }

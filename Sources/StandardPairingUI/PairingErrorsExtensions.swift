@@ -4,6 +4,7 @@ import Foundation
 import I18n
 import NamiProto
 import Tomonari
+import SharedAssets
 
 // Upper level of matryoshka.
 public extension Pairing.Error {
@@ -57,6 +58,20 @@ public extension Pairing.Error {
             }
             return error.localizedDescription
         }
+    }
+    
+    var FAQLink: String? {
+        if case let .underlying(error) = self {
+            if let error = error as? Pairing.ThreadError {
+                switch error {
+                case .threadNetworkNotFound:
+                    return URLLinks.FAQNotConnectToThread
+                default:
+                    return nil
+                }
+            }
+        }
+        return nil
     }
 }
 
