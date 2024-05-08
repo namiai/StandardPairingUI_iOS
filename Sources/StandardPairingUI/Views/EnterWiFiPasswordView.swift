@@ -3,6 +3,7 @@
 import I18n
 import SwiftUI
 import Tomonari
+import NamiSharedUIElements
 
 // MARK: - EnterWiFiPasswordView
 
@@ -47,6 +48,11 @@ public struct EnterWiFiPasswordView: View {
                 }
                 Spacer()
                 Button(I18n.Pairing.EnterWifiPassword.buttonReadyToConnect, action: { 
+                    // If the keyboard was dismissed already.
+                    if textIsEditing == false {
+                        viewModel.send(event: .confirmPassword)
+                        return
+                    }
                     DispatchQueue.main.async {
                         textIsEditing = false
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
