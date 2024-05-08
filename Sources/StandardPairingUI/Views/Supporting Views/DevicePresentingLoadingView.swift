@@ -25,7 +25,7 @@ struct DevicePresentingLoadingView: View {
                 .padding()
 
             Text(I18n.Pairing.LoadingDevice.connecting(deviceName))
-                .font(NamiTextStyle.headline3.font)
+                .font(themeManager.selectedTheme.headline3)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)
 
@@ -35,7 +35,8 @@ struct DevicePresentingLoadingView: View {
     }
 
     // MARK: Private
-
+    
+    @EnvironmentObject private var themeManager: ThemeManager
     private var deviceName: String
     private var deviceModel: NamiDeviceModel
 }

@@ -19,7 +19,7 @@ public struct QRScannerView: View {
 
     public var body: some View {
         ZStack {
-            Color.namiColors.lowerBackground
+            themeManager.selectedTheme.background
                 .ignoresSafeArea()
 
             // Hack to get the available view height to calculate the bottom sheet height.
@@ -33,11 +33,11 @@ public struct QRScannerView: View {
             VStack {
                 VStack {
                     Text(I18n.Pairing.ScanQr.title)
-                        .font(NamiTextStyle.headline3.font)
+                        .font(themeManager.selectedTheme.headline3)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.horizontal, .top])
                     Text(I18n.Pairing.ScanQr.subtitle)
-                        .font(NamiTextStyle.paragraph1.font)
+                        .font(themeManager.selectedTheme.paragraph1)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.bottom, .horizontal])
                 }
@@ -84,6 +84,7 @@ public struct QRScannerView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: QRScanner.ViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
     @State var bottomSheetHeight: CGFloat = 0
 
     // MARK: Private
@@ -119,14 +120,15 @@ public struct QRScannerView: View {
                 Image("Warning")
                     .frame(width: 32)
                 Text(I18n.UpdateWifi.qrCodeError)
-                    .font(NamiTextStyle.headline4.font)
+                    .font(themeManager.selectedTheme.headline4)
             }
             Text(I18n.UpdateWifi.notNamiQrCodeNoZone)
-                .font(NamiTextStyle.paragraph1.font)
+                .font(themeManager.selectedTheme.paragraph1)
             Button(I18n.Pairing.Errors.actionTryAgain) {
                 viewModel.send(event: .dismissScanError)
             }
-            .buttonStyle(NamiActionButtonStyle())
+            .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+            .anyView
         }
         .ignoresSafeArea()
     }

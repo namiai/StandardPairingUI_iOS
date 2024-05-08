@@ -22,7 +22,7 @@ public struct AskToConnectView: View {
             if viewModel.state.doneLoading {
                 VStack {
                     Text(title(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
-                        .font(NamiTextStyle.headline3.font)
+                        .font(themeManager.selectedTheme.headline1)
                         .padding([.horizontal, .top])
                         .frame(maxWidth: .infinity, alignment: .center)
                     ForEach(
@@ -30,9 +30,9 @@ public struct AskToConnectView: View {
                         id: \.self
                     ) { substring in
                         HStack(alignment: .top) {
-                            Text("・").font(NamiTextStyle.paragraph1.font)
+                            Text("・").font(themeManager.selectedTheme.paragraph1)
                             Text(substring)
-                                .font(NamiTextStyle.paragraph1.font)
+                                .font(themeManager.selectedTheme.paragraph1)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
@@ -42,9 +42,10 @@ public struct AskToConnectView: View {
                 .padding()
                 Spacer()
                 Button(I18n.General.next, action: { viewModel.send(event: .tapNext) })
-                    .buttonStyle(NamiActionButtonStyle())
+                    .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                     .disabled(viewModel.state.nextTapped)
                     .padding()
+                    .anyView
             } else {
                 DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: viewModel.state.deviceModel)
             }
@@ -55,6 +56,7 @@ public struct AskToConnectView: View {
 
     @ObservedObject var viewModel: AskToConnect.ViewModel
     @Environment(\.measurementSystem) var measurementSystem: MeasurementSystem
+    @EnvironmentObject private var themeManager: ThemeManager
 
     // MARK: Private
     

@@ -15,6 +15,7 @@ public struct ErrorScreenView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: ErrorScreen.ViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
 
     public var body: some View {
         NamiTopNavigationScreen(title: I18n.Widar.headerTitle, contentBehavior: .fixed) {
@@ -25,11 +26,11 @@ public struct ErrorScreenView: View {
                     .scaledToFit()
                     .frame(width: 128, height: 128)
                 Text(I18n.Widar.Error.title)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.horizontal)
                 Text(I18n.Widar.Error.deviceNotFoundMessage)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.horizontal)
@@ -46,11 +47,13 @@ public struct ErrorScreenView: View {
                 Button(I18n.Widar.Error.retryButton) {
                     viewModel.send(.retryPositioning)
                 }
-                .buttonStyle(NamiActionButtonStyle())
+                .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+                .anyView
                 Button(I18n.Widar.Error.exitButton) {
                     viewModel.send(.cancelPositioning)
                 }
-                .buttonStyle(NamiActionButtonStyle(rank: .secondary))
+                .buttonStyle(themeManager.selectedTheme.secondaryActionButtonStyle)
+                .anyView
             }
             .padding()
         }

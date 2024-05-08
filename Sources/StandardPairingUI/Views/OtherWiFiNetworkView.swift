@@ -20,11 +20,11 @@ public struct OtherWiFiNetworkView: View {
         DeviceSetupScreen {
             VStack {
                 Text(I18n.Pairing.OtherWifiNetwork.header)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal])
                 Text(I18n.Pairing.OtherWifiNetwork.deviceConnectivityHint)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
                 NamiTextField(
@@ -57,9 +57,10 @@ public struct OtherWiFiNetworkView: View {
                 .padding()
                 Spacer()
                 Button(I18n.Pairing.EnterWifiPassword.buttonReadyToConnect, action: { viewModel.send(event: .didConfirmName) })
-                    .buttonStyle(NamiActionButtonStyle(rank: .primary))
+                    .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                     .disabled(viewModel.state.networkName.isEmpty)
                     .padding()
+                    .anyView
             }
         }
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel)
@@ -79,6 +80,7 @@ public struct OtherWiFiNetworkView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: OtherWiFiNetwork.ViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
     @State var nameIsEditing = false
     @State var passwordIsEditing = false
     @State var startedEditingFirstTime = false

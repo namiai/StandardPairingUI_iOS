@@ -20,6 +20,7 @@ public struct PositioningGuidanceView: View {
     @Environment(\.animations) var animations: Animations
     @Environment(\.colors) var colors: Colors
     @Environment(\.measurementSystem) var measurementSystem: MeasurementSystem
+    @EnvironmentObject private var themeManager: ThemeManager
 
     @ObservedObject var viewModel: PositioningGuidance.ViewModel
 
@@ -44,14 +45,16 @@ public struct PositioningGuidanceView: View {
                 Button(I18n.Widar.Position.finishButton) {
                     viewModel.send(.wantFinishTapped)
                 }
-                .buttonStyle(NamiActionButtonStyle())
+                .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                 .disabled(viewModel.state.canNotFinish)
+                .anyView
 
                 Button(I18n.Widar.Position.cancelButton) {
                     viewModel.send(.wantCancelTapped)
                 }
-                .buttonStyle(NamiActionButtonStyle(rank: .tertiary))
+                .buttonStyle(themeManager.selectedTheme.tertiaryActionButtonStyle)
                 .disabled(viewModel.state.canNotCancel)
+                .anyView
             }
             .padding(.vertical)
         }
@@ -66,11 +69,11 @@ public struct PositioningGuidanceView: View {
         VStack {
             switch measurementSystem {
             case .metric:
-                Text(I18n.Widar.Position.guideMetric, font: .paragraph1).fillWidth()
+                Text(I18n.Widar.Position.guideMetric, font: themeManager.selectedTheme.paragraph1).fillWidth()
             case .uk:
-                Text(I18n.Widar.Position.guideImperial, font: .paragraph1).fillWidth()
+                Text(I18n.Widar.Position.guideImperial, font: themeManager.selectedTheme.paragraph1).fillWidth()
             case .us:
-                Text(I18n.Widar.Position.guideImperial, font: .paragraph1).fillWidth()
+                Text(I18n.Widar.Position.guideImperial, font: themeManager.selectedTheme.paragraph1).fillWidth()
             }
             
 
@@ -139,11 +142,13 @@ public struct PositioningGuidanceView: View {
             Button(I18n.Widar.CancelPopup.backToPositioningButton) {
                 viewModel.send(.cancelViewDismissed)
             }
-            .buttonStyle(NamiActionButtonStyle())
+            .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+            .anyView
             Button(I18n.Widar.CancelPopup.cancelButton) {
                 viewModel.send(.confirmPositioningCancel)
             }
-            .buttonStyle(NamiActionButtonStyle(rank: .secondary))
+            .buttonStyle(themeManager.selectedTheme.secondaryActionButtonStyle)
+            .anyView
             
         }
         .padding(.bottom, 16)

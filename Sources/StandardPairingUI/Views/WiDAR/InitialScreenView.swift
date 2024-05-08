@@ -18,6 +18,7 @@ public struct InitialScreenView: View {
 
     @ObservedObject var viewModel: InitialScreen.ViewModel
     @Environment(\.colors) var colors: Colors
+    @EnvironmentObject private var themeManager: ThemeManager
 
     public var body: some View {
         NamiTopNavigationScreen(title: I18n.Widar.headerTitle, contentBehavior: .fixed) {
@@ -31,8 +32,9 @@ public struct InitialScreenView: View {
             Button(I18n.Widar.Info.buttonText) {
                 viewModel.send(.howToPositionTapped)
             }
-            .buttonStyle(NamiActionButtonStyle())
+            .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
             .padding(.vertical)
+            .anyView
         }
     }
 
@@ -40,9 +42,9 @@ public struct InitialScreenView: View {
 
     private func mainContent() -> some View {
         VStack {
-            Text(I18n.Widar.Info.title, font: .headline3).fillWidth(alignment: .center)
-            Text("∙ \(I18n.Widar.Info.infoMustOptimisePosition)", font: .paragraph1).fillWidth()
-            Text("∙ \(I18n.Widar.Info.infoAvoidMovingWhenOptimized)", font: .paragraph1).fillWidth().foregroundColor(colors.redAlert4)
+            Text(I18n.Widar.Info.title, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
+            Text("∙ \(I18n.Widar.Info.infoMustOptimisePosition)", font: themeManager.selectedTheme.paragraph1).fillWidth()
+            Text("∙ \(I18n.Widar.Info.infoAvoidMovingWhenOptimized)", font: themeManager.selectedTheme.paragraph1).fillWidth().foregroundColor(themeManager.selectedTheme.redAlert4)
             Spacer()
         }
     }

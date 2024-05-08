@@ -26,11 +26,11 @@ public struct PairingErrorScreenView: View {
             // TODO: Switch to use `viewModel.state.error.errorMessageTitle` when there's the values for it in I18n but not hardcoded strings.
             // The preparation is done in `PairingErrorsExtensions`.
             Text(I18n.Pairing.Errors.errorOccurredTitle)
-                .font(NamiTextStyle.headline3.font)
+                .font(themeManager.selectedTheme.headline3)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal)
             Text(viewModel.state.error.localizedDescription)
-                .font(NamiTextStyle.paragraph1.font)
+                .font(themeManager.selectedTheme.paragraph1)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal)
@@ -48,14 +48,17 @@ public struct PairingErrorScreenView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: PairingErrorScreen.ViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
 
     // MARK: Private
 
     private func buttonForAction(at index: Int) -> some View {
         let action = viewModel.state.actions[index]
+        let style = index == 0 ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle 
         return Button(titleForAction(action), action: { viewModel.send(event: .didChooseAction(action)) })
             .disabled(viewModel.state.chosenAction != nil)
-            .buttonStyle(NamiActionButtonStyle(rank: index == 0 ? .primary : .secondary))
+            .buttonStyle(style)
+            .anyView
     }
 
     private func titleForAction(_ action: Pairing.ActionOnError) -> String {

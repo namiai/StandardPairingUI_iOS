@@ -85,6 +85,7 @@ public struct ListWiFiNetworksView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
 
     // MARK: Private
 
@@ -93,7 +94,7 @@ public struct ListWiFiNetworksView: View {
             HStack {
                 Spacer().frame(width: 24, height: 24)
                 Text(I18n.Pairing.ListWifiNetworks.buttonOtherNetwork)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(Color.black)
                     .lineLimit(1)
                     .truncationMode(.tail)

@@ -19,11 +19,11 @@ public struct BluetoothUsageHintView: View {
         DeviceSetupScreen {
             VStack {
                 Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
                     .padding([.horizontal, .top])
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
@@ -38,4 +38,5 @@ public struct BluetoothUsageHintView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: BluetoothUsageHint.ViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
 }

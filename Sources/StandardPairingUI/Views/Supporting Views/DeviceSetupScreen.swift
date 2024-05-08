@@ -8,8 +8,6 @@ import SharedAssets
 
 public struct DeviceSetupScreen<Subview: View>: View {
     // MARK: Lifecycle
-
-//    @Environment(\.colors) var colors: Colors
     
     public init(@ViewBuilder subview: @escaping () -> Subview) {
         self.subview = subview
@@ -19,7 +17,7 @@ public struct DeviceSetupScreen<Subview: View>: View {
 
     public var body: some View {
         ZStack {
-            Color.namiColors.lowerBackground
+            themeManager.selectedTheme.background
                 .edgesIgnoringSafeArea(.all)
             VStack {
                 subview()
@@ -35,6 +33,7 @@ public struct DeviceSetupScreen<Subview: View>: View {
 
     // MARK: Private
 
+    @EnvironmentObject private var themeManager: ThemeManager
     private let subview: () -> Subview
 }
 

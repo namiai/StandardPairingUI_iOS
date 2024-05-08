@@ -15,16 +15,16 @@ struct WiFiNetworkRowView: View {
         RoundedRectContainerView(backgroundColor: Color.white) {
             HStack {
                 Image(wifiImageName())
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(Color.black)
                 Text(network.ssid)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(Color.black)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 if network.open {
                     Image(systemName: "lock.open")
-                        .font(NamiTextStyle.paragraph1.font)
+                        .font(themeManager.selectedTheme.paragraph1)
                         .foregroundColor(Color.black)
                 }
                 Spacer()
@@ -35,6 +35,8 @@ struct WiFiNetworkRowView: View {
     }
 
     // MARK: Private
+    
+    @EnvironmentObject private var themeManager: ThemeManager
 
     private func wifiImageName() -> String {
         if network.rssi >= -45 {

@@ -19,6 +19,7 @@ public struct HowToPositionView: View {
     @Environment(\.animations) var animations: Animations
 
     @ObservedObject var viewModel: HowToPosition.ViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
 
     public var body: some View {
         NamiTopNavigationScreen(title: I18n.Widar.headerTitle, contentBehavior: .fixed) {
@@ -32,8 +33,9 @@ public struct HowToPositionView: View {
             Button(I18n.Widar.Recommendations.buttonText) {
                 viewModel.send(.startPositioningTapped)
             }
-            .buttonStyle(NamiActionButtonStyle())
+            .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
             .padding(.vertical)
+            .anyView
         }
     }
 
@@ -43,10 +45,10 @@ public struct HowToPositionView: View {
         VStack {
             AnimationView(animation: \.widarPositioningRec)
 
-            Text(I18n.Widar.Recommendations.title, font: .headline3).fillWidth(alignment: .center)
-            Text("∙ \(I18n.Widar.Recommendations.infoAttachBase)", font: .paragraph1).fillWidth()
-            Text("∙ \(I18n.Widar.Recommendations.infoWireOnBack)", font: .paragraph1).fillWidth()
-            Text("∙ \(I18n.Widar.Recommendations.infoKeepAreaClear)", font: .paragraph1).fillWidth()
+            Text(I18n.Widar.Recommendations.title, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
+            Text("∙ \(I18n.Widar.Recommendations.infoAttachBase)", font: themeManager.selectedTheme.paragraph1).fillWidth()
+            Text("∙ \(I18n.Widar.Recommendations.infoWireOnBack)", font: themeManager.selectedTheme.paragraph1).fillWidth()
+            Text("∙ \(I18n.Widar.Recommendations.infoKeepAreaClear)", font: themeManager.selectedTheme.paragraph1).fillWidth()
 
             Spacer()
         }
