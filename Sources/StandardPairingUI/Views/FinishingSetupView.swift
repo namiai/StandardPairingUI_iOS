@@ -12,10 +12,12 @@ public struct FinishingSetupView: View {
             VStack {
                 Text(I18n.Pairing.FinishingSetup.header)
                     .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                 Text(I18n.Pairing.FinishingSetup.gameOfPong)
                     .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 Spacer()

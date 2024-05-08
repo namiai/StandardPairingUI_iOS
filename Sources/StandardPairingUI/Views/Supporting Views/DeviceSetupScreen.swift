@@ -28,6 +28,7 @@ public struct DeviceSetupScreen<Subview: View>: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationTitle(
             Text(I18n.Pairing.DeviceSetup.navigagtionTitle)
+                .font(themeManager.selectedTheme.headline5)
         )
     }
 

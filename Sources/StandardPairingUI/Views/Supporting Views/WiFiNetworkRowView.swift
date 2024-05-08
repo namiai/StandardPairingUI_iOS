@@ -12,14 +12,14 @@ struct WiFiNetworkRowView: View {
     var network: NamiWiFiNetwork
 
     var body: some View {
-        RoundedRectContainerView(backgroundColor: Color.white) {
+        RoundedRectContainerView(backgroundColor: themeManager.selectedTheme.white) {
             HStack {
                 Image(wifiImageName())
                     .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(Color.black)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 Text(network.ssid)
                     .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(Color.black)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 if network.open {

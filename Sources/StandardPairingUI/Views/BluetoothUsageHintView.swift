@@ -20,10 +20,12 @@ public struct BluetoothUsageHintView: View {
             VStack {
                 Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
                     .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding([.horizontal, .top])
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
                     .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()

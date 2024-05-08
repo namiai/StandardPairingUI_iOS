@@ -26,6 +26,7 @@ struct DevicePresentingLoadingView: View {
 
             Text(I18n.Pairing.LoadingDevice.connecting(deviceName))
                 .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)
 

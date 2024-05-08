@@ -21,10 +21,12 @@ public struct OtherWiFiNetworkView: View {
             VStack {
                 Text(I18n.Pairing.OtherWifiNetwork.header)
                     .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal])
                 Text(I18n.Pairing.OtherWifiNetwork.deviceConnectivityHint)
                     .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
                 NamiTextField(

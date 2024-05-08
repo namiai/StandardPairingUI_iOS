@@ -21,11 +21,13 @@ public struct EnterWiFiPasswordView: View {
             VStack {
                 Text(I18n.Pairing.EnterWifiPassword.enterPassword)
                     .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                     .padding(.bottom, 8)
                 Text(I18n.Pairing.EnterWifiPassword.header(viewModel.state.networkName))
                     .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
                 NamiTextField(

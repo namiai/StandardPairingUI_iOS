@@ -16,6 +16,8 @@ public struct NamiTheme: ThemeProtocol {
     
     public var headline5: Font = NamiTextStyle.headline5.font
     
+    public var headline6: Font = NamiTextStyle.headline6.font
+    
     public var paragraph1: Font = NamiTextStyle.paragraph1.font
     
     public var paragraph2: Font = NamiTextStyle.paragraph2.font
@@ -28,15 +30,11 @@ public struct NamiTheme: ThemeProtocol {
     // Colors
     public var primaryBlack: Color = Color.namiColors.neutral.primaryBlack
     
-    public var primaryBlackDisabled: Color = Color.namiColors.neutral.primaryBlack
-    
     public var secondaryBlack: Color = Color.namiColors.neutral.secondaryBlack
     
     public var tertiaryBlack: Color = Color.namiColors.neutral.tertiaryBlack
     
     public var white: Color = Color.namiColors.neutral.white
-    
-    public var whiteDisabled: Color = Color.namiColors.neutral.white
     
     public var background: Color = Color.namiColors.neutral.background
     
@@ -44,37 +42,13 @@ public struct NamiTheme: ThemeProtocol {
     
     public var accent: Color = Color.namiColors.accent
     
-    public var headline: Color = Color.namiColors.headline
-    
-    public var linkText: Color = Color.namiColors.linkText
-    
     public var negative: Color = Color.namiColors.negative
     
     public var warning: Color = Color.namiColors.warning
     
-    public var warningLight: Color = Color.namiColors.warningLight
-    
     public var positive: Color = Color.namiColors.positive
     
-    public var allGood: Color = Color.namiColors.allGood
-    
-    public var placeholder: Color = Color.namiColors.placeholder
-    
-    public var authButtonStroke: Color = Color.namiColors.authButtonStroke
-    
-    public var buttonedFieldBackground: Color = Color.namiColors.buttonedFieldBackground
-    
-    public var buttonedFieldStroke: Color = Color.namiColors.buttonedFieldStroke
-    
-    public var progressSelected: Color = Color.namiColors.progressSelected
-    
     public var lowAttentionAlert: Color = Color.namiColors.lowAttentionAlert
-    
-    public var lowAttentionAlertLight: Color = Color.namiColors.lowAttentionAlertLight
-    
-    public var alert1: Color = Color.namiColors.alert1
-    
-    public var alert2: Color = Color.namiColors.alert2
     
     public var redAlert3: Color = Color.namiColors.redAlert3
     

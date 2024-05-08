@@ -34,15 +34,17 @@ public struct QRScannerView: View {
                 VStack {
                     Text(I18n.Pairing.ScanQr.title)
                         .font(themeManager.selectedTheme.headline3)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.horizontal, .top])
                     Text(I18n.Pairing.ScanQr.subtitle)
                         .font(themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.bottom, .horizontal])
                 }
                 .frame(maxWidth: .infinity)
-                .background(Color.namiColors.lowerBackground)
+                .background(themeManager.selectedTheme.background)
 
                 GeometryReader { geometry in
                     let h = geometry.size.height
@@ -54,7 +56,7 @@ public struct QRScannerView: View {
 
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .stroke(
-                            viewModel.state.error == nil ? Color.white : Color.namiColors.negative,
+                            viewModel.state.error == nil ? themeManager.selectedTheme.white : themeManager.selectedTheme.negative,
                             style: viewfinderStrokeStyle(cornerStrokeLength: cornerStrokeLength, width: frameWidth, height: frameWidth, cornerRadius: cornerRadius)
                         )
                         .position(centerPoint)
@@ -121,9 +123,11 @@ public struct QRScannerView: View {
                     .frame(width: 32)
                 Text(I18n.UpdateWifi.qrCodeError)
                     .font(themeManager.selectedTheme.headline4)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
             }
             Text(I18n.UpdateWifi.notNamiQrCodeNoZone)
                 .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
             Button(I18n.Pairing.Errors.actionTryAgain) {
                 viewModel.send(event: .dismissScanError)
             }

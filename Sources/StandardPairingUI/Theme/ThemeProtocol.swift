@@ -8,6 +8,7 @@ public protocol ThemeProtocol {
     var headline3: Font { get }
     var headline4: Font { get }
     var headline5: Font { get }
+    var headline6: Font { get }
     
     var paragraph1: Font { get }
     var paragraph2: Font { get }
@@ -16,31 +17,17 @@ public protocol ThemeProtocol {
     var small2: Font { get }
     
     var primaryBlack: Color { get }
-    var primaryBlackDisabled: Color { get }
     var secondaryBlack: Color { get }
     var tertiaryBlack: Color { get }
     var white: Color { get }
-    var whiteDisabled: Color { get }
     var background: Color { get }
     var line: Color { get }
     var accent: Color { get }
-    var headline: Color { get }
-    var linkText: Color { get }
     var negative: Color { get }
     var warning: Color { get }
-    var warningLight: Color { get }
     var positive: Color { get }
-    var allGood: Color { get }
-    var placeholder: Color { get }
-    var authButtonStroke: Color { get }
-    var buttonedFieldBackground: Color { get }
-    var buttonedFieldStroke: Color { get }
-    var progressSelected: Color { get }
     var lowAttentionAlert: Color { get }
-    var lowAttentionAlertLight: Color { get }
 
-    var alert1: Color { get }
-    var alert2: Color { get }
     var redAlert3: Color { get }
     var redAlert4: Color { get }
     var success3: Color { get }

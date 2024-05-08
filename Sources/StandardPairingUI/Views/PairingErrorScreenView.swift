@@ -27,10 +27,12 @@ public struct PairingErrorScreenView: View {
             // The preparation is done in `PairingErrorsExtensions`.
             Text(I18n.Pairing.Errors.errorOccurredTitle)
                 .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal)
             Text(viewModel.state.error.localizedDescription)
                 .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal)

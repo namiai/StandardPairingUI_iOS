@@ -46,11 +46,13 @@ public struct BluetoothDeviceFoundView: View {
 
             Text(I18n.Pairing.BluetoothDeviceFound.header1)
                 .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity)
 
             Text(I18n.Pairing.BluetoothDeviceFound.header2)
                 .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal)
             ProgressView()
@@ -63,12 +65,14 @@ public struct BluetoothDeviceFoundView: View {
         VStack {
             Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceHeader(model.productLabel.capitalized))
                 .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .padding(.bottom, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained)
                 .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
             NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName)
