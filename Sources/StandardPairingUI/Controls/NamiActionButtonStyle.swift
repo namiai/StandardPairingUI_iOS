@@ -2,6 +2,7 @@
 
 import SwiftUI
 import SharedAssets
+import NamiSharedUIElements
 
 // MARK: - NamiActionButtonStyle
 
