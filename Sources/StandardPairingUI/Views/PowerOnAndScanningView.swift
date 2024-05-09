@@ -19,19 +19,23 @@ public struct PowerOnAndScanningView: View {
         DeviceSetupScreen {
             VStack {
                 Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding([.horizontal, .top])
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
                 Text(I18n.Pairing.PowerOnAndScanning.scanning)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
                 Text(I18n.Pairing.PowerOnAndScanning.askUserToWait)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
                     .padding(.top, 4)
                 if viewModel.state.showsProgressIndicator {
@@ -46,4 +50,5 @@ public struct PowerOnAndScanningView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
 }

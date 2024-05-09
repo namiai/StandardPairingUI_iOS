@@ -9,10 +9,12 @@ public struct EnableCameraInSettingsView: View {
         DeviceSetupScreen {
             VStack {
                 Text(I18n.Pairing.ScanQr.title)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(I18n.Pairing.ScanQr.subtitle)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
                 Image("Camera", bundle: .module)
@@ -20,9 +22,11 @@ public struct EnableCameraInSettingsView: View {
                     .scaledToFit()
                     .frame(width: 128, height: 128)
                 Text(I18n.Pairing.ScanQrcode.MissingCameraPermission.title)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 Text(I18n.Pairing.ScanQrcode.MissingCameraPermission.description)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 Button(I18n.Pairing.EnableBluetoothInSettings.buttonSettings, action: openSettings)
                     .buttonStyle(.borderless)
                     .padding()
@@ -31,6 +35,8 @@ public struct EnableCameraInSettingsView: View {
             .padding()
         }
     }
+    
+    @EnvironmentObject private var themeManager: ThemeManager
 
     // MARK: Private
 

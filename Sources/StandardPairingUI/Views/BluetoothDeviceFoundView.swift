@@ -36,6 +36,7 @@ public struct BluetoothDeviceFoundView: View {
 
     @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel
     @State var deviceName = ""
+    @EnvironmentObject private var themeManager: ThemeManager
 
     // MARK: Private
 
@@ -44,12 +45,14 @@ public struct BluetoothDeviceFoundView: View {
             Spacer()
 
             Text(I18n.Pairing.BluetoothDeviceFound.header1)
-                .font(NamiTextStyle.headline3.font)
+                .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity)
 
             Text(I18n.Pairing.BluetoothDeviceFound.header2)
-                .font(NamiTextStyle.paragraph1.font)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal)
             ProgressView()
@@ -61,13 +64,15 @@ public struct BluetoothDeviceFoundView: View {
     private func askToName(model: NamiDeviceModel) -> some View {
         VStack {
             Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceHeader(model.productLabel.capitalized))
-                .font(NamiTextStyle.headline3.font)
+                .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .padding(.bottom, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             Text(I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained)
-                .font(NamiTextStyle.paragraph1.font)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
             NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName)
@@ -78,9 +83,10 @@ public struct BluetoothDeviceFoundView: View {
             Button(I18n.Pairing.BluetoothDeviceFound.nextButton) {
                 viewModel.send(event: .deviceNameConfirmed(deviceName))
             }
-            .buttonStyle(NamiActionButtonStyle())
+            .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
             .disabled(deviceName.isEmpty)
             .padding([.bottom, .horizontal])
+            .anyView
         }
     }
 }

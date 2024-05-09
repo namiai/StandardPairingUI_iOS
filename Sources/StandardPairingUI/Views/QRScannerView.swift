@@ -19,7 +19,7 @@ public struct QRScannerView: View {
 
     public var body: some View {
         ZStack {
-            Color.namiColors.lowerBackground
+            themeManager.selectedTheme.background
                 .ignoresSafeArea()
 
             // Hack to get the available view height to calculate the bottom sheet height.
@@ -33,16 +33,18 @@ public struct QRScannerView: View {
             VStack {
                 VStack {
                     Text(I18n.Pairing.ScanQr.title)
-                        .font(NamiTextStyle.headline3.font)
+                        .font(themeManager.selectedTheme.headline3)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.horizontal, .top])
                     Text(I18n.Pairing.ScanQr.subtitle)
-                        .font(NamiTextStyle.paragraph1.font)
+                        .font(themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding([.bottom, .horizontal])
                 }
                 .frame(maxWidth: .infinity)
-                .background(Color.namiColors.lowerBackground)
+                .background(themeManager.selectedTheme.background)
 
                 GeometryReader { geometry in
                     let h = geometry.size.height
@@ -54,7 +56,7 @@ public struct QRScannerView: View {
 
                     RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                         .stroke(
-                            viewModel.state.error == nil ? Color.white : Color.namiColors.negative,
+                            viewModel.state.error == nil ? themeManager.selectedTheme.white : themeManager.selectedTheme.negative,
                             style: viewfinderStrokeStyle(cornerStrokeLength: cornerStrokeLength, width: frameWidth, height: frameWidth, cornerRadius: cornerRadius)
                         )
                         .position(centerPoint)
@@ -84,6 +86,7 @@ public struct QRScannerView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: QRScanner.ViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
     @State var bottomSheetHeight: CGFloat = 0
 
     // MARK: Private
@@ -119,14 +122,17 @@ public struct QRScannerView: View {
                 Image("Warning")
                     .frame(width: 32)
                 Text(I18n.UpdateWifi.qrCodeError)
-                    .font(NamiTextStyle.headline4.font)
+                    .font(themeManager.selectedTheme.headline4)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
             }
             Text(I18n.UpdateWifi.notNamiQrCodeNoZone)
-                .font(NamiTextStyle.paragraph1.font)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
             Button(I18n.Pairing.Errors.actionTryAgain) {
                 viewModel.send(event: .dismissScanError)
             }
-            .buttonStyle(NamiActionButtonStyle())
+            .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+            .anyView
         }
         .ignoresSafeArea()
     }
