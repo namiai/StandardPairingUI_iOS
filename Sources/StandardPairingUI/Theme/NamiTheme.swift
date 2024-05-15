@@ -5,6 +5,10 @@ import SharedAssets
 import NamiSharedUIElements
 
 public struct NamiTheme: ThemeProtocol {
+    public init() {
+        
+    }
+    
     // Fonts
     public var headline1: Font = NamiTextStyle.headline.font
     
