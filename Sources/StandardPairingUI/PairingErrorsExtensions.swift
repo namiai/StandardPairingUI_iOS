@@ -27,8 +27,6 @@ public extension Pairing.Error {
                     return "Thread network credentials are not found as user is using a different mobile device"
                 case .threadNetworkNotFound:
                     return "Device is unable to find the selected Thread network or is too far from the Thread network"
-                case .mixedEnvironment:
-                    return "User is trying to set up a Thread device in a zone with non-Thread devices OR vice versa"
                 }
             }
         }
@@ -104,8 +102,6 @@ extension Pairing.ThreadError {
             return I18n.Errors.PairingThreadSetupError.threadOperationalDatasetMissing
         case .threadNetworkNotFound:
             return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound
-        case .mixedEnvironment:
-            return I18n.Errors.PairingThreadSetupError.mixedEnvironment
         }
     }
 }
