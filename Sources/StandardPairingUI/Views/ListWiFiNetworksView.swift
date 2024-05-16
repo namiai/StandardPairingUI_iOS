@@ -21,10 +21,12 @@ public struct ListWiFiNetworksView: View {
         DeviceSetupScreen {
             Text(I18n.Pairing.ListWifiNetworks.connectWifiTitle)
                 .font(NamiTextStyle.headline3.font)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.horizontal, .top])
             Text(I18n.Pairing.ListWifiNetworks.selectNetwork)
                 .font(NamiTextStyle.paragraph1.font)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.bottom, .horizontal])
 
@@ -32,11 +34,11 @@ public struct ListWiFiNetworksView: View {
                 HStack {
                     if viewModel.state.shouldShowNoNetworksHint {
                         Text(I18n.Pairing.ListWifiNetworks.noNetworksFound)
-                            .foregroundColor(Color.namiColors.borderStroke)
+                            .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
                     } else {
                         Text(I18n.Pairing.ListWifiNetworks.availableNetworks)
                             .font(NamiTextStyle.headline5.font)
-                            .foregroundColor(Color.namiColors.borderStroke)
+                            .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
                     }
                     if viewModel.state.shouldShowProgressView {
                         ProgressView()
@@ -85,6 +87,7 @@ public struct ListWiFiNetworksView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
+    @EnvironmentObject private var themeManager: ThemeManager
 
     // MARK: Private
 
@@ -93,7 +96,7 @@ public struct ListWiFiNetworksView: View {
             HStack {
                 Spacer().frame(width: 24, height: 24)
                 Text(I18n.Pairing.ListWifiNetworks.buttonOtherNetwork)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(Color.black)
                     .lineLimit(1)
                     .truncationMode(.tail)

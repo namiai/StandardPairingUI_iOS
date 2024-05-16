@@ -37,25 +37,29 @@ public struct PowerOnAndScanningView: View {
 
     @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
     
-    @Environment(\.colors) var colors: Colors
+    @EnvironmentObject private var themeManager: ThemeManager
     
     @ViewBuilder
     private func GeneralDeviceTypeScanning() -> some View {
         VStack {
             Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
-                .font(NamiTextStyle.headline3.font)
+                .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
-                .font(NamiTextStyle.paragraph1.font)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
             Text(I18n.Pairing.PowerOnAndScanning.scanning)
-                .font(NamiTextStyle.headline3.font)
+                .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
             Text(I18n.Pairing.PowerOnAndScanning.askUserToWait)
-                .font(NamiTextStyle.paragraph1.font)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
                 .padding(.top, 4)
             if viewModel.state.showsProgressIndicator {
@@ -70,12 +74,14 @@ public struct PowerOnAndScanningView: View {
     private func ContactSensorDeviceTypeScanning() -> some View {
         VStack {
             Text(I18n.Pairing.BluetoothDeviceFound.headerContactSensor)
-                .font(NamiTextStyle.headline3.font)
+                .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
-                .font(NamiTextStyle.paragraph1.font)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -85,11 +91,13 @@ public struct PowerOnAndScanningView: View {
                 .padding(.bottom, 16)
             
             Text(I18n.Pairing.PowerOnAndScanning.scanning)
-                .font(NamiTextStyle.headline3.font)
+                .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
             
             Text(I18n.Pairing.PowerOnAndScanning.askUserToWait)
-                .font(NamiTextStyle.paragraph1.font)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
             
             if viewModel.state.showsProgressIndicator {
@@ -98,15 +106,15 @@ public struct PowerOnAndScanningView: View {
             }
             Spacer()
             if #available(iOS 15, *) {
-                NamiTextHyperLink(text: I18n.Pairing.BluetoothDeviceFound.FAQContactSensor, link: URLLinks.FAQNotPulsingBlue, linkColor: colors.neutral.primaryBlack)
-                    .font(NamiTextStyle.paragraph1.font)
-                    .foregroundColor(colors.neutral.primaryBlack)
+                NamiTextHyperLink(text: I18n.Pairing.BluetoothDeviceFound.FAQContactSensor, link: URLLinks.FAQNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
                     .padding(.bottom, 16)
             } else {
-                NamiTextHyperLinkLegacy(text: I18n.Pairing.BluetoothDeviceFound.FAQContactSensor, link: URLLinks.FAQNotPulsingBlue, linkColor: colors.neutral.primaryBlack)
-                    .font(NamiTextStyle.paragraph1.font)
-                    .foregroundColor(colors.neutral.primaryBlack)
+                NamiTextHyperLinkLegacy(text: I18n.Pairing.BluetoothDeviceFound.FAQContactSensor, link: URLLinks.FAQNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
                     .padding(.bottom, 16)
             }

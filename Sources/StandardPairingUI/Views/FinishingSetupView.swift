@@ -11,11 +11,13 @@ public struct FinishingSetupView: View {
         DeviceSetupScreen {
             VStack {
                 Text(I18n.Pairing.FinishingSetup.header)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                 Text(I18n.Pairing.FinishingSetup.gameOfPong)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 Spacer()
@@ -28,4 +30,6 @@ public struct FinishingSetupView: View {
         }
         .allowSwipeBackNavigation(false)
     }
+    
+    @EnvironmentObject private var themeManager: ThemeManager
 }

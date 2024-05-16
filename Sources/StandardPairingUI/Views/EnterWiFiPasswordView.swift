@@ -20,12 +20,14 @@ public struct EnterWiFiPasswordView: View {
         DeviceSetupScreen {
             VStack {
                 Text(I18n.Pairing.EnterWifiPassword.enterPassword)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                     .padding(.bottom, 8)
                 Text(I18n.Pairing.EnterWifiPassword.header(viewModel.state.networkName))
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
                 NamiTextField(
@@ -61,14 +63,15 @@ public struct EnterWiFiPasswordView: View {
                         viewModel.send(event: .confirmPassword)
                     }
                 })
-                    .buttonStyle(NamiActionButtonStyle(rank: .primary))
-                    .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
-                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-                        self.isKeyboardAppeared = true
-                    }
-                    .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-                        self.isKeyboardAppeared = false
-                    }
+                .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+                .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
+                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                    self.isKeyboardAppeared = true
+                }
+                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                    self.isKeyboardAppeared = false
+                }
+                .anyView
             }
         }
     }
@@ -78,4 +81,5 @@ public struct EnterWiFiPasswordView: View {
     @ObservedObject var viewModel: EnterWiFiPassword.ViewModel
     @SwiftUI.State var textIsEditing = false
     @SwiftUI.State private var isKeyboardAppeared: Bool = false
+    @EnvironmentObject private var themeManager: ThemeManager
 }

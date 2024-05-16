@@ -12,19 +12,19 @@ struct WiFiNetworkRowView: View {
     var network: NamiWiFiNetwork
 
     var body: some View {
-        RoundedRectContainerView(backgroundColor: Color.white) {
+        RoundedRectContainerView(backgroundColor: themeManager.selectedTheme.white) {
             HStack {
                 Image(wifiImageName())
-                    .font(NamiTextStyle.paragraph1.font)
-                    .foregroundColor(Color.black)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 Text(network.ssid)
-                    .font(NamiTextStyle.paragraph1.font)
-                    .foregroundColor(Color.black)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 if network.open {
                     Image(systemName: "lock.open")
-                        .font(NamiTextStyle.paragraph1.font)
+                        .font(themeManager.selectedTheme.paragraph1)
                         .foregroundColor(Color.black)
                 }
                 Spacer()
@@ -35,6 +35,8 @@ struct WiFiNetworkRowView: View {
     }
 
     // MARK: Private
+    
+    @EnvironmentObject private var themeManager: ThemeManager
 
     private func wifiImageName() -> String {
         if network.rssi >= -45 {

@@ -13,10 +13,12 @@ public struct EnableBluetoothInSettingsView: View {
         DeviceSetupScreen {
             VStack {
                 Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
                 Image("Bluetooth", bundle: .module)
@@ -24,9 +26,11 @@ public struct EnableBluetoothInSettingsView: View {
                     .scaledToFit()
                     .frame(width: 128, height: 128)
                 Text(I18n.Pairing.EnableBluetoothInSettings.bluetoothDisabled)
-                    .font(NamiTextStyle.headline3.font)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 Text(I18n.Pairing.EnableBluetoothInSettings.header)
-                    .font(NamiTextStyle.paragraph1.font)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 Button(I18n.Pairing.EnableBluetoothInSettings.buttonSettings, action: openSettings)
                     .buttonStyle(.borderless)
                     .padding()
@@ -35,6 +39,8 @@ public struct EnableBluetoothInSettingsView: View {
             .padding()
         }
     }
+    
+    @EnvironmentObject private var themeManager: ThemeManager
 
     // MARK: Private
 
