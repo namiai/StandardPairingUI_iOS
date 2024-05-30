@@ -10,7 +10,7 @@ public struct EnableBluetoothInSettingsView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
             VStack {
                 Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
                     .font(themeManager.selectedTheme.headline3)

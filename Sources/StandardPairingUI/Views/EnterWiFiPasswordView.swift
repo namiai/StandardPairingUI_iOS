@@ -17,7 +17,7 @@ public struct EnterWiFiPasswordView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
             VStack {
                 Text(I18n.Pairing.EnterWifiPassword.enterPassword)
                     .font(themeManager.selectedTheme.headline3)
@@ -40,7 +40,9 @@ public struct EnterWiFiPasswordView: View {
 
                     isEditing: $textIsEditing,
 
-                    returnKeyType: .done
+                    returnKeyType: .done,
+                    textFieldFont: themeManager.selectedTheme.paragraph1, 
+                    subTextFont: themeManager.selectedTheme.small1
                 )
                 .secureTextEntry(true)
                 .subText(I18n.Pairing.EnterWifiPassword.passwordEntryFieldHint)

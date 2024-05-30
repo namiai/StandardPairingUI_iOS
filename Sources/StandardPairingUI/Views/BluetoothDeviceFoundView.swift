@@ -18,7 +18,7 @@ public struct BluetoothDeviceFoundView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
             if let deviceModel = viewModel.state.deviceModel {
                 viewModel.state.deviceNameConfirmed ?
                     AnyView(DevicePresentingLoadingView(deviceName: deviceName, deviceModel: deviceModel)) :
@@ -75,7 +75,7 @@ public struct BluetoothDeviceFoundView: View {
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
-            NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName)
+            NamiTextField(placeholder: viewModel.state.deviceName, text: $deviceName, textFieldFont: themeManager.selectedTheme.paragraph1, subTextFont: themeManager.selectedTheme.small1)
                 .padding(.horizontal)
                 .padding(.top, 32)
                 .frame(maxWidth: .infinity)

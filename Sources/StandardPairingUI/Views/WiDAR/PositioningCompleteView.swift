@@ -20,7 +20,7 @@ public struct PositioningCompleteView: View {
     @EnvironmentObject private var themeManager: ThemeManager
 
     public var body: some View {
-        NamiTopNavigationScreen(title: I18n.Widar.headerTitle, largeTitle: I18n.Widar.Position.title, contentBehavior: .fixed) {
+        DeviceSetupScreen(title: I18n.Widar.headerTitle) {
             VStack {
                 VStack {
                     AnimationView(animation: \.widarPositioningDone)
@@ -36,6 +36,7 @@ public struct PositioningCompleteView: View {
             Button(I18n.Widar.Success.doneButton) {
                 viewModel.send(.confirmPositioningComplete)
             }
+            .font(themeManager.selectedTheme.headline5)
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
             .padding(.vertical)
             .anyView

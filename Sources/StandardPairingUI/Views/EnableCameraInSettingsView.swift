@@ -6,7 +6,7 @@ public struct EnableCameraInSettingsView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
             VStack {
                 Text(I18n.Pairing.ScanQr.title)
                     .font(themeManager.selectedTheme.headline3)

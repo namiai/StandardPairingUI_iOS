@@ -17,7 +17,7 @@ public struct OtherWiFiNetworkView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
             VStack {
                 Text(I18n.Pairing.OtherWifiNetwork.header)
                     .font(themeManager.selectedTheme.headline3)
@@ -37,7 +37,9 @@ public struct OtherWiFiNetworkView: View {
                         viewModel.state[keyPath: \.networkName] = value
                     }),
                     isEditing: $nameIsEditing,
-                    returnKeyType: .done
+                    returnKeyType: .done,
+                    textFieldFont: themeManager.selectedTheme.paragraph1, 
+                    subTextFont: themeManager.selectedTheme.small1
                 )
                 .padding([.top, .horizontal])
                 .onAppear {
@@ -53,7 +55,9 @@ public struct OtherWiFiNetworkView: View {
                     placeholder: I18n.Pairing.EnterWifiPassword.passwordPlaceholder,
                     text: passwordBinding,
                     isEditing: $passwordIsEditing,
-                    returnKeyType: .done
+                    returnKeyType: .done,
+                    textFieldFont: themeManager.selectedTheme.paragraph1, 
+                    subTextFont: themeManager.selectedTheme.small1
                 )
                 .secureTextEntry(true)
                 .padding()

@@ -16,60 +16,55 @@ public struct QRScannerView: View {
     }
 
     // MARK: Public
-
+    
     public var body: some View {
-        ZStack {
-            themeManager.selectedTheme.background
-                .ignoresSafeArea()
-
-            // Hack to get the available view height to calculate the bottom sheet height.
-            GeometryReader { geometry in
-                Color.clear
-                    .preference(key: ViewHeightKey.self, value: geometry.size.height)
-            }
-
-            viewModel.undecoratedScannerView
-
-            VStack {
-                VStack {
-                    Text(I18n.Pairing.ScanQr.title)
-                        .font(themeManager.selectedTheme.headline3)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding([.horizontal, .top])
-                    Text(I18n.Pairing.ScanQr.subtitle)
-                        .font(themeManager.selectedTheme.paragraph1)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding([.bottom, .horizontal])
-                }
-                .frame(maxWidth: .infinity)
-                .background(themeManager.selectedTheme.background)
-
+        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
+            ZStack {
+                // Hack to get the available view height to calculate the bottom sheet height.
                 GeometryReader { geometry in
-                    let h = geometry.size.height
-                    let w = geometry.size.width
-                    let centerPoint = CGPoint(x: w / 2, y: h / 2)
-                    let frameWidth = min(h, w) - 20
-                    let cornerStrokeLength = frameWidth / 5
-                    let cornerRadius: CGFloat = 25
-
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .stroke(
-                            viewModel.state.error == nil ? themeManager.selectedTheme.white : themeManager.selectedTheme.negative,
-                            style: viewfinderStrokeStyle(cornerStrokeLength: cornerStrokeLength, width: frameWidth, height: frameWidth, cornerRadius: cornerRadius)
-                        )
-                        .position(centerPoint)
-                        .frame(width: frameWidth, height: frameWidth)
-                        .foregroundColor(.clear)
+                    Color.clear
+                        .preference(key: ViewHeightKey.self, value: geometry.size.height)
                 }
-                .padding()
+                
+                viewModel.undecoratedScannerView
+                
+                VStack {
+                    VStack {
+                        Text(I18n.Pairing.ScanQr.title)
+                            .font(themeManager.selectedTheme.headline3)
+                            .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding([.horizontal, .top])
+                        Text(I18n.Pairing.ScanQr.subtitle)
+                            .font(themeManager.selectedTheme.paragraph1)
+                            .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding([.bottom, .horizontal])
+                    }
+                    .frame(maxWidth: .infinity)
+                    .background(themeManager.selectedTheme.background)
+                    
+                    GeometryReader { geometry in
+                        let h = geometry.size.height
+                        let w = geometry.size.width
+                        let centerPoint = CGPoint(x: w / 2, y: h / 2)
+                        let frameWidth = min(h, w) - 20
+                        let cornerStrokeLength = frameWidth / 5
+                        let cornerRadius: CGFloat = 25
+                        
+                        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                            .stroke(
+                                viewModel.state.error == nil ? themeManager.selectedTheme.white : themeManager.selectedTheme.negative,
+                                style: viewfinderStrokeStyle(cornerStrokeLength: cornerStrokeLength, width: frameWidth, height: frameWidth, cornerRadius: cornerRadius)
+                            )
+                            .position(centerPoint)
+                            .frame(width: frameWidth, height: frameWidth)
+                            .foregroundColor(.clear)
+                    }
+                    .padding()
+                }
             }
         }
-        .navigationBarHidden(false)
-        .navigationTitle(
-            Text(I18n.Pairing.DeviceSetup.navigagtionTitle)
-        )
         .onPreferenceChange(ViewHeightKey.self) { newValue in
             bottomSheetHeight = newValue * 0.5
         }
