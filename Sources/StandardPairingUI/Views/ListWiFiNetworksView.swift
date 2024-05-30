@@ -18,65 +18,68 @@ public struct ListWiFiNetworksView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen {
-            Text(I18n.Pairing.ListWifiNetworks.connectWifiTitle)
-                .font(NamiTextStyle.headline3.font)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding([.horizontal, .top])
-            Text(I18n.Pairing.ListWifiNetworks.selectNetwork)
-                .font(NamiTextStyle.paragraph1.font)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding([.bottom, .horizontal])
-
-            ScrollView {
-                HStack {
-                    if viewModel.state.shouldShowNoNetworksHint {
-                        Text(I18n.Pairing.ListWifiNetworks.noNetworksFound)
-                            .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
-                    } else {
-                        Text(I18n.Pairing.ListWifiNetworks.availableNetworks)
-                            .font(NamiTextStyle.headline5.font)
-                            .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
+        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
+            VStack {
+                Text(I18n.Pairing.ListWifiNetworks.connectWifiTitle)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding([.horizontal, .top])
+                Text(I18n.Pairing.ListWifiNetworks.selectNetwork)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding([.bottom, .horizontal])
+                
+                ScrollView {
+                    HStack {
+                        if viewModel.state.shouldShowNoNetworksHint {
+                            Text(I18n.Pairing.ListWifiNetworks.noNetworksFound)
+                                .font(themeManager.selectedTheme.headline5)
+                                .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
+                        } else {
+                            Text(I18n.Pairing.ListWifiNetworks.availableNetworks)
+                                .font(themeManager.selectedTheme.headline5)
+                                .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
+                        }
+                        if viewModel.state.shouldShowProgressView {
+                            ProgressView()
+                                .padding(.horizontal, 4)
+                        }
+                        Spacer()
                     }
-                    if viewModel.state.shouldShowProgressView {
-                        ProgressView()
-                            .padding(.horizontal, 4)
-                    }
-                    Spacer()
-                }
-                .padding([.horizontal, .bottom])
-
-                if let networks = viewModel.state.networks {
-                    RoundedRectContainerView {
-                        VStack {
-                            ForEach(Array(networks.enumerated()), id: \.offset) { item in
-                                let i = item.offset
-                                let network = item.element
-                                VStack {
-                                    WiFiNetworkRowView(network: network)
-                                        .onTapGesture {
-                                            viewModel.send(event: .selectNetwofkAndConfirm(network))
+                    .padding([.horizontal, .bottom])
+                    
+                    if let networks = viewModel.state.networks {
+                        RoundedRectContainerView {
+                            VStack {
+                                ForEach(Array(networks.enumerated()), id: \.offset) { item in
+                                    let i = item.offset
+                                    let network = item.element
+                                    VStack {
+                                        WiFiNetworkRowView(network: network)
+                                            .onTapGesture {
+                                                viewModel.send(event: .selectNetwofkAndConfirm(network))
+                                            }
+                                        if i < networks.count - 1 {
+                                            Divider()
+                                                .padding(.horizontal)
                                         }
-                                    if i < networks.count - 1 {
-                                        Divider()
-                                            .padding(.horizontal)
                                     }
                                 }
                             }
+                            .padding(.vertical, 8)
                         }
-                        .padding(.vertical, 8)
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
-                }
-
-                if viewModel.state.couldShowAddOtherNetwork {
-                    if viewModel.state.networks?.isEmpty ?? true {
-                        Spacer().frame(height: 12)
+                    
+                    if viewModel.state.couldShowAddOtherNetwork {
+                        if viewModel.state.networks?.isEmpty ?? true {
+                            Spacer().frame(height: 12)
+                        }
+                        otherNetworkRow()
+                            .padding([.horizontal, .bottom])
                     }
-                    otherNetworkRow()
-                        .padding([.horizontal, .bottom])
                 }
             }
         }

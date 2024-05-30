@@ -17,7 +17,7 @@ public struct PairingErrorScreenView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
             Spacer()
             Image("Warning")
                 .resizable()

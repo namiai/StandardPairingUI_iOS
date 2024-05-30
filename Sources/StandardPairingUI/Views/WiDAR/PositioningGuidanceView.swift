@@ -33,7 +33,7 @@ public struct PositioningGuidanceView: View {
             }
         }
 
-        NamiTopNavigationScreen(title: I18n.Widar.headerTitle, largeTitle: I18n.Widar.Position.title, contentBehavior: .fixed) {
+        DeviceSetupScreen(title: I18n.Widar.headerTitle) {
             mainContent()
                 .padding()
         } leadingButtonsGroup: {
@@ -67,6 +67,12 @@ public struct PositioningGuidanceView: View {
 
     private func mainContent() -> some View {
         VStack {
+            Text(I18n.Widar.Position.title)
+                .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding([.bottom])
+            
             switch measurementSystem {
             case .metric:
                 Text(I18n.Widar.Position.guideMetric, font: themeManager.selectedTheme.paragraph1).fillWidth()
@@ -92,28 +98,28 @@ public struct PositioningGuidanceView: View {
 
             RoundedRectContainerView {
                 VStack {
-                    Text(I18n.Widar.Position.statusLabel, font: .paragraph1).fillWidth(alignment: .center)
+                    Text(I18n.Widar.Position.statusLabel, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                     if viewModel.state.positioningState == .started {
                         HStack {
                             switch quality {
                             case .unknown:
                                 ProgressView().frame(width: 16, height: 16)
-                                Text(I18n.Widar.Position.statusChecking, font: .headline5).foregroundColor(colors.neutral.tertiaryBlack)
+                                Text(I18n.Widar.Position.statusChecking, font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
                             case .poor:
                                 Circle().fill(Color.red).frame(width: 16, height: 16)
-                                Text(I18n.Widar.Position.statusMispositioned, font: .headline5).foregroundColor(colors.redAlert4)
+                                Text(I18n.Widar.Position.statusMispositioned, font: themeManager.selectedTheme.headline5).foregroundColor(colors.redAlert4)
                             case .degraded:
                                 Circle().fill(Color.yellow).frame(width: 16, height: 16)
-                                Text(I18n.Widar.Position.statusGettingBetter, font: .headline5).foregroundColor(colors.lowAttentionAlert)
+                                Text(I18n.Widar.Position.statusGettingBetter, font: themeManager.selectedTheme.headline5).foregroundColor(colors.lowAttentionAlert)
                             case .good:
                                 Circle().fill(Color.green).frame(width: 16, height: 16)
-                                Text(I18n.Widar.Position.statusOptimized, font: .headline5).foregroundColor(colors.success4)
+                                Text(I18n.Widar.Position.statusOptimized, font: themeManager.selectedTheme.headline5).foregroundColor(colors.success4)
                             }
                         }
                     } else {
                         HStack {
                             ProgressView().frame(width: 16, height: 16)
-                            Text("Establishing connection", font: .headline5).foregroundColor(colors.neutral.tertiaryBlack)
+                            Text("Establishing connection", font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
                         }
                     }
                 }
@@ -123,7 +129,7 @@ public struct PositioningGuidanceView: View {
             VStack {
                 if quality == .degraded {
                     // TODO: Add this string to POEditor!
-                    Text(I18n.Widar.Position.tip, font: .paragraph1).fillWidth(alignment: .center)
+                    Text(I18n.Widar.Position.tip, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                 }
             }
             .frame(height: 20)
@@ -135,18 +141,20 @@ public struct PositioningGuidanceView: View {
     private func sheetContent() -> some View {
         VStack {
             Text(I18n.Widar.CancelPopup.title)
-                .font(NamiTextStyle.headline4.font)
+                .font(themeManager.selectedTheme.headline4)
             Text(I18n.Widar.CancelPopup.message)
-                .font(NamiTextStyle.paragraph1.font)
+                .font(themeManager.selectedTheme.paragraph1)
                 .padding()
             Button(I18n.Widar.CancelPopup.backToPositioningButton) {
                 viewModel.send(.cancelViewDismissed)
             }
+            .font(themeManager.selectedTheme.headline5)
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
             .anyView
             Button(I18n.Widar.CancelPopup.cancelButton) {
                 viewModel.send(.confirmPositioningCancel)
             }
+            .font(themeManager.selectedTheme.headline5)
             .buttonStyle(themeManager.selectedTheme.secondaryActionButtonStyle)
             .anyView
             

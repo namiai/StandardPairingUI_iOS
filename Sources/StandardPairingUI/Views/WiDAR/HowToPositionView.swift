@@ -22,7 +22,7 @@ public struct HowToPositionView: View {
     @EnvironmentObject private var themeManager: ThemeManager
 
     public var body: some View {
-        NamiTopNavigationScreen(title: I18n.Widar.headerTitle, contentBehavior: .fixed) {
+        DeviceSetupScreen(title: I18n.Widar.headerTitle) {
             mainContent()
                 .padding()
         } leadingButtonsGroup: {

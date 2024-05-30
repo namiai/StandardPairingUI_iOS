@@ -18,25 +18,25 @@ public struct AskToConnectView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
             if viewModel.state.doneLoading {
                 VStack {
                     Text(title(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
                         .font(themeManager.selectedTheme.headline1)
                         .foregroundColor(themeManager.selectedTheme.primaryBlack)
                         .padding([.horizontal, .top])
-                        .frame(maxWidth: .infinity, alignment: .center)
+                        .fixedSize(horizontal: false, vertical: true)
                     ForEach(
                         description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice),
                         id: \.self
                     ) { substring in
                         HStack(alignment: .top) {
-                            Text("・").font(themeManager.selectedTheme.paragraph1)
+                            Text(" - ").font(themeManager.selectedTheme.paragraph1)
                                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                             Text(substring)
                                 .font(themeManager.selectedTheme.paragraph1)
                                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .fixedSize(horizontal: false, vertical: true)
                         }
                     }
                     .padding(.horizontal)

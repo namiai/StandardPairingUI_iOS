@@ -6,11 +6,19 @@ import SharedAssets
 
 // MARK: - DeviceSetupScreen
 
-public struct DeviceSetupScreen<Subview: View>: View {
+public struct DeviceSetupScreen<LeadingGroup: View, Subview: View, BottomGroup: View>: View {
     // MARK: Lifecycle
     
-    public init(@ViewBuilder subview: @escaping () -> Subview) {
+    public init(
+        title: String,
+        @ViewBuilder subview: @escaping () -> Subview, 
+        @ViewBuilder leadingButtonsGroup: @escaping () -> LeadingGroup = { EmptyView() },
+        @ViewBuilder bottomButtonsGroup: @escaping () -> BottomGroup = { EmptyView() }
+    ) {
+        self.title = title
+        self.leadingButtonsGroup = leadingButtonsGroup
         self.subview = subview
+        self.bottomButtonsGroup = bottomButtonsGroup
     }
 
     // MARK: Public
@@ -19,30 +27,41 @@ public struct DeviceSetupScreen<Subview: View>: View {
         ZStack {
             themeManager.selectedTheme.background
                 .edgesIgnoringSafeArea(.all)
-            VStack {
+            VStack(spacing: 0) {
                 subview()
+                    .padding(.top, 10)
+                    .frame(maxHeight: .infinity)
+                bottomButtonsGroup()
             }
         }
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
-        .navigationTitle(
-            Text(I18n.Pairing.DeviceSetup.navigagtionTitle)
-                .font(themeManager.selectedTheme.headline5)
-        )
+        .toolbar {
+            ToolbarItem(placement: .principal) { 
+                VStack {
+                    Text(title).font(themeManager.selectedTheme.headline5)
+                }
+            }
+        }
+        // TODO: handle the case where views would like to override the back button
+//        .navigationBarItems(leading: leadingButtonsGroup())
     }
 
     // MARK: Private
 
     @EnvironmentObject private var themeManager: ThemeManager
+    private let title: String
     private let subview: () -> Subview
+    private var leadingButtonsGroup: () -> LeadingGroup
+    private var bottomButtonsGroup: () -> BottomGroup
 }
 
 // MARK: - DeviceSetupScreen_Previews
 
 struct DeviceSetupScreen_Previews: PreviewProvider {
     static var previews: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: "Setup device") {
             Text("So removed, we spoke of wintertime in France")
             Button("Ride on the metro") {
                 print("I was on a Paris train, I emerged in London rain")

@@ -8,7 +8,7 @@ import Tomonari
 
 public struct FinishingSetupView: View {
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
             VStack {
                 Text(I18n.Pairing.FinishingSetup.header)
                     .font(themeManager.selectedTheme.headline3)
