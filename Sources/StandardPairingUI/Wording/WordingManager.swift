@@ -23,12 +23,3 @@ public class EmptyWordings: WordingProtocol {
         
     }
 }
-
-public class TestWordings: WordingProtocol {
-    
-    public init() {
-        
-    }
-    
-    public var pairingNavigationBarTitle: String = "Pair device"
-}
