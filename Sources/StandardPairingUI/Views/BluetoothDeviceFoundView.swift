@@ -37,6 +37,7 @@ public struct BluetoothDeviceFoundView: View {
     @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel
     @State var deviceName = ""
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
 
     // MARK: Private
 

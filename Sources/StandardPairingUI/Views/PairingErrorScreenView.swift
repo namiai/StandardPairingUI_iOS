@@ -17,7 +17,7 @@ public struct PairingErrorScreenView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
+        DeviceSetupScreen(title: titleWording()) {
             Spacer()
             Image("Warning")
                 .resizable()
@@ -51,6 +51,7 @@ public struct PairingErrorScreenView: View {
 
     @ObservedObject var viewModel: PairingErrorScreen.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
 
     // MARK: Private
 
@@ -66,11 +67,51 @@ public struct PairingErrorScreenView: View {
     private func titleForAction(_ action: Pairing.ActionOnError) -> String {
         switch action {
         case .tryAgain:
-            return I18n.Pairing.Errors.actionTryAgain
+            return tryAgainActionTitle()
         case .restart:
-            return I18n.Pairing.Errors.actionRestart
+            return restartActionTitle()
         case .ignore:
-            return I18n.Pairing.Errors.actionIgnore
+            return ignoreActionTitle()
         }
+    }
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.Pairing.DeviceSetup.navigagtionTitle
+    }
+    
+    private func errorOccurredTitle() -> String {
+        if let customScanning = wordingManager.wordings.errorOccurredTitle {
+            return customScanning
+        }
+        
+        return I18n.Pairing.Errors.errorOccurredTitle
+    }
+    
+    private func tryAgainActionTitle() -> String {
+        if let customScanning = wordingManager.wordings.tryAgainActionTitle {
+            return customScanning
+        }
+        
+        return I18n.Pairing.Errors.actionTryAgain
+    }
+    
+    private func restartActionTitle() -> String {
+        if let customScanning = wordingManager.wordings.restartActionTitle {
+            return customScanning
+        }
+        
+        return I18n.Pairing.Errors.actionRestart
+    }
+    
+    private func ignoreActionTitle() -> String {
+        if let customScanning = wordingManager.wordings.ignoreActionTitle {
+            return customScanning
+        }
+        
+        return I18n.Pairing.Errors.actionIgnore
     }
 }

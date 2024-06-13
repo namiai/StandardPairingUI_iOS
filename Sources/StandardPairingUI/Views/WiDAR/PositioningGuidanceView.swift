@@ -21,6 +21,7 @@ public struct PositioningGuidanceView: View {
     @Environment(\.colors) var colors: Colors
     @Environment(\.measurementSystem) var measurementSystem: MeasurementSystem
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
 
     @ObservedObject var viewModel: PositioningGuidance.ViewModel
 
@@ -33,7 +34,7 @@ public struct PositioningGuidanceView: View {
             }
         }
 
-        DeviceSetupScreen(title: I18n.Widar.headerTitle) {
+        DeviceSetupScreen(title: titleWording()) {
             mainContent()
                 .padding()
         } leadingButtonsGroup: {
@@ -160,5 +161,109 @@ public struct PositioningGuidanceView: View {
             
         }
         .padding(.bottom, 16)
+    }
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.positioningNavigationTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.Widar.headerTitle
+    }
+    
+    private func finishButtonText() -> String {
+        if let customString = wordingManager.wordings.finishButton {
+            return customString
+        }
+        
+        return I18n.Widar.Position.finishButton
+    }
+    
+    private func cancelButtonText() -> String {
+        if let customString = wordingManager.wordings.cancelButton {
+            return customString
+        }
+        
+        return I18n.Widar.Position.cancelButton
+    }
+    
+    private func positionGuidanceTitle() -> String {
+        if let customString = wordingManager.wordings.positioningGuidanceTitle {
+            return customString
+        }
+        
+        return I18n.Widar.Position.title
+    }
+    
+    private func guideMetric() -> String {
+        if let customString = wordingManager.wordings.guideMetric {
+            return customString
+        }
+        
+        return I18n.Widar.Position.guideMetric
+    }
+    
+    private func guideImperial() -> String {
+        if let customString = wordingManager.wordings.guideImperial {
+            return customString
+        }
+        
+        return I18n.Widar.Position.guideImperial
+    }
+    
+    private func statusLabel() -> String {
+        if let customString = wordingManager.wordings.statusLabel {
+            return customString
+        }
+        
+        return I18n.Widar.Position.statusLabel
+    }
+    
+    private func statusChecking() -> String {
+        if let customString = wordingManager.wordings.statusChecking {
+            return customString
+        }
+        
+        return I18n.Widar.Position.statusChecking
+    }
+    
+    private func statusMispositioned() -> String {
+        if let customString = wordingManager.wordings.statusMispositioned {
+            return customString
+        }
+        
+        return I18n.Widar.Position.statusMispositioned
+    }
+    
+    private func statusGettingBetter() -> String {
+        if let customString = wordingManager.wordings.statusGettingBetter {
+            return customString
+        }
+        
+        return I18n.Widar.Position.statusGettingBetter
+    }
+    
+    private func statusOptimized() -> String {
+        if let customString = wordingManager.wordings.statusOptimized {
+            return customString
+        }
+        
+        return I18n.Widar.Position.statusOptimized
+    }
+    
+    private func statusEstablishingConnection() -> String {
+        if let customString = wordingManager.wordings.statusEstablishingConnection {
+            return customString
+        }
+        
+        return "Establishing connection"
+    }
+    
+    private func positioningTip() -> String {
+        if let customString = wordingManager.wordings.positioningTip {
+            return customString
+        }
+        
+        return I18n.Widar.Position.guideMetric
     }
 }

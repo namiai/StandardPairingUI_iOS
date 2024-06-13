@@ -83,7 +83,7 @@ public struct ListWiFiNetworksView: View {
                 }
             }
         }
-        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel)
+        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel, wordingManager: wordingManager)
         .ignoresSafeArea(.keyboard)
     }
 
@@ -91,6 +91,7 @@ public struct ListWiFiNetworksView: View {
 
     @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
 
     // MARK: Private
 

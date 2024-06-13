@@ -60,6 +60,7 @@ public struct AskToConnectView: View {
     @ObservedObject var viewModel: AskToConnect.ViewModel
     @Environment(\.measurementSystem) var measurementSystem: MeasurementSystem
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingsManager: WordingManager
 
     // MARK: Private
     

@@ -8,14 +8,14 @@ import Tomonari
 
 public struct FinishingSetupView: View {
     public var body: some View {
-        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
+        DeviceSetupScreen(title: titleWording()) {
             VStack {
-                Text(I18n.Pairing.FinishingSetup.header)
+                Text(finishingSetupHeader())
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
-                Text(I18n.Pairing.FinishingSetup.gameOfPong)
+                Text(gameOfPongText())
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -31,4 +31,29 @@ public struct FinishingSetupView: View {
     }
     
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.Pairing.DeviceSetup.navigagtionTitle
+    }
+    
+    private func finishingSetupHeader() -> String {
+        if let customScanning = wordingManager.wordings.finishingSetupHeader {
+            return customScanning
+        }
+        
+        return I18n.Pairing.FinishingSetup.header
+    }
+    
+    private func gameOfPongText() -> String {
+        if let customScanning = wordingManager.wordings.gameOfPongText {
+            return customScanning
+        }
+        
+        return I18n.Pairing.FinishingSetup.gameOfPong
+    }
 }

@@ -69,7 +69,7 @@ public struct OtherWiFiNetworkView: View {
                     .anyView
             }
         }
-        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel)
+        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel, wordingManager: wordingManager)
         .onChange(of: passwordIsEditing) { isEditing in
             if isEditing, viewModel.state.networkName.isEmpty == false, viewModel.state.password.isEmpty, startedEditingFirstTime == false {
                 startedEditingFirstTime = true
@@ -87,6 +87,7 @@ public struct OtherWiFiNetworkView: View {
 
     @ObservedObject var viewModel: OtherWiFiNetwork.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
     @State var nameIsEditing = false
     @State var passwordIsEditing = false
     @State var startedEditingFirstTime = false

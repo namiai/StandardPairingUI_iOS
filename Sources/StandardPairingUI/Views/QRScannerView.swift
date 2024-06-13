@@ -18,7 +18,7 @@ public struct QRScannerView: View {
     // MARK: Public
     
     public var body: some View {
-        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
+        DeviceSetupScreen(title: titleWording()) {
             ZStack {
                 // Hack to get the available view height to calculate the bottom sheet height.
                 GeometryReader { geometry in
@@ -30,12 +30,12 @@ public struct QRScannerView: View {
                 
                 VStack {
                     VStack {
-                        Text(I18n.Pairing.ScanQr.title)
+                        Text(scanQRTitle())
                             .font(themeManager.selectedTheme.headline3)
                             .foregroundColor(themeManager.selectedTheme.primaryBlack)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding([.horizontal, .top])
-                        Text(I18n.Pairing.ScanQr.subtitle)
+                        Text(scanQRSubtitle())
                             .font(themeManager.selectedTheme.paragraph1)
                             .foregroundColor(themeManager.selectedTheme.primaryBlack)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -82,6 +82,7 @@ public struct QRScannerView: View {
 
     @ObservedObject var viewModel: QRScanner.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
     @State var bottomSheetHeight: CGFloat = 0
 
     // MARK: Private
@@ -120,16 +121,56 @@ public struct QRScannerView: View {
                     .font(themeManager.selectedTheme.headline4)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
             }
-            Text(I18n.UpdateWifi.notNamiQrCodeNoZone)
+            Text(qrCodeError())
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
-            Button(I18n.Pairing.Errors.actionTryAgain) {
+            Button(actionTryAgain()) {
                 viewModel.send(event: .dismissScanError)
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
             .anyView
         }
         .ignoresSafeArea()
+    }
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.Pairing.DeviceSetup.navigagtionTitle
+    }
+    
+    private func scanQRTitle() -> String {
+        if let customScanQRTitle = wordingManager.wordings.scanQRtitle {
+            return customScanQRTitle
+        }
+        
+        return I18n.Pairing.ScanQr.title
+    }
+    
+    private func scanQRSubtitle() -> String {
+        if let customScanQRSubtitle = wordingManager.wordings.scanQRtitle {
+            return customScanQRSubtitle
+        }
+        
+        return I18n.Pairing.ScanQr.subtitle
+    }
+    
+    private func qrCodeError() -> String {
+        if let customQrCodeError = wordingManager.wordings.qrCodeError {
+            return customQrCodeError
+        }
+        
+        return I18n.UpdateWifi.qrCodeError
+    }
+    
+    private func actionTryAgain() -> String {
+        if let customTryAgain = wordingManager.wordings.tryAgainButton {
+            return customTryAgain
+        }
+        
+        return I18n.Pairing.Errors.actionTryAgain
     }
 }
 
