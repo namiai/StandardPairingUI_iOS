@@ -17,20 +17,20 @@ public struct OtherWiFiNetworkView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
+        DeviceSetupScreen(title: titleWording()) {
             VStack {
-                Text(I18n.Pairing.OtherWifiNetwork.header)
+                Text(otherWifiNetworkTitle())
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal])
-                Text(I18n.Pairing.OtherWifiNetwork.deviceConnectivityHint)
+                Text(deviceConnectivityHint())
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
                 NamiTextField(
-                    placeholder: I18n.Pairing.OtherWifiNetwork.networkNamePlaceholder,
+                    placeholder: networkNamePlaceholder(),
                     text: Binding(get: {
                         viewModel.state[keyPath: \.networkName]
                     }, set: { value in
@@ -52,7 +52,7 @@ public struct OtherWiFiNetworkView: View {
                     viewModel.state[keyPath: \.password] = value
                 })
                 NamiTextField(
-                    placeholder: I18n.Pairing.EnterWifiPassword.passwordPlaceholder,
+                    placeholder: passwordPlaceholder(),
                     text: passwordBinding,
                     isEditing: $passwordIsEditing,
                     returnKeyType: .done,
@@ -62,7 +62,7 @@ public struct OtherWiFiNetworkView: View {
                 .secureTextEntry(true)
                 .padding()
                 Spacer()
-                Button(I18n.Pairing.EnterWifiPassword.buttonReadyToConnect, action: { viewModel.send(event: .didConfirmName) })
+                Button(readyToConnectButton(), action: { viewModel.send(event: .didConfirmName) })
                     .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                     .disabled(viewModel.state.networkName.isEmpty)
                     .padding()
@@ -91,4 +91,52 @@ public struct OtherWiFiNetworkView: View {
     @State var nameIsEditing = false
     @State var passwordIsEditing = false
     @State var startedEditingFirstTime = false
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.Pairing.DeviceSetup.navigagtionTitle
+    }
+    
+    private func otherWifiNetworkTitle() -> String {
+        if let customString = wordingManager.wordings.otherWifiNetworkTitle {
+            return customString
+        }
+        
+        return I18n.Pairing.OtherWifiNetwork.header
+    }
+    
+    private func deviceConnectivityHint() -> String {
+        if let customString = wordingManager.wordings.deviceConnectivityHint {
+            return customString
+        }
+        
+        return I18n.Pairing.OtherWifiNetwork.deviceConnectivityHint
+    }
+    
+    private func networkNamePlaceholder() -> String {
+        if let customString = wordingManager.wordings.networkNamePlaceholder {
+            return customString
+        }
+        
+        return I18n.Pairing.OtherWifiNetwork.networkNamePlaceholder
+    }
+    
+    private func passwordPlaceholder() -> String {
+        if let customString = wordingManager.wordings.passwordPlaceholder {
+            return customString
+        }
+        
+        return I18n.Pairing.EnterWifiPassword.passwordPlaceholder
+    }
+    
+    private func readyToConnectButton() -> String {
+        if let customString = wordingManager.wordings.readyToConnectButton {
+            return customString
+        }
+        
+        return I18n.Pairing.EnterWifiPassword.buttonReadyToConnect
+    }
 }

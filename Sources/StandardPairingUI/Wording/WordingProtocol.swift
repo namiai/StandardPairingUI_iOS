@@ -39,7 +39,7 @@ import Foundation
     @objc optional var deviceFoundHeader2: String { get }
     /// "{device model} text"
     @objc optional var askToNameHeader: String { get }
-    @objc optional var namiDeviceExplained: String { get }
+    @objc optional var nameDeviceExplained: String { get }
     
     // MARK: - Ask to Connect View
     @objc optional var setUpAsBorderRouter: String { get }
@@ -47,6 +47,7 @@ import Foundation
     @objc optional var nonFirstThreadDeviceDescription1: String { get }
     @objc optional var nonFirstThreadDeviceDescription2: String { get }
     @objc optional var nonFirstThreadDeviceDescription3: String { get }
+    @objc optional var nonFirstWifiDeviceDescription1: String { get }
     @objc optional var wifiDeviceMetricDistanceDescription: String { get }
     @objc optional var wifiDeviceImperialDistanceDescription: String { get }
     @objc optional var firstThreadDeviceDescription1: String { get }
