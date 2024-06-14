@@ -16,24 +16,24 @@ public struct PowerOnAndScanningView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
+        DeviceSetupScreen(title: titleWording()) {
             VStack {
-                Text(I18n.Pairing.BluetoothDeviceFound.headerConnectToPower)
+                Text(headerConnectToPower())
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding([.horizontal, .top])
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
+                Text(explainedReadyToPair())
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
-                Text(I18n.Pairing.PowerOnAndScanning.scanning)
+                Text(scanning())
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
-                Text(I18n.Pairing.PowerOnAndScanning.askUserToWait)
+                Text(askUserToWait())
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
@@ -51,4 +51,46 @@ public struct PowerOnAndScanningView: View {
 
     @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.Pairing.DeviceSetup.navigagtionTitle
+    }
+    
+    private func headerConnectToPower() -> String {
+        if let customHeaderConnectToPower = wordingManager.wordings.headerConnectToPower {
+            return customHeaderConnectToPower
+        }
+        
+        return I18n.Pairing.BluetoothDeviceFound.headerConnectToPower
+    }
+    
+    private func explainedReadyToPair() -> String {
+        if let customExplainedReadyToPair = wordingManager.wordings.explainedReadyToPair {
+            return customExplainedReadyToPair
+        }
+        
+        return I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair
+    }
+    
+    private func scanning() -> String {
+        if let customScanning = wordingManager.wordings.scanning {
+            return customScanning
+        }
+        
+        return I18n.Pairing.PowerOnAndScanning.scanning
+    }
+    
+    private func askUserToWait() -> String {
+        if let customAskUserToWait = wordingManager.wordings.askUserToWait {
+            return customAskUserToWait
+        }
+        
+        return I18n.Pairing.PowerOnAndScanning.askUserToWait
+    }
+    
 }

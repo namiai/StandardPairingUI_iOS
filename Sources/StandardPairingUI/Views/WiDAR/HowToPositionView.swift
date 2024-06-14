@@ -20,9 +20,10 @@ public struct HowToPositionView: View {
 
     @ObservedObject var viewModel: HowToPosition.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
 
     public var body: some View {
-        DeviceSetupScreen(title: I18n.Widar.headerTitle) {
+        DeviceSetupScreen(title: titleWording()) {
             mainContent()
                 .padding()
         } leadingButtonsGroup: {
@@ -30,7 +31,7 @@ public struct HowToPositionView: View {
                 viewModel.send(.wantToDismiss)
             }
         } bottomButtonsGroup: {
-            Button(I18n.Widar.Recommendations.buttonText) {
+            Button(startPositioningButton()) {
                 viewModel.send(.startPositioningTapped)
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
@@ -45,12 +46,60 @@ public struct HowToPositionView: View {
         VStack {
             AnimationView(animation: \.widarPositioningRec)
 
-            Text(I18n.Widar.Recommendations.title, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
-            Text("∙ \(I18n.Widar.Recommendations.infoAttachBase)", font: themeManager.selectedTheme.paragraph1).fillWidth()
-            Text("∙ \(I18n.Widar.Recommendations.infoWireOnBack)", font: themeManager.selectedTheme.paragraph1).fillWidth()
-            Text("∙ \(I18n.Widar.Recommendations.infoKeepAreaClear)", font: themeManager.selectedTheme.paragraph1).fillWidth()
+            Text(recommendationsTitle(), font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
+            Text("∙ \(recommendationsInfoAttachBase())", font: themeManager.selectedTheme.paragraph1).fillWidth()
+            Text("∙ \(recommendationsInfoWireOnBack())", font: themeManager.selectedTheme.paragraph1).fillWidth()
+            Text("∙ \(recommendationsInfoKeepAreaClear())", font: themeManager.selectedTheme.paragraph1).fillWidth()
 
             Spacer()
         }
+    }
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.positioningNavigationTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.Widar.headerTitle
+    }
+    
+    private func recommendationsTitle() -> String {
+        if let customScanning = wordingManager.wordings.recommendationsTitle {
+            return customScanning
+        }
+        
+        return I18n.Widar.Recommendations.title
+    }
+    
+    private func recommendationsInfoAttachBase() -> String {
+        if let customString = wordingManager.wordings.recommendationsInfoAttachBase {
+            return customString
+        }
+        
+        return I18n.Widar.Recommendations.infoAttachBase
+    }
+    
+    private func recommendationsInfoWireOnBack() -> String {
+        if let customString = wordingManager.wordings.recommendationsInfoWireOnBack {
+            return customString
+        }
+        
+        return I18n.Widar.Recommendations.infoWireOnBack
+    }
+    
+    private func recommendationsInfoKeepAreaClear() -> String {
+        if let customString = wordingManager.wordings.recommendationsInfoKeepAreaClear {
+            return customString
+        }
+        
+        return I18n.Widar.Recommendations.infoKeepAreaClear
+    }
+    
+    private func startPositioningButton() -> String {
+        if let customString = wordingManager.wordings.startPositioningButton {
+            return customString
+        }
+        
+        return I18n.Widar.Recommendations.buttonText
     }
 }

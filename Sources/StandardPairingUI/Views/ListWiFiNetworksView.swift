@@ -18,14 +18,14 @@ public struct ListWiFiNetworksView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: I18n.Pairing.DeviceSetup.navigagtionTitle) {
+        DeviceSetupScreen(title: titleWording()) {
             VStack {
-                Text(I18n.Pairing.ListWifiNetworks.connectWifiTitle)
+                Text(connectWifiTitle())
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
-                Text(I18n.Pairing.ListWifiNetworks.selectNetwork)
+                Text(selectNetwork())
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -34,11 +34,11 @@ public struct ListWiFiNetworksView: View {
                 ScrollView {
                     HStack {
                         if viewModel.state.shouldShowNoNetworksHint {
-                            Text(I18n.Pairing.ListWifiNetworks.noNetworksFound)
+                            Text(networkNotFound())
                                 .font(themeManager.selectedTheme.headline5)
                                 .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
                         } else {
-                            Text(I18n.Pairing.ListWifiNetworks.availableNetworks)
+                            Text(availableNetworks())
                                 .font(themeManager.selectedTheme.headline5)
                                 .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
                         }
@@ -59,7 +59,7 @@ public struct ListWiFiNetworksView: View {
                                     VStack {
                                         WiFiNetworkRowView(network: network)
                                             .onTapGesture {
-                                                viewModel.send(event: .selectNetwofkAndConfirm(network))
+                                                viewModel.send(event: .selectNetworkAndConfirm(network))
                                             }
                                         if i < networks.count - 1 {
                                             Divider()
@@ -83,7 +83,7 @@ public struct ListWiFiNetworksView: View {
                 }
             }
         }
-        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel)
+        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel, wordingManager: wordingManager)
         .ignoresSafeArea(.keyboard)
     }
 
@@ -91,6 +91,7 @@ public struct ListWiFiNetworksView: View {
 
     @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
 
     // MARK: Private
 
@@ -110,5 +111,53 @@ public struct ListWiFiNetworksView: View {
         .onTapGesture {
             viewModel.send(event: .tappedOtherNetwork)
         }
+    }
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.Pairing.DeviceSetup.navigagtionTitle
+    }
+    
+    private func connectWifiTitle() -> String {
+        if let customString = wordingManager.wordings.connectWifiTitle {
+            return customString
+        }
+        
+        return I18n.Pairing.ListWifiNetworks.connectWifiTitle
+    }
+    
+    private func selectNetwork() -> String {
+        if let customString = wordingManager.wordings.selectNetwork {
+            return customString
+        }
+        
+        return I18n.Pairing.ListWifiNetworks.selectNetwork
+    }
+    
+    private func networkNotFound() -> String {
+        if let customString = wordingManager.wordings.networkNotFound {
+            return customString
+        }
+        
+        return I18n.Pairing.ListWifiNetworks.noNetworksFound
+    }
+    
+    private func availableNetworks() -> String {
+        if let customString = wordingManager.wordings.availableNetworks {
+            return customString
+        }
+        
+        return I18n.Pairing.ListWifiNetworks.availableNetworks
+    }
+    
+    private func otherNetworkButton() -> String {
+        if let customString = wordingManager.wordings.otherNetworkButton {
+            return customString
+        }
+        
+        return I18n.Pairing.ListWifiNetworks.buttonOtherNetwork
     }
 }
