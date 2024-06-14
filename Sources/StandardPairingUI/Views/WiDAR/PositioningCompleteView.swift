@@ -62,7 +62,7 @@ public struct PositioningCompleteView: View {
     
     private func sucessContentMessage() -> String {
         if let customString = wordingManager.wordings.sucessContentMessage {
-            return customString
+            return String.localizedStringWithFormat(customString, viewModel.state.deviceName)
         }
         
         return I18n.Widar.Success.contentMessage(viewModel.state.deviceName)

@@ -141,18 +141,18 @@ public struct PositioningGuidanceView: View {
 
     private func sheetContent() -> some View {
         VStack {
-            Text(I18n.Widar.CancelPopup.title)
+            Text(cancelPopupTitle())
                 .font(themeManager.selectedTheme.headline4)
-            Text(I18n.Widar.CancelPopup.message)
+            Text(cancelPopupMessage())
                 .font(themeManager.selectedTheme.paragraph1)
                 .padding()
-            Button(I18n.Widar.CancelPopup.backToPositioningButton) {
+            Button(cancelPopupBackToPositioningButton()) {
                 viewModel.send(.cancelViewDismissed)
             }
             .font(themeManager.selectedTheme.headline5)
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
             .anyView
-            Button(I18n.Widar.CancelPopup.cancelButton) {
+            Button(cancelPopupCancelButton()) {
                 viewModel.send(.confirmPositioningCancel)
             }
             .font(themeManager.selectedTheme.headline5)
@@ -265,5 +265,37 @@ public struct PositioningGuidanceView: View {
         }
         
         return I18n.Widar.Position.guideMetric
+    }
+    
+    private func cancelPopupTitle() -> String {
+        if let customString = wordingManager.wordings.cancelPopupTitle {
+            return customString
+        }
+        
+        return I18n.Widar.CancelPopup.title
+    }
+    
+    private func cancelPopupMessage() -> String {
+        if let customString = wordingManager.wordings.cancelPopupMessage {
+            return customString
+        }
+        
+        return I18n.Widar.CancelPopup.message
+    }
+    
+    private func cancelPopupBackToPositioningButton() -> String {
+        if let customString = wordingManager.wordings.cancelPopupBackToPositioningButton {
+            return customString
+        }
+        
+        return I18n.Widar.CancelPopup.backToPositioningButton
+    }
+    
+    private func cancelPopupCancelButton() -> String {
+        if let customString = wordingManager.wordings.cancelPopupCancelButton {
+            return customString
+        }
+        
+        return I18n.Widar.CancelPopup.cancelButton
     }
 }
