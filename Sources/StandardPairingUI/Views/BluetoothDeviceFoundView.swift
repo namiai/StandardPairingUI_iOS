@@ -117,7 +117,7 @@ public struct BluetoothDeviceFoundView: View {
     
     private func askToNameHeaderText(model: NamiDeviceModel) -> String {
         if let customString = wordingManager.wordings.askToNameHeader {
-            return customString
+            return String.localizedStringWithFormat(customString, model.productLabel.capitalized)
         }
         
         return I18n.Pairing.BluetoothDeviceFound.nameDeviceHeader(model.productLabel.capitalized)
@@ -132,7 +132,7 @@ public struct BluetoothDeviceFoundView: View {
     }
     
     private func nextButton() -> String {
-        if let customString = wordingManager.wordings.nextButton {
+        if let customString = wordingManager.wordings.next {
             return customString
         }
         

@@ -136,7 +136,7 @@ public struct AskToConnectView: View {
     
     private func nonFirstThreadDeviceDesc3() -> String {
         if let customString = wordingManager.wordings.nonFirstThreadDeviceDescription3 {
-            return customString
+            return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
         }
         
         return I18n.Pairing.AskToConnect.NonFirstThreadDevice.description3(viewModel.state.zoneName ?? "")
@@ -144,7 +144,7 @@ public struct AskToConnectView: View {
     
     private func nonFirstWifiDeviceDesc1() -> String {
         if let customString = wordingManager.wordings.nonFirstWifiDeviceDescription1 {
-            return customString
+            return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
         }
         
         return I18n.Pairing.AskToConnect.NonFirstWifiDevice.description1(viewModel.state.zoneName ?? "")
@@ -192,7 +192,7 @@ public struct AskToConnectView: View {
     
     private func firstWifiDeviceDescription1() -> String {
         if let customString = wordingManager.wordings.firstWifiDeviceDescription1 {
-            return customString
+            return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
         }
         
         return I18n.Pairing.AskToConnect.FirstWifiDevice.description1(viewModel.state.zoneName ?? "")
