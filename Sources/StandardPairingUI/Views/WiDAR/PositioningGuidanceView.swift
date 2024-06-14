@@ -43,14 +43,14 @@ public struct PositioningGuidanceView: View {
             }
         } bottomButtonsGroup: {
             VStack {
-                Button(I18n.Widar.Position.finishButton) {
+                Button(finishButtonText()) {
                     viewModel.send(.wantFinishTapped)
                 }
                 .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                 .disabled(viewModel.state.canNotFinish)
                 .anyView
 
-                Button(I18n.Widar.Position.cancelButton) {
+                Button(cancelButtonText()) {
                     viewModel.send(.wantCancelTapped)
                 }
                 .buttonStyle(themeManager.selectedTheme.tertiaryActionButtonStyle)
@@ -68,7 +68,7 @@ public struct PositioningGuidanceView: View {
 
     private func mainContent() -> some View {
         VStack {
-            Text(I18n.Widar.Position.title)
+            Text(positionGuidanceTitle())
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -76,11 +76,11 @@ public struct PositioningGuidanceView: View {
             
             switch measurementSystem {
             case .metric:
-                Text(I18n.Widar.Position.guideMetric, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                Text(guideMetric(), font: themeManager.selectedTheme.paragraph1).fillWidth()
             case .uk:
-                Text(I18n.Widar.Position.guideImperial, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                Text(guideImperial(), font: themeManager.selectedTheme.paragraph1).fillWidth()
             case .us:
-                Text(I18n.Widar.Position.guideImperial, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                Text(guideImperial(), font: themeManager.selectedTheme.paragraph1).fillWidth()
             }
             
 
@@ -99,28 +99,28 @@ public struct PositioningGuidanceView: View {
 
             RoundedRectContainerView {
                 VStack {
-                    Text(I18n.Widar.Position.statusLabel, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    Text(statusLabel(), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                     if viewModel.state.positioningState == .started {
                         HStack {
                             switch quality {
                             case .unknown:
                                 ProgressView().frame(width: 16, height: 16)
-                                Text(I18n.Widar.Position.statusChecking, font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
+                                Text(statusChecking(), font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
                             case .poor:
                                 Circle().fill(Color.red).frame(width: 16, height: 16)
-                                Text(I18n.Widar.Position.statusMispositioned, font: themeManager.selectedTheme.headline5).foregroundColor(colors.redAlert4)
+                                Text(statusMispositioned(), font: themeManager.selectedTheme.headline5).foregroundColor(colors.redAlert4)
                             case .degraded:
                                 Circle().fill(Color.yellow).frame(width: 16, height: 16)
-                                Text(I18n.Widar.Position.statusGettingBetter, font: themeManager.selectedTheme.headline5).foregroundColor(colors.lowAttentionAlert)
+                                Text(statusGettingBetter(), font: themeManager.selectedTheme.headline5).foregroundColor(colors.lowAttentionAlert)
                             case .good:
                                 Circle().fill(Color.green).frame(width: 16, height: 16)
-                                Text(I18n.Widar.Position.statusOptimized, font: themeManager.selectedTheme.headline5).foregroundColor(colors.success4)
+                                Text(statusOptimized(), font: themeManager.selectedTheme.headline5).foregroundColor(colors.success4)
                             }
                         }
                     } else {
                         HStack {
                             ProgressView().frame(width: 16, height: 16)
-                            Text("Establishing connection", font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
+                            Text(statusEstablishingConnection(), font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
                         }
                     }
                 }
@@ -130,7 +130,7 @@ public struct PositioningGuidanceView: View {
             VStack {
                 if quality == .degraded {
                     // TODO: Add this string to POEditor!
-                    Text(I18n.Widar.Position.tip, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    Text(positioningTip(), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                 }
             }
             .frame(height: 20)
