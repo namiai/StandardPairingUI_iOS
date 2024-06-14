@@ -117,11 +117,11 @@ public struct QRScannerView: View {
             HStack {
                 Image("Warning")
                     .frame(width: 32)
-                Text(I18n.UpdateWifi.qrCodeError)
+                Text(qrCodeError())
                     .font(themeManager.selectedTheme.headline4)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
             }
-            Text(qrCodeError())
+            Text(qrCodeMismatchError())
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
             Button(actionTryAgain()) {
@@ -150,7 +150,7 @@ public struct QRScannerView: View {
     }
     
     private func scanQRSubtitle() -> String {
-        if let customScanQRSubtitle = wordingManager.wordings.scanQRtitle {
+        if let customScanQRSubtitle = wordingManager.wordings.scanQRsubtitle {
             return customScanQRSubtitle
         }
         
@@ -163,6 +163,14 @@ public struct QRScannerView: View {
         }
         
         return I18n.UpdateWifi.qrCodeError
+    }
+    
+    private func qrCodeMismatchError() -> String { 
+        if let customQrCodeError = wordingManager.wordings.qrCodeMismatchError {
+            return customQrCodeError
+        }
+        
+        return I18n.UpdateWifi.notNamiQrCodeNoZone
     }
     
     private func actionTryAgain() -> String {
