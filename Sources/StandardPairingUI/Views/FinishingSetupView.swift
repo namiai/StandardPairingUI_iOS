@@ -28,6 +28,7 @@ public struct FinishingSetupView: View {
             .padding(.bottom)
             .ignoresSafeArea(.keyboard)
         }
+        .allowSwipeBackNavigation(false)
     }
     
     @EnvironmentObject private var themeManager: ThemeManager

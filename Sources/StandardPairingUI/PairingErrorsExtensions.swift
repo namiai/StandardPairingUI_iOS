@@ -4,6 +4,7 @@ import Foundation
 import I18n
 import NamiProto
 import Tomonari
+import SharedAssets
 
 // Upper level of matryoshka.
 public extension Pairing.Error {
@@ -21,6 +22,7 @@ public extension Pairing.Error {
                     break
                 }
             }
+            
             if let error = error as? Pairing.ThreadError {
                 switch error {
                 case .threadOperationalDatasetMissing:
@@ -28,6 +30,10 @@ public extension Pairing.Error {
                 case .threadNetworkNotFound:
                     return I18n.errorsPairingThreadSetupErrorThreadNetworkNotFound
                 }
+            }
+            
+            if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
+                return I18n.Errors.PairingMachine.notSupportDevcieTypeTitle
             }
         }
         return I18n.pairingErrorsErrorOccurredTitle
@@ -49,6 +55,20 @@ public extension Pairing.Error {
             return error.localizedDescription
         }
     }
+    
+    var FAQLink: String? {
+        if case let .underlying(error) = self {
+            if let error = error as? Pairing.ThreadError {
+                switch error {
+                case .threadNetworkNotFound:
+                    return URLLinks.FAQNotConnectToThread
+                default:
+                    return nil
+                }
+            }
+        }
+        return nil
+    }
 }
 
 extension PairingMachineError {
@@ -68,6 +88,8 @@ extension PairingMachineError {
             return I18n.errorsPairingMachineDeserializationError
         case .encryptionError:
             return I18n.errorsPairingMachineEncryptionError
+        case let .notSupportDeviceType(deviceTypes):
+            return I18n.Errors.PairingMachine.notSupportDevcieTypeDescription
         }
     }
 }
@@ -88,6 +110,11 @@ extension Pairing_Error {
             return I18n.errorsPairingErrorDeviceWifiJoinPasswordError
         case .wifiJoinIpError:
             return I18n.errorsPairingErrorDeviceWifiJoinIpError
+        case .threadJoinError:
+            return I18n.Errors.PairingErrorDevice.threadJoinErrorDescription1
+            + "\n\n"
+            // TODO: input zone name later
+            + I18n.Errors.PairingErrorDevice.threadJoinErrorDescription2("")
         default:
             return I18n.errorsPairingErrorDeviceUnknownUnrecognized
         }
@@ -102,6 +129,13 @@ extension Pairing.ThreadError {
             return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing
         case .threadNetworkNotFound:
             return I18n.errorsPairingThreadSetupErrorThreadNetworkNotFound
+        case let .threadNetworkNotFound(zoneName, deviceType):
+            switch deviceType {
+            case .contactSensor:
+                return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound_contactsensor(zoneName)
+            default:
+                return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound_general(zoneName)
+            }
         }
     }
 }

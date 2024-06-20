@@ -30,6 +30,12 @@ public struct BluetoothDeviceFoundView: View {
         .onAppear {
             deviceName = viewModel.state.deviceName
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+            self.isKeyboardAppeared = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+            self.isKeyboardAppeared = false
+        }
     }
 
     // MARK: Internal
@@ -40,6 +46,7 @@ public struct BluetoothDeviceFoundView: View {
     @EnvironmentObject private var wordingManager: WordingManager
 
     // MARK: Private
+    @SwiftUI.State private var isKeyboardAppeared: Bool = false
 
     private func deviceDiscovered() -> some View {
         VStack {
@@ -86,7 +93,8 @@ public struct BluetoothDeviceFoundView: View {
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
             .disabled(deviceName.isEmpty)
-            .padding([.bottom, .horizontal])
+            .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
+            .padding(.horizontal)
             .anyView
         }
     }
