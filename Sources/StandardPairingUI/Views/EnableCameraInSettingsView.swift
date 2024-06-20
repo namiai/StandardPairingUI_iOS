@@ -57,7 +57,7 @@ public struct EnableCameraInSettingsView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func scanQRTitle() -> String {
@@ -65,7 +65,7 @@ public struct EnableCameraInSettingsView: View {
             return customScanQRTitle
         }
         
-        return I18n.Pairing.ScanQr.title
+        return I18n.pairingScanQrTitle
     }
     
     private func scanQRSubtitle() -> String {
@@ -73,7 +73,7 @@ public struct EnableCameraInSettingsView: View {
             return customScanQRSubtitle
         }
         
-        return I18n.Pairing.ScanQr.subtitle
+        return I18n.pairingScanQrSubtitle
     }
     
     private func missingCameraPermissionTitle() -> String {
@@ -81,7 +81,7 @@ public struct EnableCameraInSettingsView: View {
             return customWording
         }
         
-        return I18n.Pairing.ScanQrcode.MissingCameraPermission.title
+        return I18n.pairingScanQrcodeMissingCameraPermissionTitle
     }
     
     private func missingCameraPermissionDescription() -> String {
@@ -89,7 +89,7 @@ public struct EnableCameraInSettingsView: View {
             return customWording
         }
         
-        return I18n.Pairing.ScanQrcode.MissingCameraPermission.description
+        return I18n.pairingScanQrcodeMissingCameraPermissionDescription
     }
     
     private func openSettings() -> String {
@@ -97,6 +97,6 @@ public struct EnableCameraInSettingsView: View {
             return customWording
         }
         
-        return I18n.Pairing.EnableBluetoothInSettings.buttonSettings
+        return I18n.pairingEnableBluetoothInSettingsButtonSettings
     }
 }

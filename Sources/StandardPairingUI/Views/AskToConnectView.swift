@@ -44,7 +44,7 @@ public struct AskToConnectView: View {
                 }
                 .padding()
                 Spacer()
-                Button(I18n.General.next, action: { viewModel.send(event: .tapNext) })
+                Button(nextButtonTitle(), action: { viewModel.send(event: .tapNext) })
                     .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                     .disabled(viewModel.state.nextTapped)
                     .padding()
@@ -68,9 +68,9 @@ public struct AskToConnectView: View {
         switch (devicesCount > 0, hasThread) {
         // First, Thread.
         case (false, true):
-            return wordingManager.wordings.setUpAsBorderRouter != nil ? wordingManager.wordings.setUpAsBorderRouter! : I18n.Pairing.ConnectWifi.setUpAsBorderRouter
+            return wordingManager.wordings.setUpAsBorderRouter != nil ? wordingManager.wordings.setUpAsBorderRouter! : I18n.pairingConnectWifiSetUpAsBorderRouter
         default:
-            return wordingManager.wordings.settingUpThisDevice != nil ? wordingManager.wordings.settingUpThisDevice! : I18n.Pairing.ConnectWifi.settingUpThisDevice
+            return wordingManager.wordings.settingUpThisDevice != nil ? wordingManager.wordings.settingUpThisDevice! : I18n.pairingConnectWifiSettingUpThisDevice
         }
     }
 
@@ -115,7 +115,15 @@ public struct AskToConnectView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
+    }
+    
+    private func nextButtonTitle() -> String {
+        if let customString = wordingManager.wordings.next {
+            return customString
+        }
+        
+        return I18n.generalNext
     }
     
     private func nonFirstThreadDeviceDesc1() -> String {
@@ -123,7 +131,7 @@ public struct AskToConnectView: View {
             return customString
         }
         
-        return I18n.Pairing.AskToConnect.NonFirstThreadDevice.description1
+        return I18n.pairingAskToConnectNonFirstThreadDeviceDescription1
     }
     
     private func nonFirstThreadDeviceDesc2() -> String {
@@ -131,7 +139,7 @@ public struct AskToConnectView: View {
             return customString
         }
         
-        return I18n.Pairing.AskToConnect.NonFirstThreadDevice.description2
+        return I18n.pairingAskToConnectNonFirstThreadDeviceDescription2
     }
     
     private func nonFirstThreadDeviceDesc3() -> String {
@@ -139,7 +147,7 @@ public struct AskToConnectView: View {
             return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
         }
         
-        return I18n.Pairing.AskToConnect.NonFirstThreadDevice.description3(viewModel.state.zoneName ?? "")
+        return I18n.pairingAskToConnectNonFirstThreadDeviceDescription3(viewModel.state.zoneName ?? "")
     }
     
     private func nonFirstWifiDeviceDesc1() -> String {
@@ -147,7 +155,7 @@ public struct AskToConnectView: View {
             return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
         }
         
-        return I18n.Pairing.AskToConnect.NonFirstWifiDevice.description1(viewModel.state.zoneName ?? "")
+        return I18n.pairingAskToConnectNonFirstWifiDeviceDescription1(viewModel.state.zoneName ?? "")
     }
     
     private func wifiDeviceMetricDistanceDescription() -> String {
@@ -155,7 +163,7 @@ public struct AskToConnectView: View {
             return customString
         }
         
-        return I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description
+        return I18n.pairingAskToConnectWifiDeviceMetricDistanceDescription
     }
     
     private func wifiDeviceImperialDistanceDescription() -> String {
@@ -163,7 +171,7 @@ public struct AskToConnectView: View {
             return customString
         }
         
-        return I18n.Pairing.AskToConnect.WifiDeviceImperialDistance.description
+        return I18n.pairingAskToConnectWifiDeviceImperialDistanceDescription
     }
     
     private func firstThreadDeviceDescription1() -> String {
@@ -171,7 +179,7 @@ public struct AskToConnectView: View {
             return customString
         }
         
-        return I18n.Pairing.AskToConnect.FirstThreadDevice.description1
+        return I18n.pairingAskToConnectFirstThreadDeviceDescription1
     }
     
     private func firstThreadDeviceDescription2() -> String {
@@ -179,7 +187,7 @@ public struct AskToConnectView: View {
             return customString
         }
         
-        return I18n.Pairing.AskToConnect.FirstThreadDevice.description2
+        return I18n.pairingAskToConnectFirstThreadDeviceDescription2
     }
     
     private func firstThreadDeviceDescription3() -> String {
@@ -187,7 +195,7 @@ public struct AskToConnectView: View {
             return customString
         }
         
-        return I18n.Pairing.AskToConnect.FirstThreadDevice.description3
+        return I18n.pairingAskToConnectFirstThreadDeviceDescription3
     }
     
     private func firstWifiDeviceDescription1() -> String {
@@ -195,7 +203,7 @@ public struct AskToConnectView: View {
             return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
         }
         
-        return I18n.Pairing.AskToConnect.FirstWifiDevice.description1(viewModel.state.zoneName ?? "")
+        return I18n.pairingAskToConnectFirstWifiDeviceDescription1(viewModel.state.zoneName ?? "")
     }
     
     private func firstWifiDeviceDescription2() -> String {
@@ -203,6 +211,6 @@ public struct AskToConnectView: View {
             return customString
         }
         
-        return I18n.Pairing.AskToConnect.FirstWifiDevice.description2
+        return I18n.pairingAskToConnectFirstWifiDeviceDescription2
     }
 }

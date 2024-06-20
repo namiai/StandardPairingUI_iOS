@@ -84,7 +84,7 @@ public struct EnterWiFiPasswordView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func enterPassword() -> String {
@@ -92,7 +92,7 @@ public struct EnterWiFiPasswordView: View {
             return customString
         }
         
-        return I18n.Pairing.EnterWifiPassword.enterPassword
+        return I18n.pairingEnterWifiPasswordEnterPassword
     }
     
     private func enterPasswordHeader() -> String {
@@ -100,7 +100,7 @@ public struct EnterWiFiPasswordView: View {
             return customString
         }
         
-        return I18n.Pairing.EnterWifiPassword.header(viewModel.state.networkName)
+        return I18n.pairingEnterWifiPasswordHeader(viewModel.state.networkName)
     }
     
     private func passwordFieldPlaceholder() -> String {
@@ -108,7 +108,7 @@ public struct EnterWiFiPasswordView: View {
             return customString
         }
         
-        return I18n.Pairing.EnterWifiPassword.passwordPlaceholder
+        return I18n.pairingEnterWifiPasswordPasswordPlaceholder
     }
     
     private func passwordFieldHint() -> String {
@@ -116,7 +116,7 @@ public struct EnterWiFiPasswordView: View {
             return customString
         }
         
-        return I18n.Pairing.EnterWifiPassword.passwordEntryFieldHint
+        return I18n.pairingEnterWifiPasswordPasswordEntryFieldHint
     }
     
     private func buttonReadyToConnect() -> String {
@@ -124,7 +124,7 @@ public struct EnterWiFiPasswordView: View {
             return customString
         }
         
-        return I18n.Pairing.EnterWifiPassword.buttonReadyToConnect
+        return I18n.pairingEnterWifiPasswordButtonReadyToConnect
     }
     
 }

@@ -99,7 +99,7 @@ public struct ListWiFiNetworksView: View {
         RoundedRectContainerView {
             HStack {
                 Spacer().frame(width: 24, height: 24)
-                Text(I18n.Pairing.ListWifiNetworks.buttonOtherNetwork)
+                Text(I18n.pairingListWifiNetworksButtonOtherNetwork)
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(Color.black)
                     .lineLimit(1)
@@ -118,7 +118,7 @@ public struct ListWiFiNetworksView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func connectWifiTitle() -> String {
@@ -126,7 +126,7 @@ public struct ListWiFiNetworksView: View {
             return customString
         }
         
-        return I18n.Pairing.ListWifiNetworks.connectWifiTitle
+        return I18n.pairingListWifiNetworksConnectWifiTitle
     }
     
     private func selectNetwork() -> String {
@@ -134,7 +134,7 @@ public struct ListWiFiNetworksView: View {
             return customString
         }
         
-        return I18n.Pairing.ListWifiNetworks.selectNetwork
+        return I18n.pairingListWifiNetworksSelectNetwork
     }
     
     private func networkNotFound() -> String {
@@ -142,7 +142,7 @@ public struct ListWiFiNetworksView: View {
             return customString
         }
         
-        return I18n.Pairing.ListWifiNetworks.noNetworksFound
+        return I18n.pairingListWifiNetworksNoNetworksFound
     }
     
     private func availableNetworks() -> String {
@@ -150,7 +150,7 @@ public struct ListWiFiNetworksView: View {
             return customString
         }
         
-        return I18n.Pairing.ListWifiNetworks.availableNetworks
+        return I18n.pairingListWifiNetworksAvailableNetworks
     }
     
     private func otherNetworkButton() -> String {
@@ -158,6 +158,6 @@ public struct ListWiFiNetworksView: View {
             return customString
         }
         
-        return I18n.Pairing.ListWifiNetworks.buttonOtherNetwork
+        return I18n.pairingListWifiNetworksButtonOtherNetwork
     }
 }

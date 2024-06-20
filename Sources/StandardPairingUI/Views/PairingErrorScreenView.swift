@@ -25,7 +25,7 @@ public struct PairingErrorScreenView: View {
                 .frame(width: 128, height: 128)
             // TODO: Switch to use `viewModel.state.error.errorMessageTitle` when there's the values for it in I18n but not hardcoded strings.
             // The preparation is done in `PairingErrorsExtensions`.
-            Text(I18n.Pairing.Errors.errorOccurredTitle)
+            Text(errorOccurredTitle())
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -80,7 +80,7 @@ public struct PairingErrorScreenView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func errorOccurredTitle() -> String {
@@ -88,7 +88,7 @@ public struct PairingErrorScreenView: View {
             return customScanning
         }
         
-        return I18n.Pairing.Errors.errorOccurredTitle
+        return I18n.pairingErrorsErrorOccurredTitle
     }
     
     private func tryAgainActionTitle() -> String {
@@ -96,7 +96,7 @@ public struct PairingErrorScreenView: View {
             return customScanning
         }
         
-        return I18n.Pairing.Errors.actionTryAgain
+        return I18n.pairingErrorsActionTryAgain
     }
     
     private func restartActionTitle() -> String {
@@ -104,7 +104,7 @@ public struct PairingErrorScreenView: View {
             return customScanning
         }
         
-        return I18n.Pairing.Errors.actionRestart
+        return I18n.pairingErrorsActionRestart
     }
     
     private func ignoreActionTitle() -> String {
@@ -112,6 +112,6 @@ public struct PairingErrorScreenView: View {
             return customScanning
         }
         
-        return I18n.Pairing.Errors.actionIgnore
+        return I18n.pairingErrorsActionIgnore
     }
 }

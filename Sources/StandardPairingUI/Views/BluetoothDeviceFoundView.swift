@@ -96,7 +96,7 @@ public struct BluetoothDeviceFoundView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func deviceFoundHeader1() -> String {
@@ -104,7 +104,7 @@ public struct BluetoothDeviceFoundView: View {
             return customString
         }
         
-        return I18n.Pairing.BluetoothDeviceFound.header1
+        return I18n.pairingBluetoothDeviceFoundHeader1
     }
     
     private func deviceFoundHeader2() -> String {
@@ -112,7 +112,7 @@ public struct BluetoothDeviceFoundView: View {
             return customString
         }
         
-        return I18n.Pairing.BluetoothDeviceFound.header2
+        return I18n.pairingBluetoothDeviceFoundHeader2
     }
     
     private func askToNameHeaderText(model: NamiDeviceModel) -> String {
@@ -120,7 +120,7 @@ public struct BluetoothDeviceFoundView: View {
             return String.localizedStringWithFormat(customString, model.productLabel.capitalized)
         }
         
-        return I18n.Pairing.BluetoothDeviceFound.nameDeviceHeader(model.productLabel.capitalized)
+        return I18n.pairingBluetoothDeviceFoundNameDeviceHeader(model.productLabel.capitalized)
     }
     
     private func nameDeviceExplained() -> String {
@@ -128,7 +128,7 @@ public struct BluetoothDeviceFoundView: View {
             return customString
         }
         
-        return I18n.Pairing.BluetoothDeviceFound.nameDeviceExplained
+        return I18n.pairingBluetoothDeviceFoundNameDeviceExplained
     }
     
     private func nextButton() -> String {
@@ -136,6 +136,6 @@ public struct BluetoothDeviceFoundView: View {
             return customString
         }
         
-        return I18n.Pairing.BluetoothDeviceFound.nextButton
+        return I18n.pairingBluetoothDeviceFoundNextButton
     }
 }

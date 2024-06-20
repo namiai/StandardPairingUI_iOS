@@ -60,7 +60,7 @@ public struct HowToPositionView: View {
             return customNavigationTitle
         }
         
-        return I18n.Widar.headerTitle
+        return I18n.widarHeaderTitle
     }
     
     private func recommendationsTitle() -> String {
@@ -68,7 +68,7 @@ public struct HowToPositionView: View {
             return customScanning
         }
         
-        return I18n.Widar.Recommendations.title
+        return I18n.widarRecommendationsTitle
     }
     
     private func recommendationsInfoAttachBase() -> String {
@@ -76,7 +76,7 @@ public struct HowToPositionView: View {
             return customString
         }
         
-        return I18n.Widar.Recommendations.infoAttachBase
+        return I18n.widarRecommendationsInfoAttachBase
     }
     
     private func recommendationsInfoWireOnBack() -> String {
@@ -84,7 +84,7 @@ public struct HowToPositionView: View {
             return customString
         }
         
-        return I18n.Widar.Recommendations.infoWireOnBack
+        return I18n.widarRecommendationsInfoWireOnBack
     }
     
     private func recommendationsInfoKeepAreaClear() -> String {
@@ -92,7 +92,7 @@ public struct HowToPositionView: View {
             return customString
         }
         
-        return I18n.Widar.Recommendations.infoKeepAreaClear
+        return I18n.widarRecommendationsInfoKeepAreaClear
     }
     
     private func startPositioningButton() -> String {
@@ -100,6 +100,6 @@ public struct HowToPositionView: View {
             return customString
         }
         
-        return I18n.Widar.Recommendations.buttonText
+        return I18n.widarRecommendationsButtonText
     }
 }

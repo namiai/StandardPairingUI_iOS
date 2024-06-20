@@ -38,7 +38,7 @@ public struct FinishingSetupView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func finishingSetupHeader() -> String {
@@ -46,7 +46,7 @@ public struct FinishingSetupView: View {
             return customScanning
         }
         
-        return I18n.Pairing.FinishingSetup.header
+        return I18n.pairingFinishingSetupHeader
     }
     
     private func gameOfPongText() -> String {
@@ -54,6 +54,6 @@ public struct FinishingSetupView: View {
             return customScanning
         }
         
-        return I18n.Pairing.FinishingSetup.gameOfPong
+        return I18n.pairingFinishingSetupGameOfPong
     }
 }

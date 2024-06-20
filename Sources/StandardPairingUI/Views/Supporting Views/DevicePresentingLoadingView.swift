@@ -47,7 +47,7 @@ struct DevicePresentingLoadingView: View {
             return String.localizedStringWithFormat(customWording, deviceName)
         }
         
-        return I18n.Pairing.LoadingDevice.connecting(deviceName)
+        return I18n.pairingLoadingDeviceConnecting(deviceName)
     }
 }
 

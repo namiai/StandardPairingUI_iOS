@@ -12,11 +12,11 @@ public extension Pairing.Error {
             if let error = error as? PairingMachineError, case let .pairingError(e) = error {
                 switch e.error {
                 case .wifiScanError:
-                    return "The device could not find any available Wi-Fi networks"
+                    return I18n.errorsPairingErrorDeviceWifiScanError
                 case .wifiJoinError:
-                    return "The device could not join the select Wi-Fi network"
+                    return I18n.errorsPairingErrorDeviceWifiJoinIpError
                 case .wifiJoinPasswordError:
-                    return "The password for the selected Wi-Fi network was rejected by the router"
+                    return I18n.errorsPairingErrorDeviceWifiJoinPasswordError
                 default:
                     break
                 }
@@ -24,13 +24,13 @@ public extension Pairing.Error {
             if let error = error as? Pairing.ThreadError {
                 switch error {
                 case .threadOperationalDatasetMissing:
-                    return "Thread network credentials are not found as user is using a different mobile device"
+                    return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing
                 case .threadNetworkNotFound:
-                    return "Device is unable to find the selected Thread network or is too far from the Thread network"
+                    return I18n.errorsPairingThreadSetupErrorThreadNetworkNotFound
                 }
             }
         }
-        return I18n.Pairing.Errors.errorOccurredTitle
+        return I18n.pairingErrorsErrorOccurredTitle
     }
 
     var localizedDescription: String {
@@ -55,19 +55,19 @@ extension PairingMachineError {
     var localizedDescription: String {
         switch self {
         case .unexpectedState:
-            return I18n.Errors.PairingMachine.unexpectedState
+            return I18n.errorsPairingMachineUnexpectedState
         case .unexpectedMessage:
-            return I18n.Errors.PairingMachine.unexpectedMessage
+            return I18n.errorsPairingMachineUnexpectedMessage
         case .seanceError:
-            return I18n.Errors.PairingMachine.seanceError
+            return I18n.errorsPairingMachineSeanceError
         case let .pairingError(pairingError): // Pairing_Error.
             return pairingError.localizedDescription
         case .serializationError:
-            return I18n.Errors.PairingMachine.serializationError
+            return I18n.errorsPairingMachineSerializationError
         case .deserializationError:
-            return I18n.Errors.PairingMachine.deserializationError
+            return I18n.errorsPairingMachineDeserializationError
         case .encryptionError:
-            return I18n.Errors.PairingMachine.encryptionError
+            return I18n.errorsPairingMachineEncryptionError
         }
     }
 }
@@ -77,19 +77,19 @@ extension Pairing_Error {
     var localizedDescription: String {
         switch error {
         case .secureSessionError:
-            return I18n.Errors.PairingErrorDevice.secureSessionError
+            return I18n.errorsPairingErrorDeviceSecureSessionError
         case .cloudChallengeError:
-            return I18n.Errors.PairingErrorDevice.cloudChallengeError
+            return I18n.errorsPairingErrorDeviceCloudChallengeError
         case .wifiScanError:
-            return I18n.Errors.PairingErrorDevice.wifiScanError
+            return I18n.errorsPairingErrorDeviceWifiScanError
         case .wifiJoinError:
-            return I18n.Errors.PairingErrorDevice.wifiJoinError
+            return I18n.errorsPairingErrorDeviceWifiJoinError
         case .wifiJoinPasswordError:
-            return I18n.Errors.PairingErrorDevice.wifiJoinPasswordError
+            return I18n.errorsPairingErrorDeviceWifiJoinPasswordError
         case .wifiJoinIpError:
-            return I18n.Errors.PairingErrorDevice.wifiJoinIpError
+            return I18n.errorsPairingErrorDeviceWifiJoinIpError
         default:
-            return I18n.Errors.PairingErrorDevice.unknownUnrecognized
+            return I18n.errorsPairingErrorDeviceUnknownUnrecognized
         }
     }
 }
@@ -99,9 +99,9 @@ extension Pairing.ThreadError {
         // TODO: Add errors from I18n.
         switch self {
         case .threadOperationalDatasetMissing:
-            return I18n.Errors.PairingThreadSetupError.threadOperationalDatasetMissing
+            return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing
         case .threadNetworkNotFound:
-            return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound
+            return I18n.errorsPairingThreadSetupErrorThreadNetworkNotFound
         }
     }
 }

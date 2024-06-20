@@ -58,7 +58,7 @@ public struct PowerOnAndScanningView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func headerConnectToPower() -> String {
@@ -66,7 +66,7 @@ public struct PowerOnAndScanningView: View {
             return customHeaderConnectToPower
         }
         
-        return I18n.Pairing.BluetoothDeviceFound.headerConnectToPower
+        return I18n.pairingBluetoothDeviceFoundHeaderConnectToPower
     }
     
     private func explainedReadyToPair() -> String {
@@ -74,7 +74,7 @@ public struct PowerOnAndScanningView: View {
             return customExplainedReadyToPair
         }
         
-        return I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair
+        return I18n.pairingBluetoothDeviceFoundExplainedReadyToPair
     }
     
     private func scanning() -> String {
@@ -82,7 +82,7 @@ public struct PowerOnAndScanningView: View {
             return customScanning
         }
         
-        return I18n.Pairing.PowerOnAndScanning.scanning
+        return I18n.pairingPowerOnAndScanningScanning
     }
     
     private func askUserToWait() -> String {
@@ -90,7 +90,7 @@ public struct PowerOnAndScanningView: View {
             return customAskUserToWait
         }
         
-        return I18n.Pairing.PowerOnAndScanning.askUserToWait
+        return I18n.pairingPowerOnAndScanningAskUserToWait
     }
     
 }
