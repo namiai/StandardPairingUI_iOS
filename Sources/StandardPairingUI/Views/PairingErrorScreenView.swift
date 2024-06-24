@@ -42,12 +42,12 @@ public struct PairingErrorScreenView: View {
                 .padding(.top, 4)
             if let urlLink = viewModel.state.error.FAQLink {
                 if #available(iOS 15, *) {
-                    NamiTextHyperLink(text: I18n.Errors.PairingMachine.needHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                    NamiTextHyperLink(text: I18n.pairingErrorsNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
                         .font(NamiTextStyle.paragraph1.font)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.horizontal)
                 } else {
-                    NamiTextHyperLinkLegacy(text: I18n.Errors.PairingMachine.needHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                    NamiTextHyperLinkLegacy(text: I18n.pairingErrorsNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
                         .font(NamiTextStyle.paragraph1.font)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.horizontal)
@@ -92,7 +92,7 @@ public struct PairingErrorScreenView: View {
         case .restart:
             if case let .underlying(error) = viewModel.state.error {
                 if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
-                    return I18n.Pairing.Errors.actionRestartSetup
+                    return I18n.pairingErrorsActionRestartSetup
                 }
             } 
             
@@ -100,7 +100,8 @@ public struct PairingErrorScreenView: View {
         case .ignore:
             return ignoreActionTitle()
         case .exit:
-            return I18n.Pairing.Errors.actionExitSetup
+            return I18n.pairingExitSetup
+
         }
     }
     

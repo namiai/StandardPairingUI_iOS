@@ -80,6 +80,14 @@ public struct PowerOnAndScanningView: View {
         return I18n.pairingPowerOnAndScanningAskUserToWait
     }
     
+    private func headerContactSensor() -> String { 
+        if let customString = wordingManager.wordings.headerContactSensor {
+            return customString
+        }
+        
+        return I18n.pairingScanningBleHeaderContactSensor
+    }
+    
     @ViewBuilder
     private func GeneralDeviceTypeScanning() -> some View {
         VStack {
@@ -114,13 +122,13 @@ public struct PowerOnAndScanningView: View {
     @ViewBuilder
     private func ContactSensorDeviceTypeScanning() -> some View {
         VStack {
-            Text(I18n.Pairing.BluetoothDeviceFound.headerContactSensor)
+            Text(I18n.pairingScanningBleHeaderContactSensor)
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text(I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair)
+            Text(explainedReadyToPair())
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
@@ -131,12 +139,12 @@ public struct PowerOnAndScanningView: View {
                 .padding(.top, 16)
                 .padding(.bottom, 16)
             
-            Text(I18n.Pairing.PowerOnAndScanning.scanning)
+            Text(scanning())
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
             
-            Text(I18n.Pairing.PowerOnAndScanning.askUserToWait)
+            Text(askUserToWait())
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
@@ -147,13 +155,13 @@ public struct PowerOnAndScanningView: View {
             }
             Spacer()
             if #available(iOS 15, *) {
-                NamiTextHyperLink(text: I18n.Pairing.BluetoothDeviceFound.FAQContactSensor, link: URLLinks.FAQNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
+                NamiTextHyperLink(text: I18n.pairingScanningBleFaq, link: URLLinks.FAQNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
                     .padding(.bottom, 16)
             } else {
-                NamiTextHyperLinkLegacy(text: I18n.Pairing.BluetoothDeviceFound.FAQContactSensor, link: URLLinks.FAQNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
+                NamiTextHyperLinkLegacy(text: I18n.pairingScanningBleFaq, link: URLLinks.FAQNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)

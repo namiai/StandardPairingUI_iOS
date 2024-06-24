@@ -33,7 +33,7 @@ public extension Pairing.Error {
             }
             
             if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
-                return I18n.Errors.PairingMachine.notSupportDevcieTypeTitle
+                return I18n.pairingErrorsThreadSetupErrorDeviceMismatchTitle
             }
         }
         return I18n.pairingErrorsErrorOccurredTitle
@@ -89,7 +89,7 @@ extension PairingMachineError {
         case .encryptionError:
             return I18n.errorsPairingMachineEncryptionError
         case let .notSupportDeviceType(deviceTypes):
-            return I18n.Errors.PairingMachine.notSupportDevcieTypeDescription
+            return I18n.pairingErrorsThreadSetupErrorDeviceMismatchDescription
         }
     }
 }
@@ -111,10 +111,10 @@ extension Pairing_Error {
         case .wifiJoinIpError:
             return I18n.errorsPairingErrorDeviceWifiJoinIpError
         case .threadJoinError:
-            return I18n.Errors.PairingErrorDevice.threadJoinErrorDescription1
+            return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription1
             + "\n\n"
             // TODO: input zone name later
-            + I18n.Errors.PairingErrorDevice.threadJoinErrorDescription2("")
+            + I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription2("")
         default:
             return I18n.errorsPairingErrorDeviceUnknownUnrecognized
         }
@@ -127,14 +127,12 @@ extension Pairing.ThreadError {
         switch self {
         case .threadOperationalDatasetMissing:
             return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing
-        case .threadNetworkNotFound:
-            return I18n.errorsPairingThreadSetupErrorThreadNetworkNotFound
         case let .threadNetworkNotFound(zoneName, deviceType):
             switch deviceType {
             case .contactSensor:
-                return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound_contactsensor(zoneName)
+                return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription1(zoneName)
             default:
-                return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound_general(zoneName)
+                return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName)
             }
         }
     }
