@@ -4,6 +4,7 @@ import I18n
 import SwiftUI
 import Tomonari
 import NamiSharedUIElements
+import SharedAssets
 
 // MARK: - PairingErrorScreenView
 
@@ -15,17 +16,19 @@ public struct PairingErrorScreenView: View {
     }
 
     // MARK: Public
+    
+    @Environment(\.colors) var colors: Colors
 
     public var body: some View {
         DeviceSetupScreen(title: titleWording()) {
             Spacer()
-            Image("Warning")
+            Image("warning-alert")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 128, height: 128)
             // TODO: Switch to use `viewModel.state.error.errorMessageTitle` when there's the values for it in I18n but not hardcoded strings.
             // The preparation is done in `PairingErrorsExtensions`.
-            Text(I18n.Pairing.Errors.errorOccurredTitle)
+            Text(errorOccurredTitle())
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -37,6 +40,19 @@ public struct PairingErrorScreenView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.horizontal)
                 .padding(.top, 4)
+            if let urlLink = viewModel.state.error.FAQLink {
+                if #available(iOS 15, *) {
+                    NamiTextHyperLink(text: I18n.pairingErrorsNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                        .font(NamiTextStyle.paragraph1.font)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.horizontal)
+                } else {
+                    NamiTextHyperLinkLegacy(text: I18n.pairingErrorsNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                        .font(NamiTextStyle.paragraph1.font)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.horizontal)
+                }
+            }
             Spacer()
             VStack {
                 if viewModel.state.actions.isEmpty == false {
@@ -45,6 +61,7 @@ public struct PairingErrorScreenView: View {
             }
             .padding()
         }
+        .allowSwipeBackNavigation(false)
     }
 
     // MARK: Internal
@@ -56,11 +73,15 @@ public struct PairingErrorScreenView: View {
     // MARK: Private
 
     private func buttonForAction(at index: Int) -> some View {
-        let action = viewModel.state.actions[index]
+        let actions = viewModel.state.actions
+        let action = actions[index]
+
         let style = index == 0 ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle 
+        
         return Button(titleForAction(action), action: { viewModel.send(event: .didChooseAction(action)) })
             .disabled(viewModel.state.chosenAction != nil)
             .buttonStyle(style)
+            .padding(.bottom, index == actions.count-1 ? NamiActionButtonStyle.ConstraintLayout.BottomToSuperView : NamiActionButtonStyle.ConstraintLayout.BottomToNextButton)
             .anyView
     }
 
@@ -69,9 +90,18 @@ public struct PairingErrorScreenView: View {
         case .tryAgain:
             return tryAgainActionTitle()
         case .restart:
+            if case let .underlying(error) = viewModel.state.error {
+                if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
+                    return I18n.pairingErrorsActionRestartSetup
+                }
+            } 
+            
             return restartActionTitle()
         case .ignore:
             return ignoreActionTitle()
+        case .exit:
+            return I18n.pairingExitSetup
+
         }
     }
     
@@ -80,7 +110,7 @@ public struct PairingErrorScreenView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func errorOccurredTitle() -> String {
@@ -88,7 +118,7 @@ public struct PairingErrorScreenView: View {
             return customScanning
         }
         
-        return I18n.Pairing.Errors.errorOccurredTitle
+        return I18n.pairingErrorsErrorOccurredTitle
     }
     
     private func tryAgainActionTitle() -> String {
@@ -96,7 +126,7 @@ public struct PairingErrorScreenView: View {
             return customScanning
         }
         
-        return I18n.Pairing.Errors.actionTryAgain
+        return I18n.pairingErrorsActionTryAgain
     }
     
     private func restartActionTitle() -> String {
@@ -104,7 +134,7 @@ public struct PairingErrorScreenView: View {
             return customScanning
         }
         
-        return I18n.Pairing.Errors.actionRestart
+        return I18n.pairingErrorsActionRestart
     }
     
     private func ignoreActionTitle() -> String {
@@ -112,6 +142,6 @@ public struct PairingErrorScreenView: View {
             return customScanning
         }
         
-        return I18n.Pairing.Errors.actionIgnore
+        return I18n.pairingErrorsActionIgnore
     }
 }

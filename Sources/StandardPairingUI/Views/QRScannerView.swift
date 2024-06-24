@@ -128,6 +128,7 @@ public struct QRScannerView: View {
                 viewModel.send(event: .dismissScanError)
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+            .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
             .anyView
         }
         .ignoresSafeArea()
@@ -138,7 +139,7 @@ public struct QRScannerView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func scanQRTitle() -> String {
@@ -146,7 +147,7 @@ public struct QRScannerView: View {
             return customScanQRTitle
         }
         
-        return I18n.Pairing.ScanQr.title
+        return I18n.pairingScanQrTitle
     }
     
     private func scanQRSubtitle() -> String {
@@ -154,7 +155,7 @@ public struct QRScannerView: View {
             return customScanQRSubtitle
         }
         
-        return I18n.Pairing.ScanQr.subtitle
+        return I18n.pairingScanQrSubtitle
     }
     
     private func qrCodeError() -> String {
@@ -162,7 +163,7 @@ public struct QRScannerView: View {
             return customQrCodeError
         }
         
-        return I18n.UpdateWifi.qrCodeError
+        return I18n.updateWifiQrCodeError
     }
     
     private func qrCodeMismatchError() -> String { 
@@ -170,7 +171,7 @@ public struct QRScannerView: View {
             return customQrCodeError
         }
         
-        return I18n.UpdateWifi.notNamiQrCodeNoZone
+        return I18n.updateWifiNotNamiQrCodeNoZone
     }
     
     private func actionTryAgain() -> String {
@@ -178,7 +179,7 @@ public struct QRScannerView: View {
             return customTryAgain
         }
         
-        return I18n.Pairing.Errors.actionTryAgain
+        return I18n.pairingErrorsActionTryAgain
     }
 }
 
