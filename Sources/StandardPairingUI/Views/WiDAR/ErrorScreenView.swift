@@ -16,20 +16,21 @@ public struct ErrorScreenView: View {
 
     @ObservedObject var viewModel: ErrorScreen.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
 
     public var body: some View {
-        NamiTopNavigationScreen(title: I18n.Widar.headerTitle, contentBehavior: .fixed) {
+        DeviceSetupScreen(title: titleWording()) {
             VStack {
                 Spacer()
                 Image("Warning")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 128, height: 128)
-                Text(I18n.Widar.Error.title)
+                Text(positioningErrorTitle())
                     .font(themeManager.selectedTheme.headline3)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.horizontal)
-                Text(I18n.Widar.Error.deviceNotFoundMessage)
+                Text(deviceNotFoundMessage())
                     .font(themeManager.selectedTheme.paragraph1)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -44,12 +45,12 @@ public struct ErrorScreenView: View {
             }
         } bottomButtonsGroup: {
             VStack {
-                Button(I18n.Widar.Error.retryButton) {
+                Button(retryPositioningButton()) {
                     viewModel.send(.retryPositioning)
                 }
                 .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                 .anyView
-                Button(I18n.Widar.Error.exitButton) {
+                Button(exitPositioningButton()) {
                     viewModel.send(.cancelPositioning)
                 }
                 .buttonStyle(themeManager.selectedTheme.secondaryActionButtonStyle)
@@ -57,5 +58,45 @@ public struct ErrorScreenView: View {
             }
             .padding()
         }
+    }
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.positioningNavigationTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.widarHeaderTitle
+    }
+    
+    private func positioningErrorTitle() -> String {
+        if let customString = wordingManager.wordings.positioningErrorTitle {
+            return customString
+        }
+        
+        return I18n.widarErrorTitle
+    }
+    
+    private func deviceNotFoundMessage() -> String {
+        if let customString = wordingManager.wordings.deviceNotFoundMessage {
+            return customString
+        }
+        
+        return I18n.widarErrorDeviceNotFoundMessage
+    }
+    
+    private func retryPositioningButton() -> String {
+        if let customString = wordingManager.wordings.retryPositioningButton {
+            return customString
+        }
+        
+        return I18n.widarErrorRetryButton
+    }
+    
+    private func exitPositioningButton() -> String {
+        if let customString = wordingManager.wordings.exitPositioningButton {
+            return customString
+        }
+        
+        return I18n.widarErrorExitButton
     }
 }

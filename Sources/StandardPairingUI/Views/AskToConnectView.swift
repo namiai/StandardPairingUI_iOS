@@ -18,25 +18,25 @@ public struct AskToConnectView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: titleWording()) {
             if viewModel.state.doneLoading {
                 VStack {
                     Text(title(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
                         .font(themeManager.selectedTheme.headline1)
                         .foregroundColor(themeManager.selectedTheme.primaryBlack)
                         .padding([.horizontal, .top])
-                        .frame(maxWidth: .infinity, alignment: .center)
+                        .fixedSize(horizontal: false, vertical: true)
                     ForEach(
                         description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice),
                         id: \.self
                     ) { substring in
                         HStack(alignment: .top) {
-                            Text("・").font(themeManager.selectedTheme.paragraph1)
+                            Text(" - ").font(themeManager.selectedTheme.paragraph1)
                                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                             Text(substring)
                                 .font(themeManager.selectedTheme.paragraph1)
                                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .fixedSize(horizontal: false, vertical: true)
                         }
                     }
                     .padding(.horizontal)
@@ -44,7 +44,7 @@ public struct AskToConnectView: View {
                 }
                 .padding()
                 Spacer()
-                Button(I18n.General.next, action: { viewModel.send(event: .tapNext) })
+                Button(nextButtonTitle(), action: { viewModel.send(event: .tapNext) })
                     .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                     .disabled(viewModel.state.nextTapped)
                     .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
@@ -60,6 +60,7 @@ public struct AskToConnectView: View {
     @ObservedObject var viewModel: AskToConnect.ViewModel
     @Environment(\.measurementSystem) var measurementSystem: MeasurementSystem
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
 
     // MARK: Private
     
@@ -67,9 +68,9 @@ public struct AskToConnectView: View {
         switch (devicesCount > 0, hasThread) {
         // First, Thread.
         case (false, true):
-            return I18n.Pairing.ConnectWifi.setUpAsBorderRouter
+            return wordingManager.wordings.setUpAsBorderRouter != nil ? wordingManager.wordings.setUpAsBorderRouter! : I18n.pairingConnectWifiSetUpAsBorderRouter
         default:
-            return I18n.Pairing.ConnectWifi.settingUpThisDevice
+            return wordingManager.wordings.settingUpThisDevice != nil ? wordingManager.wordings.settingUpThisDevice! : I18n.pairingConnectWifiSettingUpThisDevice
         }
     }
 
@@ -78,34 +79,138 @@ public struct AskToConnectView: View {
         // Non-first, Thread.
         case (true, true):
             return [
-                I18n.Pairing.AskToConnect.NonFirstThreadDevice.description1,
-                I18n.Pairing.AskToConnect.NonFirstThreadDevice.description2,
-                I18n.Pairing.AskToConnect.NonFirstThreadDevice.description3(viewModel.state.zoneName ?? ""),
+                nonFirstThreadDeviceDesc1(),
+                nonFirstThreadDeviceDesc2(),
+                nonFirstThreadDeviceDesc3(),
             ]
         // Non-first, WiFi.
         case (true, false):
             return [
-                I18n.Pairing.AskToConnect.NonFirstWifiDevice.description1(viewModel.state.zoneName ?? ""),
+                nonFirstWifiDeviceDesc1(),
                 measurementSystem == .metric ?
-                    I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description :
-                    I18n.Pairing.AskToConnect.WifiDeviceImperialDistance.description,
+                    wifiDeviceMetricDistanceDescription() :
+                    wifiDeviceImperialDistanceDescription(),
             ]
         // First, Thread.
         case (false, true):
             return [
-                I18n.Pairing.AskToConnect.FirstThreadDevice.description1,
-                I18n.Pairing.AskToConnect.FirstThreadDevice.description2,
-                I18n.Pairing.AskToConnect.FirstThreadDevice.description3,
+                firstThreadDeviceDescription1(),
+                firstThreadDeviceDescription2(),
+                firstThreadDeviceDescription3(),
             ]
         // First, WiFi
         case (false, false):
             return [
-                I18n.Pairing.AskToConnect.FirstWifiDevice.description1(viewModel.state.zoneName ?? ""),
-                I18n.Pairing.AskToConnect.FirstWifiDevice.description2,
+                firstWifiDeviceDescription1(),
+                firstWifiDeviceDescription2(),
                 measurementSystem == .metric ?
-                    I18n.Pairing.AskToConnect.WifiDeviceMetricDistance.description :
-                    I18n.Pairing.AskToConnect.WifiDeviceImperialDistance.description,
+                    wifiDeviceMetricDistanceDescription() :
+                    wifiDeviceImperialDistanceDescription(),
             ]
         }
+    }
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.pairingDeviceSetupNavigagtionTitle
+    }
+    
+    private func nextButtonTitle() -> String {
+        if let customString = wordingManager.wordings.next {
+            return customString
+        }
+        
+        return I18n.generalNext
+    }
+    
+    private func nonFirstThreadDeviceDesc1() -> String {
+        if let customString = wordingManager.wordings.nonFirstThreadDeviceDescription1 {
+            return customString
+        }
+        
+        return I18n.pairingAskToConnectNonFirstThreadDeviceDescription1
+    }
+    
+    private func nonFirstThreadDeviceDesc2() -> String {
+        if let customString = wordingManager.wordings.nonFirstThreadDeviceDescription2 {
+            return customString
+        }
+        
+        return I18n.pairingAskToConnectNonFirstThreadDeviceDescription2
+    }
+    
+    private func nonFirstThreadDeviceDesc3() -> String {
+        if let customString = wordingManager.wordings.nonFirstThreadDeviceDescription3 {
+            return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
+        }
+        
+        return I18n.pairingAskToConnectNonFirstThreadDeviceDescription3(viewModel.state.zoneName ?? "")
+    }
+    
+    private func nonFirstWifiDeviceDesc1() -> String {
+        if let customString = wordingManager.wordings.nonFirstWifiDeviceDescription1 {
+            return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
+        }
+        
+        return I18n.pairingAskToConnectNonFirstWifiDeviceDescription1(viewModel.state.zoneName ?? "")
+    }
+    
+    private func wifiDeviceMetricDistanceDescription() -> String {
+        if let customString = wordingManager.wordings.wifiDeviceMetricDistanceDescription {
+            return customString
+        }
+        
+        return I18n.pairingAskToConnectWifiDeviceMetricDistanceDescription
+    }
+    
+    private func wifiDeviceImperialDistanceDescription() -> String {
+        if let customString = wordingManager.wordings.wifiDeviceImperialDistanceDescription {
+            return customString
+        }
+        
+        return I18n.pairingAskToConnectWifiDeviceImperialDistanceDescription
+    }
+    
+    private func firstThreadDeviceDescription1() -> String {
+        if let customString = wordingManager.wordings.firstThreadDeviceDescription1 {
+            return customString
+        }
+        
+        return I18n.pairingAskToConnectFirstThreadDeviceDescription1
+    }
+    
+    private func firstThreadDeviceDescription2() -> String {
+        if let customString = wordingManager.wordings.firstThreadDeviceDescription2 {
+            return customString
+        }
+        
+        return I18n.pairingAskToConnectFirstThreadDeviceDescription2
+    }
+    
+    private func firstThreadDeviceDescription3() -> String {
+        if let customString = wordingManager.wordings.firstThreadDeviceDescription3 {
+            return customString
+        }
+        
+        return I18n.pairingAskToConnectFirstThreadDeviceDescription3
+    }
+    
+    private func firstWifiDeviceDescription1() -> String {
+        if let customString = wordingManager.wordings.firstWifiDeviceDescription1 {
+            return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
+        }
+        
+        return I18n.pairingAskToConnectFirstWifiDeviceDescription1(viewModel.state.zoneName ?? "")
+    }
+    
+    private func firstWifiDeviceDescription2() -> String {
+        if let customString = wordingManager.wordings.firstWifiDeviceDescription2 {
+            return customString
+        }
+        
+        return I18n.pairingAskToConnectFirstWifiDeviceDescription2
     }
 }

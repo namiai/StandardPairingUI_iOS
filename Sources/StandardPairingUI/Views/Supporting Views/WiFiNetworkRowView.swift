@@ -14,8 +14,7 @@ struct WiFiNetworkRowView: View {
     var body: some View {
         RoundedRectContainerView(backgroundColor: themeManager.selectedTheme.white) {
             HStack {
-                Image(wifiImageName())
-                    .font(themeManager.selectedTheme.paragraph1)
+                wifiImage()
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 Text(network.ssid)
                     .font(themeManager.selectedTheme.paragraph1)
@@ -38,15 +37,29 @@ struct WiFiNetworkRowView: View {
     
     @EnvironmentObject private var themeManager: ThemeManager
 
-    private func wifiImageName() -> String {
+    private func wifiImage() -> some View {
         if network.rssi >= -45 {
-            return "Wifi"
+            return imageExists("Wifi") ? Image("Wifi") : Image(systemName: "wifi")
         } else if network.rssi < -45, network.rssi > -85 {
-            return "WifiMedium"
+            if #available(iOS 16.0, *) {
+                return imageExists("WifiMedium") ? Image("WifiMedium") : Image(systemName: "wifi", variableValue: 0.4)
+            } else {
+                return imageExists("WifiMedium") ? Image("WifiMedium") : Image(systemName: "wifi")
+            }
         } else if network.rssi <= -85 {
-            return "WifiWeak"
+            if #available(iOS 16.0, *) {
+                return imageExists("WifiWeak") ? Image("WifiWeak") : Image(systemName: "wifi", variableValue: 0.2)
+            } else {
+                return imageExists("WifiWeak") ? Image("WifiWeak") : Image(systemName: "wifi")
+            }
         }
-
-        return "Wifi"
+        return Image(systemName: "wifi")
+    }
+    
+    private func imageExists(_ name: String) -> Bool {
+        guard let _ = UIImage(named: name) else {
+            return false
+        }
+        return true
     }
 }

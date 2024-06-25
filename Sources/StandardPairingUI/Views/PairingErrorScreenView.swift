@@ -20,7 +20,7 @@ public struct PairingErrorScreenView: View {
     @Environment(\.colors) var colors: Colors
 
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: titleWording()) {
             Spacer()
             Image("warning-alert")
                 .resizable()
@@ -28,7 +28,7 @@ public struct PairingErrorScreenView: View {
                 .frame(width: 128, height: 128)
             // TODO: Switch to use `viewModel.state.error.errorMessageTitle` when there's the values for it in I18n but not hardcoded strings.
             // The preparation is done in `PairingErrorsExtensions`.
-            Text(viewModel.state.error.errorMessageTitle)
+            Text(errorOccurredTitle())
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -42,12 +42,12 @@ public struct PairingErrorScreenView: View {
                 .padding(.top, 4)
             if let urlLink = viewModel.state.error.FAQLink {
                 if #available(iOS 15, *) {
-                    NamiTextHyperLink(text: I18n.Errors.PairingMachine.needHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                    NamiTextHyperLink(text: I18n.pairingErrorsNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
                         .font(NamiTextStyle.paragraph1.font)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.horizontal)
                 } else {
-                    NamiTextHyperLinkLegacy(text: I18n.Errors.PairingMachine.needHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                    NamiTextHyperLinkLegacy(text: I18n.pairingErrorsNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
                         .font(NamiTextStyle.paragraph1.font)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding(.horizontal)
@@ -68,6 +68,7 @@ public struct PairingErrorScreenView: View {
 
     @ObservedObject var viewModel: PairingErrorScreen.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
 
     // MARK: Private
 
@@ -87,19 +88,60 @@ public struct PairingErrorScreenView: View {
     private func titleForAction(_ action: Pairing.ActionOnError) -> String {
         switch action {
         case .tryAgain:
-            return I18n.Pairing.Errors.actionTryAgain
+            return tryAgainActionTitle()
         case .restart:
             if case let .underlying(error) = viewModel.state.error {
                 if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
-                    return I18n.Pairing.Errors.actionRestartSetup
+                    return I18n.pairingErrorsActionRestartSetup
                 }
             } 
             
-            return I18n.Pairing.Errors.actionRestart
+            return restartActionTitle()
         case .ignore:
-            return I18n.Pairing.Errors.actionIgnore
+            return ignoreActionTitle()
         case .exit:
-            return I18n.Pairing.Errors.actionExitSetup
+            return I18n.pairingExitSetup
+
         }
+    }
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.pairingDeviceSetupNavigagtionTitle
+    }
+    
+    private func errorOccurredTitle() -> String {
+        if let customScanning = wordingManager.wordings.errorOccurredTitle {
+            return customScanning
+        }
+        
+        return I18n.pairingErrorsErrorOccurredTitle
+    }
+    
+    private func tryAgainActionTitle() -> String {
+        if let customScanning = wordingManager.wordings.tryAgainActionTitle {
+            return customScanning
+        }
+        
+        return I18n.pairingErrorsActionTryAgain
+    }
+    
+    private func restartActionTitle() -> String {
+        if let customScanning = wordingManager.wordings.restartActionTitle {
+            return customScanning
+        }
+        
+        return I18n.pairingErrorsActionRestart
+    }
+    
+    private func ignoreActionTitle() -> String {
+        if let customScanning = wordingManager.wordings.ignoreActionTitle {
+            return customScanning
+        }
+        
+        return I18n.pairingErrorsActionIgnore
     }
 }

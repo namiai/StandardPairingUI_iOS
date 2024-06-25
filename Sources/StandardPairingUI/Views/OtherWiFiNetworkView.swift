@@ -17,27 +17,29 @@ public struct OtherWiFiNetworkView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen {
+        DeviceSetupScreen(title: titleWording()) {
             VStack {
-                Text(I18n.Pairing.OtherWifiNetwork.header)
+                Text(otherWifiNetworkTitle())
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal])
-                Text(I18n.Pairing.OtherWifiNetwork.deviceConnectivityHint)
+                Text(deviceConnectivityHint())
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
                 NamiTextField(
-                    placeholder: I18n.Pairing.OtherWifiNetwork.networkNamePlaceholder,
+                    placeholder: networkNamePlaceholder(),
                     text: Binding(get: {
                         viewModel.state[keyPath: \.networkName]
                     }, set: { value in
                         viewModel.state[keyPath: \.networkName] = value
                     }),
                     isEditing: $nameIsEditing,
-                    returnKeyType: .done
+                    returnKeyType: .done,
+                    textFieldFont: themeManager.selectedTheme.paragraph1, 
+                    subTextFont: themeManager.selectedTheme.small1
                 )
                 .padding([.top, .horizontal])
                 .onAppear {
@@ -50,22 +52,24 @@ public struct OtherWiFiNetworkView: View {
                     viewModel.state[keyPath: \.password] = value
                 })
                 NamiTextField(
-                    placeholder: I18n.Pairing.EnterWifiPassword.passwordPlaceholder,
+                    placeholder: passwordPlaceholder(),
                     text: passwordBinding,
                     isEditing: $passwordIsEditing,
-                    returnKeyType: .done
+                    returnKeyType: .done,
+                    textFieldFont: themeManager.selectedTheme.paragraph1, 
+                    subTextFont: themeManager.selectedTheme.small1
                 )
                 .secureTextEntry(true)
                 .padding()
                 Spacer()
-                Button(I18n.Pairing.EnterWifiPassword.buttonReadyToConnect, action: { viewModel.send(event: .didConfirmName) })
+                Button(readyToConnectButton(), action: { viewModel.send(event: .didConfirmName) })
                     .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                     .disabled(viewModel.state.networkName.isEmpty)
                     .padding()
                     .anyView
             }
         }
-        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel)
+        .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel, wordingManager: wordingManager)
         .onChange(of: passwordIsEditing) { isEditing in
             if isEditing, viewModel.state.networkName.isEmpty == false, viewModel.state.password.isEmpty, startedEditingFirstTime == false {
                 startedEditingFirstTime = true
@@ -83,7 +87,56 @@ public struct OtherWiFiNetworkView: View {
 
     @ObservedObject var viewModel: OtherWiFiNetwork.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
     @State var nameIsEditing = false
     @State var passwordIsEditing = false
     @State var startedEditingFirstTime = false
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.pairingDeviceSetupNavigagtionTitle
+    }
+    
+    private func otherWifiNetworkTitle() -> String {
+        if let customString = wordingManager.wordings.otherWifiNetworkTitle {
+            return customString
+        }
+        
+        return I18n.pairingOtherWifiNetworkHeader
+    }
+    
+    private func deviceConnectivityHint() -> String {
+        if let customString = wordingManager.wordings.deviceConnectivityHint {
+            return customString
+        }
+        
+        return I18n.pairingOtherWifiNetworkDeviceConnectivityHint
+    }
+    
+    private func networkNamePlaceholder() -> String {
+        if let customString = wordingManager.wordings.networkNamePlaceholder {
+            return customString
+        }
+        
+        return I18n.pairingOtherWifiNetworkNetworkNamePlaceholder
+    }
+    
+    private func passwordPlaceholder() -> String {
+        if let customString = wordingManager.wordings.passwordPlaceholder {
+            return customString
+        }
+        
+        return I18n.pairingEnterWifiPasswordPasswordPlaceholder
+    }
+    
+    private func readyToConnectButton() -> String {
+        if let customString = wordingManager.wordings.readyToConnectButton {
+            return customString
+        }
+        
+        return I18n.pairingEnterWifiPasswordButtonReadyToConnect
+    }
 }

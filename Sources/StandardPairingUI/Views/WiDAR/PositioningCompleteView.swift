@@ -18,27 +18,61 @@ public struct PositioningCompleteView: View {
 
     @ObservedObject var viewModel: PositioningComplete.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
+    @EnvironmentObject private var wordingManager: WordingManager
 
     public var body: some View {
-        NamiTopNavigationScreen(title: I18n.Widar.headerTitle, largeTitle: I18n.Widar.Position.title, contentBehavior: .fixed) {
+        DeviceSetupScreen(title: titleWording()) {
             VStack {
                 VStack {
                     AnimationView(animation: \.widarPositioningDone)
                         .padding(.vertical)
-                    Text(I18n.Widar.Success.title, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
-                    Text(I18n.Widar.Success.contentMessage(viewModel.state.deviceName), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    Text(successTitle(), font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
+                    Text(sucessContentMessage(), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                 }
                 .padding(.horizontal)
 
                 Spacer()
             }
         } bottomButtonsGroup: {
-            Button(I18n.Widar.Success.doneButton) {
+            Button(doneButton()) {
                 viewModel.send(.confirmPositioningComplete)
             }
+            .font(themeManager.selectedTheme.headline5)
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
             .padding(.vertical)
             .anyView
         }
+    }
+    
+    private func titleWording() -> String { 
+        if let customNavigationTitle = wordingManager.wordings.positioningNavigationTitle {
+            return customNavigationTitle
+        }
+        
+        return I18n.widarHeaderTitle
+    }
+    
+    private func successTitle() -> String {
+        if let customString = wordingManager.wordings.successTitle {
+            return customString
+        }
+        
+        return I18n.widarSuccessTitle
+    }
+    
+    private func sucessContentMessage() -> String {
+        if let customString = wordingManager.wordings.sucessContentMessage {
+            return String.localizedStringWithFormat(customString, viewModel.state.deviceName)
+        }
+        
+        return I18n.widarSuccessContentMessage(viewModel.state.deviceName)
+    }
+    
+    private func doneButton() -> String {
+        if let customString = wordingManager.wordings.doneButton {
+            return customString
+        }
+        
+        return I18n.widarSuccessDoneButton
     }
 }
