@@ -19,16 +19,11 @@ public struct PowerOnAndScanningView: View {
 
     public var body: some View {
         DeviceSetupScreen {
-            // support multiple devicetypes
-            if viewModel.state.deviceTypes.count > 1 {
+            switch viewModel.state.deviceType {
+            case .contactSensor:
+                self.ContactSensorDeviceTypeScanning()
+            default:
                 self.GeneralDeviceTypeScanning()
-            } else {
-                switch viewModel.state.deviceTypes.first {
-                case .contactSensor:
-                    self.ContactSensorDeviceTypeScanning()
-                default:
-                    self.GeneralDeviceTypeScanning()
-                }
             }
         }
     }

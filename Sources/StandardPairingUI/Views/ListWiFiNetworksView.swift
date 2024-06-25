@@ -57,7 +57,7 @@ public struct ListWiFiNetworksView: View {
                                 VStack {
                                     WiFiNetworkRowView(network: network)
                                         .onTapGesture {
-                                            viewModel.send(event: .selectNetwofkAndConfirm(network))
+                                            viewModel.send(event: .selectNetworkAndConfirm(network))
                                         }
                                     if i < networks.count - 1 {
                                         Divider()

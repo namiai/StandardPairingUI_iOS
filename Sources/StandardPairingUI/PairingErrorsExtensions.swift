@@ -31,8 +31,6 @@ public extension Pairing.Error {
                     return I18n.Errors.PairingThreadSetupError.threadOperationalDatasetMissingTitle
                 case .threadNetworkNotFound:
                     return I18n.Errors.PairingThreadSetupError.threadNetworkNotFoundTitle
-                case .mixedEnvironment:
-                    return I18n.Errors.PairingThreadSetupError.mixedEnvironmentTitle
                 }
             }
             
@@ -93,7 +91,7 @@ extension PairingMachineError {
             return I18n.Errors.PairingMachine.deserializationError
         case .encryptionError:
             return I18n.Errors.PairingMachine.encryptionError
-        case let .notSupportDeviceType(deviceTypes):
+        case let .notSupportDeviceType(deviceType):
             return I18n.Errors.PairingMachine.notSupportDevcieTypeDescription
         }
     }
@@ -139,8 +137,6 @@ extension Pairing.ThreadError {
             default:
                 return I18n.Errors.PairingThreadSetupError.threadNetworkNotFound_general(zoneName)
             }
-        case .mixedEnvironment:
-            return I18n.Errors.PairingThreadSetupError.mixedEnvironment
         }
     }
 }
