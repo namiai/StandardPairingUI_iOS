@@ -2,151 +2,199 @@
 
 import Foundation
 
-@objc public protocol WordingProtocol {
+public protocol WordingProtocol {
     // MARK: - General 
-    @objc optional var ok: String { get }
-    @objc optional var next: String { get }
-    @objc optional var cancel: String { get }
-    @objc optional var pairingNavigationBarTitle: String { get }
+    var ok: String { get }
+    var next: String { get }
+    var cancel: String { get }
+    var pairingNavigationBarTitle: String { get }
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
-    @objc optional var connectingToDevice: String { get }
+    var connectingToDevice: String { get }
     
     // MARK: - Bluetooth Usage Hint View
     // Power On and Scanning View
     // Enable Bluetooth in Settings View
-    @objc optional var headerConnectToPower: String { get }
-    @objc optional var explainedReadyToPair: String { get }
-    @objc optional var headerContactSensor: String { get }
+    var headerConnectToPower: String { get }
+    var explainedReadyToPair: String { get }
+    var headerContactSensor: String { get }
     
     // MARK: - Power On and Scanning View
-    @objc optional var scanning: String { get }
-    @objc optional var askUserToWait: String { get }
+    var scanning: String { get }
+    var askUserToWait: String { get }
     
     // MARK: - Enable Bluetooth in Settings View 
-    @objc optional var bluetoothDisabled: String { get }
-    @objc optional var enableBlueToothInSettingsHeader: String { get }
-    @objc optional var buttonSettings: String { get }
+    var bluetoothDisabled: String { get }
+    var enableBlueToothInSettingsHeader: String { get }
+    var buttonSettings: String { get }
     
     // MARK: - Enable Camera in Settings VIew 
-    @objc optional var scanDeviceTitle: String { get }
-    @objc optional var scanDeviceSubtitle: String { get }
-    @objc optional var missingCameraPermissionTitle: String { get }
-    @objc optional var missingCameraPermissionDescription: String { get }
-    @objc optional var openSettings: String { get }
+    var scanDeviceTitle: String { get }
+    var scanDeviceSubtitle: String { get }
+    var missingCameraPermissionTitle: String { get }
+    var missingCameraPermissionDescription: String { get }
+    var openSettings: String { get }
     
     // MARK: - Bluetooth device found View
-    @objc optional var deviceFoundHeader1: String { get }
-    @objc optional var deviceFoundHeader2: String { get }
+    var deviceFoundHeader1: String { get }
+    var deviceFoundHeader2: String { get }
     /// "{device model} text"
-    @objc optional var askToNameHeader: String { get }
-    @objc optional var nameDeviceExplained: String { get }
+    var askToNameHeader: String { get }
+    var nameDeviceExplained: String { get }
     
     // MARK: - Ask to Connect View
-    @objc optional var setUpAsBorderRouter: String { get }
-    @objc optional var settingUpThisDevice: String { get }
-    @objc optional var nonFirstThreadDeviceDescription1: String { get }
-    @objc optional var nonFirstThreadDeviceDescription2: String { get }
-    @objc optional var nonFirstThreadDeviceDescription3: String { get }
-    @objc optional var nonFirstWifiDeviceDescription1: String { get }
-    @objc optional var wifiDeviceMetricDistanceDescription: String { get }
-    @objc optional var wifiDeviceImperialDistanceDescription: String { get }
-    @objc optional var firstThreadDeviceDescription1: String { get }
-    @objc optional var firstThreadDeviceDescription2: String { get }
-    @objc optional var firstThreadDeviceDescription3: String { get }
-    @objc optional var firstWifiDeviceDescription1: String { get }
-    @objc optional var firstWifiDeviceDescription2: String { get }
+    var setUpAsBorderRouter: String { get }
+    var settingUpThisDevice: String { get }
+    var nonFirstThreadDeviceDescription1: String { get }
+    var nonFirstThreadDeviceDescription2: String { get }
+    var nonFirstThreadDeviceDescription3: String { get }
+    var nonFirstWifiDeviceDescription1: String { get }
+    var wifiDeviceMetricDistanceDescription: String { get }
+    var wifiDeviceImperialDistanceDescription: String { get }
+    var firstThreadDeviceDescription1: String { get }
+    var firstThreadDeviceDescription2: String { get }
+    var firstThreadDeviceDescription3: String { get }
+    var firstWifiDeviceDescription1: String { get }
+    var firstWifiDeviceDescription2: String { get }
     
     // MARK: - QR code scanner view 
-    @objc optional var scanQRtitle: String { get }
-    @objc optional var scanQRsubtitle: String { get }
-    @objc optional var qrCodeError: String { get }
-    @objc optional var qrCodeMismatchError: String { get }
-    @objc optional var tryAgainButton: String { get }
+    var scanQRtitle: String { get }
+    var scanQRsubtitle: String { get }
+    var qrCodeError: String { get }
+    var qrCodeMismatchError: String { get }
+    var tryAgainButton: String { get }
     
     // MARK: - List Wifi networks view
-    @objc optional var connectWifiTitle: String { get }
-    @objc optional var selectNetwork: String { get }
-    @objc optional var networkNotFound: String { get }
-    @objc optional var availableNetworks: String { get }
-    @objc optional var otherNetworkButton: String { get }
+    var connectWifiTitle: String { get }
+    var selectNetwork: String { get }
+    var networkNotFound: String { get }
+    var availableNetworks: String { get }
+    var otherNetworkButton: String { get }
     
     // MARK: - Enter Wifi password 
-    @objc optional var enterPassword: String { get }
-    @objc optional var enterPasswordHeaderTitle: String { get }
-    @objc optional var passwordEntryFieldPlaceholder: String { get }
-    @objc optional var passwordEntryFieldHint: String { get }
-    @objc optional var buttonReadyToConnect: String { get }
+    var enterPassword: String { get }
+    var enterPasswordHeaderTitle: String { get }
+    var passwordEntryFieldPlaceholder: String { get }
+    var passwordEntryFieldHint: String { get }
+    var buttonReadyToConnect: String { get }
     
     // MARK: - Password Retrieval alert
-    @objc optional var foundSavedPassword: String { get }
-    @objc optional var useSavedPassword: String { get }
-    @objc optional var forget: String { get }
+    var foundSavedPassword: String { get }
+    var useSavedPassword: String { get }
+    var forget: String { get }
     
     // MARK: - Other wifi network view 
-    @objc optional var otherWifiNetworkTitle: String { get }
-    @objc optional var deviceConnectivityHint: String { get }
-    @objc optional var networkNamePlaceholder: String { get }
-    @objc optional var passwordPlaceholder: String { get }
-    @objc optional var readyToConnectButton: String { get }
+    var otherWifiNetworkTitle: String { get }
+    var deviceConnectivityHint: String { get }
+    var networkNamePlaceholder: String { get }
+    var passwordPlaceholder: String { get }
+    var readyToConnectButton: String { get }
     
     // MARK: - Finishing setup
-    @objc optional var finishingSetupHeader: String { get }
-    @objc optional var gameOfPongText: String { get }
+    var finishingSetupHeader: String { get }
+    var gameOfPongText: String { get }
     
     // MARK: - Positioning general
-    @objc optional var positioningNavigationTitle: String { get }
+    var positioningNavigationTitle: String { get }
     
     // MARK: - Initial positioning screen
-    @objc optional var widarInfoTitle: String { get }
-    @objc optional var widarInfoMustOptimisePosition: String { get }
-    @objc optional var widarInfoAvoidMovingWhenOptimized: String { get }
-    @objc optional var nextButton: String { get }
+    var widarInfoTitle: String { get }
+    var widarInfoMustOptimisePosition: String { get }
+    var widarInfoAvoidMovingWhenOptimized: String { get }
+    var nextButton: String { get }
     
     // MARK: - How to position view
-    @objc optional var startPositioningButton: String { get }
-    @objc optional var recommendationsTitle: String { get }
-    @objc optional var recommendationsInfoAttachBase: String { get }
-    @objc optional var recommendationsInfoWireOnBack: String { get }
-    @objc optional var recommendationsInfoKeepAreaClear: String { get }
+    var startPositioningButton: String { get }
+    var recommendationsTitle: String { get }
+    var recommendationsInfoAttachBase: String { get }
+    var recommendationsInfoWireOnBack: String { get }
+    var recommendationsInfoKeepAreaClear: String { get }
     
     // MARK: - Positioning guidance view
-    @objc optional var finishButton: String { get }
-    @objc optional var cancelButton: String { get }
-    @objc optional var positioningGuidanceTitle: String { get }
-    @objc optional var guideMetric: String { get }
-    @objc optional var guideImperial: String { get }
-    @objc optional var statusLabel: String { get }
-    @objc optional var statusChecking: String { get }
-    @objc optional var statusMispositioned: String { get }
-    @objc optional var statusGettingBetter: String { get }
-    @objc optional var statusOptimized: String { get }
-    @objc optional var statusEstablishingConnection: String { get }
-    @objc optional var positioningTip: String { get }
+    var finishButton: String { get }
+    var cancelButton: String { get }
+    var positioningGuidanceTitle: String { get }
+    var guideMetric: String { get }
+    var guideImperial: String { get }
+    var statusLabel: String { get }
+    var statusChecking: String { get }
+    var statusMispositioned: String { get }
+    var statusGettingBetter: String { get }
+    var statusOptimized: String { get }
+    var statusEstablishingConnection: String { get }
+    var positioningTip: String { get }
     
     // MARK: - Positioning guidance: cancel positioning popup 
-    @objc optional var cancelPopupTitle: String { get }
-    @objc optional var cancelPopupMessage: String { get }
-    @objc optional var cancelPopupBackToPositioningButton: String { get }
-    @objc optional var cancelPopupCancelButton: String { get }
+    var cancelPopupTitle: String { get }
+    var cancelPopupMessage: String { get }
+    var cancelPopupBackToPositioningButton: String { get }
+    var cancelPopupCancelButton: String { get }
     
     // MARK: - Positioning complete view
-    @objc optional var successTitle: String { get }
-    @objc optional var sucessContentMessage: String { get }
-    @objc optional var doneButton: String { get }
+    var successTitle: String { get }
+    var sucessContentMessage: String { get }
+    var doneButton: String { get }
     
     // Error screens
     
     // MARK: - Pairing error view
-    @objc optional var errorOccurredTitle: String { get }
-    @objc optional var tryAgainActionTitle: String { get }
-    @objc optional var restartActionTitle: String { get }
-    @objc optional var ignoreActionTitle: String { get }
+    var errorOccurredTitle: String { get }
+    var tryAgainActionTitle: String { get }
+    var restartActionTitle: String { get }
+    var ignoreActionTitle: String { get }
+    var restartSetupActionTitle: String { get }
+    var exitSetupActionTitle: String { get }
     
+    // MARK:- Pairing error
+    var pairingErrorNeedHelp: String { get }
+    var pairingErrorOccurredTitle: String { get }
+    
+    // MARK: - Pairing Machine error
+    // MARK: - Pairing Machine error - title
+    var pairingErrorDeviceWifiScanTitle: String { get }
+    var pairingErrorDeviceWifiJoinIpTitle: String { get }
+    var pairingErrorDeviceWifiJoinPasswordTitle: String { get }
+    var pairingErrorDeviceMismatchTitle: String { get }
+    
+    // MARK: - Pairing Machine error - description
+    var pairingErrorUnexpectedStateDescription: String { get }
+    var pairingErrorUnexpectedMessageDescription: String { get }
+    var pairingErrorSeanceDescription: String { get }
+    var pairingErrorSerializationDescription: String { get }
+    var pairingErrorDeserializationDescription: String { get }
+    var pairingErrorEncryptionErrorDescription: String { get }
+    var pairingErrorDeviceMismatchDescription: String { get }
+    var pairingErrorDeviceSecureSessionDescription: String { get }
+    var pairingErrorDeviceCloudChallengeDescription: String { get }
+    var pairingErrorDeviceWifiScanDescription: String { get }
+    var pairingErrorDeviceWifiJoinDescription: String { get }
+    var pairingErrorDeviceWifiJoinPasswordDescription: String { get }
+    var pairingErrorDeviceWifiJoinIpDescription: String { get }
+    var pairingErrorsUnableJoinThreadNetworksDescription1: String { get }
+    var pairingErrorsUnableJoinThreadNetworksDescription2: String { get }
+    var pairingErrorDeviceUnknownUnrecognizedDescription: String { get }
+    
+    // MARK: - Pairing Thread error
+    // MARK: - Pairing Thread error - title
+    var pairingThreadErrorDatasetMissingTitle: String { get }
+    var pairingThreadErrorThreadNetworkNotFoundTitle: String { get }
+    
+    // MARK: - Pairing Thread error - description
+    var pairingThreadErrorDatasetMissingDescription: String { get }
+    var pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1: String { get }
+    var pairingThreadErrorNoThreadNetworksFoundDescription: String { get }
     
     // MARK: - Positioning error view
-    @objc optional var positioningErrorTitle: String { get }
-    @objc optional var deviceNotFoundMessage: String { get }
-    @objc optional var retryPositioningButton: String { get }
-    @objc optional var exitPositioningButton: String { get }
+    var positioningErrorTitle: String { get }
+    var deviceNotFoundMessage: String { get }
+    var retryPositioningButton: String { get }
+    var exitPositioningButton: String { get }
+    
+    // MARK: - URLs
+    var urlNotPulsingBlue: String { get }
+    var urlNamiThreadTopology: String { get }
+    var urlNotConnectToThread: String { get }
+    
+    // MARK: - FAQ terms
+    var pairingScanningBleFaq: String { get }
 }

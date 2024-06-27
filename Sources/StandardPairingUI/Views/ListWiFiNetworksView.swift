@@ -18,14 +18,14 @@ public struct ListWiFiNetworksView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
             VStack {
-                Text(connectWifiTitle())
+                Text(wordingManager.wordings.connectWifiTitle)
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
-                Text(selectNetwork())
+                Text(wordingManager.wordings.selectNetwork)
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -34,11 +34,11 @@ public struct ListWiFiNetworksView: View {
                 ScrollView {
                     HStack {
                         if viewModel.state.shouldShowNoNetworksHint {
-                            Text(networkNotFound())
+                            Text(wordingManager.wordings.networkNotFound)
                                 .font(themeManager.selectedTheme.headline5)
                                 .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
                         } else {
-                            Text(availableNetworks())
+                            Text(wordingManager.wordings.availableNetworks)
                                 .font(themeManager.selectedTheme.headline5)
                                 .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
                         }
@@ -99,7 +99,7 @@ public struct ListWiFiNetworksView: View {
         RoundedRectContainerView {
             HStack {
                 Spacer().frame(width: 24, height: 24)
-                Text(I18n.pairingListWifiNetworksButtonOtherNetwork)
+                Text(wordingManager.wordings.otherNetworkButton)
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(Color.black)
                     .lineLimit(1)
@@ -111,53 +111,5 @@ public struct ListWiFiNetworksView: View {
         .onTapGesture {
             viewModel.send(event: .tappedOtherNetwork)
         }
-    }
-    
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.pairingDeviceSetupNavigagtionTitle
-    }
-    
-    private func connectWifiTitle() -> String {
-        if let customString = wordingManager.wordings.connectWifiTitle {
-            return customString
-        }
-        
-        return I18n.pairingListWifiNetworksConnectWifiTitle
-    }
-    
-    private func selectNetwork() -> String {
-        if let customString = wordingManager.wordings.selectNetwork {
-            return customString
-        }
-        
-        return I18n.pairingListWifiNetworksSelectNetwork
-    }
-    
-    private func networkNotFound() -> String {
-        if let customString = wordingManager.wordings.networkNotFound {
-            return customString
-        }
-        
-        return I18n.pairingListWifiNetworksNoNetworksFound
-    }
-    
-    private func availableNetworks() -> String {
-        if let customString = wordingManager.wordings.availableNetworks {
-            return customString
-        }
-        
-        return I18n.pairingListWifiNetworksAvailableNetworks
-    }
-    
-    private func otherNetworkButton() -> String {
-        if let customString = wordingManager.wordings.otherNetworkButton {
-            return customString
-        }
-        
-        return I18n.pairingListWifiNetworksButtonOtherNetwork
     }
 }

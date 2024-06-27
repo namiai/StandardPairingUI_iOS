@@ -24,7 +24,7 @@ struct DevicePresentingLoadingView: View {
                 .scaledToFit()
                 .padding()
 
-            Text(connectingToDevice())
+            Text(wordingManager.wordings.connectingToDevice.inputArguments(deviceName))
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
@@ -41,14 +41,6 @@ struct DevicePresentingLoadingView: View {
     @EnvironmentObject private var wordingManager: WordingManager
     private var deviceName: String
     private var deviceModel: NamiDeviceModel
-    
-    private func connectingToDevice() -> String {
-        if let customWording = wordingManager.wordings.connectingToDevice {
-            return String.localizedStringWithFormat(customWording, deviceName)
-        }
-        
-        return I18n.pairingLoadingDeviceConnecting(deviceName)
-    }
 }
 
 // MARK: - DevicePresentingLoadingView_Previews

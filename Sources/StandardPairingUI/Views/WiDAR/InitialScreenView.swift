@@ -22,7 +22,7 @@ public struct InitialScreenView: View {
     @EnvironmentObject private var wordingManager: WordingManager
 
     public var body: some View {
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
             mainContent()
                 .padding(.horizontal)
         } leadingButtonsGroup: {
@@ -30,7 +30,7 @@ public struct InitialScreenView: View {
                 viewModel.send(.dismissSelf)
             }
         } bottomButtonsGroup: {
-            Button(nextButtonText()) {
+            Button(wordingManager.wordings.nextButton) {
                 viewModel.send(.howToPositionTapped)
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
@@ -43,50 +43,10 @@ public struct InitialScreenView: View {
 
     private func mainContent() -> some View {
         VStack {
-            Text(widarInfoMustOptimisePosition(), font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
-            Text("∙ \(widarInfoMustOptimisePosition())", font: themeManager.selectedTheme.paragraph1).fillWidth()
-            Text("∙ \(widarInfoAvoidMovingWhenOptimized())", font: themeManager.selectedTheme.paragraph1).fillWidth().foregroundColor(themeManager.selectedTheme.redAlert4)
+            Text(wordingManager.wordings.widarInfoMustOptimisePosition, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
+            Text("∙ \(wordingManager.wordings.widarInfoMustOptimisePosition)", font: themeManager.selectedTheme.paragraph1).fillWidth()
+            Text("∙ \(wordingManager.wordings.widarInfoAvoidMovingWhenOptimized)", font: themeManager.selectedTheme.paragraph1).fillWidth().foregroundColor(themeManager.selectedTheme.redAlert4)
             Spacer()
         }
-    }
-    
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.positioningNavigationTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.widarHeaderTitle
-    }
-    
-    private func widarInfoTitle() -> String {
-        if let customString = wordingManager.wordings.widarInfoTitle {
-            return customString
-        }
-        
-        return I18n.widarInfoTitle
-    }
-    
-    private func widarInfoMustOptimisePosition() -> String {
-        if let customString = wordingManager.wordings.widarInfoMustOptimisePosition {
-            return customString
-        }
-        
-        return I18n.widarInfoInfoMustOptimisePosition
-    }
-    
-    private func widarInfoAvoidMovingWhenOptimized() -> String {
-        if let customString = wordingManager.wordings.widarInfoAvoidMovingWhenOptimized {
-            return customString
-        }
-        
-        return I18n.widarInfoInfoAvoidMovingWhenOptimized
-    }
-    
-    private func nextButtonText() -> String {
-        if let customString = wordingManager.wordings.nextButton {
-            return customString
-        }
-        
-        return I18n.generalNext
     }
 }

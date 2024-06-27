@@ -8,37 +8,6 @@ import SharedAssets
 
 // Upper level of matryoshka.
 public extension Pairing.Error {
-    var errorMessageTitle: String {
-        if case let .underlying(error) = self {
-            if let error = error as? PairingMachineError, case let .pairingError(e) = error {
-                switch e.error {
-                case .wifiScanError:
-                    return I18n.errorsPairingErrorDeviceWifiScanError
-                case .wifiJoinError:
-                    return I18n.errorsPairingErrorDeviceWifiJoinIpError
-                case .wifiJoinPasswordError:
-                    return I18n.errorsPairingErrorDeviceWifiJoinPasswordError
-                default:
-                    break
-                }
-            }
-            
-            if let error = error as? Pairing.ThreadError {
-                switch error {
-                case .threadOperationalDatasetMissing:
-                    return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing
-                case .threadNetworkNotFound:
-                    return I18n.errorsPairingThreadSetupErrorThreadNetworkNotFound
-                }
-            }
-            
-            if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
-                return I18n.pairingErrorsThreadSetupErrorDeviceMismatchTitle
-            }
-        }
-        return I18n.pairingErrorsErrorOccurredTitle
-    }
-
     var localizedDescription: String {
         switch self {
         case let .underlying(error):
@@ -56,12 +25,12 @@ public extension Pairing.Error {
         }
     }
     
-    var FAQLink: String? {
+    func getFAQLink(wordings: WordingProtocol) -> String? {
         if case let .underlying(error) = self {
             if let error = error as? Pairing.ThreadError {
                 switch error {
                 case .threadNetworkNotFound:
-                    return URLLinks.FAQNotConnectToThread
+                    return wordings.urlNotConnectToThread
                 default:
                     return nil
                 }
@@ -114,7 +83,7 @@ extension Pairing_Error {
             return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription1
             + "\n\n"
             // TODO: input zone name later
-            + I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription2("")
+            + I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription2.inputArguments("")
         default:
             return I18n.errorsPairingErrorDeviceUnknownUnrecognized
         }
@@ -130,9 +99,9 @@ extension Pairing.ThreadError {
         case let .threadNetworkNotFound(zoneName, deviceType):
             switch deviceType {
             case .contactSensor:
-                return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription1(zoneName)
+                return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription1.inputArguments(zoneName)
             default:
-                return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName)
+                return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription.inputArguments(zoneName)
             }
         }
     }

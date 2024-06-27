@@ -17,21 +17,21 @@ public struct EnterWiFiPasswordView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
             VStack {
-                Text(enterPassword())
+                Text(wordingManager.wordings.enterPassword)
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                     .padding(.bottom, 8)
-                Text(enterPasswordHeader())
+                Text(wordingManager.wordings.enterPasswordHeaderTitle.inputArguments(viewModel.state.networkName))
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
                 NamiTextField(
-                    placeholder: passwordFieldPlaceholder(),
+                    placeholder: wordingManager.wordings.passwordEntryFieldPlaceholder,
                     text: Binding(get: {
                         viewModel.state.password
                     }, set: { value in
@@ -45,13 +45,13 @@ public struct EnterWiFiPasswordView: View {
                     subTextFont: themeManager.selectedTheme.small1
                 )
                 .secureTextEntry(true)
-                .subText(passwordFieldHint())
+                .subText(wordingManager.wordings.passwordEntryFieldHint)
                 .padding()
                 .onAppear {
                     textIsEditing = true
                 }
                 Spacer()
-                Button(buttonReadyToConnect(), action: { 
+                Button(wordingManager.wordings.buttonReadyToConnect, action: { 
                     // If the keyboard was dismissed already.
                     if textIsEditing == false {
                         viewModel.send(event: .confirmPassword)
@@ -85,53 +85,4 @@ public struct EnterWiFiPasswordView: View {
     @SwiftUI.State private var isKeyboardAppeared: Bool = false
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
-    
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.pairingDeviceSetupNavigagtionTitle
-    }
-    
-    private func enterPassword() -> String {
-        if let customString = wordingManager.wordings.enterPassword {
-            return customString
-        }
-        
-        return I18n.pairingEnterWifiPasswordEnterPassword
-    }
-    
-    private func enterPasswordHeader() -> String {
-        if let customString = wordingManager.wordings.enterPasswordHeaderTitle {
-            return customString
-        }
-        
-        return I18n.pairingEnterWifiPasswordHeader(viewModel.state.networkName)
-    }
-    
-    private func passwordFieldPlaceholder() -> String {
-        if let customString = wordingManager.wordings.passwordEntryFieldPlaceholder {
-            return customString
-        }
-        
-        return I18n.pairingEnterWifiPasswordPasswordPlaceholder
-    }
-    
-    private func passwordFieldHint() -> String {
-        if let customString = wordingManager.wordings.passwordEntryFieldHint {
-            return customString
-        }
-        
-        return I18n.pairingEnterWifiPasswordPasswordEntryFieldHint
-    }
-    
-    private func buttonReadyToConnect() -> String {
-        if let customString = wordingManager.wordings.buttonReadyToConnect {
-            return customString
-        }
-        
-        return I18n.pairingEnterWifiPasswordButtonReadyToConnect
-    }
-    
 }

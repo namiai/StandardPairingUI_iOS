@@ -34,7 +34,7 @@ public struct PositioningGuidanceView: View {
             }
         }
 
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
             mainContent()
                 .padding()
         } leadingButtonsGroup: {
@@ -43,14 +43,14 @@ public struct PositioningGuidanceView: View {
             }
         } bottomButtonsGroup: {
             VStack {
-                Button(finishButtonText()) {
+                Button(wordingManager.wordings.finishButton) {
                     viewModel.send(.wantFinishTapped)
                 }
                 .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                 .disabled(viewModel.state.canNotFinish)
                 .anyView
 
-                Button(cancelButtonText()) {
+                Button(wordingManager.wordings.cancelButton) {
                     viewModel.send(.wantCancelTapped)
                 }
                 .buttonStyle(themeManager.selectedTheme.tertiaryActionButtonStyle)
@@ -68,7 +68,7 @@ public struct PositioningGuidanceView: View {
 
     private func mainContent() -> some View {
         VStack {
-            Text(positionGuidanceTitle())
+            Text(wordingManager.wordings.positioningGuidanceTitle)
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -76,11 +76,11 @@ public struct PositioningGuidanceView: View {
             
             switch measurementSystem {
             case .metric:
-                Text(guideMetric(), font: themeManager.selectedTheme.paragraph1).fillWidth()
+                Text(wordingManager.wordings.guideMetric, font: themeManager.selectedTheme.paragraph1).fillWidth()
             case .uk:
-                Text(guideImperial(), font: themeManager.selectedTheme.paragraph1).fillWidth()
+                Text(wordingManager.wordings.guideImperial, font: themeManager.selectedTheme.paragraph1).fillWidth()
             case .us:
-                Text(guideImperial(), font: themeManager.selectedTheme.paragraph1).fillWidth()
+                Text(wordingManager.wordings.guideImperial, font: themeManager.selectedTheme.paragraph1).fillWidth()
             }
             
 
@@ -99,28 +99,28 @@ public struct PositioningGuidanceView: View {
 
             RoundedRectContainerView {
                 VStack {
-                    Text(statusLabel(), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    Text(wordingManager.wordings.statusLabel, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                     if viewModel.state.positioningState == .started {
                         HStack {
                             switch quality {
                             case .unknown:
                                 ProgressView().frame(width: 16, height: 16)
-                                Text(statusChecking(), font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
+                                Text(wordingManager.wordings.statusChecking, font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
                             case .poor:
                                 Circle().fill(Color.red).frame(width: 16, height: 16)
-                                Text(statusMispositioned(), font: themeManager.selectedTheme.headline5).foregroundColor(colors.redAlert4)
+                                Text(wordingManager.wordings.statusMispositioned, font: themeManager.selectedTheme.headline5).foregroundColor(colors.redAlert4)
                             case .degraded:
                                 Circle().fill(Color.yellow).frame(width: 16, height: 16)
-                                Text(statusGettingBetter(), font: themeManager.selectedTheme.headline5).foregroundColor(colors.lowAttentionAlert)
+                                Text(wordingManager.wordings.statusGettingBetter, font: themeManager.selectedTheme.headline5).foregroundColor(colors.lowAttentionAlert)
                             case .good:
                                 Circle().fill(Color.green).frame(width: 16, height: 16)
-                                Text(statusOptimized(), font: themeManager.selectedTheme.headline5).foregroundColor(colors.success4)
+                                Text(wordingManager.wordings.statusOptimized, font: themeManager.selectedTheme.headline5).foregroundColor(colors.success4)
                             }
                         }
                     } else {
                         HStack {
                             ProgressView().frame(width: 16, height: 16)
-                            Text(statusEstablishingConnection(), font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
+                            Text(wordingManager.wordings.statusEstablishingConnection, font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
                         }
                     }
                 }
@@ -130,7 +130,7 @@ public struct PositioningGuidanceView: View {
             VStack {
                 if quality == .degraded {
                     // TODO: Add this string to POEditor!
-                    Text(positioningTip(), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    Text(wordingManager.wordings.positioningTip, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                 }
             }
             .frame(height: 20)
@@ -141,18 +141,18 @@ public struct PositioningGuidanceView: View {
 
     private func sheetContent() -> some View {
         VStack {
-            Text(cancelPopupTitle())
+            Text(wordingManager.wordings.cancelPopupTitle)
                 .font(themeManager.selectedTheme.headline4)
-            Text(cancelPopupMessage())
+            Text(wordingManager.wordings.cancelPopupMessage)
                 .font(themeManager.selectedTheme.paragraph1)
                 .padding()
-            Button(cancelPopupBackToPositioningButton()) {
+            Button(wordingManager.wordings.cancelPopupBackToPositioningButton) {
                 viewModel.send(.cancelViewDismissed)
             }
             .font(themeManager.selectedTheme.headline5)
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
             .anyView
-            Button(cancelPopupCancelButton()) {
+            Button(wordingManager.wordings.cancelPopupCancelButton) {
                 viewModel.send(.confirmPositioningCancel)
             }
             .font(themeManager.selectedTheme.headline5)
@@ -161,141 +161,5 @@ public struct PositioningGuidanceView: View {
             
         }
         .padding(.bottom, 16)
-    }
-    
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.positioningNavigationTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.widarHeaderTitle
-    }
-    
-    private func finishButtonText() -> String {
-        if let customString = wordingManager.wordings.finishButton {
-            return customString
-        }
-        
-        return I18n.widarPositionFinishButton
-    }
-    
-    private func cancelButtonText() -> String {
-        if let customString = wordingManager.wordings.cancelButton {
-            return customString
-        }
-        
-        return I18n.widarPositionCancelButton
-    }
-    
-    private func positionGuidanceTitle() -> String {
-        if let customString = wordingManager.wordings.positioningGuidanceTitle {
-            return customString
-        }
-        
-        return I18n.widarPositionTitle
-    }
-    
-    private func guideMetric() -> String {
-        if let customString = wordingManager.wordings.guideMetric {
-            return customString
-        }
-        
-        return I18n.widarPositionGuideMetric
-    }
-    
-    private func guideImperial() -> String {
-        if let customString = wordingManager.wordings.guideImperial {
-            return customString
-        }
-        
-        return I18n.widarPositionGuideImperial
-    }
-    
-    private func statusLabel() -> String {
-        if let customString = wordingManager.wordings.statusLabel {
-            return customString
-        }
-        
-        return I18n.widarPositionStatusLabel
-    }
-    
-    private func statusChecking() -> String {
-        if let customString = wordingManager.wordings.statusChecking {
-            return customString
-        }
-        
-        return I18n.widarPositionStatusLabel
-    }
-    
-    private func statusMispositioned() -> String {
-        if let customString = wordingManager.wordings.statusMispositioned {
-            return customString
-        }
-        
-        return I18n.widarPositionStatusMispositioned
-    }
-    
-    private func statusGettingBetter() -> String {
-        if let customString = wordingManager.wordings.statusGettingBetter {
-            return customString
-        }
-        
-        return I18n.widarPositionStatusGettingBetter
-    }
-    
-    private func statusOptimized() -> String {
-        if let customString = wordingManager.wordings.statusOptimized {
-            return customString
-        }
-        
-        return I18n.widarPositionStatusOptimized
-    }
-    
-    private func statusEstablishingConnection() -> String {
-        if let customString = wordingManager.wordings.statusEstablishingConnection {
-            return customString
-        }
-        
-        return "Establishing connection"
-    }
-    
-    private func positioningTip() -> String {
-        if let customString = wordingManager.wordings.positioningTip {
-            return customString
-        }
-        
-        return I18n.widarPositionGuideMetric
-    }
-    
-    private func cancelPopupTitle() -> String {
-        if let customString = wordingManager.wordings.cancelPopupTitle {
-            return customString
-        }
-        
-        return I18n.widarCancelPopupTitle
-    }
-    
-    private func cancelPopupMessage() -> String {
-        if let customString = wordingManager.wordings.cancelPopupMessage {
-            return customString
-        }
-        
-        return I18n.widarCancelPopupMessage
-    }
-    
-    private func cancelPopupBackToPositioningButton() -> String {
-        if let customString = wordingManager.wordings.cancelPopupBackToPositioningButton {
-            return customString
-        }
-        
-        return I18n.widarCancelPopupBackToPositioningButton
-    }
-    
-    private func cancelPopupCancelButton() -> String {
-        if let customString = wordingManager.wordings.cancelPopupCancelButton {
-            return customString
-        }
-        
-        return I18n.widarCancelPopupCancelButton
     }
 }

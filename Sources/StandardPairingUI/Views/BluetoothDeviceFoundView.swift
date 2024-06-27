@@ -18,7 +18,7 @@ public struct BluetoothDeviceFoundView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
             if let deviceModel = viewModel.state.deviceModel {
                 viewModel.state.deviceNameConfirmed ?
                     AnyView(DevicePresentingLoadingView(deviceName: deviceName, deviceModel: deviceModel)) :
@@ -52,13 +52,13 @@ public struct BluetoothDeviceFoundView: View {
         VStack {
             Spacer()
 
-            Text(deviceFoundHeader1())
+            Text(wordingManager.wordings.deviceFoundHeader1)
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity)
 
-            Text(deviceFoundHeader2())
+            Text(wordingManager.wordings.deviceFoundHeader2)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity)
@@ -71,14 +71,14 @@ public struct BluetoothDeviceFoundView: View {
 
     private func askToName(model: NamiDeviceModel) -> some View {
         VStack {
-            Text(askToNameHeaderText(model: model))
+            Text(wordingManager.wordings.askToNameHeader.inputArguments(model.productLabel.capitalized))
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .padding(.bottom, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            Text(nameDeviceExplained())
+            Text(wordingManager.wordings.nameDeviceExplained)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -88,7 +88,7 @@ public struct BluetoothDeviceFoundView: View {
                 .padding(.top, 32)
                 .frame(maxWidth: .infinity)
             Spacer()
-            Button(nextButton()) {
+            Button(wordingManager.wordings.nextButton) {
                 viewModel.send(event: .deviceNameConfirmed(deviceName))
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
@@ -97,53 +97,5 @@ public struct BluetoothDeviceFoundView: View {
             .padding(.horizontal)
             .anyView
         }
-    }
-    
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.pairingDeviceSetupNavigagtionTitle
-    }
-    
-    private func deviceFoundHeader1() -> String {
-        if let customString = wordingManager.wordings.deviceFoundHeader1 {
-            return customString
-        }
-        
-        return I18n.pairingBluetoothDeviceFoundHeader1
-    }
-    
-    private func deviceFoundHeader2() -> String {
-        if let customString = wordingManager.wordings.deviceFoundHeader2 {
-            return customString
-        }
-        
-        return I18n.pairingBluetoothDeviceFoundHeader2
-    }
-    
-    private func askToNameHeaderText(model: NamiDeviceModel) -> String {
-        if let customString = wordingManager.wordings.askToNameHeader {
-            return String.localizedStringWithFormat(customString, model.productLabel.capitalized)
-        }
-        
-        return I18n.pairingBluetoothDeviceFoundNameDeviceHeader(model.productLabel.capitalized)
-    }
-    
-    private func nameDeviceExplained() -> String {
-        if let customString = wordingManager.wordings.nameDeviceExplained {
-            return customString
-        }
-        
-        return I18n.pairingBluetoothDeviceFoundNameDeviceExplained
-    }
-    
-    private func nextButton() -> String {
-        if let customString = wordingManager.wordings.next {
-            return customString
-        }
-        
-        return I18n.pairingBluetoothDeviceFoundNextButton
     }
 }
