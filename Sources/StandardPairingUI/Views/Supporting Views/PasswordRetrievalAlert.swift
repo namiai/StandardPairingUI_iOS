@@ -10,7 +10,7 @@ extension View {
         alert(isPresented: isPresented) {
             Alert(
                 title: Text(wordingManager.wordings.foundSavedPassword),
-                message: Text(wordingManager.wordings.useSavedPassword.inputArguments(networkName)),
+                message: Text(wordingManager.wordings.useSavedPassword(networkName: networkName)),
                 primaryButton:
                 .destructive(
                     Text(wordingManager.wordings.forget),
@@ -20,7 +20,7 @@ extension View {
                 ),
                 secondaryButton:
                 .default(
-                    Text(wordingManager.wordings.ok), 
+                    Text(wordingManager.wordings.ok),
                     action: { viewModel.usePassword() 
                     }
                 )

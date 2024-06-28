@@ -11,7 +11,7 @@ extension WordingProtocol {
     var pairingNavigationBarTitle: String { get { return I18n.pairingDeviceSetupNavigagtionTitle } }
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
-    var connectingToDevice: String { get { return I18n.pairingLoadingDeviceConnecting } }
+    func connectingToDevice(deviceName: String) -> String { return I18n.pairingLoadingDeviceConnecting(deviceName) }
     
     // MARK: - Bluetooth Usage Hint View
     // Power On and Scanning View
@@ -40,7 +40,7 @@ extension WordingProtocol {
     var deviceFoundHeader1: String { get { return I18n.pairingBluetoothDeviceFoundHeader1 } }
     var deviceFoundHeader2: String { get { return I18n.pairingBluetoothDeviceFoundHeader2 } }
     /// "{device model} text"
-    var askToNameHeader: String { get { return I18n.pairingBluetoothDeviceFoundNameDeviceHeader } }
+    func askToNameHeader(productLabel: String) -> String { return I18n.pairingBluetoothDeviceFoundNameDeviceHeader(productLabel) }
     var nameDeviceExplained: String { get { return I18n.pairingBluetoothDeviceFoundNameDeviceExplained } }
     
     // MARK: - Ask to Connect View
@@ -48,14 +48,14 @@ extension WordingProtocol {
     var settingUpThisDevice: String { get { return I18n.pairingConnectWifiSettingUpThisDevice } }
     var nonFirstThreadDeviceDescription1: String { get { return I18n.pairingAskToConnectNonFirstThreadDeviceDescription1 } }
     var nonFirstThreadDeviceDescription2: String { get { return I18n.pairingAskToConnectNonFirstThreadDeviceDescription2 } }
-    var nonFirstThreadDeviceDescription3: String { get { return I18n.pairingAskToConnectNonFirstThreadDeviceDescription3 } }
-    var nonFirstWifiDeviceDescription1: String { get { return I18n.pairingAskToConnectNonFirstWifiDeviceDescription1 } }
+    func nonFirstThreadDeviceDescription3(zoneName: String) -> String { return I18n.pairingAskToConnectNonFirstThreadDeviceDescription3(zoneName) }
+    func nonFirstWifiDeviceDescription1(zoneName: String) -> String { return I18n.pairingAskToConnectNonFirstWifiDeviceDescription1(zoneName) }
     var wifiDeviceMetricDistanceDescription: String { get { return I18n.pairingAskToConnectWifiDeviceMetricDistanceDescription } }
     var wifiDeviceImperialDistanceDescription: String { get { return I18n.pairingAskToConnectWifiDeviceImperialDistanceDescription } }
     var firstThreadDeviceDescription1: String { get { return I18n.pairingAskToConnectFirstThreadDeviceDescription1 } }
     var firstThreadDeviceDescription2: String { get { return I18n.pairingAskToConnectFirstThreadDeviceDescription2 } }
     var firstThreadDeviceDescription3: String { get { return I18n.pairingAskToConnectFirstThreadDeviceDescription3 } }
-    var firstWifiDeviceDescription1: String { get { return I18n.pairingAskToConnectFirstWifiDeviceDescription1 } }
+    func firstWifiDeviceDescription1(zoneName: String) -> String { return I18n.pairingAskToConnectFirstWifiDeviceDescription1(zoneName) }
     var firstWifiDeviceDescription2: String { get { return I18n.pairingAskToConnectFirstWifiDeviceDescription2 } }
     
     // MARK: - QR code scanner view
@@ -74,14 +74,14 @@ extension WordingProtocol {
     
     // MARK: - Enter Wifi password
     var enterPassword: String { get { return I18n.pairingEnterWifiPasswordEnterPassword } }
-    var enterPasswordHeaderTitle: String { get { return I18n.pairingEnterWifiPasswordHeader } }
+    func enterPasswordHeaderTitle(networkName: String) -> String { return I18n.pairingEnterWifiPasswordHeader(networkName) }
     var passwordEntryFieldPlaceholder: String { get { return I18n.pairingEnterWifiPasswordPasswordPlaceholder } }
     var passwordEntryFieldHint: String { get { return I18n.pairingEnterWifiPasswordPasswordEntryFieldHint } }
     var buttonReadyToConnect: String { get { return I18n.pairingEnterWifiPasswordButtonReadyToConnect } }
     
     // MARK: - Password Retrieval alert
     var foundSavedPassword: String { get { return I18n.pairingListWifiNetworksFoundSavedPassword } }
-    var useSavedPassword: String { get { return I18n.pairingListWifiNetworksUseSavedPassword } }
+    func useSavedPassword(networkName: String) -> String { return I18n.pairingListWifiNetworksUseSavedPassword(networkName) }
     var forget: String { get { return I18n.pairingListWifiNetworksForget } }
     
     // MARK: - Other wifi network view
@@ -133,7 +133,7 @@ extension WordingProtocol {
     
     // MARK: - Positioning complete view
     var successTitle: String { get { return I18n.widarSuccessTitle } }
-    var sucessContentMessage: String { get { return I18n.widarSuccessContentMessage } }
+    func sucessContentMessage(deviceName: String) -> String { return I18n.widarSuccessContentMessage(deviceName) }
     var doneButton: String { get { return I18n.widarSuccessDoneButton } }
     
     // Error screens
@@ -172,7 +172,7 @@ extension WordingProtocol {
     var pairingErrorDeviceWifiJoinPasswordDescription: String { get { return I18n.errorsPairingErrorDeviceWifiJoinPasswordError } }
     var pairingErrorDeviceWifiJoinIpDescription: String { get { return I18n.errorsPairingErrorDeviceWifiJoinIpError } }
     var pairingErrorsUnableJoinThreadNetworksDescription1: String { get { return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription1 } }
-    var pairingErrorsUnableJoinThreadNetworksDescription2: String { get { return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription2 } }
+    func pairingErrorsUnableJoinThreadNetworksDescription2(zoneName: String) -> String { return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription2(zoneName) }
     var pairingErrorDeviceUnknownUnrecognizedDescription: String { get { return I18n.errorsPairingErrorDeviceUnknownUnrecognized } }
     
     // MARK: - Pairing Thread error
@@ -182,8 +182,8 @@ extension WordingProtocol {
     
     // MARK: - Pairing Thread error - description
     var pairingThreadErrorDatasetMissingDescription: String { get { return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing } }
-    var pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1: String { get { return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription1 } }
-    var pairingThreadErrorNoThreadNetworksFoundDescription: String { get { return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription } }
+    func pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1(zoneName: String) -> String { return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription1(zoneName) }
+    func pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: String) -> String { return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName) }
     
     // MARK: - Positioning error view
     var positioningErrorTitle: String { get { return I18n.widarErrorTitle } }

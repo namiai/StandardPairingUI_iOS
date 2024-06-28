@@ -96,7 +96,7 @@ extension Pairing_Error {
             return wordings.pairingErrorsUnableJoinThreadNetworksDescription1
             + "\n\n"
             // TODO: input zone name later
-            + wordings.pairingErrorsUnableJoinThreadNetworksDescription2.inputArguments("")
+            + wordings.pairingErrorsUnableJoinThreadNetworksDescription2(zoneName: "")
         default:
             return wordings.pairingErrorDeviceUnknownUnrecognizedDescription
         }
@@ -111,9 +111,9 @@ extension Pairing.ThreadError {
         case let .threadNetworkNotFound(zoneName, deviceType):
             switch deviceType {
             case .contactSensor:
-                return wordings.pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1.inputArguments(zoneName)
+                return wordings.pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1(zoneName: zoneName)
             default:
-                return wordings.pairingThreadErrorNoThreadNetworksFoundDescription.inputArguments(zoneName)
+                return wordings.pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: zoneName)
             }
         }
     }

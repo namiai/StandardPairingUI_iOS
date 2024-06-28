@@ -25,7 +25,7 @@ public struct EnterWiFiPasswordView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                     .padding(.bottom, 8)
-                Text(wordingManager.wordings.enterPasswordHeaderTitle.inputArguments(viewModel.state.networkName))
+                Text(wordingManager.wordings.enterPasswordHeaderTitle(networkName: viewModel.state.networkName))
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)

@@ -71,7 +71,7 @@ public struct BluetoothDeviceFoundView: View {
 
     private func askToName(model: NamiDeviceModel) -> some View {
         VStack {
-            Text(wordingManager.wordings.askToNameHeader.inputArguments(model.productLabel.capitalized))
+            Text(wordingManager.wordings.askToNameHeader(productLabel: model.productLabel.capitalized))
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])

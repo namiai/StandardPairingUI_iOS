@@ -27,7 +27,7 @@ public struct PositioningCompleteView: View {
                     AnimationView(animation: \.widarPositioningDone)
                         .padding(.vertical)
                     Text(wordingManager.wordings.successTitle, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
-                    Text(wordingManager.wordings.sucessContentMessage.inputArguments(viewModel.state.deviceName), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    Text(wordingManager.wordings.sucessContentMessage(deviceName: viewModel.state.deviceName), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                 }
                 .padding(.horizontal)
 

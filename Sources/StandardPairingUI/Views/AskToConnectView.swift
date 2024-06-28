@@ -81,12 +81,12 @@ public struct AskToConnectView: View {
             return [
                 wordingManager.wordings.nonFirstThreadDeviceDescription1,
                 wordingManager.wordings.nonFirstThreadDeviceDescription2,
-                wordingManager.wordings.nonFirstThreadDeviceDescription3.inputArguments(viewModel.state.zoneName ?? ""),
+                wordingManager.wordings.nonFirstThreadDeviceDescription3(zoneName: viewModel.state.zoneName ?? ""),
             ]
         // Non-first, WiFi.
         case (true, false):
             return [
-                wordingManager.wordings.nonFirstWifiDeviceDescription1.inputArguments(viewModel.state.zoneName ?? ""),
+                wordingManager.wordings.nonFirstWifiDeviceDescription1(zoneName: viewModel.state.zoneName ?? ""),
                 measurementSystem == .metric ?
                 wordingManager.wordings.wifiDeviceMetricDistanceDescription :
                     wordingManager.wordings.wifiDeviceImperialDistanceDescription,
@@ -101,7 +101,7 @@ public struct AskToConnectView: View {
         // First, WiFi
         case (false, false):
             return [
-                wordingManager.wordings.firstWifiDeviceDescription1.inputArguments(viewModel.state.zoneName ?? ""),
+                wordingManager.wordings.firstWifiDeviceDescription1(zoneName: viewModel.state.zoneName ?? ""),
                 wordingManager.wordings.firstWifiDeviceDescription2,
                 measurementSystem == .metric ?
                 wordingManager.wordings.wifiDeviceMetricDistanceDescription :

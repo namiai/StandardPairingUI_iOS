@@ -24,7 +24,7 @@ struct DevicePresentingLoadingView: View {
                 .scaledToFit()
                 .padding()
 
-            Text(wordingManager.wordings.connectingToDevice.inputArguments(deviceName))
+            Text(wordingManager.wordings.connectingToDevice(deviceName: deviceName))
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)

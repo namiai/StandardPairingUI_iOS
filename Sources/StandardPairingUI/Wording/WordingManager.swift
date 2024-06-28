@@ -23,9 +23,3 @@ private struct DefaultWordings: WordingProtocol {
         
     }
 }
-
-extension String {
-    func inputArguments(_ arguments: CVarArg...) -> String {
-        return String.localizedStringWithFormat(self, arguments)
-    }
-}

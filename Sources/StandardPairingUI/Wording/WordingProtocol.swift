@@ -10,7 +10,7 @@ public protocol WordingProtocol {
     var pairingNavigationBarTitle: String { get }
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
-    var connectingToDevice: String { get }
+    func connectingToDevice(deviceName: String) -> String
     
     // MARK: - Bluetooth Usage Hint View
     // Power On and Scanning View
@@ -39,7 +39,7 @@ public protocol WordingProtocol {
     var deviceFoundHeader1: String { get }
     var deviceFoundHeader2: String { get }
     /// "{device model} text"
-    var askToNameHeader: String { get }
+    func askToNameHeader(productLabel: String) -> String
     var nameDeviceExplained: String { get }
     
     // MARK: - Ask to Connect View
@@ -47,14 +47,14 @@ public protocol WordingProtocol {
     var settingUpThisDevice: String { get }
     var nonFirstThreadDeviceDescription1: String { get }
     var nonFirstThreadDeviceDescription2: String { get }
-    var nonFirstThreadDeviceDescription3: String { get }
-    var nonFirstWifiDeviceDescription1: String { get }
+    func nonFirstThreadDeviceDescription3(zoneName: String) -> String
+    func nonFirstWifiDeviceDescription1(zoneName: String) -> String
     var wifiDeviceMetricDistanceDescription: String { get }
     var wifiDeviceImperialDistanceDescription: String { get }
     var firstThreadDeviceDescription1: String { get }
     var firstThreadDeviceDescription2: String { get }
     var firstThreadDeviceDescription3: String { get }
-    var firstWifiDeviceDescription1: String { get }
+    func firstWifiDeviceDescription1(zoneName: String) -> String
     var firstWifiDeviceDescription2: String { get }
     
     // MARK: - QR code scanner view 
@@ -73,14 +73,14 @@ public protocol WordingProtocol {
     
     // MARK: - Enter Wifi password 
     var enterPassword: String { get }
-    var enterPasswordHeaderTitle: String { get }
+    func enterPasswordHeaderTitle(networkName: String) -> String
     var passwordEntryFieldPlaceholder: String { get }
     var passwordEntryFieldHint: String { get }
     var buttonReadyToConnect: String { get }
     
     // MARK: - Password Retrieval alert
     var foundSavedPassword: String { get }
-    var useSavedPassword: String { get }
+    func useSavedPassword(networkName: String) -> String
     var forget: String { get }
     
     // MARK: - Other wifi network view 
@@ -132,7 +132,7 @@ public protocol WordingProtocol {
     
     // MARK: - Positioning complete view
     var successTitle: String { get }
-    var sucessContentMessage: String { get }
+    func sucessContentMessage(deviceName: String) -> String
     var doneButton: String { get }
     
     // Error screens
@@ -171,7 +171,7 @@ public protocol WordingProtocol {
     var pairingErrorDeviceWifiJoinPasswordDescription: String { get }
     var pairingErrorDeviceWifiJoinIpDescription: String { get }
     var pairingErrorsUnableJoinThreadNetworksDescription1: String { get }
-    var pairingErrorsUnableJoinThreadNetworksDescription2: String { get }
+    func pairingErrorsUnableJoinThreadNetworksDescription2(zoneName: String) -> String
     var pairingErrorDeviceUnknownUnrecognizedDescription: String { get }
     
     // MARK: - Pairing Thread error
@@ -181,8 +181,8 @@ public protocol WordingProtocol {
     
     // MARK: - Pairing Thread error - description
     var pairingThreadErrorDatasetMissingDescription: String { get }
-    var pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1: String { get }
-    var pairingThreadErrorNoThreadNetworksFoundDescription: String { get }
+    func pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1(zoneName: String) -> String
+    func pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: String) -> String
     
     // MARK: - Positioning error view
     var positioningErrorTitle: String { get }
