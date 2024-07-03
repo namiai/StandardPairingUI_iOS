@@ -264,7 +264,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.widarPositionGuideMetric
+        return I18n.Widar.Position.tip
     }
     
     private func cancelPopupTitle() -> String {
