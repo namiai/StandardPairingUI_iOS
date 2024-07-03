@@ -21,22 +21,24 @@ public struct AskToConnectView: View {
         DeviceSetupScreen(title: titleWording()) {
             if viewModel.state.doneLoading {
                 VStack {
-                    Text(title(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
+                    Text(title(devicesCount: viewModel.state.devicesCount, hasBorderRouter: viewModel.state.hasBorderRouter, hasThread: viewModel.state.isThreadDevice))
                         .font(themeManager.selectedTheme.headline1)
                         .foregroundColor(themeManager.selectedTheme.primaryBlack)
                         .padding([.horizontal, .top])
                         .fixedSize(horizontal: false, vertical: true)
                     ForEach(
-                        description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice),
+                        description(devicesCount: viewModel.state.devicesCount, hasBorderRouter: viewModel.state.hasBorderRouter, hasThread: viewModel.state.isThreadDevice),
                         id: \.self
                     ) { substring in
-                        HStack(alignment: .top) {
-                            Text(" - ").font(themeManager.selectedTheme.paragraph1)
-                                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                            Text(substring)
-                                .font(themeManager.selectedTheme.paragraph1)
-                                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                                .fixedSize(horizontal: false, vertical: true)
+                        VStack(alignment: .leading) {
+                            HStack(alignment: .top) {
+                                Text(" - ").font(themeManager.selectedTheme.paragraph1)
+                                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                Text(substring)
+                                    .font(themeManager.selectedTheme.paragraph1)
+                                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
                         }
                     }
                     .padding(.horizontal)
@@ -64,25 +66,37 @@ public struct AskToConnectView: View {
 
     // MARK: Private
     
-    private func title(devicesCount: Int, hasThread: Bool) -> String {
+    private func title(devicesCount: Int, hasBorderRouter: Bool, hasThread: Bool) -> String {
         switch (devicesCount > 0, hasThread) {
         // First, Thread.
         case (false, true):
             return wordingManager.wordings.setUpAsBorderRouter != nil ? wordingManager.wordings.setUpAsBorderRouter! : I18n.Pairing.ConnectWifi.setUpAsBorderRouter
         default:
-            return wordingManager.wordings.settingUpThisDevice != nil ? wordingManager.wordings.settingUpThisDevice! : I18n.Pairing.ConnectWifi.settingUpThisDevice
+            if hasBorderRouter {
+                return wordingManager.wordings.settingUpThisDevice != nil ? wordingManager.wordings.settingUpThisDevice! : I18n.Pairing.ConnectWifi.settingUpThisDevice
+            } else {
+                return wordingManager.wordings.setUpAsBorderRouter != nil ? wordingManager.wordings.setUpAsBorderRouter! : I18n.Pairing.ConnectWifi.setUpAsBorderRouter    
+            }
         }
     }
 
-    private func description(devicesCount: Int, hasThread: Bool) -> [String] {
+    private func description(devicesCount: Int, hasBorderRouter: Bool, hasThread: Bool) -> [String] {
         switch (devicesCount > 0, hasThread) {
         // Non-first, Thread.
         case (true, true):
-            return [
-                nonFirstThreadDeviceDesc1(),
-                nonFirstThreadDeviceDesc2(),
-                nonFirstThreadDeviceDesc3(),
-            ]
+            if hasBorderRouter {
+                return [
+                    nonFirstThreadDeviceDesc1(),
+                    nonFirstThreadDeviceDesc2(),
+                    nonFirstThreadDeviceDesc3(),
+                ]
+            } else {
+                return [
+                    firstThreadDeviceDescription1(),
+                    firstThreadDeviceDescription2(),
+                    firstThreadDeviceDescription3(),
+                ]
+            }
         // Non-first, WiFi.
         case (true, false):
             return [
