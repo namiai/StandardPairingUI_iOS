@@ -61,7 +61,7 @@ public struct EnableBluetoothInSettingsView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func headerConnectToPower() -> String {
@@ -69,7 +69,7 @@ public struct EnableBluetoothInSettingsView: View {
             return customHeaderConnectToPower
         }
         
-        return I18n.Pairing.BluetoothDeviceFound.headerConnectToPower
+        return I18n.pairingBluetoothDeviceFoundHeaderConnectToPower
     }
     
     private func explainedReadyToPair() -> String {
@@ -77,7 +77,7 @@ public struct EnableBluetoothInSettingsView: View {
             return customExplainedReadyToPair
         }
         
-        return I18n.Pairing.BluetoothDeviceFound.explainedReadyToPair
+        return I18n.pairingBluetoothDeviceFoundExplainedReadyToPair
     }
     
     private func bluetoothDisabled() -> String {
@@ -85,7 +85,7 @@ public struct EnableBluetoothInSettingsView: View {
             return customWording
         }
         
-        return I18n.Pairing.EnableBluetoothInSettings.bluetoothDisabled
+        return I18n.pairingEnableBluetoothInSettingsBluetoothDisabled
     }
     
     private func enableBlueToothInSettingsHeader() -> String {
@@ -93,7 +93,7 @@ public struct EnableBluetoothInSettingsView: View {
             return customWording
         }
         
-        return I18n.Pairing.EnableBluetoothInSettings.header
+        return I18n.pairingEnableBluetoothInSettingsHeader
     }
     
     private func buttonSettings() -> String {
@@ -101,7 +101,7 @@ public struct EnableBluetoothInSettingsView: View {
             return customWording
         }
         
-        return I18n.Pairing.EnableBluetoothInSettings.buttonSettings
+        return I18n.pairingEnableBluetoothInSettingsButtonSettings
     }    
 }
 

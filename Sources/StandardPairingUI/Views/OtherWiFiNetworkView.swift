@@ -97,7 +97,7 @@ public struct OtherWiFiNetworkView: View {
             return customNavigationTitle
         }
         
-        return I18n.Pairing.DeviceSetup.navigagtionTitle
+        return I18n.pairingDeviceSetupNavigagtionTitle
     }
     
     private func otherWifiNetworkTitle() -> String {
@@ -105,7 +105,7 @@ public struct OtherWiFiNetworkView: View {
             return customString
         }
         
-        return I18n.Pairing.OtherWifiNetwork.header
+        return I18n.pairingOtherWifiNetworkHeader
     }
     
     private func deviceConnectivityHint() -> String {
@@ -113,7 +113,7 @@ public struct OtherWiFiNetworkView: View {
             return customString
         }
         
-        return I18n.Pairing.OtherWifiNetwork.deviceConnectivityHint
+        return I18n.pairingOtherWifiNetworkDeviceConnectivityHint
     }
     
     private func networkNamePlaceholder() -> String {
@@ -121,7 +121,7 @@ public struct OtherWiFiNetworkView: View {
             return customString
         }
         
-        return I18n.Pairing.OtherWifiNetwork.networkNamePlaceholder
+        return I18n.pairingOtherWifiNetworkNetworkNamePlaceholder
     }
     
     private func passwordPlaceholder() -> String {
@@ -129,7 +129,7 @@ public struct OtherWiFiNetworkView: View {
             return customString
         }
         
-        return I18n.Pairing.EnterWifiPassword.passwordPlaceholder
+        return I18n.pairingEnterWifiPasswordPasswordPlaceholder
     }
     
     private func readyToConnectButton() -> String {
@@ -137,6 +137,6 @@ public struct OtherWiFiNetworkView: View {
             return customString
         }
         
-        return I18n.Pairing.EnterWifiPassword.buttonReadyToConnect
+        return I18n.pairingEnterWifiPasswordButtonReadyToConnect
     }
 }

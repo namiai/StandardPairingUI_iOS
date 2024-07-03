@@ -17,6 +17,7 @@ import Foundation
     // Enable Bluetooth in Settings View
     @objc optional var headerConnectToPower: String { get }
     @objc optional var explainedReadyToPair: String { get }
+    @objc optional var headerContactSensor: String { get }
     
     // MARK: - Power On and Scanning View
     @objc optional var scanning: String { get }

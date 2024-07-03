@@ -56,7 +56,7 @@ public struct InitialScreenView: View {
             return customNavigationTitle
         }
         
-        return I18n.Widar.headerTitle
+        return I18n.widarHeaderTitle
     }
     
     private func widarInfoTitle() -> String {
@@ -64,7 +64,7 @@ public struct InitialScreenView: View {
             return customString
         }
         
-        return I18n.Widar.Info.title
+        return I18n.widarInfoTitle
     }
     
     private func widarInfoMustOptimisePosition() -> String {
@@ -72,7 +72,7 @@ public struct InitialScreenView: View {
             return customString
         }
         
-        return I18n.Widar.Info.infoMustOptimisePosition
+        return I18n.widarInfoInfoMustOptimisePosition
     }
     
     private func widarInfoAvoidMovingWhenOptimized() -> String {
@@ -80,7 +80,7 @@ public struct InitialScreenView: View {
             return customString
         }
         
-        return I18n.Widar.Info.infoAvoidMovingWhenOptimized
+        return I18n.widarInfoInfoAvoidMovingWhenOptimized
     }
     
     private func nextButtonText() -> String {
@@ -88,6 +88,6 @@ public struct InitialScreenView: View {
             return customString
         }
         
-        return I18n.Widar.Info.buttonText
+        return I18n.generalNext
     }
 }
