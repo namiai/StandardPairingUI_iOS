@@ -37,6 +37,7 @@ public struct InitialScreenView: View {
             .padding(.vertical)
             .anyView
         }
+        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: Private

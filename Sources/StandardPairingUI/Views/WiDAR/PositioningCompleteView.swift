@@ -42,5 +42,6 @@ public struct PositioningCompleteView: View {
             .padding(.vertical)
             .anyView
         }
+        .ignoresSafeArea(.keyboard)
     }
 }

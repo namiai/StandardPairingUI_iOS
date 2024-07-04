@@ -21,26 +21,30 @@ public struct AskToConnectView: View {
         DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
             if viewModel.state.doneLoading {
                 VStack {
-                    Text(title(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice))
+                    Text(title(devicesCount: viewModel.state.devicesCount, hasBorderRouter: viewModel.state.hasBorderRouter, hasThread: viewModel.state.isThreadDevice))
                         .font(themeManager.selectedTheme.headline1)
                         .foregroundColor(themeManager.selectedTheme.primaryBlack)
                         .padding([.horizontal, .top])
                         .fixedSize(horizontal: false, vertical: true)
-                    ForEach(
-                        description(devicesCount: viewModel.state.devicesCount, hasThread: viewModel.state.isThreadDevice),
-                        id: \.self
-                    ) { substring in
-                        HStack(alignment: .top) {
-                            Text(" - ").font(themeManager.selectedTheme.paragraph1)
-                                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                            Text(substring)
-                                .font(themeManager.selectedTheme.paragraph1)
-                                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                                .fixedSize(horizontal: false, vertical: true)
+                    VStack(alignment: .leading) {
+                        ForEach(
+                            description(devicesCount: viewModel.state.devicesCount, hasBorderRouter: viewModel.state.hasBorderRouter, hasThread: viewModel.state.isThreadDevice),
+                            id: \.self
+                        ) { substring in   
+                                HStack(alignment: .top) {
+                                    Text(" - ").font(themeManager.selectedTheme.paragraph1)
+                                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                        .frame(width: 20)
+                                    Text(substring)
+                                        .font(themeManager.selectedTheme.paragraph1)
+                                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                            
                         }
+                        .padding(.horizontal)
+                        .padding(.top, 8)
                     }
-                    .padding(.horizontal)
-                    .padding(.top, 8)
                 }
                 .padding()
                 Spacer()
@@ -64,25 +68,33 @@ public struct AskToConnectView: View {
 
     // MARK: Private
     
-    private func title(devicesCount: Int, hasThread: Bool) -> String {
+    private func title(devicesCount: Int, hasBorderRouter: Bool, hasThread: Bool) -> String {
         switch (devicesCount > 0, hasThread) {
         // First, Thread.
         case (false, true):
             return wordingManager.wordings.setUpAsBorderRouter
         default:
-            return wordingManager.wordings.settingUpThisDevice
+            return hasBorderRouter ? wordingManager.wordings.settingUpThisDevice : wordingManager.wordings.setUpAsBorderRouter
         }
     }
 
-    private func description(devicesCount: Int, hasThread: Bool) -> [String] {
+    private func description(devicesCount: Int, hasBorderRouter: Bool, hasThread: Bool) -> [String] {
         switch (devicesCount > 0, hasThread) {
         // Non-first, Thread.
         case (true, true):
-            return [
-                wordingManager.wordings.nonFirstThreadDeviceDescription1,
-                wordingManager.wordings.nonFirstThreadDeviceDescription2,
-                wordingManager.wordings.nonFirstThreadDeviceDescription3(zoneName: viewModel.state.zoneName ?? ""),
-            ]
+            if hasBorderRouter {
+                return [
+                    wordingManager.wordings.nonFirstThreadDeviceDescription1,
+                    wordingManager.wordings.nonFirstThreadDeviceDescription2,
+                    wordingManager.wordings.nonFirstThreadDeviceDescription3(zoneName: viewModel.state.zoneName ?? ""),
+                ]
+            } else {
+                return [
+                    wordingManager.wordings.firstThreadDeviceDescription1,
+                    wordingManager.wordings.firstThreadDeviceDescription2,
+                    wordingManager.wordings.firstThreadDeviceDescription3,
+                ]
+            }
         // Non-first, WiFi.
         case (true, false):
             return [

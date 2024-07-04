@@ -38,6 +38,7 @@ public struct HowToPositionView: View {
             .padding(.vertical)
             .anyView
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     // MARK: Private
