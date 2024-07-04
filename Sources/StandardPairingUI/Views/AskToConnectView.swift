@@ -26,23 +26,25 @@ public struct AskToConnectView: View {
                         .foregroundColor(themeManager.selectedTheme.primaryBlack)
                         .padding([.horizontal, .top])
                         .fixedSize(horizontal: false, vertical: true)
-                    ForEach(
-                        description(devicesCount: viewModel.state.devicesCount, hasBorderRouter: viewModel.state.hasBorderRouter, hasThread: viewModel.state.isThreadDevice),
-                        id: \.self
-                    ) { substring in
-                        VStack(alignment: .leading) {
-                            HStack(alignment: .top) {
-                                Text(" - ").font(themeManager.selectedTheme.paragraph1)
-                                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                                Text(substring)
-                                    .font(themeManager.selectedTheme.paragraph1)
-                                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
+                    VStack(alignment: .leading) {
+                        ForEach(
+                            description(devicesCount: viewModel.state.devicesCount, hasBorderRouter: viewModel.state.hasBorderRouter, hasThread: viewModel.state.isThreadDevice),
+                            id: \.self
+                        ) { substring in   
+                                HStack(alignment: .top) {
+                                    Text(" - ").font(themeManager.selectedTheme.paragraph1)
+                                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                        .frame(width: 20)
+                                    Text(substring)
+                                        .font(themeManager.selectedTheme.paragraph1)
+                                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                            
                         }
+                        .padding(.horizontal)
+                        .padding(.top, 8)
                     }
-                    .padding(.horizontal)
-                    .padding(.top, 8)
                 }
                 .padding()
                 Spacer()
