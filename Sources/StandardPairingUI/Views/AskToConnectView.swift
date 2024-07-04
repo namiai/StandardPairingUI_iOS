@@ -18,7 +18,7 @@ public struct AskToConnectView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
             if viewModel.state.doneLoading {
                 VStack {
                     Text(title(devicesCount: viewModel.state.devicesCount, hasBorderRouter: viewModel.state.hasBorderRouter, hasThread: viewModel.state.isThreadDevice))
@@ -48,7 +48,7 @@ public struct AskToConnectView: View {
                 }
                 .padding()
                 Spacer()
-                Button(nextButtonTitle(), action: { viewModel.send(event: .tapNext) })
+                Button(wordingManager.wordings.nextButton, action: { viewModel.send(event: .tapNext) })
                     .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                     .disabled(viewModel.state.nextTapped)
                     .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
@@ -72,13 +72,9 @@ public struct AskToConnectView: View {
         switch (devicesCount > 0, hasThread) {
         // First, Thread.
         case (false, true):
-            return wordingManager.wordings.setUpAsBorderRouter != nil ? wordingManager.wordings.setUpAsBorderRouter! : I18n.pairingConnectWifiSetUpAsBorderRouter
+            return wordingManager.wordings.setUpAsBorderRouter
         default:
-            if hasBorderRouter {
-                return wordingManager.wordings.settingUpThisDevice != nil ? wordingManager.wordings.settingUpThisDevice! : I18n.Pairing.ConnectWifi.settingUpThisDevice
-            } else {
-                return wordingManager.wordings.setUpAsBorderRouter != nil ? wordingManager.wordings.setUpAsBorderRouter! : I18n.Pairing.ConnectWifi.setUpAsBorderRouter    
-            }
+            return hasBorderRouter ? wordingManager.wordings.settingUpThisDevice : wordingManager.wordings.setUpAsBorderRouter
         }
     }
 
@@ -88,145 +84,41 @@ public struct AskToConnectView: View {
         case (true, true):
             if hasBorderRouter {
                 return [
-                    nonFirstThreadDeviceDesc1(),
-                    nonFirstThreadDeviceDesc2(),
-                    nonFirstThreadDeviceDesc3(),
+                    wordingManager.wordings.nonFirstThreadDeviceDescription1,
+                    wordingManager.wordings.nonFirstThreadDeviceDescription2,
+                    wordingManager.wordings.nonFirstThreadDeviceDescription3(zoneName: viewModel.state.zoneName ?? ""),
                 ]
             } else {
                 return [
-                    firstThreadDeviceDescription1(),
-                    firstThreadDeviceDescription2(),
-                    firstThreadDeviceDescription3(),
+                    wordingManager.wordings.firstThreadDeviceDescription1,
+                    wordingManager.wordings.firstThreadDeviceDescription2,
+                    wordingManager.wordings.firstThreadDeviceDescription3,
                 ]
             }
         // Non-first, WiFi.
         case (true, false):
             return [
-                nonFirstWifiDeviceDesc1(),
+                wordingManager.wordings.nonFirstWifiDeviceDescription1(zoneName: viewModel.state.zoneName ?? ""),
                 measurementSystem == .metric ?
-                    wifiDeviceMetricDistanceDescription() :
-                    wifiDeviceImperialDistanceDescription(),
+                wordingManager.wordings.wifiDeviceMetricDistanceDescription :
+                    wordingManager.wordings.wifiDeviceImperialDistanceDescription,
             ]
         // First, Thread.
         case (false, true):
             return [
-                firstThreadDeviceDescription1(),
-                firstThreadDeviceDescription2(),
-                firstThreadDeviceDescription3(),
+                wordingManager.wordings.firstThreadDeviceDescription1,
+                wordingManager.wordings.firstThreadDeviceDescription2,
+                wordingManager.wordings.firstThreadDeviceDescription3,
             ]
         // First, WiFi
         case (false, false):
             return [
-                firstWifiDeviceDescription1(),
-                firstWifiDeviceDescription2(),
+                wordingManager.wordings.firstWifiDeviceDescription1(zoneName: viewModel.state.zoneName ?? ""),
+                wordingManager.wordings.firstWifiDeviceDescription2,
                 measurementSystem == .metric ?
-                    wifiDeviceMetricDistanceDescription() :
-                    wifiDeviceImperialDistanceDescription(),
+                wordingManager.wordings.wifiDeviceMetricDistanceDescription :
+                    wordingManager.wordings.wifiDeviceImperialDistanceDescription,
             ]
         }
-    }
-    
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.pairingDeviceSetupNavigagtionTitle
-    }
-    
-    private func nextButtonTitle() -> String {
-        if let customString = wordingManager.wordings.next {
-            return customString
-        }
-        
-        return I18n.generalNext
-    }
-    
-    private func nonFirstThreadDeviceDesc1() -> String {
-        if let customString = wordingManager.wordings.nonFirstThreadDeviceDescription1 {
-            return customString
-        }
-        
-        return I18n.pairingAskToConnectNonFirstThreadDeviceDescription1
-    }
-    
-    private func nonFirstThreadDeviceDesc2() -> String {
-        if let customString = wordingManager.wordings.nonFirstThreadDeviceDescription2 {
-            return customString
-        }
-        
-        return I18n.pairingAskToConnectNonFirstThreadDeviceDescription2
-    }
-    
-    private func nonFirstThreadDeviceDesc3() -> String {
-        if let customString = wordingManager.wordings.nonFirstThreadDeviceDescription3 {
-            return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
-        }
-        
-        return I18n.pairingAskToConnectNonFirstThreadDeviceDescription3(viewModel.state.zoneName ?? "")
-    }
-    
-    private func nonFirstWifiDeviceDesc1() -> String {
-        if let customString = wordingManager.wordings.nonFirstWifiDeviceDescription1 {
-            return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
-        }
-        
-        return I18n.pairingAskToConnectNonFirstWifiDeviceDescription1(viewModel.state.zoneName ?? "")
-    }
-    
-    private func wifiDeviceMetricDistanceDescription() -> String {
-        if let customString = wordingManager.wordings.wifiDeviceMetricDistanceDescription {
-            return customString
-        }
-        
-        return I18n.pairingAskToConnectWifiDeviceMetricDistanceDescription
-    }
-    
-    private func wifiDeviceImperialDistanceDescription() -> String {
-        if let customString = wordingManager.wordings.wifiDeviceImperialDistanceDescription {
-            return customString
-        }
-        
-        return I18n.pairingAskToConnectWifiDeviceImperialDistanceDescription
-    }
-    
-    private func firstThreadDeviceDescription1() -> String {
-        if let customString = wordingManager.wordings.firstThreadDeviceDescription1 {
-            return customString
-        }
-        
-        return I18n.pairingAskToConnectFirstThreadDeviceDescription1
-    }
-    
-    private func firstThreadDeviceDescription2() -> String {
-        if let customString = wordingManager.wordings.firstThreadDeviceDescription2 {
-            return customString
-        }
-        
-        return I18n.pairingAskToConnectFirstThreadDeviceDescription2
-    }
-    
-    private func firstThreadDeviceDescription3() -> String {
-        if let customString = wordingManager.wordings.firstThreadDeviceDescription3 {
-            return customString
-        }
-        
-        return I18n.pairingAskToConnectFirstThreadDeviceDescription3
-    }
-    
-    private func firstWifiDeviceDescription1() -> String {
-        if let customString = wordingManager.wordings.firstWifiDeviceDescription1 {
-            return String.localizedStringWithFormat(customString, viewModel.state.zoneName ?? "")
-        }
-        
-        return I18n.pairingAskToConnectFirstWifiDeviceDescription1(viewModel.state.zoneName ?? "")
-    }
-    
-    private func firstWifiDeviceDescription2() -> String {
-        if let customString = wordingManager.wordings.firstWifiDeviceDescription2 {
-            return customString
-        }
-        
-        return I18n.pairingAskToConnectFirstWifiDeviceDescription2
     }
 }

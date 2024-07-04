@@ -16,14 +16,14 @@ public struct BluetoothUsageHintView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
             VStack {
-                Text(headerConnectToPower())
+                Text(wordingManager.wordings.headerConnectToPower)
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding([.horizontal, .top])
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(explainedReadyToPair())
+                Text(wordingManager.wordings.explainedReadyToPair)
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
@@ -42,28 +42,4 @@ public struct BluetoothUsageHintView: View {
     @ObservedObject var viewModel: BluetoothUsageHint.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
-    
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.pairingDeviceSetupNavigagtionTitle
-    }
-    
-    private func headerConnectToPower() -> String {
-        if let customHeaderConnectToPower = wordingManager.wordings.headerConnectToPower {
-            return customHeaderConnectToPower
-        }
-        
-        return I18n.pairingBluetoothDeviceFoundHeaderConnectToPower
-    }
-    
-    private func explainedReadyToPair() -> String {
-        if let customExplainedReadyToPair = wordingManager.wordings.explainedReadyToPair {
-            return customExplainedReadyToPair
-        }
-        
-        return I18n.pairingBluetoothDeviceFoundExplainedReadyToPair
-    }
 }

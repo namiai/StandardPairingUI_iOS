@@ -3,10 +3,10 @@
 import SwiftUI
 
 public class WordingManager: ObservableObject {
-    @Published public var wordings: WordingProtocol = EmptyWordings()
+    @Published public var wordings: WordingProtocol
     
     public init() {
-        self.wordings = EmptyWordings()
+        self.wordings = DefaultWordings()
     }
     
     public init(wordings: WordingProtocol) {
@@ -18,7 +18,7 @@ public class WordingManager: ObservableObject {
     }
 }
 
-public class EmptyWordings: WordingProtocol {
+private struct DefaultWordings: WordingProtocol {
     public init() {
         
     }

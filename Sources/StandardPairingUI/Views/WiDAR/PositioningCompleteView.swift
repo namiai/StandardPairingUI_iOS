@@ -21,20 +21,20 @@ public struct PositioningCompleteView: View {
     @EnvironmentObject private var wordingManager: WordingManager
 
     public var body: some View {
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
             VStack {
                 VStack {
                     AnimationView(animation: \.widarPositioningDone)
                         .padding(.vertical)
-                    Text(successTitle(), font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
-                    Text(sucessContentMessage(), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    Text(wordingManager.wordings.successTitle, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
+                    Text(wordingManager.wordings.sucessContentMessage(deviceName: viewModel.state.deviceName), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                 }
                 .padding(.horizontal)
 
                 Spacer()
             }
         } bottomButtonsGroup: {
-            Button(doneButton()) {
+            Button(wordingManager.wordings.doneButton) {
                 viewModel.send(.confirmPositioningComplete)
             }
             .font(themeManager.selectedTheme.headline5)
@@ -43,37 +43,5 @@ public struct PositioningCompleteView: View {
             .anyView
         }
         .ignoresSafeArea(.keyboard)
-    }
-    
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.positioningNavigationTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.widarHeaderTitle
-    }
-    
-    private func successTitle() -> String {
-        if let customString = wordingManager.wordings.successTitle {
-            return customString
-        }
-        
-        return I18n.widarSuccessTitle
-    }
-    
-    private func sucessContentMessage() -> String {
-        if let customString = wordingManager.wordings.sucessContentMessage {
-            return String.localizedStringWithFormat(customString, viewModel.state.deviceName)
-        }
-        
-        return I18n.widarSuccessContentMessage(viewModel.state.deviceName)
-    }
-    
-    private func doneButton() -> String {
-        if let customString = wordingManager.wordings.doneButton {
-            return customString
-        }
-        
-        return I18n.widarSuccessDoneButton
     }
 }

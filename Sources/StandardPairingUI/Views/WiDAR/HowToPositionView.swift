@@ -9,21 +9,21 @@ import NamiSharedUIElements
 
 public struct HowToPositionView: View {
     // MARK: Lifecycle
-
+    
     public init(viewModel: HowToPosition.ViewModel) {
         self.viewModel = viewModel
     }
-
+    
     // MARK: Internal
-
+    
     @Environment(\.animations) var animations: Animations
-
+    
     @ObservedObject var viewModel: HowToPosition.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
-
+    
     public var body: some View {
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
             mainContent()
                 .padding()
         } leadingButtonsGroup: {
@@ -31,7 +31,7 @@ public struct HowToPositionView: View {
                 viewModel.send(.wantToDismiss)
             }
         } bottomButtonsGroup: {
-            Button(startPositioningButton()) {
+            Button(wordingManager.wordings.startPositioningButton) {
                 viewModel.send(.startPositioningTapped)
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
@@ -40,67 +40,19 @@ public struct HowToPositionView: View {
         }
         .ignoresSafeArea(.keyboard)
     }
-
+    
     // MARK: Private
-
+    
     private func mainContent() -> some View {
         VStack {
             AnimationView(animation: \.widarPositioningRec)
-
-            Text(recommendationsTitle(), font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
-            Text("∙ \(recommendationsInfoAttachBase())", font: themeManager.selectedTheme.paragraph1).fillWidth()
-            Text("∙ \(recommendationsInfoWireOnBack())", font: themeManager.selectedTheme.paragraph1).fillWidth()
-            Text("∙ \(recommendationsInfoKeepAreaClear())", font: themeManager.selectedTheme.paragraph1).fillWidth()
-
+            
+            Text(wordingManager.wordings.recommendationsTitle, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
+            Text("∙ \(wordingManager.wordings.recommendationsInfoAttachBase)", font: themeManager.selectedTheme.paragraph1).fillWidth()
+            Text("∙ \(wordingManager.wordings.recommendationsInfoWireOnBack)", font: themeManager.selectedTheme.paragraph1).fillWidth()
+            Text("∙ \(wordingManager.wordings.recommendationsInfoKeepAreaClear)", font: themeManager.selectedTheme.paragraph1).fillWidth()
+            
             Spacer()
         }
-    }
-    
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.positioningNavigationTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.widarHeaderTitle
-    }
-    
-    private func recommendationsTitle() -> String {
-        if let customScanning = wordingManager.wordings.recommendationsTitle {
-            return customScanning
-        }
-        
-        return I18n.widarRecommendationsTitle
-    }
-    
-    private func recommendationsInfoAttachBase() -> String {
-        if let customString = wordingManager.wordings.recommendationsInfoAttachBase {
-            return customString
-        }
-        
-        return I18n.widarRecommendationsInfoAttachBase
-    }
-    
-    private func recommendationsInfoWireOnBack() -> String {
-        if let customString = wordingManager.wordings.recommendationsInfoWireOnBack {
-            return customString
-        }
-        
-        return I18n.widarRecommendationsInfoWireOnBack
-    }
-    
-    private func recommendationsInfoKeepAreaClear() -> String {
-        if let customString = wordingManager.wordings.recommendationsInfoKeepAreaClear {
-            return customString
-        }
-        
-        return I18n.widarRecommendationsInfoKeepAreaClear
-    }
-    
-    private func startPositioningButton() -> String {
-        if let customString = wordingManager.wordings.startPositioningButton {
-            return customString
-        }
-        
-        return I18n.widarRecommendationsButtonText
     }
 }

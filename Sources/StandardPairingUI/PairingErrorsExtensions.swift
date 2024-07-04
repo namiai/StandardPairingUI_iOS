@@ -8,37 +8,6 @@ import SharedAssets
 
 // Upper level of matryoshka.
 public extension Pairing.Error {
-    var errorMessageTitle: String {
-        if case let .underlying(error) = self {
-            if let error = error as? PairingMachineError, case let .pairingError(e) = error {
-                switch e.error {
-                case .wifiScanError:
-                    return I18n.errorsPairingErrorDeviceWifiScanError
-                case .wifiJoinError:
-                    return I18n.errorsPairingErrorDeviceWifiJoinIpError
-                case .wifiJoinPasswordError:
-                    return I18n.errorsPairingErrorDeviceWifiJoinPasswordError
-                default:
-                    break
-                }
-            }
-            
-            if let error = error as? Pairing.ThreadError {
-                switch error {
-                case .threadOperationalDatasetMissing:
-                    return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing
-                case .threadNetworkNotFound:
-                    return I18n.errorsPairingThreadSetupErrorThreadNetworkNotFound
-                }
-            }
-            
-            if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
-                return I18n.pairingErrorsThreadSetupErrorDeviceMismatchTitle
-            }
-        }
-        return I18n.pairingErrorsErrorOccurredTitle
-    }
-
     var localizedDescription: String {
         switch self {
         case let .underlying(error):
@@ -56,12 +25,12 @@ public extension Pairing.Error {
         }
     }
     
-    var FAQLink: String? {
+    func getFAQLink(wordings: WordingProtocol) -> String? {
         if case let .underlying(error) = self {
             if let error = error as? Pairing.ThreadError {
                 switch error {
                 case .threadNetworkNotFound:
-                    return URLLinks.FAQNotConnectToThread
+                    return wordings.urlNotConnectToThread
                 default:
                     return nil
                 }
@@ -88,7 +57,7 @@ extension PairingMachineError {
             return I18n.errorsPairingMachineDeserializationError
         case .encryptionError:
             return I18n.errorsPairingMachineEncryptionError
-        case let .notSupportDeviceType(deviceTypes):
+        case let .notSupportDeviceType(deviceType):
             return I18n.pairingErrorsThreadSetupErrorDeviceMismatchDescription
         }
     }
