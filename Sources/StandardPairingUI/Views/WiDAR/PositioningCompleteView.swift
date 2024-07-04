@@ -50,7 +50,7 @@ public struct PositioningCompleteView: View {
             return customNavigationTitle
         }
         
-        return I18n.Widar.headerTitle
+        return I18n.widarHeaderTitle
     }
     
     private func successTitle() -> String {
@@ -58,7 +58,7 @@ public struct PositioningCompleteView: View {
             return customString
         }
         
-        return I18n.Widar.Success.title
+        return I18n.widarSuccessTitle
     }
     
     private func sucessContentMessage() -> String {
@@ -66,7 +66,7 @@ public struct PositioningCompleteView: View {
             return String.localizedStringWithFormat(customString, viewModel.state.deviceName)
         }
         
-        return I18n.Widar.Success.contentMessage(viewModel.state.deviceName)
+        return I18n.widarSuccessContentMessage(viewModel.state.deviceName)
     }
     
     private func doneButton() -> String {
@@ -74,6 +74,6 @@ public struct PositioningCompleteView: View {
             return customString
         }
         
-        return I18n.Widar.Success.doneButton
+        return I18n.widarSuccessDoneButton
     }
 }

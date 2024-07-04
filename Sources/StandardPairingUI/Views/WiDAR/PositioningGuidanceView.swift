@@ -168,7 +168,7 @@ public struct PositioningGuidanceView: View {
             return customNavigationTitle
         }
         
-        return I18n.Widar.headerTitle
+        return I18n.widarHeaderTitle
     }
     
     private func finishButtonText() -> String {
@@ -176,7 +176,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.Position.finishButton
+        return I18n.widarPositionFinishButton
     }
     
     private func cancelButtonText() -> String {
@@ -184,7 +184,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.Position.cancelButton
+        return I18n.widarPositionCancelButton
     }
     
     private func positionGuidanceTitle() -> String {
@@ -192,7 +192,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.Position.title
+        return I18n.widarPositionTitle
     }
     
     private func guideMetric() -> String {
@@ -200,7 +200,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.Position.guideMetric
+        return I18n.widarPositionGuideMetric
     }
     
     private func guideImperial() -> String {
@@ -208,7 +208,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.Position.guideImperial
+        return I18n.widarPositionGuideImperial
     }
     
     private func statusLabel() -> String {
@@ -216,7 +216,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.Position.statusLabel
+        return I18n.widarPositionStatusLabel
     }
     
     private func statusChecking() -> String {
@@ -224,7 +224,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.Position.statusChecking
+        return I18n.widarPositionStatusLabel
     }
     
     private func statusMispositioned() -> String {
@@ -232,7 +232,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.Position.statusMispositioned
+        return I18n.widarPositionStatusMispositioned
     }
     
     private func statusGettingBetter() -> String {
@@ -240,7 +240,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.Position.statusGettingBetter
+        return I18n.widarPositionStatusGettingBetter
     }
     
     private func statusOptimized() -> String {
@@ -248,7 +248,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.Position.statusOptimized
+        return I18n.widarPositionStatusOptimized
     }
     
     private func statusEstablishingConnection() -> String {
@@ -272,7 +272,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.CancelPopup.title
+        return I18n.widarCancelPopupTitle
     }
     
     private func cancelPopupMessage() -> String {
@@ -280,7 +280,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.CancelPopup.message
+        return I18n.widarCancelPopupMessage
     }
     
     private func cancelPopupBackToPositioningButton() -> String {
@@ -288,7 +288,7 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.CancelPopup.backToPositioningButton
+        return I18n.widarCancelPopupBackToPositioningButton
     }
     
     private func cancelPopupCancelButton() -> String {
@@ -296,6 +296,6 @@ public struct PositioningGuidanceView: View {
             return customString
         }
         
-        return I18n.Widar.CancelPopup.cancelButton
+        return I18n.widarCancelPopupCancelButton
     }
 }

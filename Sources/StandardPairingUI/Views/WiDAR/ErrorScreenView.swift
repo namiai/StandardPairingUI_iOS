@@ -65,7 +65,7 @@ public struct ErrorScreenView: View {
             return customNavigationTitle
         }
         
-        return I18n.Widar.headerTitle
+        return I18n.widarHeaderTitle
     }
     
     private func positioningErrorTitle() -> String {
@@ -73,7 +73,7 @@ public struct ErrorScreenView: View {
             return customString
         }
         
-        return I18n.Widar.Error.title
+        return I18n.widarErrorTitle
     }
     
     private func deviceNotFoundMessage() -> String {
@@ -81,7 +81,7 @@ public struct ErrorScreenView: View {
             return customString
         }
         
-        return I18n.Widar.Error.deviceNotFoundMessage
+        return I18n.widarErrorDeviceNotFoundMessage
     }
     
     private func retryPositioningButton() -> String {
@@ -89,7 +89,7 @@ public struct ErrorScreenView: View {
             return customString
         }
         
-        return I18n.Widar.Error.retryButton
+        return I18n.widarErrorRetryButton
     }
     
     private func exitPositioningButton() -> String {
@@ -97,6 +97,6 @@ public struct ErrorScreenView: View {
             return customString
         }
         
-        return I18n.Widar.Error.exitButton
+        return I18n.widarErrorExitButton
     }
 }
