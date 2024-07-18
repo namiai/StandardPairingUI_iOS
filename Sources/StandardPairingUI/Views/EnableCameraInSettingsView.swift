@@ -6,13 +6,13 @@ public struct EnableCameraInSettingsView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
             VStack {
-                Text(scanQRTitle())
+                Text(wordingManager.wordings.scanQRtitle)
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text(scanQRSubtitle())
+                Text(wordingManager.wordings.scanQRsubtitle)
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -21,13 +21,13 @@ public struct EnableCameraInSettingsView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 128, height: 128)
-                Text(missingCameraPermissionTitle())
+                Text(wordingManager.wordings.missingCameraPermissionTitle)
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                Text(missingCameraPermissionDescription())
+                Text(wordingManager.wordings.missingCameraPermissionDescription)
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                Button(openSettings(), action: openSettings)
+                Button(wordingManager.wordings.openSettings, action: openSettings)
                     .buttonStyle(.borderless)
                     .padding()
                 Spacer()
@@ -50,53 +50,5 @@ public struct EnableCameraInSettingsView: View {
         }
 
         UIApplication.shared.open(settings, completionHandler: nil)
-    }
-    
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.pairingDeviceSetupNavigagtionTitle
-    }
-    
-    private func scanQRTitle() -> String {
-        if let customScanQRTitle = wordingManager.wordings.scanDeviceTitle {
-            return customScanQRTitle
-        }
-        
-        return I18n.pairingScanQrTitle
-    }
-    
-    private func scanQRSubtitle() -> String {
-        if let customScanQRSubtitle = wordingManager.wordings.scanDeviceSubtitle {
-            return customScanQRSubtitle
-        }
-        
-        return I18n.pairingScanQrSubtitle
-    }
-    
-    private func missingCameraPermissionTitle() -> String {
-        if let customWording = wordingManager.wordings.missingCameraPermissionTitle {
-            return customWording
-        }
-        
-        return I18n.pairingScanQrcodeMissingCameraPermissionTitle
-    }
-    
-    private func missingCameraPermissionDescription() -> String {
-        if let customWording = wordingManager.wordings.missingCameraPermissionDescription {
-            return customWording
-        }
-        
-        return I18n.pairingScanQrcodeMissingCameraPermissionDescription
-    }
-    
-    private func openSettings() -> String {
-        if let customWording = wordingManager.wordings.openSettings {
-            return customWording
-        }
-        
-        return I18n.pairingEnableBluetoothInSettingsButtonSettings
     }
 }

@@ -18,7 +18,7 @@ public struct PowerOnAndScanningView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: titleWording()) {
+        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
             switch viewModel.state.deviceType {
             case .contactSensor:
                 self.ContactSensorDeviceTypeScanning()
@@ -35,73 +35,25 @@ public struct PowerOnAndScanningView: View {
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
     
-    private func titleWording() -> String { 
-        if let customNavigationTitle = wordingManager.wordings.pairingNavigationBarTitle {
-            return customNavigationTitle
-        }
-        
-        return I18n.pairingDeviceSetupNavigagtionTitle
-    }
-    
-    private func headerConnectToPower() -> String {
-        if let customHeaderConnectToPower = wordingManager.wordings.headerConnectToPower {
-            return customHeaderConnectToPower
-        }
-        
-        return I18n.pairingBluetoothDeviceFoundHeaderConnectToPower
-    }
-    
-    private func explainedReadyToPair() -> String {
-        if let customExplainedReadyToPair = wordingManager.wordings.explainedReadyToPair {
-            return customExplainedReadyToPair
-        }
-        
-        return I18n.pairingBluetoothDeviceFoundExplainedReadyToPair
-    }
-    
-    private func scanning() -> String {
-        if let customScanning = wordingManager.wordings.scanning {
-            return customScanning
-        }
-        
-        return I18n.pairingPowerOnAndScanningScanning
-    }
-    
-    private func askUserToWait() -> String {
-        if let customAskUserToWait = wordingManager.wordings.askUserToWait {
-            return customAskUserToWait
-        }
-        
-        return I18n.pairingPowerOnAndScanningAskUserToWait
-    }
-    
-    private func headerContactSensor() -> String { 
-        if let customString = wordingManager.wordings.headerContactSensor {
-            return customString
-        }
-        
-        return I18n.pairingScanningBleHeaderContactSensor
-    }
-    
     @ViewBuilder
     private func GeneralDeviceTypeScanning() -> some View {
         VStack {
-            Text(headerConnectToPower())
+            Text(wordingManager.wordings.headerConnectToPower)
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text(explainedReadyToPair())
+            Text(wordingManager.wordings.explainedReadyToPair)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .leading)
             Spacer()
-            Text(scanning())
+            Text(wordingManager.wordings.scanning)
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
-            Text(askUserToWait())
+            Text(wordingManager.wordings.askUserToWait)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
@@ -117,13 +69,13 @@ public struct PowerOnAndScanningView: View {
     @ViewBuilder
     private func ContactSensorDeviceTypeScanning() -> some View {
         VStack {
-            Text(I18n.pairingScanningBleHeaderContactSensor)
+            Text(wordingManager.wordings.headerContactSensor)
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text(explainedReadyToPair())
+            Text(wordingManager.wordings.explainedReadyToPair)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
@@ -134,12 +86,12 @@ public struct PowerOnAndScanningView: View {
                 .padding(.top, 16)
                 .padding(.bottom, 16)
             
-            Text(scanning())
+            Text(wordingManager.wordings.scanning)
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
             
-            Text(askUserToWait())
+            Text(wordingManager.wordings.askUserToWait)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
@@ -150,13 +102,13 @@ public struct PowerOnAndScanningView: View {
             }
             Spacer()
             if #available(iOS 15, *) {
-                NamiTextHyperLink(text: I18n.pairingScanningBleFaq, link: URLLinks.FAQNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
+                NamiTextHyperLink(text: wordingManager.wordings.pairingScanningBleFaq, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
                     .padding(.bottom, 16)
             } else {
-                NamiTextHyperLinkLegacy(text: I18n.pairingScanningBleFaq, link: URLLinks.FAQNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
+                NamiTextHyperLinkLegacy(text: wordingManager.wordings.pairingScanningBleFaq, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
                     .font(themeManager.selectedTheme.paragraph1)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .padding(.horizontal)
