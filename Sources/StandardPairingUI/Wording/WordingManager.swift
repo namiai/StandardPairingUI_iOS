@@ -16,6 +16,10 @@ public class WordingManager: ObservableObject {
     public func setWordings(_ wordings: WordingProtocol) {
         self.wordings = wordings
     }
+    
+    public func resetWordings() {
+        self.wordings = DefaultWordings()
+    }
 }
 
 private struct DefaultWordings: WordingProtocol {
