@@ -31,10 +31,6 @@ public extension Pairing.Error {
                     return I18n.errorsPairingThreadSetupErrorThreadNetworkNotFound
                 }
             }
-            
-            if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
-                return I18n.pairingErrorsThreadSetupErrorDeviceMismatchTitle
-            }
         }
         return I18n.pairingErrorsErrorOccurredTitle
     }
@@ -88,8 +84,6 @@ extension PairingMachineError {
             return I18n.errorsPairingMachineDeserializationError
         case .encryptionError:
             return I18n.errorsPairingMachineEncryptionError
-        case let .notSupportDeviceType(deviceTypes):
-            return I18n.pairingErrorsThreadSetupErrorDeviceMismatchDescription
         }
     }
 }
@@ -127,13 +121,8 @@ extension Pairing.ThreadError {
         switch self {
         case .threadOperationalDatasetMissing:
             return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing
-        case let .threadNetworkNotFound(zoneName, deviceType):
-            switch deviceType {
-            case .contactSensor:
-                return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription1(zoneName)
-            default:
-                return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName)
-            }
+        case .threadNetworkNotFound:
+            return "No Thread network found. Please place your device closer to other Thread devices."
         }
     }
 }
