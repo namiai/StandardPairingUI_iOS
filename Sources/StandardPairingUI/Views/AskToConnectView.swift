@@ -74,11 +74,7 @@ public struct AskToConnectView: View {
         case (false, true):
             return wordingManager.wordings.setUpAsBorderRouter != nil ? wordingManager.wordings.setUpAsBorderRouter! : I18n.pairingConnectWifiSetUpAsBorderRouter
         default:
-            if hasBorderRouter {
-                return wordingManager.wordings.settingUpThisDevice != nil ? wordingManager.wordings.settingUpThisDevice! : I18n.Pairing.ConnectWifi.settingUpThisDevice
-            } else {
-                return wordingManager.wordings.setUpAsBorderRouter != nil ? wordingManager.wordings.setUpAsBorderRouter! : I18n.Pairing.ConnectWifi.setUpAsBorderRouter    
-            }
+            return hasBorderRouter ? wordingManager.wordings.settingUpThisDevice! : wordingManager.wordings.setUpAsBorderRouter!
         }
     }
 
