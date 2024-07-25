@@ -38,6 +38,8 @@ public struct NamiTheme: ThemeProtocol {
     
     public var tertiaryBlack: Color = Color.namiColors.neutral.tertiaryBlack
     
+    public var navigationTitleColor: Color = Color.namiColors.neutral.primaryBlack
+    
     public var white: Color = Color.namiColors.neutral.white
     
     public var background: Color = Color.namiColors.neutral.background
