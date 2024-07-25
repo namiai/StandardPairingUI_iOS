@@ -19,6 +19,7 @@ public protocol ThemeProtocol {
     var primaryBlack: Color { get }
     var secondaryBlack: Color { get }
     var tertiaryBlack: Color { get }
+    var navigationTitleColor: Color { get }
     var white: Color { get }
     var background: Color { get }
     var line: Color { get }
