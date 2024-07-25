@@ -8,6 +8,9 @@ import Tomonari
 
 public struct EnableBluetoothInSettingsView: View {
     // MARK: Public
+    public init() {
+        
+    }
 
     public var body: some View {
         DeviceSetupScreen(title: titleWording()) {
