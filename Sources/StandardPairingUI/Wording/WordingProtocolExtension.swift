@@ -3,7 +3,7 @@ import Foundation
 import I18n
 
 // Define default value
-extension WordingProtocol {
+public extension WordingProtocol {
     // MARK: - General
     var ok: String { get { return I18n.generalOk } }
     var next: String { get { return I18n.generalNext } }
