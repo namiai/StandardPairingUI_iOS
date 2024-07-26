@@ -76,6 +76,7 @@ public struct QRScannerView: View {
             }
         }
         .bottomSheet(item: $viewModel.state.error, height: bottomSheetHeight, content: { _ in qrErrorSheet() })
+        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: Internal
