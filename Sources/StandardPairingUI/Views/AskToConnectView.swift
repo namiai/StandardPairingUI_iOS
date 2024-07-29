@@ -71,10 +71,10 @@ public struct AskToConnectView: View {
     private func title(devicesCount: Int, hasBorderRouter: Bool, hasThread: Bool) -> String {
         switch (devicesCount > 0, hasThread) {
         // First, Thread.
-        case (true, true):
+        case (false, true):
             return wordingManager.wordings.setUpAsBorderRouter
         // Non-first, Thread.
-        case (false, true): 
+        case (true, true): 
             return hasBorderRouter ? wordingManager.wordings.settingUpThisDevice : wordingManager.wordings.setUpAsBorderRouter
         default:
             return wordingManager.wordings.settingUpThisDevice
