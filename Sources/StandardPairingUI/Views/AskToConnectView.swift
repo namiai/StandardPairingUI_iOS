@@ -73,8 +73,11 @@ public struct AskToConnectView: View {
         // First, Thread.
         case (false, true):
             return wordingManager.wordings.setUpAsBorderRouter
-        default:
+        // Non-first, Thread.
+        case (true, true): 
             return hasBorderRouter ? wordingManager.wordings.settingUpThisDevice : wordingManager.wordings.setUpAsBorderRouter
+        default:
+            return wordingManager.wordings.settingUpThisDevice
         }
     }
 
