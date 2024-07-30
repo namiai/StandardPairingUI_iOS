@@ -76,6 +76,7 @@ public struct EnterWiFiPasswordView: View {
                 .anyView
             }
         }
+        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: Internal

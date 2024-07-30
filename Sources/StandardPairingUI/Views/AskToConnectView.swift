@@ -57,6 +57,7 @@ public struct AskToConnectView: View {
                 DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: viewModel.state.deviceModel)
             }
         }
+        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: Internal

@@ -34,6 +34,7 @@ public struct EnableCameraInSettingsView: View {
             }
             .padding()
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     @EnvironmentObject private var themeManager: ThemeManager

@@ -62,6 +62,7 @@ public struct PairingErrorScreenView: View {
             .padding()
         }
         .allowSwipeBackNavigation(false)
+        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: Internal

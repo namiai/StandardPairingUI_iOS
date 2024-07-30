@@ -81,6 +81,7 @@ public struct OtherWiFiNetworkView: View {
                 startedEditingFirstTime = false
             }
         }
+        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: Internal

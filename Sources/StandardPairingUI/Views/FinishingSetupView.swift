@@ -26,8 +26,8 @@ public struct FinishingSetupView: View {
                     .padding()
             }
             .padding(.bottom)
-            .ignoresSafeArea(.keyboard)
         }
+        .ignoresSafeArea(.keyboard)
         .allowSwipeBackNavigation(false)
     }
     

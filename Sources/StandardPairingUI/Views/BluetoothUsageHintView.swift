@@ -32,6 +32,7 @@ public struct BluetoothUsageHintView: View {
             }
             .padding()
         }
+        .ignoresSafeArea(.keyboard)
         .onAppear {
             viewModel.send(event: .tapNext)
         }

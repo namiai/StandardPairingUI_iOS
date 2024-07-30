@@ -43,11 +43,23 @@ public struct InitialScreenView: View {
     // MARK: Private
 
     private func mainContent() -> some View {
-        VStack {
-            Text(wordingManager.wordings.widarInfoMustOptimisePosition, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
-            Text("∙ \(wordingManager.wordings.widarInfoMustOptimisePosition)", font: themeManager.selectedTheme.paragraph1).fillWidth()
-            Text("∙ \(wordingManager.wordings.widarInfoAvoidMovingWhenOptimized)", font: themeManager.selectedTheme.paragraph1).fillWidth().foregroundColor(themeManager.selectedTheme.redAlert4)
+        VStack(alignment: .center) {
+            Text(wordingManager.wordings.widarInfoTitle, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
+            VStack(alignment: .leading) {
+                HStack(alignment: .top) {
+                    Text("∙")
+                        .frame(width: 20, height: 20)
+                    Text(wordingManager.wordings.widarInfoMustOptimisePosition, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                }
+                HStack(alignment: .top) {
+                    Text("∙")
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(themeManager.selectedTheme.redAlert4)
+                    Text(wordingManager.wordings.widarInfoAvoidMovingWhenOptimized, font: themeManager.selectedTheme.paragraph1).fillWidth().foregroundColor(themeManager.selectedTheme.redAlert4)
+                }
+            }
             Spacer()
         }
+        .padding(.horizontal)
     }
 }
