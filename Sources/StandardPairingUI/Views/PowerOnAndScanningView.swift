@@ -26,6 +26,7 @@ public struct PowerOnAndScanningView: View {
                 self.GeneralDeviceTypeScanning()
             }
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     // MARK: Internal

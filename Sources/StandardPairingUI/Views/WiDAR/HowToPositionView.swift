@@ -44,14 +44,33 @@ public struct HowToPositionView: View {
     // MARK: Private
     
     private func mainContent() -> some View {
-        VStack {
+        VStack(alignment: .center) {
             AnimationView(animation: \.widarPositioningRec)
             
             Text(wordingManager.wordings.recommendationsTitle, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
-            Text("∙ \(wordingManager.wordings.recommendationsInfoAttachBase)", font: themeManager.selectedTheme.paragraph1).fillWidth()
-            Text("∙ \(wordingManager.wordings.recommendationsInfoWireOnBack)", font: themeManager.selectedTheme.paragraph1).fillWidth()
-            Text("∙ \(wordingManager.wordings.recommendationsInfoKeepAreaClear)", font: themeManager.selectedTheme.paragraph1).fillWidth()
+                .padding(.vertical)
             
+            VStack(alignment: .leading) {
+                HStack(alignment: .top) {
+                    Image("GreenTick")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                    Text(wordingManager.wordings.recommendationsInfoAttachBase, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                }
+                HStack(alignment: .top) {
+                    Image("GreenTick")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                    Text(wordingManager.wordings.recommendationsInfoWireOnBack, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                }
+                HStack(alignment: .top) {
+                    Image("GreenTick")
+                        .resizable()
+                        .frame(width: 24, height: 24)
+                    Text(wordingManager.wordings.recommendationsInfoKeepAreaClear, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                }
+            }
+            .padding(.horizontal)
             Spacer()
         }
     }

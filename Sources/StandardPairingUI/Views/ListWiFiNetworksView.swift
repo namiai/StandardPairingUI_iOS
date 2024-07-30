@@ -108,6 +108,7 @@ public struct ListWiFiNetworksView: View {
             }
             .padding()
         }
+        .ignoresSafeArea(.keyboard)
         .onTapGesture {
             viewModel.send(event: .tappedOtherNetwork)
         }

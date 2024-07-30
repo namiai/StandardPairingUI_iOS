@@ -58,5 +58,6 @@ public struct ErrorScreenView: View {
             }
             .padding()
         }
+        .ignoresSafeArea(.keyboard)
     }
 }

@@ -62,6 +62,7 @@ public struct PositioningGuidanceView: View {
         .bottomSheet(isPresented: cancelSheetBinding, height: 316, showTopIndicator: false) {
             sheetContent()
         }
+        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: Private
