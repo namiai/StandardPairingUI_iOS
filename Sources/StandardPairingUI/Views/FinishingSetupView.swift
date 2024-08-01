@@ -7,6 +7,10 @@ import Tomonari
 // MARK: - FinishingSetupView
 
 public struct FinishingSetupView: View {
+    public init() {
+        
+    }
+    
     public var body: some View {
         DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
             VStack {

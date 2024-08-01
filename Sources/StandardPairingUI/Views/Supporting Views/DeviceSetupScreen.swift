@@ -40,7 +40,9 @@ public struct DeviceSetupScreen<LeadingGroup: View, Subview: View, BottomGroup: 
         .toolbar {
             ToolbarItem(placement: .principal) { 
                 VStack {
-                    Text(title).font(themeManager.selectedTheme.headline5)
+                    Text(title)
+                        .font(themeManager.selectedTheme.headline5)
+                        .foregroundColor(themeManager.selectedTheme.navigationTitleColor)
                 }
             }
         }

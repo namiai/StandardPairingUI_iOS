@@ -4,7 +4,10 @@ import I18n
 
 public struct EnableCameraInSettingsView: View {
     // MARK: Public
-
+    public init() {
+        
+    }
+    
     public var body: some View {
         DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
             VStack {
