@@ -86,6 +86,11 @@ public struct PositioningGuidanceView: View {
             
 
             let quality = viewModel.state.positioningQuality
+            Text("Motion")
+                .font(themeManager.selectedTheme.headline4)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding([.bottom,.top])
 
             WaveformPlot(dataPoints: viewModel.state.losMotionStats.map({ stat in Double(stat)}), strokeColor: .secondary).padding()
         
