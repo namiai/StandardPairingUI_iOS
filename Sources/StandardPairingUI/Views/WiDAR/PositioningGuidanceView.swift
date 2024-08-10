@@ -120,8 +120,15 @@ public struct PositioningGuidanceView: View {
                                 Text(wordingManager.wordings.statusOptimized, font: themeManager.selectedTheme.headline5).foregroundColor(colors.success4)
                             }
                         }
-                        if let rssi = viewModel.state.rssiValue {
-                            Text("RSSI value: \(rssi)", font:themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.primaryBlackDisabled)
+                        HStack {
+                            if let rssi = viewModel.state.rssiValue {
+                                Text("RSSI value: \(rssi)", font:themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.primaryBlackDisabled)
+                            }
+                            if let detection = viewModel.state.detection {
+                                Image(systemName: "figure.walk.motion")
+                                   .foregroundColor(colors.neutral.primaryBlackDisabled)
+                                   .opacity(detection ? 1 : 0)
+                            }
                         }
                         
                     } else {
