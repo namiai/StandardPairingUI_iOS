@@ -87,17 +87,19 @@ public struct PositioningGuidanceView: View {
 
             let quality = viewModel.state.positioningQuality
 
-            switch quality {
-            case .degraded,
-                 .poor,
-                 .unknown:
-                AnimationView(animation: \.widarPositioningExample)
-                    .padding(.vertical)
-            case .good:
-                AnimationView(animation: \.widarPositioningOptimised)
-                    .padding(.vertical)
-            }
-
+            WaveformPlot(dataPoints: viewModel.state.losMotionStats.map({ stat in Double(stat)}), strokeColor: .secondary).padding()
+        
+//            switch quality {
+//            case .degraded,
+//                 .poor,
+//                 .unknown:
+//                AnimationView(animation: \.widarPositioningExample)
+//                    .padding(.vertical)
+//            case .good:
+//                AnimationView(animation: \.widarPositioningOptimised)
+//                    .padding(.vertical)
+//            }
+//
             RoundedRectContainerView {
                 VStack {
                     Text(wordingManager.wordings.statusLabel, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
@@ -118,6 +120,10 @@ public struct PositioningGuidanceView: View {
                                 Text(wordingManager.wordings.statusOptimized, font: themeManager.selectedTheme.headline5).foregroundColor(colors.success4)
                             }
                         }
+                        if let rssi = viewModel.state.rssiValue {
+                            Text("RSSI value: \(rssi)", font:themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.primaryBlackDisabled)
+                        }
+                        
                     } else {
                         HStack {
                             ProgressView().frame(width: 16, height: 16)
