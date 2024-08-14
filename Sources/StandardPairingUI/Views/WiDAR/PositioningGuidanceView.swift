@@ -92,7 +92,12 @@ public struct PositioningGuidanceView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.bottom,.top])
 
-            WaveformPlot(dataPoints: viewModel.state.losMotionStats.map({ stat in Double(stat)}), strokeColor: .secondary).padding()
+            WaveformPlot(
+                dataPoints: viewModel.state.losMotionStats.map({ stat in Double(stat)}),
+                dataPointsUnderGraphAreas: viewModel.state.detections,
+                strokeColor: .secondary,
+                underGraphAreasFillColor: .secondary
+            ).padding()
         
 //            switch quality {
 //            case .degraded,
@@ -127,8 +132,11 @@ public struct PositioningGuidanceView: View {
                         }
                         HStack {
                             if let rssi = viewModel.state.rssiValue {
-                                Text("RSSI value: \(rssi)", font:themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.primaryBlackDisabled)
+                                Text("RSSI: \(rssi)", font:themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.primaryBlackDisabled)
                             }
+//                            if let snr = viewModel.state.snrValue {
+//                                Text("SNR: \(snr)", font:themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.primaryBlackDisabled)
+//                            }
                             if let detection = viewModel.state.detection {
                                 Image(systemName: "figure.walk.motion")
                                    .foregroundColor(colors.neutral.primaryBlackDisabled)
@@ -146,13 +154,13 @@ public struct PositioningGuidanceView: View {
                 .padding()
             }
 
-            VStack {
-                if quality == .degraded {
-                    // TODO: Add this string to POEditor!
-                    Text(wordingManager.wordings.positioningTip, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
-                }
-            }
-            .frame(height: 20)
+//            VStack {
+//                if quality == .degraded {
+//                    // TODO: Add this string to POEditor!
+//                    Text(wordingManager.wordings.positioningTip, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+//                }
+//            }
+//            .frame(height: 20)
 
             Spacer()
         }
