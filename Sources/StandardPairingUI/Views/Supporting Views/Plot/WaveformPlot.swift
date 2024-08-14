@@ -17,16 +17,21 @@ struct WaveformPlot: View {
     /// - Parameter strokeStyle: Sets the style of the line visualizing the data points on a plot.
     init(
         dataPoints: [Double],
+        dataPointsUnderGraphAreas: [Bool] = [],
         nagativeHandling: NegativeValuesHandlingStrategy = .magnitude,
         showValues: ValueRepresentation = .absolute,
         strokeColor: Color = Color.primary,
-        strokeStyle: StrokeStyle = StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round, miterLimit: 10, dash: [], dashPhase: 10)
+        strokeStyle: StrokeStyle = StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .round, miterLimit: 10, dash: [], dashPhase: 10),
+        underGraphAreasFillColor: Color = Color.primary
+        
     ) {
         self.dataPoints = dataPoints
+        self.dataPointsUnderGraphAreas = dataPointsUnderGraphAreas
         self.nagativeHandling = nagativeHandling
         self.showValues = showValues
         self.strokeColor = strokeColor
         self.strokeStyle = strokeStyle
+        self.underGraphAreasFillColor = underGraphAreasFillColor
     }
 
     // MARK: Internal
@@ -40,8 +45,13 @@ struct WaveformPlot: View {
 
     var body: some View {
         GeometryReader { geometry in
-            drawDatapointsGraph(points: dataPoints, maxWidth: geometry.size.width, maxHeight: geometry.size.height, negativeHandling: nagativeHandling, showValues: showValues)
+            let lineGraphHeight = dataPointsUnderGraphAreas.isEmpty ? geometry.size.height : geometry.size.height - (areasRectHeight - 5)
+            drawDatapointsGraph(points: dataPoints, maxWidth: geometry.size.width, maxHeight: lineGraphHeight, negativeHandling: nagativeHandling, showValues: showValues)
                 .stroke(strokeColor, style: strokeStyle)
+            if dataPointsUnderGraphAreas.count == dataPoints.count {
+                drawUnderGraphAreas(points: dataPointsUnderGraphAreas, maxWidth: geometry.size.width, maxHeight: geometry.size.height)
+                    .foregroundColor(underGraphAreasFillColor)
+            }
         }
     }
 
@@ -49,11 +59,14 @@ struct WaveformPlot: View {
 
     private let strokeStyle: StrokeStyle
     private let strokeColor: Color
+    private let underGraphAreasFillColor: Color
 
     private let dataPoints: [Double]
+    private let dataPointsUnderGraphAreas: [Bool]
     private let nagativeHandling: NegativeValuesHandlingStrategy
     private let showValues: ValueRepresentation
 
+    private let areasRectHeight:CGFloat = 15
     private func pointsWithAppliedStrategies(_ points: [Double], negativeHandling: NegativeValuesHandlingStrategy, showValues: ValueRepresentation) -> [Double] {
         points
             .map { p -> Double in
@@ -122,6 +135,29 @@ struct WaveformPlot: View {
                 let leftControl = CGPoint(x: nextTargetPoint.x - halfStep, y: -correction * CGFloat(lastValue) + height)
                 let rightControl = CGPoint(x: nextTargetPoint.x - halfStep, y: -correction * CGFloat(p) + height)
                 path.addCurve(to: nextTargetPoint, control1: leftControl, control2: rightControl)
+            }
+        }
+    }
+    func drawUnderGraphAreas(points: [Bool], maxWidth width: CGFloat, maxHeight height: CGFloat) -> Path {
+        if points.isEmpty {
+            return Path.init()
+        }
+
+        let pointsCount = points.count
+        let stepWidth = pointsCount == 1 ? width : width / CGFloat(pointsCount - 1)
+        
+        return Path { path in
+            points.enumerated().forEach { i, p in
+                if i == 0 {
+                    path.move(to: CGPoint(x: 0, y: height))
+                    return
+                }
+                let nextTargetPoint = CGPoint(x: stepWidth * CGFloat(i), y: height)
+                if p {
+                    path.addRoundedRect(in: CGRect(x: nextTargetPoint.x - stepWidth - 1, y: height, width: stepWidth - 1, height: areasRectHeight), cornerSize: CGSize(width: 3.0, height: 3.0))
+                } else {
+                    path.addRoundedRect(in: CGRect(x: nextTargetPoint.x - stepWidth - 1, y: height + areasRectHeight - 3, width: stepWidth - 1, height: 3), cornerSize: CGSize(width: 3.0, height: 3.0))
+                }
             }
         }
     }
