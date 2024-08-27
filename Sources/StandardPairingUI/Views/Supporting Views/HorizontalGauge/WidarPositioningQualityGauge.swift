@@ -75,6 +75,9 @@ struct WidarPositioningQualityGauge: View {
         if range == 0 {
             return 0
         }
+        if value >= self.maxValue {
+            return maxWidth
+        }
         let rangeToValue = CGFloat(value - self.minValue)
         return maxWidth / range * rangeToValue
     }
