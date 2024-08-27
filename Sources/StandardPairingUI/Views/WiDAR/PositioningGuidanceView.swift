@@ -100,56 +100,56 @@ public struct PositioningGuidanceView: View {
             ).padding()
         
 //            switch quality {
-//            case .degraded,
-//                 .poor,
-//                 .unknown:
-//                AnimationView(animation: \.widarPositioningExample)
-//                    .padding(.vertical)
-//            case .good:
-//                AnimationView(animation: \.widarPositioningOptimised)
-//                    .padding(.vertical)
-//            }
-//
+            //            case .degraded,
+            //                 .poor,
+            //                 .unknown:
+            //                AnimationView(animation: \.widarPositioningExample)
+            //                    .padding(.vertical)
+            //            case .good:
+            //                AnimationView(animation: \.widarPositioningOptimised)
+            //                    .padding(.vertical)
+            //            }
+            //
             RoundedRectContainerView {
                 VStack {
-//                    Text(wordingManager.wordings.statusLabel, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    //                    Text(wordingManager.wordings.statusLabel, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                     if viewModel.state.positioningState == .started {
-//                        HStack {
-//                            switch quality {
-//                            case .unknown:
-//                                ProgressView().frame(width: 16, height: 16)
-//                                Text(wordingManager.wordings.statusChecking, font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
-//                            case .poor:
-//                                Circle().fill(Color.red).frame(width: 16, height: 16)
-//                                Text(wordingManager.wordings.statusMispositioned, font: themeManager.selectedTheme.headline5).foregroundColor(colors.redAlert4)
-//                            case .degraded:
-//                                Circle().fill(Color.yellow).frame(width: 16, height: 16)
-//                                Text(wordingManager.wordings.statusGettingBetter, font: themeManager.selectedTheme.headline5).foregroundColor(colors.lowAttentionAlert)
-//                            case .good:
-//                                Circle().fill(Color.green).frame(width: 16, height: 16)
-//                                Text(wordingManager.wordings.statusOptimized, font: themeManager.selectedTheme.headline5).foregroundColor(colors.success4)
-//                            }
-//                        }
-                        VStack {
-                            if let rssi = viewModel.state.rssiValue {
+                        if let rssi = viewModel.state.rssiValue {
+                            VStack {
                                 Text("WiDAR sensitivity").font(themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
                                 WidarPositioningQualityGauge(currentValue: Int(abs(rssi)), minValue: abs(-32), maxValue: abs(-55), goodThreshold: abs(-44), strokeColor: colors.neutral.primaryBlackDisabled)
                                     .padding(.vertical, 8)
                                 Text("Ensure the gauge value is above the threshold")
                                     .font(themeManager.selectedTheme.paragraph2)
                                     .fixedSize(horizontal: false, vertical: true)
-                            }
-                            HStack {
-                                if let rssi = viewModel.state.rssiValue {
-                                    Text("Debug information: RSSI \(rssi)", font:themeManager.selectedTheme.small1).foregroundColor(colors.neutral.primaryBlackDisabled)
+                                HStack {
+                                    if let rssi = viewModel.state.rssiValue {
+                                        Text("Debug information: LOS RSSI \(rssi)", font:themeManager.selectedTheme.small1).foregroundColor(colors.neutral.primaryBlackDisabled)
                                         
-                                }
-                                //                            if let snr = viewModel.state.snrValue {
-                                //                                Text("SNR: \(snr)", font:themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.primaryBlackDisabled)
-                                //                            }
+                                    }
+                                    //                            if let snr = viewModel.state.snrValue {
+                                    //                                Text("SNR: \(snr)", font:themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.primaryBlackDisabled)
+                                    //                            }
+                                } //.padding(.top)
                             }
-                        } //.padding(.top)
-                        
+                        } else {
+                            HStack {
+                                switch quality {
+                                case .unknown:
+                                    ProgressView().frame(width: 16, height: 16)
+                                    Text(wordingManager.wordings.statusChecking, font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
+                                case .poor:
+                                    Circle().fill(Color.red).frame(width: 16, height: 16)
+                                    Text(wordingManager.wordings.statusMispositioned, font: themeManager.selectedTheme.headline5).foregroundColor(colors.redAlert4)
+                                case .degraded:
+                                    Circle().fill(Color.yellow).frame(width: 16, height: 16)
+                                    Text(wordingManager.wordings.statusGettingBetter, font: themeManager.selectedTheme.headline5).foregroundColor(colors.lowAttentionAlert)
+                                case .good:
+                                    Circle().fill(Color.green).frame(width: 16, height: 16)
+                                    Text(wordingManager.wordings.statusOptimized, font: themeManager.selectedTheme.headline5).foregroundColor(colors.success4)
+                                }
+                            }
+                        }
                     } else {
                         HStack {
                             ProgressView().frame(width: 16, height: 16)
@@ -158,7 +158,7 @@ public struct PositioningGuidanceView: View {
                     }
                 }
                 .padding()
-            }
+                }
 
 //            VStack {
 //                if quality == .degraded {
