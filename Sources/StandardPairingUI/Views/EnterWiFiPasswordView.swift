@@ -17,9 +17,9 @@ public struct EnterWiFiPasswordView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
             VStack {
-                Text(wordingManager.wordings.enterPassword)
+                Text(wordingManager.wordings.enterPassword(for: viewModel.state.networkName))
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)

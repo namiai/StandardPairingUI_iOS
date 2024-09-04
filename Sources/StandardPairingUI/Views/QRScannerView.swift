@@ -18,7 +18,7 @@ public struct QRScannerView: View {
     // MARK: Public
     
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
             ZStack {
                 // Hack to get the available view height to calculate the bottom sheet height.
                 GeometryReader { geometry in
@@ -40,9 +40,34 @@ public struct QRScannerView: View {
                             .foregroundColor(themeManager.selectedTheme.primaryBlack)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding([.bottom, .horizontal])
+                        
+                        if shouldShowQRcodeLocation, let outletType = viewModel.state.outletType {
+                            DeviceQRCodeLocationImages.qrCodeLocationImage(for: viewModel.state.deviceType.qrCodeImageName(outletType: outletType))
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 343, height: 172)
+                                .padding([.bottom, .horizontal])
+                        }
                     }
                     .frame(maxWidth: .infinity)
                     .background(themeManager.selectedTheme.background)
+                    
+                    HStack(alignment: .center, spacing: 8) {
+                        Image(shouldShowQRcodeLocation ? "Expand" : "Question", bundle: .module)
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(themeManager.selectedTheme.white)
+                        Text(shouldShowQRcodeLocation ? "Expand camera view" : "Where is the QR code?")
+                            .font(themeManager.selectedTheme.headline5)
+                            .foregroundColor(themeManager.selectedTheme.white)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(Color(red: 0.2, green: 0.23, blue: 0.27).opacity(0.6))
+                    .cornerRadius(100)
+                    .onTapGesture {
+                        shouldShowQRcodeLocation.toggle()
+                    }
                     
                     GeometryReader { geometry in
                         let h = geometry.size.height
@@ -65,8 +90,18 @@ public struct QRScannerView: View {
                 }
             }
         }
+        .onAppear {
+            if UIDevice().userInterfaceIdiom == .phone {
+                switch UIScreen.main.nativeBounds.height {
+                case let h where h <= 1136: 
+                    shouldShowQRcodeLocation = false
+                default: 
+                    shouldShowQRcodeLocation = true
+                }
+            }
+        }
         .onPreferenceChange(ViewHeightKey.self) { newValue in
-            bottomSheetHeight = newValue * 0.5
+            bottomSheetHeight = newValue * 0.3
         }
         .onChange(of: viewModel.state.error) { error in
             if error != nil {
@@ -85,6 +120,7 @@ public struct QRScannerView: View {
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
     @State var bottomSheetHeight: CGFloat = 0
+    @State var shouldShowQRcodeLocation = true
 
     // MARK: Private
 
@@ -101,7 +137,7 @@ public struct QRScannerView: View {
         // Shift strokes start position with `dashPhase`
         let phaseCorrection = (viewfinderPerimeter / 8) + (cornerStrokeLength / 2)
         return StrokeStyle(
-            lineWidth: 5,
+            lineWidth: 2,
             lineCap: .round,
             lineJoin: .round,
             miterLimit: .infinity,

@@ -22,7 +22,7 @@ public struct ErrorScreenView: View {
         DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
             VStack {
                 Spacer()
-                Image("Warning")
+                Image("Warning", bundle: .module)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 128, height: 128)

@@ -71,9 +71,10 @@ public extension WordingProtocol {
     var networkNotFound: String { get { return I18n.pairingListWifiNetworksNoNetworksFound } }
     var availableNetworks: String { get { return I18n.pairingListWifiNetworksAvailableNetworks } }
     var otherNetworkButton: String { get { return I18n.pairingListWifiNetworksButtonOtherNetwork } }
+    var otherNetworkTitle: String { get { return "Other network" }}
     
     // MARK: - Enter Wifi password
-    var enterPassword: String { get { return I18n.pairingEnterWifiPasswordEnterPassword } }
+    func enterPassword(for networkName: String) -> String { return I18n.pairingEnterWifiPasswordEnterPassword(networkName)}
     func enterPasswordHeaderTitle(networkName: String) -> String { return I18n.pairingEnterWifiPasswordHeader(networkName) }
     var passwordEntryFieldPlaceholder: String { get { return I18n.pairingEnterWifiPasswordPasswordPlaceholder } }
     var passwordEntryFieldHint: String { get { return I18n.pairingEnterWifiPasswordPasswordEntryFieldHint } }
@@ -96,7 +97,7 @@ public extension WordingProtocol {
     var gameOfPongText: String { get { return I18n.pairingFinishingSetupGameOfPong } }
     
     // MARK: - Positioning general
-    var positioningNavigationTitle: String { get { return I18n.widarHeaderTitle } }
+    var positioningNavigationTitle: String { get { return "WiDAR Sensor" } }
     
     // MARK: - Initial positioning screen
     var widarInfoTitle: String { get { return I18n.widarInfoTitle } }
@@ -193,9 +194,11 @@ public extension WordingProtocol {
     
     // MARK: - URLs
     var urlNotPulsingBlue: String { get { return "https://support.nami.ai/hc/en-us/articles/29877340572697-My-device-LED-is-not-pulsing-blue-during-commissioning" } }
+//    var urlMyDeviceLedNotPulsing: String { get { return "https://support.nami.ai/hc/en-us/articles/33743569254809-My-device-s-LED-is-not-pulsing-during-setup" } } 
     var urlNamiThreadTopology: String { get { return "https://support.nami.ai/hc/en-us/articles/31306413218201-nami-Thread-topology" } }
     var urlNotConnectToThread: String { get { return "https://support.nami.ai/hc/en-us/articles/29875972319257-My-device-can-not-connect-to-the-Thread-network" } }
     
     // MARK: - FAQ terms
     var pairingScanningBleFaq: String { get { return I18n.pairingScanningBleFaq } }
+    var pairingScanningBleFaqDoorSensor: String { get { return "The LED light is not pulsing" } }
 }

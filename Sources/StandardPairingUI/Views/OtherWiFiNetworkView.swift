@@ -17,7 +17,7 @@ public struct OtherWiFiNetworkView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: wordingManager.wordings.otherNetworkTitle) {
             VStack {
                 Text(wordingManager.wordings.otherWifiNetworkTitle)
                     .font(themeManager.selectedTheme.headline3)

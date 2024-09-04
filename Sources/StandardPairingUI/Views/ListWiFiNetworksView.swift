@@ -18,7 +18,7 @@ public struct ListWiFiNetworksView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
             VStack {
                 Text(wordingManager.wordings.connectWifiTitle)
                     .font(themeManager.selectedTheme.headline3)

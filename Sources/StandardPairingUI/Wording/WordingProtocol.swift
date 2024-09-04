@@ -70,9 +70,10 @@ public protocol WordingProtocol {
     var networkNotFound: String { get }
     var availableNetworks: String { get }
     var otherNetworkButton: String { get }
+    var otherNetworkTitle: String { get }
     
     // MARK: - Enter Wifi password 
-    var enterPassword: String { get }
+    func enterPassword(for networkName: String) -> String
     func enterPasswordHeaderTitle(networkName: String) -> String
     var passwordEntryFieldPlaceholder: String { get }
     var passwordEntryFieldHint: String { get }
@@ -197,4 +198,5 @@ public protocol WordingProtocol {
     
     // MARK: - FAQ terms
     var pairingScanningBleFaq: String { get }
+    var pairingScanningBleFaqDoorSensor: String { get }
 }

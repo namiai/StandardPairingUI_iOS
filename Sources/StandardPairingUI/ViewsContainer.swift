@@ -8,6 +8,7 @@ import Tomonari
 
 typealias NamiTextStyle = NamiSharedUIElements.NamiTextStyle
 typealias DeviceImages = SharedAssets.DeviceImages
+typealias DeviceQRCodeLocationImages = SharedAssets.DeviceQRCodeLocationImages
 
 // MARK: - ViewsContainer
 
@@ -28,7 +29,7 @@ public struct ViewsContainer: PairingStepsContainer {
     public var listWiFiNetworks: (ListWiFiNetworks.ViewModel) -> ListWiFiNetworksView = ListWiFiNetworksView.init
     public var otherWiFiNetwork: (OtherWiFiNetwork.ViewModel) -> OtherWiFiNetworkView = OtherWiFiNetworkView.init
     public var enterWiFiPassword: (EnterWiFiPassword.ViewModel) -> EnterWiFiPasswordView = EnterWiFiPasswordView.init
-    public var finishingSetup: () -> FinishingSetupView = FinishingSetupView.init
+    public var finishingSetup: (String) -> FinishingSetupView = FinishingSetupView.init
     public var howToPosition: (HowToPosition.ViewModel) -> HowToPositionView = HowToPositionView.init
     public var initialPositioningScreen: (InitialScreen.ViewModel) -> InitialScreenView = InitialScreenView.init
     public var positioningGuidance: (PositioningGuidance.ViewModel) -> PositioningGuidanceView = PositioningGuidanceView.init

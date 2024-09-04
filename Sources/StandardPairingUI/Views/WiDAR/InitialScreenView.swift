@@ -25,10 +25,6 @@ public struct InitialScreenView: View {
         DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
             mainContent()
                 .padding(.horizontal)
-        } leadingButtonsGroup: {
-            NamiNavBackButton {
-                viewModel.send(.dismissSelf)
-            }
         } bottomButtonsGroup: {
             Button(wordingManager.wordings.nextButton) {
                 viewModel.send(.howToPositionTapped)
