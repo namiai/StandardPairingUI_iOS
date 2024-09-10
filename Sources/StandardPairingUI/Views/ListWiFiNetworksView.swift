@@ -25,11 +25,6 @@ public struct ListWiFiNetworksView: View {
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
-                Text(wordingManager.wordings.selectNetwork)
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding([.bottom, .horizontal])
                 
                 ScrollView {
                     HStack {

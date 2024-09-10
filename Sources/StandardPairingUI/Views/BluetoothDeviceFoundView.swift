@@ -27,9 +27,6 @@ public struct BluetoothDeviceFoundView: View {
                 deviceDiscovered()
             }
         }
-//        .onAppear {
-//            deviceName = viewModel.state.deviceName
-//        }
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
             self.isKeyboardAppeared = true
         }
@@ -41,7 +38,6 @@ public struct BluetoothDeviceFoundView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel
-//    @State var deviceName = ""
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
 
@@ -79,7 +75,7 @@ public struct BluetoothDeviceFoundView: View {
 
     private func askToName(model: NamiDeviceModel) -> some View {
         VStack {
-            Text(wordingManager.wordings.askToNameHeader(productLabel: model.productLabel))
+            Text(wordingManager.wordings.nameYourDevice)
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
@@ -92,7 +88,7 @@ public struct BluetoothDeviceFoundView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
             NamiTextField(placeholder: viewModel.state.deviceName, text: $viewModel.state.deviceName, textFieldFont: themeManager.selectedTheme.paragraph1, subTextFont: themeManager.selectedTheme.small1)
-                .subText(viewModel.state.showDuplicateError ? "This device name is already in use. Please use a different name." : "")
+                .subText(viewModel.state.showDuplicateError ? wordingManager.wordings.nameAlreadyInUseError : "")
                 .style(viewModel.state.showDuplicateError ? .negative : .neutral)
                 .padding(.horizontal)
                 .padding(.top, 32)

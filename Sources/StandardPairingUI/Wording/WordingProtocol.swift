@@ -40,7 +40,9 @@ public protocol WordingProtocol {
     var deviceFoundHeader2: String { get }
     /// "{device model} text"
     func askToNameHeader(productLabel: String) -> String
+    var nameYourDevice: String { get }
     var nameDeviceExplained: String { get }
+    var nameAlreadyInUseError: String { get }
     
     // MARK: - Ask to Connect View
     var setUpAsBorderRouter: String { get }

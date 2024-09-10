@@ -41,7 +41,9 @@ public extension WordingProtocol {
     var deviceFoundHeader2: String { get { return I18n.pairingBluetoothDeviceFoundHeader2 } }
     /// "{device model} text"
     func askToNameHeader(productLabel: String) -> String { return I18n.pairingBluetoothDeviceFoundNameDeviceHeader(productLabel) }
+    var nameYourDevice: String { get { return I18n.pairingBluetoothDeviceFoundNameYourDevice } }
     var nameDeviceExplained: String { get { return I18n.pairingBluetoothDeviceFoundNameDeviceExplained } }
+    var nameAlreadyInUseError: String { get { return I18n.pairingBluetoothDeviceFoundNameAlreadyInUse } }
     
     // MARK: - Ask to Connect View
     var setUpAsBorderRouter: String { get { return I18n.pairingConnectWifiSetUpAsBorderRouter } }
@@ -62,7 +64,7 @@ public extension WordingProtocol {
     var scanQRtitle: String { get { return I18n.pairingScanQrTitle } }
     var scanQRsubtitle: String { get { return I18n.pairingScanQrSubtitle } }
     var qrCodeError: String { get { return I18n.updateWifiQrCodeError } }
-    var qrCodeMismatchError: String { get { return I18n.updateWifiNotNamiQrCodeNoZone } }
+    var qrCodeMismatchError: String { get { return I18n.pairingScanQrCodeErrorDescription } }
     var tryAgainButton: String { get { return I18n.pairingErrorsActionTryAgain } }
     
     // MARK: - List Wifi networks view
@@ -193,10 +195,11 @@ public extension WordingProtocol {
     var exitPositioningButton: String { get { return I18n.widarErrorExitButton } }
     
     // MARK: - URLs
-    var urlNotPulsingBlue: String { get { return "https://support.nami.ai/hc/en-us/articles/29877340572697-My-device-LED-is-not-pulsing-blue-during-commissioning" } }
-//    var urlMyDeviceLedNotPulsing: String { get { return "https://support.nami.ai/hc/en-us/articles/33743569254809-My-device-s-LED-is-not-pulsing-during-setup" } } 
+    var urlNotPulsingBlue: String { get { return "https://support.nami.ai/hc/en-us/articles/33743569254809-My-device-s-LED-is-not-pulsing-during-setup" } }
     var urlNamiThreadTopology: String { get { return "https://support.nami.ai/hc/en-us/articles/31306413218201-nami-Thread-topology" } }
-    var urlNotConnectToThread: String { get { return "https://support.nami.ai/hc/en-us/articles/29875972319257-My-device-can-not-connect-to-the-Thread-network" } }
+    var urlNotConnectToThread: String { get { return "https://support.nami.ai/hc/en-us/articles/34191094200473-My-device-can-not-connect-to-the-Thread-network" } }
+    
+    
     
     // MARK: - FAQ terms
     var pairingScanningBleFaq: String { get { return I18n.pairingScanningBleFaq } }

@@ -32,7 +32,7 @@ public struct OtherWiFiNetworkView: View {
                 NamiTextField(
                     placeholder: wordingManager.wordings.networkNamePlaceholder,
                     text: Binding(get: {
-                        viewModel.state[keyPath: \.networkName]
+                        viewModel.state.networkName
                     }, set: { value in
                         viewModel.state[keyPath: \.networkName] = value
                     }),

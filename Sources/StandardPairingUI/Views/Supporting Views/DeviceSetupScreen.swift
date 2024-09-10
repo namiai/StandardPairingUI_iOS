@@ -29,7 +29,6 @@ public struct DeviceSetupScreen<LeadingGroup: View, Subview: View, BottomGroup: 
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
                 subview()
-                    .padding(.top, 10)
                     .frame(maxHeight: .infinity)
                 bottomButtonsGroup()
             }

@@ -35,11 +35,13 @@ public struct QRScannerView: View {
                             .foregroundColor(themeManager.selectedTheme.primaryBlack)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding([.horizontal, .top])
-                        Text(wordingManager.wordings.scanQRsubtitle)
-                            .font(themeManager.selectedTheme.paragraph1)
-                            .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.bottom, .horizontal])
+                        if viewModel.state.deviceType != .contactSensor {
+                            Text(wordingManager.wordings.scanQRsubtitle)
+                                .font(themeManager.selectedTheme.paragraph1)
+                                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding([.bottom, .horizontal])
+                        }
                         
                         if shouldShowQRcodeLocation, let outletType = viewModel.state.outletType {
                             DeviceQRCodeLocationImages.qrCodeLocationImage(for: viewModel.state.deviceType.qrCodeImageName(outletType: outletType))
@@ -101,7 +103,7 @@ public struct QRScannerView: View {
             }
         }
         .onPreferenceChange(ViewHeightKey.self) { newValue in
-            bottomSheetHeight = newValue * 0.3
+            bottomSheetHeight = newValue * 0.44
         }
         .onChange(of: viewModel.state.error) { error in
             if error != nil {
@@ -151,20 +153,30 @@ public struct QRScannerView: View {
 
     private func qrErrorSheet() -> some View {
         VStack {
-            HStack {
-                Image("Warning")
-                    .frame(width: 32)
-                Text(wordingManager.wordings.qrCodeError)
-                    .font(themeManager.selectedTheme.headline4)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-            }
+            Image("Warning", bundle: .module)
+                .resizable()
+                .frame(width: 40, height: 40)
+                .padding(.top, 32)
+                .padding(.bottom, 4)
+            Text(wordingManager.wordings.qrCodeError)
+                .font(themeManager.selectedTheme.headline4)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
             Text(wordingManager.wordings.qrCodeMismatchError)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .padding(.vertical, 16)
             Button(wordingManager.wordings.tryAgainButton) {
                 viewModel.send(event: .dismissScanError)
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+            
+            .padding(.bottom, 4)
+            .anyView
+            
+            Button(wordingManager.wordings.exitSetupActionTitle) {
+                viewModel.send(event: .shouldDismissItself)
+            }
+            .buttonStyle(themeManager.selectedTheme.secondaryActionButtonStyle)
             .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
             .anyView
         }
