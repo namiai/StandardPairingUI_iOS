@@ -18,7 +18,9 @@ public struct PowerOnAndScanningView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(
+            title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle
+        ) {
             switch viewModel.state.deviceType {
             case .contactSensor:
                 self.ContactSensorDeviceTypeScanning()
@@ -26,7 +28,7 @@ public struct PowerOnAndScanningView: View {
                 self.GeneralDeviceTypeScanning()
             }
         }
-        .navigationBarBackButtonHidden(true)
+        .environment(\.hideBackButton, true)
         .ignoresSafeArea(.keyboard)
     }
     
@@ -51,24 +53,34 @@ public struct PowerOnAndScanningView: View {
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            darkPulseAnimation()
-                .padding(.horizontal)
-                .padding(.top, 16)
-                .padding(.bottom, 16)
-            
-            Text(wordingManager.wordings.scanning)
-                .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.horizontal)
-            Text(wordingManager.wordings.askUserToWait)
-                .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.horizontal)
-                .padding(.top, 4)
-            if viewModel.state.showsProgressIndicator {
-                ProgressView()
-                    .padding()
+            switch viewModel.state.centralState.authorization {
+            case .notDetermined,
+                .allowedAlways: 
+                darkPulseAnimation()
+                    .padding(.horizontal)
+                    .padding(.top, 16)
+                    .padding(.bottom, 16)
+                
+                Text(wordingManager.wordings.scanning)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .padding(.horizontal)
+                Text(wordingManager.wordings.askUserToWait)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .padding(.horizontal)
+                    .padding(.top, 4)
+                if viewModel.state.showsProgressIndicator {
+                    ProgressView()
+                        .padding()
+                }
+            case .denied, .restricted: 
+                Spacer()
+                bluetoothNotAvailable()
+            @unknown default:
+                EmptyView()
             }
+            
             Spacer()
             
             if #available(iOS 15, *) {
@@ -96,30 +108,40 @@ public struct PowerOnAndScanningView: View {
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text(wordingManager.wordings.explainedReadyToPair)
+            // We don't need to have this in wordingManager yet
+            Text(I18n.pairingBluetoothDeviceFoundExplainedReadyToPairContactSensor)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            darkPulseAnimation()
-                .padding(.horizontal)
-                .padding(.top, 16)
-                .padding(.bottom, 16)
-            
-            Text(wordingManager.wordings.scanning)
-                .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.horizontal)
-            
-            Text(wordingManager.wordings.askUserToWait)
-                .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.horizontal)
-            
-            if viewModel.state.showsProgressIndicator {
-                ProgressView()
-                    .padding()
+            switch viewModel.state.centralState.authorization {
+            case .notDetermined,
+                    .allowedAlways: 
+                darkPulseAnimation()
+                    .padding(.horizontal)
+                    .padding(.top, 16)
+                    .padding(.bottom, 16)
+                
+                Text(wordingManager.wordings.scanning)
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .padding(.horizontal)
+                
+                Text(wordingManager.wordings.askUserToWait)
+                    .font(themeManager.selectedTheme.paragraph1)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .padding(.horizontal)
+                
+                if viewModel.state.showsProgressIndicator {
+                    ProgressView()
+                        .padding()
+                }
+            case .denied, .restricted:
+                Spacer()
+                bluetoothNotAvailable()
+            @unknown default:
+                EmptyView()
             }
             Spacer()
             if #available(iOS 15, *) {
@@ -193,5 +215,38 @@ public struct PowerOnAndScanningView: View {
                 
             }
         }
+    }
+    
+    
+    @ViewBuilder
+    private func bluetoothNotAvailable() -> some View {
+        VStack(alignment: .center) {
+            Image("Bluetooth", bundle: .module)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 128, height: 128)
+            Text(wordingManager.wordings.bluetoothDisabled)
+                .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+            Text(wordingManager.wordings.enableBlueToothInSettingsHeader)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+            Button(wordingManager.wordings.buttonSettings, action: openSettings)
+                .buttonStyle(.borderless)
+                .padding()
+        }
+    }
+    
+    private func openSettings() {
+        guard
+            let settings = URL(string: UIApplication.openSettingsURLString),
+            UIApplication.shared.canOpenURL(settings)
+        else {
+            return
+        }
+
+        UIApplication.shared.open(settings, completionHandler: nil)
     }
 }

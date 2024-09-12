@@ -157,8 +157,10 @@ public extension WordingProtocol {
     // MARK: - Pairing Machine error - title
     var pairingErrorDeviceWifiScanTitle: String { get { return I18n.errorsPairingErrorDeviceWifiScanError } }
     var pairingErrorDeviceWifiJoinIpTitle: String { get { return I18n.errorsPairingErrorDeviceWifiJoinIpError } }
-    var pairingErrorDeviceWifiJoinPasswordTitle: String { get { return I18n.errorsPairingErrorDeviceWifiJoinPasswordError } }
+    var pairingErrorDeviceWifiJoinPasswordTitle: String { get { return I18n.errorsPairingIncorrectWifiPasswordTitle } }
     var pairingErrorDeviceMismatchTitle: String { get { return I18n.pairingErrorsThreadSetupErrorDeviceMismatchTitle } }
+    var pairingErrorConnectionTimeoutTitle: String { get { return I18n.pairingErrorsTimeoutTitle }}
+    var pairingErrorBleDisconnectedTitle: String { get { return I18n.pairingErrorsBleDisconnectedTitle }}
     
     // MARK: - Pairing Machine error - description
     var pairingErrorUnexpectedStateDescription: String { get { return I18n.errorsPairingMachineUnexpectedState } }
@@ -168,11 +170,13 @@ public extension WordingProtocol {
     var pairingErrorDeserializationDescription: String { get { return I18n.errorsPairingMachineDeserializationError } }
     var pairingErrorEncryptionErrorDescription: String { get { return I18n.errorsPairingMachineEncryptionError } }
     var pairingErrorDeviceMismatchDescription: String { get { return I18n.pairingErrorsThreadSetupErrorDeviceMismatchDescription } }
+    var pairingErrorConnectionTimeoutDescription: String { get { return I18n.errorsPairingConnectionTimeOutDescription }}
+    func pairingErrorBleDisconnectedDescription(deviceName: String) -> String { return I18n.errorsPairingBleDisconnectedDescription(deviceName) }
     var pairingErrorDeviceSecureSessionDescription: String { get { return I18n.errorsPairingErrorDeviceSecureSessionError } }
     var pairingErrorDeviceCloudChallengeDescription: String { get { return I18n.errorsPairingErrorDeviceCloudChallengeError } }
     var pairingErrorDeviceWifiScanDescription: String { get { return I18n.errorsPairingErrorDeviceWifiScanError } }
     var pairingErrorDeviceWifiJoinDescription: String { get { return I18n.errorsPairingErrorDeviceWifiJoinError } }
-    var pairingErrorDeviceWifiJoinPasswordDescription: String { get { return I18n.errorsPairingErrorDeviceWifiJoinPasswordError } }
+    var pairingErrorDeviceWifiJoinPasswordDescription: String { get { return I18n.errorsPairingIncorrectWifiPasswordDescription } }
     var pairingErrorDeviceWifiJoinIpDescription: String { get { return I18n.errorsPairingErrorDeviceWifiJoinIpError } }
     var pairingErrorsUnableJoinThreadNetworksDescription1: String { get { return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription1 } }
     func pairingErrorsUnableJoinThreadNetworksDescription2(zoneName: String) -> String { return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription2(zoneName) }
@@ -180,8 +184,8 @@ public extension WordingProtocol {
     
     // MARK: - Pairing Thread error
     // MARK: - Pairing Thread error - title
-    var pairingThreadErrorDatasetMissingTitle: String { get { return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing } }
-    var pairingThreadErrorThreadNetworkNotFoundTitle: String { get { return I18n.errorsPairingThreadSetupErrorThreadNetworkNotFound } }
+    var pairingThreadErrorDatasetMissingTitle: String { get { return I18n.pairingErrorsThreadSetupErrorMissingThreadCredentials } }
+    var pairingThreadErrorThreadNetworkNotFoundTitle: String { get { return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundTitle } }
     
     // MARK: - Pairing Thread error - description
     var pairingThreadErrorDatasetMissingDescription: String { get { return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing } }

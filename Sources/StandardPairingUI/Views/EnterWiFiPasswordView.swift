@@ -25,11 +25,7 @@ public struct EnterWiFiPasswordView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                     .padding(.bottom, 8)
-                Text(wordingManager.wordings.enterPasswordHeaderTitle(networkName: viewModel.state.networkName))
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding([.horizontal, .bottom])
+
                 NamiTextField(
                     placeholder: wordingManager.wordings.passwordEntryFieldPlaceholder,
                     text: Binding(get: {
@@ -42,7 +38,7 @@ public struct EnterWiFiPasswordView: View {
 
                     returnKeyType: .done,
                     textFieldFont: themeManager.selectedTheme.paragraph1, 
-                    subTextFont: themeManager.selectedTheme.small1
+                    subTextFont: themeManager.selectedTheme.paragraph2
                 )
                 .secureTextEntry(true)
                 .subText(wordingManager.wordings.passwordEntryFieldHint)
@@ -51,30 +47,32 @@ public struct EnterWiFiPasswordView: View {
                     textIsEditing = true
                 }
                 Spacer()
-                Button(wordingManager.wordings.buttonReadyToConnect, action: { 
-                    // If the keyboard was dismissed already.
-                    if textIsEditing == false {
-                        viewModel.send(event: .confirmPassword)
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        textIsEditing = false
-                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    }
-                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: .main) { _ in
-                        viewModel.send(event: .confirmPassword)
-                    }
-                })
-                .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
-                .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
-                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-                    self.isKeyboardAppeared = true
-                }
-                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-                    self.isKeyboardAppeared = false
-                }
-                .anyView
+                
             }
+        } bottomButtonsGroup: {
+            Button(wordingManager.wordings.buttonReadyToConnect, action: { 
+                // If the keyboard was dismissed already.
+                if textIsEditing == false {
+                    viewModel.send(event: .confirmPassword)
+                    return
+                }
+                DispatchQueue.main.async {
+                    textIsEditing = false
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: .main) { _ in
+                    viewModel.send(event: .confirmPassword)
+                }
+            })
+            .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+            .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+                self.isKeyboardAppeared = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                self.isKeyboardAppeared = false
+            }
+            .anyView
         }
         .ignoresSafeArea(.keyboard)
     }

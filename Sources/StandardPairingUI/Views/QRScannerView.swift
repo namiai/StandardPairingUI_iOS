@@ -104,6 +104,7 @@ public struct QRScannerView: View {
         }
         .onPreferenceChange(ViewHeightKey.self) { newValue in
             bottomSheetHeight = newValue * 0.44
+//            bottomSheetHeight = 330
         }
         .onChange(of: viewModel.state.error) { error in
             if error != nil {
@@ -152,12 +153,12 @@ public struct QRScannerView: View {
     }
 
     private func qrErrorSheet() -> some View {
-        VStack {
+        VStack(spacing: 0) {
+            Spacer()
             Image("Warning", bundle: .module)
                 .resizable()
-                .frame(width: 40, height: 40)
-                .padding(.top, 32)
-                .padding(.bottom, 4)
+                .frame(width: 33, height: 28)
+                .scaledToFill()
             Text(wordingManager.wordings.qrCodeError)
                 .font(themeManager.selectedTheme.headline4)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
@@ -165,6 +166,7 @@ public struct QRScannerView: View {
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.vertical, 16)
+            Spacer()
             Button(wordingManager.wordings.tryAgainButton) {
                 viewModel.send(event: .dismissScanError)
             }

@@ -4,12 +4,12 @@ import I18n
 
 public struct EnableCameraInSettingsView: View {
     // MARK: Public
-    public init() {
-        
+    public init(deviceType: String? = nil) {
+        self.deviceType = deviceType ?? ""
     }
     
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: self.deviceType.isEmpty ? wordingManager.wordings.pairingNavigationBarTitle : self.deviceType) {
             VStack {
                 Text(wordingManager.wordings.scanQRtitle)
                     .font(themeManager.selectedTheme.headline3)
@@ -20,19 +20,23 @@ public struct EnableCameraInSettingsView: View {
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
-                Image("Camera", bundle: .module)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 128, height: 128)
-                Text(wordingManager.wordings.missingCameraPermissionTitle)
-                    .font(themeManager.selectedTheme.headline3)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                Text(wordingManager.wordings.missingCameraPermissionDescription)
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                Button(wordingManager.wordings.openSettings, action: openSettings)
-                    .buttonStyle(.borderless)
-                    .padding()
+                VStack(alignment: .center) {
+                    Image("Camera", bundle: .module)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 128, height: 128)
+                    Text(wordingManager.wordings.missingCameraPermissionTitle)
+                        .font(themeManager.selectedTheme.headline3)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    Text(wordingManager.wordings.missingCameraPermissionDescription)
+                        .font(themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 32)
+                    Button(wordingManager.wordings.openSettings, action: openSettings)
+                        .buttonStyle(.borderless)
+                        .padding()
+                }
                 Spacer()
             }
             .padding()
@@ -55,4 +59,6 @@ public struct EnableCameraInSettingsView: View {
 
         UIApplication.shared.open(settings, completionHandler: nil)
     }
+    
+    private var deviceType: String
 }

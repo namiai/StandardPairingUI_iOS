@@ -6,6 +6,8 @@ import SharedAssets
 
 // MARK: - DeviceSetupScreen
 
+// MARK: - DeviceSetupScreen
+
 public struct DeviceSetupScreen<LeadingGroup: View, Subview: View, BottomGroup: View>: View {
     // MARK: Lifecycle
     
@@ -45,13 +47,19 @@ public struct DeviceSetupScreen<LeadingGroup: View, Subview: View, BottomGroup: 
                 }
             }
         }
-        // TODO: handle the case where views would like to override the back button
-//        .navigationBarItems(leading: leadingButtonsGroup())
+        .navigationBarItems(leading: EmptyView())
+//        .navigationBarItems(leading: hideBackButton ? EmptyView() as! LeadingGroup : leadingButtonsGroup())
+//        .onChange(of: hideBackButton) { newValue in
+//            print("hideBackButton changed in DeviceSetupScreen: \(newValue)")
+//        }
+        
+
     }
 
     // MARK: Private
 
     @EnvironmentObject private var themeManager: ThemeManager
+//    @Environment(\.hideBackButton) private var hideBackButton: Bool
     private let title: String
     private let subview: () -> Subview
     private var leadingButtonsGroup: () -> LeadingGroup

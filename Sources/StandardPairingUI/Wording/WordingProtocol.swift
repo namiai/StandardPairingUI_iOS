@@ -158,6 +158,8 @@ public protocol WordingProtocol {
     var pairingErrorDeviceWifiJoinIpTitle: String { get }
     var pairingErrorDeviceWifiJoinPasswordTitle: String { get }
     var pairingErrorDeviceMismatchTitle: String { get }
+    var pairingErrorConnectionTimeoutTitle: String { get }
+    var pairingErrorBleDisconnectedTitle: String { get }
     
     // MARK: - Pairing Machine error - description
     var pairingErrorUnexpectedStateDescription: String { get }
@@ -167,6 +169,8 @@ public protocol WordingProtocol {
     var pairingErrorDeserializationDescription: String { get }
     var pairingErrorEncryptionErrorDescription: String { get }
     var pairingErrorDeviceMismatchDescription: String { get }
+    var pairingErrorConnectionTimeoutDescription: String { get }
+    func pairingErrorBleDisconnectedDescription(deviceName: String) -> String 
     var pairingErrorDeviceSecureSessionDescription: String { get }
     var pairingErrorDeviceCloudChallengeDescription: String { get }
     var pairingErrorDeviceWifiScanDescription: String { get }

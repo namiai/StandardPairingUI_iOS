@@ -59,6 +59,10 @@ extension PairingMachineError {
             return I18n.errorsPairingMachineEncryptionError
         case let .notSupportDeviceType(deviceType):
             return I18n.pairingErrorsThreadSetupErrorDeviceMismatchDescription
+        case .connectionTimeOutError:
+            return I18n.errorsPairingConnectionTimeOutDescription
+        case let .bluetoothDisconnectedError(deviceTpe, canTryAgain): 
+            return canTryAgain ? I18n.errorsPairingBleDisconnectedDescription(deviceTpe.localizedName) : ""
         }
     }
 }
@@ -78,7 +82,7 @@ extension Pairing_Error {
         case .wifiJoinPasswordError:
             return I18n.errorsPairingErrorDeviceWifiJoinPasswordError
         case .wifiJoinIpError:
-            return I18n.errorsPairingErrorDeviceWifiJoinIpError
+            return I18n.errorsPairingIncorrectWifiPasswordTitle
         case .threadJoinError:
             return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription1
             + "\n\n"
