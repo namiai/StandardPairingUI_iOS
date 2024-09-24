@@ -29,13 +29,14 @@ public struct OtherWiFiNetworkView: View {
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
+                let networkNameBinding = Binding(get: {
+                    viewModel.state.networkName
+                }, set: { value in
+                    viewModel.state[keyPath: \.networkName] = value
+                })
                 NamiTextField(
                     placeholder: wordingManager.wordings.networkNamePlaceholder,
-                    text: Binding(get: {
-                        viewModel.state.networkName
-                    }, set: { value in
-                        viewModel.state[keyPath: \.networkName] = value
-                    }),
+                    text: networkNameBinding,
                     isEditing: $nameIsEditing,
                     returnKeyType: .done,
                     textFieldFont: themeManager.selectedTheme.paragraph1, 
