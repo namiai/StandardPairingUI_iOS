@@ -20,23 +20,15 @@ public struct BluetoothDeviceFoundView: View {
     public var body: some View {
         DeviceSetupScreen(title: navigationBarTitle()) {
             if let deviceModel = viewModel.state.deviceModel {
-                viewModel.state.deviceNameConfirmed ?
-                    AnyView(DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: deviceModel)) :
-                    AnyView(askToName(model: deviceModel))
+                if viewModel.state.deviceModel == .unknown || viewModel.state.deviceType == deviceModel.deviceType {
+                    viewModel.state.deviceNameConfirmed ?
+                        AnyView(DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: deviceModel)) :
+                        AnyView(askToName(model: deviceModel))
+                } else {
+                    deviceDiscovered()
+                }
             } else {
                 deviceDiscovered()
-            }
-        } bottomButtonsGroup: {
-            if viewModel.state.deviceModel != nil, !viewModel.state.deviceNameConfirmed {
-                Button(wordingManager.wordings.nextButton) {
-                    isKeyboardAppeared = false
-                    viewModel.send(event: .deviceNameConfirmed)
-                }
-                .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
-                .disabled(viewModel.state.deviceName.trimmingWhitespaces.isEmpty || viewModel.state.showDuplicateError)
-                .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
-                .padding(.horizontal)
-                .anyView
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
@@ -46,9 +38,9 @@ public struct BluetoothDeviceFoundView: View {
             self.isKeyboardAppeared = false
         }
         .onDisappear {
-            isEditing = false
+            self.isEditing = false
+            self.isKeyboardAppeared = false
         }
-        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: Internal
@@ -58,8 +50,8 @@ public struct BluetoothDeviceFoundView: View {
     @EnvironmentObject private var wordingManager: WordingManager
 
     // MARK: Private
-    @SwiftUI.State private var isKeyboardAppeared: Bool = false
-    @SwiftUI.State private var isEditing: Bool = false
+    @State private var isKeyboardAppeared: Bool = false
+    @State private var isEditing: Bool = true
 
     private func navigationBarTitle() -> String {
         if let deviceModel = viewModel.state.deviceModel, deviceModel.deviceType != .unknown {
@@ -105,17 +97,27 @@ public struct BluetoothDeviceFoundView: View {
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
-            NamiTextField(placeholder: viewModel.state.deviceName, text: $viewModel.state.deviceName, isEditing: $isEditing, textFieldFont: themeManager.selectedTheme.paragraph1, subTextFont: themeManager.selectedTheme.small1)
+            NamiTextField(placeholder: viewModel.state.deviceName, text: $viewModel.state.deviceName, isEditing: $isEditing, returnKeyType: .done, subTextFont: themeManager.selectedTheme.paragraph2)
                 .subText(viewModel.state.showDuplicateError ? wordingManager.wordings.nameAlreadyInUseError : "")
                 .style(viewModel.state.showDuplicateError ? .negative : .neutral)
                 .padding(.horizontal)
                 .padding(.top, 16)
                 .frame(maxWidth: .infinity)
+                .onAppear {
+                    isEditing = true
+                }
+                .onDisappear {
+                    isEditing = false 
+                }
             Spacer()
-            
-        }
-        .onAppear {
-            isEditing = true
+            Button(wordingManager.wordings.nextButton) {
+                isKeyboardAppeared = false
+                viewModel.send(event: .deviceNameConfirmed)
+            }
+            .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+            .disabled(viewModel.state.deviceName.trimmingWhitespaces.isEmpty || viewModel.state.showDuplicateError)
+            .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
+            .anyView
         }
     }
 }

@@ -29,8 +29,9 @@ public struct ErrorScreenView: View {
                         .frame(width: 128, height: 128)
                     Text(wordingManager.wordings.positioningErrorTitle)
                         .font(themeManager.selectedTheme.headline3)
-                        .frame(maxWidth: .infinity, alignment: .center)
+                        .lineLimit(2)
                         .padding(.horizontal)
+                        .fixedSize(horizontal: false, vertical: true)
                     Text(wordingManager.wordings.deviceNotFoundMessage)
                         .font(themeManager.selectedTheme.paragraph1)
                         .multilineTextAlignment(.center)
@@ -59,7 +60,6 @@ public struct ErrorScreenView: View {
                 .buttonStyle(themeManager.selectedTheme.secondaryActionButtonStyle)
                 .anyView
             }
-            .padding()
         }
         .ignoresSafeArea(.keyboard)
     }

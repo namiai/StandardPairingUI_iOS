@@ -45,7 +45,7 @@ public struct ListWiFiNetworksView: View {
                     }
                     .padding([.horizontal, .bottom])
                     
-                    if let networks = viewModel.state.networks {
+                    if let networks = viewModel.state.networks, networks.isEmpty == false {
                         RoundedRectContainerView {
                             VStack {
                                 ForEach(Array(networks.enumerated()), id: \.offset) { item in

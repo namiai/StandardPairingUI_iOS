@@ -32,17 +32,36 @@ public struct PairingErrorScreenView: View {
                 Text(viewModel.state.error.getErrorMessageTitle(wordings: wordingManager.wordings))
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.horizontal)
-                    .padding(.top, 8)
-                Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
-                    .padding(.top, 2)
-                    .lineLimit(4)
+                    .padding(.top, 4)
                     .fixedSize(horizontal: false, vertical: true)
+                if viewModel.state.deviceType == .contactSensor {
+                    Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
+                        .font(themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                        .padding(.top, 4)
+                        .lineLimit(4)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(wordingManager.wordings.pairingThreadErrorContactSensorNoThreadNetworksFoundDescription2)
+                        .font(themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                        .padding(.top, 2)
+                        .lineLimit(4)
+                        .fixedSize(horizontal: false, vertical: true)
+                } else {
+                    Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
+                        .font(themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                        .padding(.top, 2)
+                        .lineLimit(4)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
                 if let urlLink = viewModel.state.error.getFAQLink(wordings: wordingManager.wordings) {
                     if #available(iOS 15, *) {
                         NamiTextHyperLink(text: wordingManager.wordings.pairingErrorNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
@@ -59,8 +78,6 @@ public struct PairingErrorScreenView: View {
             }
             .padding(.horizontal)
             Spacer()
-            
-        } bottomButtonsGroup: {
             VStack {
                 if viewModel.state.actions.isEmpty == false {
                     ForEach(0..<viewModel.state.actions.count, id: \.self, content: buttonForAction)

@@ -3,6 +3,7 @@
 import I18n
 import SwiftUI
 import SharedAssets
+import NamiSharedUIElements
 
 // MARK: - DeviceSetupScreen
 
@@ -47,19 +48,13 @@ public struct DeviceSetupScreen<LeadingGroup: View, Subview: View, BottomGroup: 
                 }
             }
         }
-        .navigationBarItems(leading: EmptyView())
-//        .navigationBarItems(leading: hideBackButton ? EmptyView() as! LeadingGroup : leadingButtonsGroup())
-//        .onChange(of: hideBackButton) { newValue in
-//            print("hideBackButton changed in DeviceSetupScreen: \(newValue)")
-//        }
-        
+        .navigationBarItems(leading: EmptyView())        
 
     }
 
     // MARK: Private
 
     @EnvironmentObject private var themeManager: ThemeManager
-//    @Environment(\.hideBackButton) private var hideBackButton: Bool
     private let title: String
     private let subview: () -> Subview
     private var leadingButtonsGroup: () -> LeadingGroup

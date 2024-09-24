@@ -26,6 +26,10 @@ public protocol WordingProtocol {
     // MARK: - Enable Bluetooth in Settings View 
     var bluetoothDisabled: String { get }
     var enableBlueToothInSettingsHeader: String { get }
+    var bluetoothIsOff: String { get }
+    var bluetoothIsOffDescription: String { get }
+    var bluetoothRestricted: String { get }
+    var bluetoothRestrictedDescription: String { get }
     var buttonSettings: String { get }
     
     // MARK: - Enable Camera in Settings VIew 
@@ -65,6 +69,8 @@ public protocol WordingProtocol {
     var qrCodeError: String { get }
     var qrCodeMismatchError: String { get }
     var tryAgainButton: String { get }
+    var scanQRexpandCamera: String { get }
+    var scanQRwhereIsQR: String { get }
     
     // MARK: - List Wifi networks view
     var connectWifiTitle: String { get }
@@ -189,6 +195,7 @@ public protocol WordingProtocol {
     // MARK: - Pairing Thread error - description
     var pairingThreadErrorDatasetMissingDescription: String { get }
     func pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1(zoneName: String) -> String
+    var pairingThreadErrorContactSensorNoThreadNetworksFoundDescription2: String { get }
     func pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: String) -> String
     
     // MARK: - Positioning error view

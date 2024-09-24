@@ -65,7 +65,7 @@ public struct OtherWiFiNetworkView: View {
                 Button(wordingManager.wordings.readyToConnectButton, action: { viewModel.send(event: .didConfirmName) })
                     .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                     .disabled(viewModel.state.networkName.isEmpty)
-                    .padding()
+                    .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
                     .anyView
             }
         }
@@ -81,7 +81,12 @@ public struct OtherWiFiNetworkView: View {
                 startedEditingFirstTime = false
             }
         }
-        .ignoresSafeArea(.keyboard)
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+            self.isKeyboardAppeared = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+            self.isKeyboardAppeared = false
+        }
     }
 
     // MARK: Internal
@@ -89,7 +94,8 @@ public struct OtherWiFiNetworkView: View {
     @ObservedObject var viewModel: OtherWiFiNetwork.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
-    @State var nameIsEditing = false
+    @State var nameIsEditing = true
     @State var passwordIsEditing = false
+    @State private var isKeyboardAppeared: Bool = false
     @State var startedEditingFirstTime = false
 }

@@ -53,31 +53,45 @@ public struct PowerOnAndScanningView: View {
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            switch viewModel.state.centralState.authorization {
-            case .notDetermined,
-                .allowedAlways: 
-                darkPulseAnimation()
-                    .padding(.horizontal)
-                    .padding(.top, 16)
-                    .padding(.bottom, 16)
-                
-                Text(wordingManager.wordings.scanning)
-                    .font(themeManager.selectedTheme.headline3)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .padding(.horizontal)
-                Text(wordingManager.wordings.askUserToWait)
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .padding(.horizontal)
-                    .padding(.top, 4)
-                if viewModel.state.showsProgressIndicator {
-                    ProgressView()
-                        .padding()
+            switch viewModel.state.centralState.bluetoothState {
+            case .poweredOn:
+                // Bluetooth is ON, check authorization for new connections
+                switch viewModel.state.centralState.authorization {
+                case .notDetermined, .allowedAlways:
+                    darkPulseAnimation()
+                        .padding(.horizontal)
+                        .padding(.top, 16)
+                        .padding(.bottom, 16)
+                    
+                    Text(wordingManager.wordings.scanning)
+                        .font(themeManager.selectedTheme.headline3)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .padding(.horizontal)
+                    Text(wordingManager.wordings.askUserToWait)
+                        .font(themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .padding(.horizontal)
+                        .padding(.top, 4)
+                    if viewModel.state.showsProgressIndicator {
+                        ProgressView()
+                            .padding()
+                    }
+                case .denied:
+                    Spacer()
+                    bluetoothNotAvailable()
+                case .restricted:
+                    Spacer()
+                    bluetoothRestricted()
+                @unknown default:
+                    EmptyView()
                 }
-            case .denied, .restricted: 
+            case .poweredOff:
+                Spacer()
+                bluetoothIsOff()
+            case .unauthorized: 
                 Spacer()
                 bluetoothNotAvailable()
-            @unknown default:
+            default:
                 EmptyView()
             }
             
@@ -115,34 +129,49 @@ public struct PowerOnAndScanningView: View {
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            switch viewModel.state.centralState.authorization {
-            case .notDetermined,
-                    .allowedAlways: 
-                darkPulseAnimation()
-                    .padding(.horizontal)
-                    .padding(.top, 16)
-                    .padding(.bottom, 16)
-                
-                Text(wordingManager.wordings.scanning)
-                    .font(themeManager.selectedTheme.headline3)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .padding(.horizontal)
-                
-                Text(wordingManager.wordings.askUserToWait)
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .padding(.horizontal)
-                
-                if viewModel.state.showsProgressIndicator {
-                    ProgressView()
-                        .padding()
+            switch viewModel.state.centralState.bluetoothState {
+            case .poweredOn:
+                // Bluetooth is ON, check authorization for new connections
+                switch viewModel.state.centralState.authorization {
+                case .notDetermined, .allowedAlways:
+                    darkPulseAnimation()
+                        .padding(.horizontal)
+                        .padding(.top, 16)
+                        .padding(.bottom, 16)
+                    
+                    Text(wordingManager.wordings.scanning)
+                        .font(themeManager.selectedTheme.headline3)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .padding(.horizontal)
+                    
+                    Text(wordingManager.wordings.askUserToWait)
+                        .font(themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .padding(.horizontal)
+                    
+                    if viewModel.state.showsProgressIndicator {
+                        ProgressView()
+                            .padding()
+                    }
+                case .denied:
+                    Spacer()
+                    bluetoothNotAvailable()
+                case .restricted:
+                    Spacer()
+                    bluetoothRestricted()
+                @unknown default:
+                    EmptyView()
                 }
-            case .denied, .restricted:
+            case .poweredOff:
+                Spacer()
+                bluetoothIsOff()
+            case .unauthorized: 
                 Spacer()
                 bluetoothNotAvailable()
-            @unknown default:
+            default:
                 EmptyView()
             }
+            
             Spacer()
             if #available(iOS 15, *) {
                 NamiTextHyperLink(text: wordingManager.wordings.pairingScanningBleFaqDoorSensor, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
@@ -239,6 +268,48 @@ public struct PowerOnAndScanningView: View {
         }
     }
     
+    @ViewBuilder 
+    private func bluetoothIsOff() -> some View {
+        VStack(alignment: .center) {
+            Image("Bluetooth", bundle: .module)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 128, height: 128)
+            Text(wordingManager.wordings.bluetoothIsOff)
+                .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+            Text(wordingManager.wordings.bluetoothIsOffDescription)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+            Button(wordingManager.wordings.buttonSettings, action: openBluetoothSettings)
+                .buttonStyle(.borderless)
+                .padding()
+        }
+    }
+    
+    @ViewBuilder 
+    private func bluetoothRestricted() -> some View {
+        VStack(alignment: .center) {
+            Image("Bluetooth", bundle: .module)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 128, height: 128)
+            Text(wordingManager.wordings.bluetoothRestricted)
+                .font(themeManager.selectedTheme.headline3)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+            Text(wordingManager.wordings.bluetoothRestrictedDescription)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+            Button(wordingManager.wordings.buttonSettings, action: openSettings)
+                .buttonStyle(.borderless)
+                .padding()
+        }
+    }
+    
     private func openSettings() {
         guard
             let settings = URL(string: UIApplication.openSettingsURLString),
@@ -248,5 +319,16 @@ public struct PowerOnAndScanningView: View {
         }
 
         UIApplication.shared.open(settings, completionHandler: nil)
+    }
+    
+    private func openBluetoothSettings() {
+        if let url = URL(string: "App-Prefs:root=Bluetooth"),
+           UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        } else {
+            if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(settingsUrl, options: [:], completionHandler: nil)
+            }
+        }
     }
 }

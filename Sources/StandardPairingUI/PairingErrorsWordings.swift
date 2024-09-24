@@ -12,7 +12,7 @@ public extension Pairing.Error {
                 case .wifiScanError:
                     return wordings.pairingErrorDeviceWifiScanTitle
                 case .wifiJoinError:
-                    return wordings.pairingErrorDeviceWifiJoinIpTitle
+                    return wordings.pairingErrorDeviceWifiJoinPasswordTitle
                 case .wifiJoinPasswordError:
                     return wordings.pairingErrorDeviceWifiJoinPasswordTitle
                 default:
@@ -56,7 +56,8 @@ public extension Pairing.Error {
             if let error = error as? Pairing.ThreadError {
                 return error.getErrorMessageDescription(wordings: wordings)
             }
-            return error.localizedDescription
+//            return error.localizedDescription
+            return ""
         }
     }
 }
@@ -111,7 +112,7 @@ extension Pairing_Error {
         case .wifiJoinPasswordError:
             return wordings.pairingErrorDeviceWifiJoinPasswordDescription
         case .wifiJoinIpError:
-            return wordings.pairingErrorDeviceWifiJoinIpDescription
+            return wordings.pairingErrorDeviceWifiJoinPasswordDescription
         case .threadJoinError:
             return wordings.pairingErrorsUnableJoinThreadNetworksDescription1
             + "\n\n"

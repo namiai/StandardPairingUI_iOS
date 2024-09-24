@@ -78,7 +78,7 @@ extension Pairing_Error {
         case .wifiScanError:
             return I18n.errorsPairingErrorDeviceWifiScanError
         case .wifiJoinError:
-            return I18n.errorsPairingErrorDeviceWifiJoinError
+            return I18n.errorsPairingErrorDeviceWifiJoinPasswordError
         case .wifiJoinPasswordError:
             return I18n.errorsPairingErrorDeviceWifiJoinPasswordError
         case .wifiJoinIpError:

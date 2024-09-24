@@ -47,7 +47,7 @@ public struct QRScannerView: View {
                             DeviceQRCodeLocationImages.qrCodeLocationImage(for: viewModel.state.deviceType.qrCodeImageName(outletType: outletType))
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 343, height: 172)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding([.bottom, .horizontal])
                         }
                     }
@@ -59,7 +59,7 @@ public struct QRScannerView: View {
                             .resizable()
                             .frame(width: 24, height: 24)
                             .foregroundColor(themeManager.selectedTheme.white)
-                        Text(shouldShowQRcodeLocation ? "Expand camera view" : "Where is the QR code?")
+                        Text(shouldShowQRcodeLocation ? wordingManager.wordings.scanQRexpandCamera : wordingManager.wordings.scanQRwhereIsQR)
                             .font(themeManager.selectedTheme.headline5)
                             .foregroundColor(themeManager.selectedTheme.white)
                     }
@@ -101,10 +101,11 @@ public struct QRScannerView: View {
                     shouldShowQRcodeLocation = true
                 }
             }
+            
+            viewModel.send(event: .reset)
         }
         .onPreferenceChange(ViewHeightKey.self) { newValue in
             bottomSheetHeight = newValue * 0.44
-//            bottomSheetHeight = 330
         }
         .onChange(of: viewModel.state.error) { error in
             if error != nil {
@@ -162,6 +163,7 @@ public struct QRScannerView: View {
             Text(wordingManager.wordings.qrCodeError)
                 .font(themeManager.selectedTheme.headline4)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .padding(.top, 8)
             Text(wordingManager.wordings.qrCodeMismatchError)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
@@ -171,7 +173,6 @@ public struct QRScannerView: View {
                 viewModel.send(event: .dismissScanError)
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
-            
             .padding(.bottom, 4)
             .anyView
             

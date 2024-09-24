@@ -33,6 +33,7 @@ public struct PositioningCompleteView: View {
 
                 Spacer()
             }
+            .navigationPopGestureDisabled(true)
         } bottomButtonsGroup: {
             Button(wordingManager.wordings.doneButton) {
                 viewModel.send(.confirmPositioningComplete)
@@ -42,6 +43,7 @@ public struct PositioningCompleteView: View {
             .padding(.vertical)
             .anyView
         }
+        .allowSwipeBackNavigation(false)
         .ignoresSafeArea(.keyboard)
     }
 }

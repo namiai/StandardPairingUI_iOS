@@ -47,41 +47,40 @@ public struct EnterWiFiPasswordView: View {
                     textIsEditing = true
                 }
                 Spacer()
+                Button(wordingManager.wordings.buttonReadyToConnect, action: { 
+                    // If the keyboard was dismissed already.
+                    if textIsEditing == false {
+                        viewModel.send(event: .confirmPassword)
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        textIsEditing = false
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
+                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: .main) { _ in
+                        viewModel.send(event: .confirmPassword)
+                    }
+                })
+                .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+                .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
+                .anyView
                 
             }
-        } bottomButtonsGroup: {
-            Button(wordingManager.wordings.buttonReadyToConnect, action: { 
-                // If the keyboard was dismissed already.
-                if textIsEditing == false {
-                    viewModel.send(event: .confirmPassword)
-                    return
-                }
-                DispatchQueue.main.async {
-                    textIsEditing = false
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                }
-                NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: .main) { _ in
-                    viewModel.send(event: .confirmPassword)
-                }
-            })
-            .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
-            .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-                self.isKeyboardAppeared = true
-            }
-            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-                self.isKeyboardAppeared = false
-            }
-            .anyView
         }
-        .ignoresSafeArea(.keyboard)
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+            self.isKeyboardAppeared = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+            self.isKeyboardAppeared = false
+        }
+
     }
 
     // MARK: Internal
 
     @ObservedObject var viewModel: EnterWiFiPassword.ViewModel
-    @SwiftUI.State var textIsEditing = false
-    @SwiftUI.State private var isKeyboardAppeared: Bool = false
+    @State var textIsEditing = true
+    @State private var isKeyboardAppeared: Bool = false
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
 }
