@@ -131,7 +131,7 @@ public extension WordingProtocol {
     var statusMispositioned: String { get { return I18n.widarPositionStatusMispositioned } }
     var statusGettingBetter: String { get { return I18n.widarPositionStatusGettingBetter } }
     var statusOptimized: String { get { return I18n.widarPositionStatusOptimized } }
-    var statusEstablishingConnection: String { get { return "Establishing connection" } }
+    var statusEstablishingConnection: String { get { return I18n.widarPositionStatusChecking } }
     var positioningTip: String { get { return I18n.widarPositionGuideMetric } }
     
     // MARK: - Positioning guidance: cancel positioning popup
