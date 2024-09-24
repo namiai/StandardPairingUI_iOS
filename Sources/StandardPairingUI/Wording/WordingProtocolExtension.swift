@@ -73,7 +73,7 @@ public extension WordingProtocol {
     var otherNetworkButton: String { get { return I18n.pairingListWifiNetworksButtonOtherNetwork } }
     
     // MARK: - Enter Wifi password
-    var enterPassword: String { get { return I18n.pairingEnterWifiPasswordEnterPassword } }
+    func enterPassword(networkName: String) -> String { return I18n.pairingEnterWifiPasswordEnterPassword(networkName) }
     func enterPasswordHeaderTitle(networkName: String) -> String { return I18n.pairingEnterWifiPasswordHeader(networkName) }
     var passwordEntryFieldPlaceholder: String { get { return I18n.pairingEnterWifiPasswordPasswordPlaceholder } }
     var passwordEntryFieldHint: String { get { return I18n.pairingEnterWifiPasswordPasswordEntryFieldHint } }

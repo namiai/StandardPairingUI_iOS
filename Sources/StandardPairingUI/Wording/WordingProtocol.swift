@@ -72,7 +72,7 @@ public protocol WordingProtocol {
     var otherNetworkButton: String { get }
     
     // MARK: - Enter Wifi password 
-    var enterPassword: String { get }
+    func enterPassword(networkName: String) -> String
     func enterPasswordHeaderTitle(networkName: String) -> String
     var passwordEntryFieldPlaceholder: String { get }
     var passwordEntryFieldHint: String { get }
