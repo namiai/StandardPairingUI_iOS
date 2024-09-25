@@ -53,14 +53,21 @@ public struct PairingErrorScreenView: View {
                         .lineLimit(4)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
-                    Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
-                        .font(themeManager.selectedTheme.paragraph1)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                        .padding(.top, 2)
-                        .lineLimit(4)
-                        .fixedSize(horizontal: false, vertical: true)
+                    switch viewModel.state.error {
+                    case .underlying(PairingMachineError.unexpectedState): 
+                        EmptyView()
+                    case .underlying(PairingMachineError.bluetoothDisconnectedError(_, _)):
+                        Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
+                            .font(themeManager.selectedTheme.paragraph1)
+                            .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                            .padding(.top, 2)
+                            .lineLimit(4)
+                            .fixedSize(horizontal: false, vertical: true)
+                    default: 
+                        EmptyView()
+                    }
                 }
                 if let urlLink = viewModel.state.error.getFAQLink(wordings: wordingManager.wordings) {
                     if #available(iOS 15, *) {
