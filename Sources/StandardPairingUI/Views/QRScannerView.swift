@@ -43,7 +43,7 @@ public struct QRScannerView: View {
                                 .padding([.bottom, .horizontal])
                         }
                         
-                        if shouldShowQRcodeLocation, let outletType = viewModel.state.outletType {
+                        if shouldShowQRcodeLocation, let outletType = viewModel.state.outletType, outletType != .unknown {
                             DeviceQRCodeLocationImages.qrCodeLocationImage(for: viewModel.state.deviceType.qrCodeImageName(outletType: outletType))
                                 .resizable()
                                 .scaledToFit()
@@ -54,21 +54,23 @@ public struct QRScannerView: View {
                     .frame(maxWidth: .infinity)
                     .background(themeManager.selectedTheme.background)
                     
-                    HStack(alignment: .center, spacing: 8) {
-                        Image(shouldShowQRcodeLocation ? "Expand" : "Question", bundle: .module)
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                            .foregroundColor(themeManager.selectedTheme.white)
-                        Text(shouldShowQRcodeLocation ? wordingManager.wordings.scanQRexpandCamera : wordingManager.wordings.scanQRwhereIsQR)
-                            .font(themeManager.selectedTheme.headline5)
-                            .foregroundColor(themeManager.selectedTheme.white)
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(Color(red: 0.2, green: 0.23, blue: 0.27).opacity(0.6))
-                    .cornerRadius(100)
-                    .onTapGesture {
-                        shouldShowQRcodeLocation.toggle()
+                    if let outletType = viewModel.state.outletType, outletType != .unknown {
+                        HStack(alignment: .center, spacing: 8) {
+                            Image(shouldShowQRcodeLocation ? "Expand" : "Question", bundle: .module)
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(themeManager.selectedTheme.white)
+                            Text(shouldShowQRcodeLocation ? wordingManager.wordings.scanQRexpandCamera : wordingManager.wordings.scanQRwhereIsQR)
+                                .font(themeManager.selectedTheme.headline5)
+                                .foregroundColor(themeManager.selectedTheme.white)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(Color(red: 0.2, green: 0.23, blue: 0.27).opacity(0.6))
+                        .cornerRadius(100)
+                        .onTapGesture {
+                            shouldShowQRcodeLocation.toggle()
+                        }
                     }
                     
                     GeometryReader { geometry in
