@@ -203,7 +203,7 @@ public extension WordingProtocol {
     var positioningErrorTitle: String { get { return I18n.widarErrorTitle } }
     var deviceNotFoundMessage: String { get { return I18n.widarErrorDeviceNotFoundMessage } }
     var retryPositioningButton: String { get { return I18n.widarErrorRetryButton } }
-    var exitPositioningButton: String { get { return I18n.widarErrorExitButton } }
+    var exitPositioningButton: String { get { return I18n.widarPositionTertiaryButtonText } }
     
     // MARK: - URLs
     var urlNotPulsingBlue: String { get { return "https://support.nami.ai/hc/en-us/articles/33743569254809-My-device-s-LED-is-not-pulsing-during-setup" } }

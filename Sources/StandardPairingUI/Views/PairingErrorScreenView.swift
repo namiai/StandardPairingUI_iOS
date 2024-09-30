@@ -56,7 +56,20 @@ public struct PairingErrorScreenView: View {
                     switch viewModel.state.error {
                     case .underlying(PairingMachineError.unexpectedState): 
                         EmptyView()
-                    case .underlying(PairingMachineError.bluetoothDisconnectedError(_, _)):
+                    case let .underlying(PairingMachineError.bluetoothDisconnectedError(_, canRetry)):
+                        if canRetry {
+                            Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
+                                .font(themeManager.selectedTheme.paragraph1)
+                                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+                                .padding(.top, 2)
+                                .lineLimit(4)
+                                .fixedSize(horizontal: false, vertical: true)
+                        } else {
+                            EmptyView()
+                        }
+                    default: 
                         Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
                             .font(themeManager.selectedTheme.paragraph1)
                             .foregroundColor(themeManager.selectedTheme.primaryBlack)
@@ -65,8 +78,6 @@ public struct PairingErrorScreenView: View {
                             .padding(.top, 2)
                             .lineLimit(4)
                             .fixedSize(horizontal: false, vertical: true)
-                    default: 
-                        EmptyView()
                     }
                 }
                 if let urlLink = viewModel.state.error.getFAQLink(wordings: wordingManager.wordings) {
