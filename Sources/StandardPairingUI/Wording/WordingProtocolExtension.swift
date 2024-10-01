@@ -105,7 +105,7 @@ public extension WordingProtocol {
     var gameOfPongText: String { get { return I18n.pairingFinishingSetupGameOfPong } }
     
     // MARK: - Positioning general
-    var positioningNavigationTitle: String { get { return "WiDAR Sensor" } }
+    var positioningNavigationTitle: String { get { return I18n.widarHeaderTitle } }
     
     // MARK: - Initial positioning screen
     var widarInfoTitle: String { get { return I18n.widarInfoTitle } }
