@@ -18,7 +18,7 @@ public struct QRScannerView: View {
     // MARK: Public
     
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
             ZStack {
                 // Hack to get the available view height to calculate the bottom sheet height.
                 GeometryReader { geometry in
@@ -35,14 +35,43 @@ public struct QRScannerView: View {
                             .foregroundColor(themeManager.selectedTheme.primaryBlack)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding([.horizontal, .top])
-                        Text(wordingManager.wordings.scanQRsubtitle)
-                            .font(themeManager.selectedTheme.paragraph1)
-                            .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding([.bottom, .horizontal])
+                        if viewModel.state.deviceType != .contactSensor {
+                            Text(wordingManager.wordings.scanQRsubtitle)
+                                .font(themeManager.selectedTheme.paragraph1)
+                                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding([.bottom, .horizontal])
+                        }
+                        
+                        if shouldShowQRcodeLocation, let outletType = viewModel.state.outletType, outletType != .unknown {
+                            DeviceQRCodeLocationImages.qrCodeLocationImage(for: viewModel.state.deviceType.qrCodeImageName(outletType: outletType))
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding([.bottom, .horizontal])
+                        }
                     }
                     .frame(maxWidth: .infinity)
                     .background(themeManager.selectedTheme.background)
+                    
+                    if let outletType = viewModel.state.outletType, outletType != .unknown {
+                        HStack(alignment: .center, spacing: 8) {
+                            Image(shouldShowQRcodeLocation ? "Expand" : "Question", bundle: .module)
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                                .foregroundColor(themeManager.selectedTheme.white)
+                            Text(shouldShowQRcodeLocation ? wordingManager.wordings.scanQRexpandCamera : wordingManager.wordings.scanQRwhereIsQR)
+                                .font(themeManager.selectedTheme.headline5)
+                                .foregroundColor(themeManager.selectedTheme.white)
+                        }
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 8)
+                        .background(Color(red: 0.2, green: 0.23, blue: 0.27).opacity(0.6))
+                        .cornerRadius(100)
+                        .onTapGesture {
+                            shouldShowQRcodeLocation.toggle()
+                        }
+                    }
                     
                     GeometryReader { geometry in
                         let h = geometry.size.height
@@ -65,8 +94,20 @@ public struct QRScannerView: View {
                 }
             }
         }
+        .onAppear {
+            if UIDevice().userInterfaceIdiom == .phone {
+                switch UIScreen.main.nativeBounds.height {
+                case let h where h <= 1136: 
+                    shouldShowQRcodeLocation = false
+                default: 
+                    shouldShowQRcodeLocation = true
+                }
+            }
+            
+            viewModel.send(event: .reset)
+        }
         .onPreferenceChange(ViewHeightKey.self) { newValue in
-            bottomSheetHeight = newValue * 0.5
+            bottomSheetHeight = newValue * 0.44
         }
         .onChange(of: viewModel.state.error) { error in
             if error != nil {
@@ -85,6 +126,7 @@ public struct QRScannerView: View {
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
     @State var bottomSheetHeight: CGFloat = 0
+    @State var shouldShowQRcodeLocation = true
 
     // MARK: Private
 
@@ -101,7 +143,7 @@ public struct QRScannerView: View {
         // Shift strokes start position with `dashPhase`
         let phaseCorrection = (viewfinderPerimeter / 8) + (cornerStrokeLength / 2)
         return StrokeStyle(
-            lineWidth: 5,
+            lineWidth: 2,
             lineCap: .round,
             lineJoin: .round,
             miterLimit: .infinity,
@@ -114,21 +156,32 @@ public struct QRScannerView: View {
     }
 
     private func qrErrorSheet() -> some View {
-        VStack {
-            HStack {
-                Image("Warning")
-                    .frame(width: 32)
-                Text(wordingManager.wordings.qrCodeError)
-                    .font(themeManager.selectedTheme.headline4)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-            }
+        VStack(spacing: 0) {
+            Spacer()
+            Image("Warning", bundle: .module)
+                .resizable()
+                .frame(width: 33, height: 28)
+                .scaledToFill()
+            Text(wordingManager.wordings.qrCodeError)
+                .font(themeManager.selectedTheme.headline4)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .padding(.top, 8)
             Text(wordingManager.wordings.qrCodeMismatchError)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .padding(.vertical, 16)
+            Spacer()
             Button(wordingManager.wordings.tryAgainButton) {
                 viewModel.send(event: .dismissScanError)
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+            .padding(.bottom, 4)
+            .anyView
+            
+            Button(wordingManager.wordings.exitSetupActionTitle) {
+                viewModel.send(event: .shouldDismissItself)
+            }
+            .buttonStyle(themeManager.selectedTheme.secondaryActionButtonStyle)
             .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
             .anyView
         }

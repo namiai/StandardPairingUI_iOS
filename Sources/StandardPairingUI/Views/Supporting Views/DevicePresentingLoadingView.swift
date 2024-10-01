@@ -21,6 +21,7 @@ struct DevicePresentingLoadingView: View {
             Spacer()
             DeviceImages.image(for: deviceModel.codeName)
                 .resizable()
+                .frame(width: 200, height: 200)
                 .scaledToFit()
                 .padding()
 

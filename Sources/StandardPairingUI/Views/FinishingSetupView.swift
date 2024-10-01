@@ -7,12 +7,12 @@ import Tomonari
 // MARK: - FinishingSetupView
 
 public struct FinishingSetupView: View {
-    public init() {
-        
+    public init(title: String? = nil) {
+        self.title = title ?? ""
     }
     
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: self.title.isEmpty ? wordingManager.wordings.pairingNavigationBarTitle : self.title) {
             VStack {
                 Text(wordingManager.wordings.finishingSetupHeader)
                     .font(themeManager.selectedTheme.headline3)
@@ -37,4 +37,6 @@ public struct FinishingSetupView: View {
     
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
+    
+    private var title: String
 }

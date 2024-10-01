@@ -26,6 +26,10 @@ public protocol WordingProtocol {
     // MARK: - Enable Bluetooth in Settings View 
     var bluetoothDisabled: String { get }
     var enableBlueToothInSettingsHeader: String { get }
+    var bluetoothIsOff: String { get }
+    var bluetoothIsOffDescription: String { get }
+    var bluetoothRestricted: String { get }
+    var bluetoothRestrictedDescription: String { get }
     var buttonSettings: String { get }
     
     // MARK: - Enable Camera in Settings VIew 
@@ -40,7 +44,9 @@ public protocol WordingProtocol {
     var deviceFoundHeader2: String { get }
     /// "{device model} text"
     func askToNameHeader(productLabel: String) -> String
+    var nameYourDevice: String { get }
     var nameDeviceExplained: String { get }
+    var nameAlreadyInUseError: String { get }
     
     // MARK: - Ask to Connect View
     var setUpAsBorderRouter: String { get }
@@ -63,6 +69,8 @@ public protocol WordingProtocol {
     var qrCodeError: String { get }
     var qrCodeMismatchError: String { get }
     var tryAgainButton: String { get }
+    var scanQRexpandCamera: String { get }
+    var scanQRwhereIsQR: String { get }
     
     // MARK: - List Wifi networks view
     var connectWifiTitle: String { get }
@@ -70,9 +78,10 @@ public protocol WordingProtocol {
     var networkNotFound: String { get }
     var availableNetworks: String { get }
     var otherNetworkButton: String { get }
+    var otherNetworkTitle: String { get }
     
     // MARK: - Enter Wifi password 
-    var enterPassword: String { get }
+    func enterPassword(for networkName: String) -> String
     func enterPasswordHeaderTitle(networkName: String) -> String
     var passwordEntryFieldPlaceholder: String { get }
     var passwordEntryFieldHint: String { get }
@@ -155,6 +164,8 @@ public protocol WordingProtocol {
     var pairingErrorDeviceWifiJoinIpTitle: String { get }
     var pairingErrorDeviceWifiJoinPasswordTitle: String { get }
     var pairingErrorDeviceMismatchTitle: String { get }
+    var pairingErrorConnectionTimeoutTitle: String { get }
+    var pairingErrorBleDisconnectedTitle: String { get }
     
     // MARK: - Pairing Machine error - description
     var pairingErrorUnexpectedStateDescription: String { get }
@@ -164,6 +175,8 @@ public protocol WordingProtocol {
     var pairingErrorDeserializationDescription: String { get }
     var pairingErrorEncryptionErrorDescription: String { get }
     var pairingErrorDeviceMismatchDescription: String { get }
+    var pairingErrorConnectionTimeoutDescription: String { get }
+    func pairingErrorBleDisconnectedDescription(deviceName: String) -> String 
     var pairingErrorDeviceSecureSessionDescription: String { get }
     var pairingErrorDeviceCloudChallengeDescription: String { get }
     var pairingErrorDeviceWifiScanDescription: String { get }
@@ -182,6 +195,7 @@ public protocol WordingProtocol {
     // MARK: - Pairing Thread error - description
     var pairingThreadErrorDatasetMissingDescription: String { get }
     func pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1(zoneName: String) -> String
+    var pairingThreadErrorContactSensorNoThreadNetworksFoundDescription2: String { get }
     func pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: String) -> String
     
     // MARK: - Positioning error view
@@ -197,4 +211,5 @@ public protocol WordingProtocol {
     
     // MARK: - FAQ terms
     var pairingScanningBleFaq: String { get }
+    var pairingScanningBleFaqDoorSensor: String { get }
 }

@@ -3,6 +3,9 @@
 import I18n
 import SwiftUI
 import SharedAssets
+import NamiSharedUIElements
+
+// MARK: - DeviceSetupScreen
 
 // MARK: - DeviceSetupScreen
 
@@ -29,7 +32,6 @@ public struct DeviceSetupScreen<LeadingGroup: View, Subview: View, BottomGroup: 
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
                 subview()
-                    .padding(.top, 10)
                     .frame(maxHeight: .infinity)
                 bottomButtonsGroup()
             }
@@ -46,8 +48,8 @@ public struct DeviceSetupScreen<LeadingGroup: View, Subview: View, BottomGroup: 
                 }
             }
         }
-        // TODO: handle the case where views would like to override the back button
-//        .navigationBarItems(leading: leadingButtonsGroup())
+        .navigationBarItems(leading: EmptyView())        
+
     }
 
     // MARK: Private

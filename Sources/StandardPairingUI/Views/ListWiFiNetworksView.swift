@@ -18,18 +18,13 @@ public struct ListWiFiNetworksView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
             VStack {
                 Text(wordingManager.wordings.connectWifiTitle)
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
-                Text(wordingManager.wordings.selectNetwork)
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding([.bottom, .horizontal])
                 
                 ScrollView {
                     HStack {
@@ -50,7 +45,7 @@ public struct ListWiFiNetworksView: View {
                     }
                     .padding([.horizontal, .bottom])
                     
-                    if let networks = viewModel.state.networks {
+                    if let networks = viewModel.state.networks, networks.isEmpty == false {
                         RoundedRectContainerView {
                             VStack {
                                 ForEach(Array(networks.enumerated()), id: \.offset) { item in

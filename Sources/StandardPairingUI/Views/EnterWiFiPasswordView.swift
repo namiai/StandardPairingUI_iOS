@@ -17,19 +17,15 @@ public struct EnterWiFiPasswordView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
             VStack {
-                Text(wordingManager.wordings.enterPassword)
+                Text(wordingManager.wordings.enterPassword(for: viewModel.state.networkName))
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                     .padding(.bottom, 8)
-                Text(wordingManager.wordings.enterPasswordHeaderTitle(networkName: viewModel.state.networkName))
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding([.horizontal, .bottom])
+
                 NamiTextField(
                     placeholder: wordingManager.wordings.passwordEntryFieldPlaceholder,
                     text: Binding(get: {
@@ -42,7 +38,7 @@ public struct EnterWiFiPasswordView: View {
 
                     returnKeyType: .done,
                     textFieldFont: themeManager.selectedTheme.paragraph1, 
-                    subTextFont: themeManager.selectedTheme.small1
+                    subTextFont: themeManager.selectedTheme.paragraph2
                 )
                 .secureTextEntry(true)
                 .subText(wordingManager.wordings.passwordEntryFieldHint)
@@ -67,23 +63,24 @@ public struct EnterWiFiPasswordView: View {
                 })
                 .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
                 .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
-                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-                    self.isKeyboardAppeared = true
-                }
-                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-                    self.isKeyboardAppeared = false
-                }
                 .anyView
+                
             }
         }
-        .ignoresSafeArea(.keyboard)
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+            self.isKeyboardAppeared = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+            self.isKeyboardAppeared = false
+        }
+
     }
 
     // MARK: Internal
 
     @ObservedObject var viewModel: EnterWiFiPassword.ViewModel
-    @SwiftUI.State var textIsEditing = false
-    @SwiftUI.State private var isKeyboardAppeared: Bool = false
+    @State var textIsEditing = true
+    @State private var isKeyboardAppeared: Bool = false
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
 }

@@ -27,6 +27,10 @@ public extension WordingProtocol {
     // MARK: - Enable Bluetooth in Settings View
     var bluetoothDisabled: String { get { return I18n.pairingEnableBluetoothInSettingsBluetoothDisabled } }
     var enableBlueToothInSettingsHeader: String { get { return I18n.pairingEnableBluetoothInSettingsHeader } }
+    var bluetoothIsOff: String { get { return I18n.paringScanDeviceBluetoothIsOffTitle } }
+    var bluetoothIsOffDescription: String { get { return I18n.paringScanDeviceBluetoothIsOffDescription }}
+    var bluetoothRestricted: String { get  { return I18n.paringScanDeviceBluetoothRestrictedTitle }}
+    var bluetoothRestrictedDescription: String { get { return I18n.paringScanDeviceBluetoothRestrictedDescription } }
     var buttonSettings: String { get { return I18n.pairingEnableBluetoothInSettingsButtonSettings } }
     
     // MARK: - Enable Camera in Settings VIew
@@ -41,7 +45,9 @@ public extension WordingProtocol {
     var deviceFoundHeader2: String { get { return I18n.pairingBluetoothDeviceFoundHeader2 } }
     /// "{device model} text"
     func askToNameHeader(productLabel: String) -> String { return I18n.pairingBluetoothDeviceFoundNameDeviceHeader(productLabel) }
+    var nameYourDevice: String { get { return I18n.pairingBluetoothDeviceFoundNameYourDevice } }
     var nameDeviceExplained: String { get { return I18n.pairingBluetoothDeviceFoundNameDeviceExplained } }
+    var nameAlreadyInUseError: String { get { return I18n.pairingBluetoothDeviceFoundNameAlreadyInUse } }
     
     // MARK: - Ask to Connect View
     var setUpAsBorderRouter: String { get { return I18n.pairingConnectWifiSetUpAsBorderRouter } }
@@ -62,8 +68,10 @@ public extension WordingProtocol {
     var scanQRtitle: String { get { return I18n.pairingScanQrTitle } }
     var scanQRsubtitle: String { get { return I18n.pairingScanQrSubtitle } }
     var qrCodeError: String { get { return I18n.updateWifiQrCodeError } }
-    var qrCodeMismatchError: String { get { return I18n.updateWifiNotNamiQrCodeNoZone } }
+    var qrCodeMismatchError: String { get { return I18n.pairingScanQrCodeErrorDescription } }
     var tryAgainButton: String { get { return I18n.pairingErrorsActionTryAgain } }
+    var scanQRexpandCamera: String { get { return I18n.pairingScanQrExpandCameraView } }
+    var scanQRwhereIsQR: String { get { return I18n.pairingScanQrWhereIsQr } } 
     
     // MARK: - List Wifi networks view
     var connectWifiTitle: String { get { return I18n.pairingListWifiNetworksConnectWifiTitle } }
@@ -71,9 +79,10 @@ public extension WordingProtocol {
     var networkNotFound: String { get { return I18n.pairingListWifiNetworksNoNetworksFound } }
     var availableNetworks: String { get { return I18n.pairingListWifiNetworksAvailableNetworks } }
     var otherNetworkButton: String { get { return I18n.pairingListWifiNetworksButtonOtherNetwork } }
+    var otherNetworkTitle: String { get { return "Other network" }}
     
     // MARK: - Enter Wifi password
-    var enterPassword: String { get { return I18n.pairingEnterWifiPasswordEnterPassword } }
+    func enterPassword(for networkName: String) -> String { return I18n.pairingEnterWifiPasswordEnterPasswordIos(networkName)}
     func enterPasswordHeaderTitle(networkName: String) -> String { return I18n.pairingEnterWifiPasswordHeader(networkName) }
     var passwordEntryFieldPlaceholder: String { get { return I18n.pairingEnterWifiPasswordPasswordPlaceholder } }
     var passwordEntryFieldHint: String { get { return I18n.pairingEnterWifiPasswordPasswordEntryFieldHint } }
@@ -96,7 +105,7 @@ public extension WordingProtocol {
     var gameOfPongText: String { get { return I18n.pairingFinishingSetupGameOfPong } }
     
     // MARK: - Positioning general
-    var positioningNavigationTitle: String { get { return I18n.widarHeaderTitle } }
+    var positioningNavigationTitle: String { get { return "WiDAR Sensor" } }
     
     // MARK: - Initial positioning screen
     var widarInfoTitle: String { get { return I18n.widarInfoTitle } }
@@ -122,7 +131,7 @@ public extension WordingProtocol {
     var statusMispositioned: String { get { return I18n.widarPositionStatusMispositioned } }
     var statusGettingBetter: String { get { return I18n.widarPositionStatusGettingBetter } }
     var statusOptimized: String { get { return I18n.widarPositionStatusOptimized } }
-    var statusEstablishingConnection: String { get { return "Establishing connection" } }
+    var statusEstablishingConnection: String { get { return I18n.widarPositionStatusChecking } }
     var positioningTip: String { get { return I18n.widarPositionGuideMetric } }
     
     // MARK: - Positioning guidance: cancel positioning popup
@@ -148,14 +157,16 @@ public extension WordingProtocol {
     
     // MARK:- Pairing error
     var pairingErrorNeedHelp: String { get { return I18n.pairingErrorsNeedHelp } }
-    var pairingErrorOccurredTitle: String { get { return I18n.pairingErrorsErrorOccurredTitle } }
+    var pairingErrorOccurredTitle: String { get { return I18n.errorsPairingMachineUnexpectedState } }
     
     // MARK: - Pairing Machine error
     // MARK: - Pairing Machine error - title
     var pairingErrorDeviceWifiScanTitle: String { get { return I18n.errorsPairingErrorDeviceWifiScanError } }
     var pairingErrorDeviceWifiJoinIpTitle: String { get { return I18n.errorsPairingErrorDeviceWifiJoinIpError } }
-    var pairingErrorDeviceWifiJoinPasswordTitle: String { get { return I18n.errorsPairingErrorDeviceWifiJoinPasswordError } }
+    var pairingErrorDeviceWifiJoinPasswordTitle: String { get { return I18n.errorsPairingIncorrectWifiPasswordTitle } }
     var pairingErrorDeviceMismatchTitle: String { get { return I18n.pairingErrorsThreadSetupErrorDeviceMismatchTitle } }
+    var pairingErrorConnectionTimeoutTitle: String { get { return I18n.pairingErrorsTimeoutTitle }}
+    var pairingErrorBleDisconnectedTitle: String { get { return I18n.pairingErrorsBleDisconnectedTitle }}
     
     // MARK: - Pairing Machine error - description
     var pairingErrorUnexpectedStateDescription: String { get { return I18n.errorsPairingMachineUnexpectedState } }
@@ -165,37 +176,43 @@ public extension WordingProtocol {
     var pairingErrorDeserializationDescription: String { get { return I18n.errorsPairingMachineDeserializationError } }
     var pairingErrorEncryptionErrorDescription: String { get { return I18n.errorsPairingMachineEncryptionError } }
     var pairingErrorDeviceMismatchDescription: String { get { return I18n.pairingErrorsThreadSetupErrorDeviceMismatchDescription } }
+    var pairingErrorConnectionTimeoutDescription: String { get { return I18n.errorsPairingConnectionTimeOutDescription }}
+    func pairingErrorBleDisconnectedDescription(deviceName: String) -> String { return I18n.errorsPairingBleDisconnectedDescription(deviceName) }
     var pairingErrorDeviceSecureSessionDescription: String { get { return I18n.errorsPairingErrorDeviceSecureSessionError } }
     var pairingErrorDeviceCloudChallengeDescription: String { get { return I18n.errorsPairingErrorDeviceCloudChallengeError } }
     var pairingErrorDeviceWifiScanDescription: String { get { return I18n.errorsPairingErrorDeviceWifiScanError } }
-    var pairingErrorDeviceWifiJoinDescription: String { get { return I18n.errorsPairingErrorDeviceWifiJoinError } }
+    var pairingErrorDeviceWifiJoinDescription: String { get { return I18n.errorsPairingErrorDeviceWifiJoinPasswordError } }
     var pairingErrorDeviceWifiJoinPasswordDescription: String { get { return I18n.errorsPairingErrorDeviceWifiJoinPasswordError } }
-    var pairingErrorDeviceWifiJoinIpDescription: String { get { return I18n.errorsPairingErrorDeviceWifiJoinIpError } }
+    var pairingErrorDeviceWifiJoinIpDescription: String { get { return I18n.errorsPairingErrorDeviceWifiJoinPasswordError } }
     var pairingErrorsUnableJoinThreadNetworksDescription1: String { get { return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription1 } }
     func pairingErrorsUnableJoinThreadNetworksDescription2(zoneName: String) -> String { return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription2(zoneName) }
     var pairingErrorDeviceUnknownUnrecognizedDescription: String { get { return I18n.errorsPairingErrorDeviceUnknownUnrecognized } }
     
     // MARK: - Pairing Thread error
     // MARK: - Pairing Thread error - title
-    var pairingThreadErrorDatasetMissingTitle: String { get { return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing } }
-    var pairingThreadErrorThreadNetworkNotFoundTitle: String { get { return I18n.errorsPairingThreadSetupErrorThreadNetworkNotFound } }
+    var pairingThreadErrorDatasetMissingTitle: String { get { return I18n.pairingErrorsThreadSetupErrorMissingThreadCredentials } }
+    var pairingThreadErrorThreadNetworkNotFoundTitle: String { get { return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundTitle } }
     
     // MARK: - Pairing Thread error - description
     var pairingThreadErrorDatasetMissingDescription: String { get { return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing } }
     func pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1(zoneName: String) -> String { return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription1(zoneName) }
+    var pairingThreadErrorContactSensorNoThreadNetworksFoundDescription2: String { get { return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription2 } }
     func pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: String) -> String { return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName) }
     
     // MARK: - Positioning error view
     var positioningErrorTitle: String { get { return I18n.widarErrorTitle } }
     var deviceNotFoundMessage: String { get { return I18n.widarErrorDeviceNotFoundMessage } }
     var retryPositioningButton: String { get { return I18n.widarErrorRetryButton } }
-    var exitPositioningButton: String { get { return I18n.widarErrorExitButton } }
+    var exitPositioningButton: String { get { return I18n.widarPositionTertiaryButtonText } }
     
     // MARK: - URLs
-    var urlNotPulsingBlue: String { get { return "https://support.nami.ai/hc/en-us/articles/29877340572697-My-device-LED-is-not-pulsing-blue-during-commissioning" } }
+    var urlNotPulsingBlue: String { get { return "https://support.nami.ai/hc/en-us/articles/33743569254809-My-device-s-LED-is-not-pulsing-during-setup" } }
     var urlNamiThreadTopology: String { get { return "https://support.nami.ai/hc/en-us/articles/31306413218201-nami-Thread-topology" } }
-    var urlNotConnectToThread: String { get { return "https://support.nami.ai/hc/en-us/articles/29875972319257-My-device-can-not-connect-to-the-Thread-network" } }
+    var urlNotConnectToThread: String { get { return "https://support.nami.ai/hc/en-us/articles/34191094200473-My-device-can-not-connect-to-the-Thread-network" } }
+    
+    
     
     // MARK: - FAQ terms
     var pairingScanningBleFaq: String { get { return I18n.pairingScanningBleFaq } }
+    var pairingScanningBleFaqDoorSensor: String { get { return "The LED light is not pulsing" } }
 }

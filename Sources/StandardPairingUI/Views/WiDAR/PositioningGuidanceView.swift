@@ -37,6 +37,7 @@ public struct PositioningGuidanceView: View {
         DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
             mainContent()
                 .padding()
+                .navigationPopGestureDisabled(true)
         } leadingButtonsGroup: {
             NamiNavBackButton {
                 viewModel.send(.wantToDismiss)
@@ -62,6 +63,7 @@ public struct PositioningGuidanceView: View {
         .bottomSheet(isPresented: cancelSheetBinding, height: 316, showTopIndicator: false) {
             sheetContent()
         }
+        .allowSwipeBackNavigation(false)
         .ignoresSafeArea(.keyboard)
     }
 

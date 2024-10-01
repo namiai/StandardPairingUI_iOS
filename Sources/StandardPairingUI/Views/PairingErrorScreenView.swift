@@ -20,46 +20,87 @@ public struct PairingErrorScreenView: View {
     @Environment(\.colors) var colors: Colors
 
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
             Spacer()
-            Image("warning-alert")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 128, height: 128)
-            // TODO: Switch to use `viewModel.state.error.errorMessageTitle` when there's the values for it in I18n but not hardcoded strings.
-            // The preparation is done in `PairingErrorsExtensions`.
-            Text(viewModel.state.error.getErrorMessageTitle(wordings: wordingManager.wordings))
-                .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.horizontal)
-            Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
-                .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.horizontal)
-                .padding(.top, 4)
-            if let urlLink = viewModel.state.error.getFAQLink(wordings: wordingManager.wordings) {
-                if #available(iOS 15, *) {
-                    NamiTextHyperLink(text: wordingManager.wordings.pairingErrorNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
-                        .font(NamiTextStyle.paragraph1.font)
-                        .frame(maxWidth: .infinity, alignment: .center)
+            VStack(alignment: .center) {
+                Image("Warning", bundle: .module)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 128, height: 128)
+                // TODO: Switch to use `viewModel.state.error.errorMessageTitle` when there's the values for it in I18n but not hardcoded strings.
+                // The preparation is done in `PairingErrorsExtensions`.
+                Text(viewModel.state.error.getErrorMessageTitle(wordings: wordingManager.wordings))
+                    .font(themeManager.selectedTheme.headline3)
+                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .padding(.horizontal)
+                    .padding(.top, 4)
+                    .fixedSize(horizontal: false, vertical: true)
+                if viewModel.state.deviceType == .contactSensor {
+                    Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
+                        .font(themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .multilineTextAlignment(.center)
                         .padding(.horizontal)
+                        .padding(.top, 4)
+                        .lineLimit(4)
+                        .fixedSize(horizontal: false, vertical: true)
+                    Text(wordingManager.wordings.pairingThreadErrorContactSensorNoThreadNetworksFoundDescription2)
+                        .font(themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal)
+                        .padding(.top, 2)
+                        .lineLimit(4)
+                        .fixedSize(horizontal: false, vertical: true)
                 } else {
-                    NamiTextHyperLinkLegacy(text: wordingManager.wordings.pairingErrorNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
-                        .font(NamiTextStyle.paragraph1.font)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.horizontal)
+                    switch viewModel.state.error {
+                    case .underlying(PairingMachineError.unexpectedState): 
+                        EmptyView()
+                    case let .underlying(PairingMachineError.bluetoothDisconnectedError(_, canRetry)):
+                        if canRetry {
+                            Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
+                                .font(themeManager.selectedTheme.paragraph1)
+                                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal)
+                                .padding(.top, 2)
+                                .lineLimit(4)
+                                .fixedSize(horizontal: false, vertical: true)
+                        } else {
+                            EmptyView()
+                        }
+                    default: 
+                        Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
+                            .font(themeManager.selectedTheme.paragraph1)
+                            .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                            .padding(.top, 2)
+                            .lineLimit(4)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                if let urlLink = viewModel.state.error.getFAQLink(wordings: wordingManager.wordings) {
+                    if #available(iOS 15, *) {
+                        NamiTextHyperLink(text: wordingManager.wordings.pairingErrorNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                            .font(NamiTextStyle.paragraph1.font)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.horizontal)
+                    } else {
+                        NamiTextHyperLinkLegacy(text: wordingManager.wordings.pairingErrorNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                            .font(NamiTextStyle.paragraph1.font)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(.horizontal)
+                    }
                 }
             }
+            .padding(.horizontal)
             Spacer()
             VStack {
                 if viewModel.state.actions.isEmpty == false {
                     ForEach(0..<viewModel.state.actions.count, id: \.self, content: buttonForAction)
                 }
             }
-            .padding()
         }
         .allowSwipeBackNavigation(false)
         .ignoresSafeArea(.keyboard)

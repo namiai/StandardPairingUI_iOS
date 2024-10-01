@@ -12,7 +12,7 @@ public extension Pairing.Error {
                 case .wifiScanError:
                     return wordings.pairingErrorDeviceWifiScanTitle
                 case .wifiJoinError:
-                    return wordings.pairingErrorDeviceWifiJoinIpTitle
+                    return wordings.pairingErrorDeviceWifiJoinPasswordTitle
                 case .wifiJoinPasswordError:
                     return wordings.pairingErrorDeviceWifiJoinPasswordTitle
                 default:
@@ -32,6 +32,14 @@ public extension Pairing.Error {
             if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
                 return wordings.pairingErrorDeviceMismatchTitle
             }
+            
+            if let error = error as? PairingMachineError, case .connectionTimeOutError = error {
+                return wordings.pairingErrorConnectionTimeoutTitle
+            }
+            
+            if let error = error as? PairingMachineError, case .bluetoothDisconnectedError(_, _) = error {
+                return wordings.pairingErrorBleDisconnectedTitle
+            }
         }
         return wordings.pairingErrorOccurredTitle
     }
@@ -48,7 +56,8 @@ public extension Pairing.Error {
             if let error = error as? Pairing.ThreadError {
                 return error.getErrorMessageDescription(wordings: wordings)
             }
-            return error.localizedDescription
+//            return error.localizedDescription
+            return ""
         }
     }
 }
@@ -72,6 +81,18 @@ extension PairingMachineError {
             return wordings.pairingErrorEncryptionErrorDescription
         case let .notSupportDeviceType(deviceType):
             return wordings.pairingErrorDeviceMismatchDescription
+        case .connectionTimeOutError:
+            return wordings.pairingErrorConnectionTimeoutDescription
+        case let .bluetoothDisconnectedError(deviceType, canTryAgain):
+            if canTryAgain {
+                if deviceType == .unknown {
+                    return wordings.pairingErrorBleDisconnectedDescription(deviceName: "device")
+                }
+                
+                return wordings.pairingErrorBleDisconnectedDescription(deviceName: deviceType.localizedName)
+            } 
+    
+            return ""
         }
     }
 }
@@ -91,7 +112,7 @@ extension Pairing_Error {
         case .wifiJoinPasswordError:
             return wordings.pairingErrorDeviceWifiJoinPasswordDescription
         case .wifiJoinIpError:
-            return wordings.pairingErrorDeviceWifiJoinIpDescription
+            return wordings.pairingErrorDeviceWifiJoinPasswordDescription
         case .threadJoinError:
             return wordings.pairingErrorsUnableJoinThreadNetworksDescription1
             + "\n\n"
