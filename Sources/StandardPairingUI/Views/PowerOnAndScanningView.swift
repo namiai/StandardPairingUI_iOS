@@ -90,7 +90,7 @@ public struct PowerOnAndScanningView: View {
                 bluetoothIsOff()
             case .unauthorized: 
                 Spacer()
-                bluetoothNotAvailable()
+                bluetoothRestricted()
             default:
                 EmptyView()
             }
@@ -167,7 +167,7 @@ public struct PowerOnAndScanningView: View {
                 bluetoothIsOff()
             case .unauthorized: 
                 Spacer()
-                bluetoothNotAvailable()
+                bluetoothRestricted()
             default:
                 EmptyView()
             }

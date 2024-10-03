@@ -20,7 +20,7 @@ public struct BluetoothDeviceFoundView: View {
     public var body: some View {
         DeviceSetupScreen(title: navigationBarTitle()) {
             if let deviceModel = viewModel.state.deviceModel {
-                if viewModel.state.deviceModel == .unknown || viewModel.state.deviceType == deviceModel.deviceType {
+                if viewModel.state.deviceType == .unknown || viewModel.state.deviceType == deviceModel.deviceType {
                     viewModel.state.deviceNameConfirmed ?
                         AnyView(DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: deviceModel)) :
                         AnyView(askToName(model: deviceModel))
