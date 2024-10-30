@@ -5,6 +5,7 @@ import I18n
 import SwiftUI
 import Tomonari
 import NamiSharedUIElements
+import CommonTypes
 
 // MARK: - QRScannerView
 
@@ -18,7 +19,7 @@ public struct QRScannerView: View {
     // MARK: Public
     
     public var body: some View {
-        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: navigationTitle()) {
             ZStack {
                 // Hack to get the available view height to calculate the bottom sheet height.
                 GeometryReader { geometry in
@@ -129,6 +130,19 @@ public struct QRScannerView: View {
     @State var shouldShowQRcodeLocation = true
 
     // MARK: Private
+    
+    private func navigationTitle() -> String {
+        if let kit = viewModel.state.kit { 
+            switch kit {
+            case .bss:
+                return wordingManager.wordings.basicSecuritySystem
+            case .hms:
+                return wordingManager.wordings.homeSecuritySystem
+            }
+        }
+        
+        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle
+    }
 
     private func roundedRectPerimeter(width: CGFloat, height: CGFloat, cornerRadius radius: CGFloat) -> CGFloat {
         // Rounded rect perimeter = 2L + 2W - 8r + 2πr = 2L + 2W - (8-2π)r

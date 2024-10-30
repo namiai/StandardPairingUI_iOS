@@ -12,6 +12,8 @@ public extension WordingProtocol {
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
     func connectingToDevice(deviceName: String) -> String { return I18n.pairingLoadingDeviceConnecting(deviceName) }
+    var basicSecuritySystem: String { return "Basic security system"}
+    var homeSecuritySystem: String { return "Home security system" }
     
     // MARK: - Bluetooth Usage Hint View
     // Power On and Scanning View
