@@ -17,7 +17,7 @@ public struct EnterWiFiPasswordView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: navigationTitle()) {
             VStack {
                 Text(wordingManager.wordings.enterPassword(for: viewModel.state.networkName))
                     .font(themeManager.selectedTheme.headline3)
@@ -83,4 +83,17 @@ public struct EnterWiFiPasswordView: View {
     @State private var isKeyboardAppeared: Bool = false
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
+    
+    private func navigationTitle() -> String {
+        if let kit = viewModel.state.kit { 
+            switch kit {
+            case .bss:
+                return wordingManager.wordings.basicSecuritySystem
+            case .hms:
+                return wordingManager.wordings.homeSecuritySystem
+            }
+        }
+        
+        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle
+    }
 }

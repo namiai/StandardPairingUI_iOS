@@ -11,6 +11,8 @@ public protocol WordingProtocol {
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
     func connectingToDevice(deviceName: String) -> String
+    var basicSecuritySystem: String { get }
+    var homeSecuritySystem: String { get }
     
     // MARK: - Bluetooth Usage Hint View
     // Power On and Scanning View

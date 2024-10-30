@@ -18,7 +18,7 @@ public struct ListWiFiNetworksView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: navigationTitle()) {
             VStack {
                 Text(wordingManager.wordings.connectWifiTitle)
                     .font(themeManager.selectedTheme.headline3)
@@ -89,6 +89,19 @@ public struct ListWiFiNetworksView: View {
     @EnvironmentObject private var wordingManager: WordingManager
 
     // MARK: Private
+    
+    private func navigationTitle() -> String {
+        if let kit = viewModel.state.kit { 
+            switch kit {
+            case .bss:
+                return wordingManager.wordings.basicSecuritySystem
+            case .hms:
+                return wordingManager.wordings.homeSecuritySystem
+            }
+        }
+        
+        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle
+    }
 
     private func otherNetworkRow() -> some View {
         RoundedRectContainerView {
