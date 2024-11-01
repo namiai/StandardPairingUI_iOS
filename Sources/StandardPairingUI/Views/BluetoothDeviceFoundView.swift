@@ -21,9 +21,11 @@ public struct BluetoothDeviceFoundView: View {
         DeviceSetupScreen(title: navigationBarTitle()) {
             if let deviceModel = viewModel.state.deviceModel {
                 if viewModel.state.deviceType == .unknown || viewModel.state.deviceType == deviceModel.deviceType {
-                    viewModel.state.deviceNameConfirmed ?
-                        AnyView(DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: deviceModel)) :
+                    if viewModel.state.deviceNameConfirmed && !viewModel.state.renameDevice {
+                        AnyView(DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: deviceModel)) 
+                    } else {
                         AnyView(askToName(model: deviceModel))
+                    }
                 } else {
                     deviceDiscovered()
                 }
