@@ -88,6 +88,11 @@ public struct OtherWiFiNetworkView: View {
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
             self.isKeyboardAppeared = false
         }
+        .onDisappear {
+            self.nameIsEditing = false
+            self.passwordIsEditing = false
+            self.isKeyboardAppeared = false
+        }
     }
 
     // MARK: Internal
