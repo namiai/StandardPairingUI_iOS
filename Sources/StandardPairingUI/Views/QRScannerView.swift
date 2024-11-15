@@ -44,7 +44,7 @@ public struct QRScannerView: View {
                                 .padding([.bottom, .horizontal])
                         }
                         
-                        if shouldShowQRcodeLocation, let outletType = viewModel.state.outletType, outletType != .unknown {
+                        if shouldShowQRcodeLocation, viewModel.state.deviceType != .unknown, let outletType = viewModel.state.outletType, outletType != .unknown {
                             DeviceQRCodeLocationImages.qrCodeLocationImage(for: viewModel.state.deviceType.qrCodeImageName(outletType: outletType))
                                 .resizable()
                                 .scaledToFit()
@@ -55,7 +55,7 @@ public struct QRScannerView: View {
                     .frame(maxWidth: .infinity)
                     .background(themeManager.selectedTheme.background)
                     
-                    if let outletType = viewModel.state.outletType, outletType != .unknown {
+                    if viewModel.state.deviceType != .unknown, let outletType = viewModel.state.outletType, outletType != .unknown {
                         HStack(alignment: .center, spacing: 8) {
                             Image(shouldShowQRcodeLocation ? "Expand" : "Question", bundle: .module)
                                 .resizable()

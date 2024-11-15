@@ -73,6 +73,10 @@ public struct EnterWiFiPasswordView: View {
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
             self.isKeyboardAppeared = false
         }
+        .onDisappear {
+            self.textIsEditing = false
+            self.isKeyboardAppeared = false
+        }
 
     }
 
