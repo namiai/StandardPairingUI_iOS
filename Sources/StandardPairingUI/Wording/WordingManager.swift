@@ -1,6 +1,7 @@
 // Copyright (c) nami.ai
 
 import SwiftUI
+import I18n
 
 public class WordingManager: ObservableObject {
     @Published public var wordings: WordingProtocol
@@ -20,9 +21,15 @@ public class WordingManager: ObservableObject {
     public func resetWordings() {
         self.wordings = DefaultWordings()
     }
+    
+    public func updatePairingTitle(to newTitle: String) {
+        self.wordings.pairingNavigationBarTitle = newTitle
+    }
 }
 
 private struct DefaultWordings: WordingProtocol {
+    var pairingNavigationBarTitle: String = I18n.pairingDeviceSetupNavigagtionTitle
+    
     public init() {
         
     }

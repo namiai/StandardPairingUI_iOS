@@ -89,15 +89,10 @@ public struct EnterWiFiPasswordView: View {
     @EnvironmentObject private var wordingManager: WordingManager
     
     private func navigationTitle() -> String {
-        if let kit = viewModel.state.kit { 
-            switch kit {
-            case .bss:
-                return wordingManager.wordings.basicSecuritySystem
-            case .hms:
-                return wordingManager.wordings.homeSecuritySystem
-            }
+        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+            return wordingManager.wordings.pairingNavigationBarTitle
         }
         
-        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle
+        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigagtionTitle
     }
 }

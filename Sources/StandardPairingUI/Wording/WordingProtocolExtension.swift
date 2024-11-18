@@ -8,7 +8,7 @@ public extension WordingProtocol {
     var ok: String { get { return I18n.generalOk } }
     var next: String { get { return I18n.generalNext } }
     var cancel: String { get { return I18n.generalCancel } }
-    var pairingNavigationBarTitle: String { get { return I18n.pairingDeviceSetupNavigagtionTitle } }
+    var pairingNavigationBarTitle: String { get { return "" } }
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
     func connectingToDevice(deviceName: String) -> String { return I18n.pairingLoadingDeviceConnecting(deviceName) }

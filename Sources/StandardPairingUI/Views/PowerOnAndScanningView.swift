@@ -19,7 +19,7 @@ public struct PowerOnAndScanningView: View {
 
     public var body: some View {
         DeviceSetupScreen(
-            title: navigationTitle()
+            title: navigationBarTitle()
         ) {
             switch viewModel.state.deviceType {
             case .contactSensor:
@@ -39,17 +39,12 @@ public struct PowerOnAndScanningView: View {
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
     
-    private func navigationTitle() -> String {
-        if let kit = viewModel.state.kit { 
-            switch kit {
-            case .bss:
-                return wordingManager.wordings.basicSecuritySystem
-            case .hms:
-                return wordingManager.wordings.homeSecuritySystem
-            }
+    private func navigationBarTitle() -> String {
+        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty { 
+            return wordingManager.wordings.pairingNavigationBarTitle
         }
         
-        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle
+        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
     }
     
     @ViewBuilder

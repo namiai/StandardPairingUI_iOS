@@ -19,7 +19,7 @@ public struct QRScannerView: View {
     // MARK: Public
     
     public var body: some View {
-        DeviceSetupScreen(title: navigationTitle()) {
+        DeviceSetupScreen(title: navigationBarTitle()) {
             ZStack {
                 // Hack to get the available view height to calculate the bottom sheet height.
                 GeometryReader { geometry in
@@ -131,17 +131,12 @@ public struct QRScannerView: View {
 
     // MARK: Private
     
-    private func navigationTitle() -> String {
-        if let kit = viewModel.state.kit { 
-            switch kit {
-            case .bss:
-                return wordingManager.wordings.basicSecuritySystem
-            case .hms:
-                return wordingManager.wordings.homeSecuritySystem
-            }
+    private func navigationBarTitle() -> String {
+        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty { 
+            return wordingManager.wordings.pairingNavigationBarTitle
         }
         
-        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle
+        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
     }
 
     private func roundedRectPerimeter(width: CGFloat, height: CGFloat, cornerRadius radius: CGFloat) -> CGFloat {
