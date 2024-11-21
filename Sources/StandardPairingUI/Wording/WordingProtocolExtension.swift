@@ -156,6 +156,7 @@ public extension WordingProtocol {
     var ignoreActionTitle: String { get { return I18n.pairingErrorsActionIgnore } }
     var restartSetupActionTitle: String { get { return I18n.pairingErrorsActionRestartSetup } }
     var exitSetupActionTitle: String { get { return I18n.pairingExitSetup } }
+    var scanDeviceAgainActionTitle: String { get { return I18n.pairingErrorsActionScanDeviceAgain } }
     
     // MARK:- Pairing error
     var pairingErrorNeedHelp: String { get { return I18n.pairingErrorsNeedHelp } }

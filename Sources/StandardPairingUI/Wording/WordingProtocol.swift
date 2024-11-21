@@ -155,6 +155,7 @@ public protocol WordingProtocol {
     var ignoreActionTitle: String { get }
     var restartSetupActionTitle: String { get }
     var exitSetupActionTitle: String { get }
+    var scanDeviceAgainActionTitle: String { get }
     
     // MARK:- Pairing error
     var pairingErrorNeedHelp: String { get }

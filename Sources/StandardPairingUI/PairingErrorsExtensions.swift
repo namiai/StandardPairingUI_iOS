@@ -57,7 +57,7 @@ extension PairingMachineError {
             return I18n.errorsPairingMachineDeserializationError
         case .encryptionError:
             return I18n.errorsPairingMachineEncryptionError
-        case let .notSupportDeviceType(deviceType):
+        case .notSupportDeviceType:
             return I18n.pairingErrorsThreadSetupErrorDeviceMismatchDescription
         case .connectionTimeOutError:
             return I18n.errorsPairingConnectionTimeOutDescription

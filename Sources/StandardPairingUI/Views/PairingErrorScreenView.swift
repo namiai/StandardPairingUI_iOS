@@ -134,7 +134,7 @@ public struct PairingErrorScreenView: View {
         case .restart:
             if case let .underlying(error) = viewModel.state.error {
                 if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
-                    return wordingManager.wordings.restartSetupActionTitle
+                    return wordingManager.wordings.scanDeviceAgainActionTitle
                 }
             } 
             
