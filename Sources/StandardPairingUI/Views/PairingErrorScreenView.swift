@@ -20,7 +20,7 @@ public struct PairingErrorScreenView: View {
     @Environment(\.colors) var colors: Colors
 
     public var body: some View {
-        DeviceSetupScreen(title: viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : wordingManager.wordings.pairingNavigationBarTitle) {
+        DeviceSetupScreen(title: navigationBarTitle()) {
             Spacer()
             VStack(alignment: .center) {
                 Image("Warning", bundle: .module)
@@ -114,6 +114,14 @@ public struct PairingErrorScreenView: View {
 
     // MARK: Private
 
+    private func navigationBarTitle() -> String {
+        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty { 
+            return wordingManager.wordings.pairingNavigationBarTitle
+        }
+        
+        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
+    }
+    
     private func buttonForAction(at index: Int) -> some View {
         let actions = viewModel.state.actions
         let action = actions[index]
