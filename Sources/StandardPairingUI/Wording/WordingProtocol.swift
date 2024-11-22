@@ -7,10 +7,12 @@ public protocol WordingProtocol {
     var ok: String { get }
     var next: String { get }
     var cancel: String { get }
-    var pairingNavigationBarTitle: String { get }
+    var pairingNavigationBarTitle: String { get set }
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
     func connectingToDevice(deviceName: String) -> String
+    var basicSecuritySystem: String { get }
+    var homeSecuritySystem: String { get }
     
     // MARK: - Bluetooth Usage Hint View
     // Power On and Scanning View
@@ -153,6 +155,7 @@ public protocol WordingProtocol {
     var ignoreActionTitle: String { get }
     var restartSetupActionTitle: String { get }
     var exitSetupActionTitle: String { get }
+    var scanDeviceAgainActionTitle: String { get }
     
     // MARK:- Pairing error
     var pairingErrorNeedHelp: String { get }
