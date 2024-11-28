@@ -126,6 +126,16 @@ public struct PairingErrorScreenView: View {
         let actions = viewModel.state.actions
         let action = actions[index]
 
+        // Hacky way of handling if this is a kit system is currently being set up
+        // Skip rendering if the action is `.restart` and `pairingNavigationBarTitle` is not empty
+        if action == .restart && !wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+            return EmptyView().anyView
+        }
+        
+        if action == .tryAgain && wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+            return EmptyView().anyView
+        }
+        
         let style = index == 0 ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle 
         
         return Button(titleForAction(action), action: { viewModel.send(event: .didChooseAction(action)) })
@@ -138,15 +148,15 @@ public struct PairingErrorScreenView: View {
     private func titleForAction(_ action: Pairing.ActionOnError) -> String {
         switch action {
         case .tryAgain:
-            return wordingManager.wordings.tryAgainActionTitle
-        case .restart:
             if case let .underlying(error) = viewModel.state.error {
                 if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
                     return wordingManager.wordings.scanDeviceAgainActionTitle
                 }
             } 
             
-            return wordingManager.wordings.restartActionTitle
+            return wordingManager.wordings.tryAgainActionTitle
+        case .restart:            
+            return wordingManager.wordings.restartSetupActionTitle
         case .ignore:
             return wordingManager.wordings.ignoreActionTitle
         case .exit:

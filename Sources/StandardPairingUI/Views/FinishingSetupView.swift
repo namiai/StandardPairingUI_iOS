@@ -12,7 +12,7 @@ public struct FinishingSetupView: View {
     }
     
     public var body: some View {
-        DeviceSetupScreen(title: self.title.isEmpty ? wordingManager.wordings.pairingNavigationBarTitle : self.title) {
+        DeviceSetupScreen(title: navigationBarTitle()) {
             VStack {
                 Text(wordingManager.wordings.finishingSetupHeader)
                     .font(themeManager.selectedTheme.headline3)
@@ -39,4 +39,12 @@ public struct FinishingSetupView: View {
     @EnvironmentObject private var wordingManager: WordingManager
     
     private var title: String
+    
+    private func navigationBarTitle() -> String {
+        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+            return wordingManager.wordings.pairingNavigationBarTitle 
+        }
+        
+        return self.title.isEmpty ? I18n.pairingDeviceSetupNavigationTitle : self.title
+    }
 }
