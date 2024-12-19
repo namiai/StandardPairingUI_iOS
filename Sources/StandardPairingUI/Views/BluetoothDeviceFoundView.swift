@@ -56,11 +56,15 @@ public struct BluetoothDeviceFoundView: View {
     @State private var isEditing: Bool = true
 
     private func navigationBarTitle() -> String {
+        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty { 
+            return wordingManager.wordings.pairingNavigationBarTitle
+        }
+        
         if let deviceModel = viewModel.state.deviceModel, deviceModel.deviceType != .unknown {
             return deviceModel.deviceType.localizedName
         }
         
-        return wordingManager.wordings.pairingNavigationBarTitle
+        return I18n.pairingDeviceSetupNavigationTitle
     }
     
     private func deviceDiscovered() -> some View {

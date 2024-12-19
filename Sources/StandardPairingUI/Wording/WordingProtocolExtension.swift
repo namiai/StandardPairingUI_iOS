@@ -8,10 +8,12 @@ public extension WordingProtocol {
     var ok: String { get { return I18n.generalOk } }
     var next: String { get { return I18n.generalNext } }
     var cancel: String { get { return I18n.generalCancel } }
-    var pairingNavigationBarTitle: String { get { return I18n.pairingDeviceSetupNavigagtionTitle } }
+    var pairingNavigationBarTitle: String { get { return "" } }
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
     func connectingToDevice(deviceName: String) -> String { return I18n.pairingLoadingDeviceConnecting(deviceName) }
+    var basicSecuritySystem: String { return "Basic security system"}
+    var homeSecuritySystem: String { return "Home security system" }
     
     // MARK: - Bluetooth Usage Hint View
     // Power On and Scanning View
@@ -154,6 +156,7 @@ public extension WordingProtocol {
     var ignoreActionTitle: String { get { return I18n.pairingErrorsActionIgnore } }
     var restartSetupActionTitle: String { get { return I18n.pairingErrorsActionRestartSetup } }
     var exitSetupActionTitle: String { get { return I18n.pairingExitSetup } }
+    var scanDeviceAgainActionTitle: String { get { return I18n.pairingErrorsActionScanDeviceAgain } }
     
     // MARK:- Pairing error
     var pairingErrorNeedHelp: String { get { return I18n.pairingErrorsNeedHelp } }
