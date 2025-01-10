@@ -12,8 +12,6 @@ public extension WordingProtocol {
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
     func connectingToDevice(deviceName: String) -> String { return I18n.pairingLoadingDeviceConnecting(deviceName) }
-    var basicSecuritySystem: String { return "Basic security system"}
-    var homeSecuritySystem: String { return "Home security system" }
     
     // MARK: - Bluetooth Usage Hint View
     // Power On and Scanning View
@@ -81,7 +79,7 @@ public extension WordingProtocol {
     var networkNotFound: String { get { return I18n.pairingListWifiNetworksNoNetworksFound } }
     var availableNetworks: String { get { return I18n.pairingListWifiNetworksAvailableNetworks } }
     var otherNetworkButton: String { get { return I18n.pairingListWifiNetworksButtonOtherNetwork } }
-    var otherNetworkTitle: String { get { return "Other network" }}
+    var otherNetworkTitle: String { get { return I18n.pairingOtherNetworkTitle }}
     
     // MARK: - Enter Wifi password
     func enterPassword(for networkName: String) -> String { return I18n.pairingEnterWifiPasswordEnterPasswordIos(networkName)}
@@ -217,5 +215,4 @@ public extension WordingProtocol {
     
     // MARK: - FAQ terms
     var pairingScanningBleFaq: String { get { return I18n.pairingScanningBleFaq } }
-    var pairingScanningBleFaqDoorSensor: String { get { return "The LED light is not pulsing" } }
 }
