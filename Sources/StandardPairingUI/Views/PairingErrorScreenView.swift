@@ -132,11 +132,7 @@ public struct PairingErrorScreenView: View {
             return EmptyView().anyView
         }
         
-        if action == .tryAgain && wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
-            return EmptyView().anyView
-        }
-        
-        let style = index == 0 ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle 
+        let style = index == 0 ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle
         
         return Button(titleForAction(action), action: { viewModel.send(event: .didChooseAction(action)) })
             .disabled(viewModel.state.chosenAction != nil)
