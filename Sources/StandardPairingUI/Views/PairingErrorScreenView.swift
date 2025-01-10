@@ -126,10 +126,18 @@ public struct PairingErrorScreenView: View {
         let actions = viewModel.state.actions
         let action = actions[index]
 
-        // Hacky way of handling if this is a kit system is currently being set up
-        // Skip rendering if the action is `.restart` and `pairingNavigationBarTitle` is not empty
-        if action == .restart && !wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
-            return EmptyView().anyView
+        if case let .underlying(error) = viewModel.state.error {
+            if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
+                // Hacky way of handling if this is a kit system is currently being set up
+                // Skip rendering if the action is `.restart` and `pairingNavigationBarTitle` is not empty
+                if action == .restart && !wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+                    return EmptyView().anyView
+                }
+                
+                if action == .tryAgain && wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+                    return EmptyView().anyView
+                }
+            }
         }
         
         let style = index == 0 ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle
