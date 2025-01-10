@@ -81,17 +81,10 @@ public struct PairingErrorScreenView: View {
                     }
                 }
                 if let urlLink = viewModel.state.error.getFAQLink(wordings: wordingManager.wordings) {
-                    if #available(iOS 15, *) {
-                        NamiTextHyperLink(text: wordingManager.wordings.pairingErrorNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
-                            .font(NamiTextStyle.paragraph1.font)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .padding(.horizontal)
-                    } else {
-                        NamiTextHyperLinkLegacy(text: wordingManager.wordings.pairingErrorNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
-                            .font(NamiTextStyle.paragraph1.font)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .padding(.horizontal)
-                    }
+                    NamiTextHyperLinkHelpers.hyperLink(text: wordingManager.wordings.pairingErrorNeedHelp, link: urlLink, linkColor: colors.neutral.secondaryBlack)
+                        .font(NamiTextStyle.paragraph1.font)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.horizontal)
                 }
             }
             .padding(.horizontal)

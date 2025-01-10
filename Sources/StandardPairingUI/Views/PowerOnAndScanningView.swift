@@ -105,19 +105,11 @@ public struct PowerOnAndScanningView: View {
             
             Spacer()
             
-            if #available(iOS 15, *) {
-                NamiTextHyperLink(text: wordingManager.wordings.pairingScanningBleFaq, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .padding(.horizontal)
-                    .padding(.bottom, 16)
-            } else {
-                NamiTextHyperLinkLegacy(text: wordingManager.wordings.pairingScanningBleFaq, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .padding(.horizontal)
-                    .padding(.bottom, 16)
-            }
+            NamiTextHyperLinkHelpers.hyperLink(text: wordingManager.wordings.pairingScanningBleFaq, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .padding(.horizontal)
+                .padding(.bottom, 16)
         }
     }
     
@@ -181,19 +173,12 @@ public struct PowerOnAndScanningView: View {
             }
             
             Spacer()
-            if #available(iOS 15, *) {
-                NamiTextHyperLink(text: wordingManager.wordings.pairingScanningBleFaqDoorSensor, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .padding(.horizontal)
-                    .padding(.bottom, 16)
-            } else {
-                NamiTextHyperLinkLegacy(text: wordingManager.wordings.pairingScanningBleFaqDoorSensor, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
-                    .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .padding(.horizontal)
-                    .padding(.bottom, 16)
-            }
+            
+            NamiTextHyperLinkHelpers.hyperLink(text: wordingManager.wordings.pairingScanningBleFaqDoorSensor, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .padding(.horizontal)
+                .padding(.bottom, 16)
         }
     }
     
