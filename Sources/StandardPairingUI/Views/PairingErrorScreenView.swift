@@ -104,6 +104,7 @@ public struct PairingErrorScreenView: View {
     @ObservedObject var viewModel: PairingErrorScreen.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
+    @State private var primaryButtonIndex = 0
 
     // MARK: Private
 
@@ -124,16 +125,18 @@ public struct PairingErrorScreenView: View {
                 // Hacky way of handling if this is a kit system is currently being set up
                 // Skip rendering if the action is `.restart` and `pairingNavigationBarTitle` is not empty
                 if action == .restart && !wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+                    primaryButtonIndex += 1
                     return EmptyView().anyView
                 }
                 
                 if action == .tryAgain && wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+                    primaryButtonIndex += 1
                     return EmptyView().anyView
                 }
             }
         }
         
-        let style = index == 0 ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle
+        let style = index == primaryButtonIndex ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle
         
         return Button(titleForAction(action), action: { viewModel.send(event: .didChooseAction(action)) })
             .disabled(viewModel.state.chosenAction != nil)
