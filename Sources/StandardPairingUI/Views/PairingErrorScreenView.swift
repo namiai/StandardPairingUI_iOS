@@ -125,7 +125,6 @@ public struct PairingErrorScreenView: View {
                 // Hacky way of handling if this is a kit system is currently being set up
                 // Skip rendering if the action is `.restart` and `pairingNavigationBarTitle` is not empty
                 if action == .restart && !wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
-                    primaryButtonIndex += 1
                     return EmptyView().anyView
                 }
                 
