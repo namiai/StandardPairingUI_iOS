@@ -104,6 +104,7 @@ public struct PairingErrorScreenView: View {
     @ObservedObject var viewModel: PairingErrorScreen.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
+    @State private var primaryButtonIndex = 0
 
     // MARK: Private
 
@@ -128,12 +129,13 @@ public struct PairingErrorScreenView: View {
                 }
                 
                 if action == .tryAgain && wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+                    primaryButtonIndex += 1
                     return EmptyView().anyView
                 }
             }
         }
         
-        let style = index == 0 ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle
+        let style = index == primaryButtonIndex ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle
         
         return Button(titleForAction(action), action: { viewModel.send(event: .didChooseAction(action)) })
             .disabled(viewModel.state.chosenAction != nil)
