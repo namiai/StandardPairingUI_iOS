@@ -36,8 +36,8 @@ public struct PowerOnAndScanningView: View {
 
     @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
     
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
     
     private func navigationBarTitle() -> String {
         if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty { 

@@ -48,8 +48,8 @@ public struct BluetoothDeviceFoundView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel       
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
 
     // MARK: Private
     @State private var isKeyboardAppeared: Bool = false

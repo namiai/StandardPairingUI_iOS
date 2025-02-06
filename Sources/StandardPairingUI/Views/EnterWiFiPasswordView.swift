@@ -85,8 +85,8 @@ public struct EnterWiFiPasswordView: View {
     @ObservedObject var viewModel: EnterWiFiPassword.ViewModel
     @State var textIsEditing = true
     @State private var isKeyboardAppeared: Bool = false
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
     
     private func navigationTitle() -> String {
         if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty {

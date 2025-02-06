@@ -45,7 +45,7 @@ public struct SetupTopNavigationBar<LeadingGroup: View, TrailingGroup: View, Not
     var subviews: () -> Subviews
     
     @State private var notificationAreaHeight: CGFloat = 0
-    @EnvironmentObject private var themeManager: ThemeManager
+    @Environment(\.themeManager) private var themeManager
     
     public var body: some View {
         VStack(spacing: 0) {

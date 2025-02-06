@@ -26,7 +26,7 @@ public struct SetupScreenTitleTextView: View {
         .frame(minWidth: 200)
     }
     
-    @EnvironmentObject private var themeManager: ThemeManager
+    @Environment(\.themeManager) private var themeManager
 }
 
 // MARK: - ScreenTitleTextView_Previews

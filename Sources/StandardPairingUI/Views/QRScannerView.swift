@@ -124,8 +124,8 @@ public struct QRScannerView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: QRScanner.ViewModel
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
     @State var bottomSheetHeight: CGFloat = 0
     @State var shouldShowQRcodeLocation = true
 
