@@ -1,6 +1,5 @@
 // Copyright (c) nami.ai
 
-import BottomSheet
 import I18n
 import SwiftUI
 import Tomonari
@@ -14,6 +13,8 @@ public struct QRScannerView: View {
 
     public init(viewModel: QRScanner.ViewModel) {
         self.viewModel = viewModel
+        self._shouldShowError = State(initialValue: false)
+        self._onDismissErrorAction = State(initialValue: nil)
     }
 
     // MARK: Public
@@ -106,6 +107,7 @@ public struct QRScannerView: View {
             }
             
             viewModel.send(event: .reset)
+            onDismissErrorAction = { shouldShowError = false }
         }
         .onPreferenceChange(ViewHeightKey.self) { newValue in
             bottomSheetHeight = newValue * 0.44
@@ -113,11 +115,13 @@ public struct QRScannerView: View {
         .onChange(of: viewModel.state.error) { error in
             if error != nil {
                 viewModel.send(event: .pauseScanning)
+                shouldShowError = true
             } else {
                 viewModel.send(event: .dismissScanError)
+                shouldShowError = false
             }
         }
-        .bottomSheet(item: $viewModel.state.error, height: bottomSheetHeight, content: { _ in qrErrorSheet() })
+        .dynamicBottomSheet(isPresented: $shouldShowError, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { qrErrorSheet() })
         .ignoresSafeArea(.keyboard)
     }
 
@@ -128,6 +132,8 @@ public struct QRScannerView: View {
     @EnvironmentObject private var wordingManager: WordingManager
     @State var bottomSheetHeight: CGFloat = 0
     @State var shouldShowQRcodeLocation = true
+    @State var shouldShowError = false
+    @State private var onDismissErrorAction: (() -> Void)?
 
     // MARK: Private
     

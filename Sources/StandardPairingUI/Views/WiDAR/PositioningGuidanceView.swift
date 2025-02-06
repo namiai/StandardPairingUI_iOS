@@ -1,7 +1,6 @@
 // Copyright (c) nami.ai
 
 import SwiftUI
-import BottomSheet
 import SharedAssets
 import CommonTypes
 import Tomonari
@@ -13,6 +12,7 @@ public struct PositioningGuidanceView: View {
 
     public init(viewModel: PositioningGuidance.ViewModel) {
         self.viewModel = viewModel
+        self._onDismissErrorAction = State(initialValue: nil)
     }
 
     // MARK: Internal
@@ -24,6 +24,8 @@ public struct PositioningGuidanceView: View {
     @EnvironmentObject private var wordingManager: WordingManager
 
     @ObservedObject var viewModel: PositioningGuidance.ViewModel
+    
+    @State private var onDismissErrorAction: (() -> Void)? = {}
 
     public var body: some View {
         let cancelSheetBinding = Binding {
@@ -60,9 +62,7 @@ public struct PositioningGuidanceView: View {
             }
             .padding(.vertical)
         }
-        .bottomSheet(isPresented: cancelSheetBinding, height: 316, showTopIndicator: false) {
-            sheetContent()
-        }
+        .dynamicBottomSheet(isPresented: cancelSheetBinding, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { sheetContent() })
         .allowSwipeBackNavigation(false)
         .ignoresSafeArea(.keyboard)
     }
