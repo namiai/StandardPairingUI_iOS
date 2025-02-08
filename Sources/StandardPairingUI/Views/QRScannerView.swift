@@ -1,10 +1,10 @@
 // Copyright (c) nami.ai
 
-import I18n
+import DeviceConnections
 import SwiftUI
-import Tomonari
-import NamiSharedUIElements
-import CommonTypes
+import NamiPairingFramework
+
+import DeviceConnections
 
 // MARK: - QRScannerView
 
@@ -58,7 +58,7 @@ public struct QRScannerView: View {
                     
                     if viewModel.state.deviceType != .unknown, let outletType = viewModel.state.outletType, outletType != .unknown {
                         HStack(alignment: .center, spacing: 8) {
-                            Image(shouldShowQRcodeLocation ? "Expand" : "Question", bundle: .module)
+                            Image(shouldShowQRcodeLocation ? "Expand" : "Question", bundle: BundleProvider.bundle)
                                 .resizable()
                                 .frame(width: 24, height: 24)
                                 .foregroundColor(themeManager.selectedTheme.white)
@@ -109,9 +109,6 @@ public struct QRScannerView: View {
             viewModel.send(event: .reset)
             onDismissErrorAction = { shouldShowError = false }
         }
-        .onPreferenceChange(ViewHeightKey.self) { newValue in
-            bottomSheetHeight = newValue * 0.44
-        }
         .onChange(of: viewModel.state.error) { error in
             if error != nil {
                 viewModel.send(event: .pauseScanning)
@@ -130,7 +127,6 @@ public struct QRScannerView: View {
     @ObservedObject var viewModel: QRScanner.ViewModel
     @EnvironmentObject private var themeManager: ThemeManager
     @EnvironmentObject private var wordingManager: WordingManager
-    @State var bottomSheetHeight: CGFloat = 0
     @State var shouldShowQRcodeLocation = true
     @State var shouldShowError = false
     @State private var onDismissErrorAction: (() -> Void)?
@@ -146,7 +142,7 @@ public struct QRScannerView: View {
     }
 
     private func roundedRectPerimeter(width: CGFloat, height: CGFloat, cornerRadius radius: CGFloat) -> CGFloat {
-        // Rounded rect perimeter = 2L + 2W - 8r + 2πr = 2L + 2W - (8-2π)r
+        // Rounded rect perimeter = 2L + 2W - 8r + 2r = 2L + 2W - (8-2)r
         (2 * width) + (2 * height) - ((8 - 2 * CGFloat.pi) * radius)
     }
 
@@ -170,27 +166,29 @@ public struct QRScannerView: View {
         )
     }
 
+    @ViewBuilder
     private func qrErrorSheet() -> some View {
         VStack(spacing: 0) {
             Spacer()
-            Image("Warning", bundle: .module)
+            Image("Warning", bundle: BundleProvider.bundle)
                 .resizable()
-                .frame(width: 33, height: 28)
                 .scaledToFill()
+                .frame(width: 40, height: 40)
             Text(wordingManager.wordings.qrCodeError)
                 .font(themeManager.selectedTheme.headline4)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.top, 8)
+                .padding(.top, 4)
             Text(wordingManager.wordings.qrCodeMismatchError)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.vertical, 16)
+                .padding(.top, 16)
+                .padding(.bottom, 32)
             Spacer()
             Button(wordingManager.wordings.tryAgainButton) {
                 viewModel.send(event: .dismissScanError)
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
-            .padding(.bottom, 4)
+            .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToNextButton)
             .anyView
             
             Button(wordingManager.wordings.exitSetupActionTitle) {
@@ -200,7 +198,9 @@ public struct QRScannerView: View {
             .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
             .anyView
         }
+        .frame(maxHeight: 330)
         .ignoresSafeArea()
+        .anyView
     }
 }
 

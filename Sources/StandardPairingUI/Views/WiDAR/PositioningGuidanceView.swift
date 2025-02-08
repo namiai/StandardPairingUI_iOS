@@ -1,11 +1,11 @@
 // Copyright (c) nami.ai
 
 import SwiftUI
-import SharedAssets
-import CommonTypes
-import Tomonari
-import I18n
-import NamiSharedUIElements
+
+import DeviceConnections
+import NamiPairingFramework
+import DeviceConnections
+
 
 public struct PositioningGuidanceView: View {
     // MARK: Lifecycle
@@ -142,27 +142,33 @@ public struct PositioningGuidanceView: View {
         }
     }
 
+    @ViewBuilder
     private func sheetContent() -> some View {
         VStack {
             Text(wordingManager.wordings.cancelPopupTitle)
                 .font(themeManager.selectedTheme.headline4)
             Text(wordingManager.wordings.cancelPopupMessage)
                 .font(themeManager.selectedTheme.paragraph1)
-                .padding()
+                .padding(.top, 16)
+                .padding(.bottom, 32)
             Button(wordingManager.wordings.cancelPopupBackToPositioningButton) {
                 viewModel.send(.cancelViewDismissed)
             }
             .font(themeManager.selectedTheme.headline5)
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+            .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToNextButton)
             .anyView
             Button(wordingManager.wordings.cancelPopupCancelButton) {
                 viewModel.send(.confirmPositioningCancel)
             }
             .font(themeManager.selectedTheme.headline5)
             .buttonStyle(themeManager.selectedTheme.secondaryActionButtonStyle)
+            .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
             .anyView
             
         }
-        .padding(.bottom, 16)
+        .frame(maxHeight: 300)
+        .ignoresSafeArea()
+        .anyView
     }
 }
