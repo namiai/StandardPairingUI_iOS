@@ -41,8 +41,8 @@ public struct FinishingSetupView: View {
     private var title: String
     
     private func navigationBarTitle() -> String {
-        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
-            return wordingManager.wordings.pairingNavigationBarTitle 
+        if isSettingUpKit(wordings: wordingManager.wordings) {
+            return kitName(wordings: wordingManager.wordings)
         }
         
         return self.title.isEmpty ? I18n.pairingDeviceSetupNavigationTitle : self.title

@@ -9,7 +9,7 @@ public struct EnableCameraInSettingsView: View {
     }
     
     public var body: some View {
-        DeviceSetupScreen(title: !wordingManager.wordings.pairingNavigationBarTitle.isEmpty ? wordingManager.wordings.pairingNavigationBarTitle : self.deviceType) {
+        DeviceSetupScreen(title: isSettingUpKit(wordings: wordingManager.wordings) ? kitName(wordings: wordingManager.wordings) : self.deviceType) {
             VStack {
                 Text(wordingManager.wordings.scanQRtitle)
                     .font(themeManager.selectedTheme.headline3)
