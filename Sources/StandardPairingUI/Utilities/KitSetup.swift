@@ -6,7 +6,7 @@
 //
 
 func isSettingUpKit(wordings: WordingProtocol) -> Bool {
-    return wordings.pairingNavigationBarTitle.isEmpty
+    return !wordings.pairingNavigationBarTitle.isEmpty
 }
 
 func kitName(wordings: WordingProtocol) -> String {
