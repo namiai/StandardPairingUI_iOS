@@ -27,6 +27,17 @@ public class WordingManager: ObservableObject {
     }
 }
 
+private struct WordingManagerKey: EnvironmentKey {
+    static let defaultValue: WordingManager = WordingManager()
+}
+
+public extension EnvironmentValues {
+    var wordingManager: WordingManager {
+        get { self[WordingManagerKey.self] }
+        set { self[WordingManagerKey.self] = newValue }
+    }
+}
+
 private struct DefaultWordings: WordingProtocol {
     var pairingNavigationBarTitle: String = I18n.pairingDeviceSetupNavigagtionTitle
     

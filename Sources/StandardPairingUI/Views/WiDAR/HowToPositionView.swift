@@ -19,8 +19,8 @@ public struct HowToPositionView: View {
     @Environment(\.animations) var animations: Animations
     
     @ObservedObject var viewModel: HowToPosition.ViewModel
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
     
     public var body: some View {
         DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {

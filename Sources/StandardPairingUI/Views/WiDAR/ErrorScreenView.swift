@@ -15,8 +15,8 @@ public struct ErrorScreenView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: ErrorScreen.ViewModel
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
 
     public var body: some View {
         DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {

@@ -38,8 +38,8 @@ struct DevicePresentingLoadingView: View {
 
     // MARK: Private
     
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
     private var deviceName: String
     private var deviceModel: NamiDeviceModel
 }

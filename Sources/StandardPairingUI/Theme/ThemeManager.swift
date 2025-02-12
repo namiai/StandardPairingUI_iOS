@@ -12,19 +12,32 @@ public class ThemeManager: ObservableObject {
     public func setTheme(_ theme: ThemeProtocol) {
         selectedTheme = theme
     }
+    
+    internal static var namiDefault: ThemeManager { ThemeManager(selectedTheme: NamiTheme()) }
+}
+
+private struct ThemeManagerKey: EnvironmentKey {
+    static let defaultValue: ThemeManager = .namiDefault
+}
+
+public extension EnvironmentValues {
+    var themeManager: ThemeManager {
+        get { self[ThemeManagerKey.self] }
+        set { self[ThemeManagerKey.self] = newValue }
+    }
 }
 
 struct NamiNavBar: ViewModifier {
     init() {
-        UINavigationBar.appearance().largeTitleTextAttributes = [.font: themeManager.selectedTheme.headline4]
-        UINavigationBar.appearance().titleTextAttributes = [.font: themeManager.selectedTheme.headline4]
+        UINavigationBar.appearance().largeTitleTextAttributes = [.font: (themeManager ?? .namiDefault).selectedTheme.headline4]
+        UINavigationBar.appearance().titleTextAttributes = [.font: (themeManager ?? .namiDefault).selectedTheme.headline4]
     }
     
     func body(content: Content) -> some View {
         content
     }
     
-    @EnvironmentObject private var themeManager: ThemeManager
+    @Environment(\.themeManager) private var themeManager
 }
 
 extension View {
