@@ -142,7 +142,7 @@ public struct QRScannerView: View {
     }
 
     private func roundedRectPerimeter(width: CGFloat, height: CGFloat, cornerRadius radius: CGFloat) -> CGFloat {
-        // Rounded rect perimeter = 2L + 2W - 8r + 2r = 2L + 2W - (8-2)r
+        // Rounded rect perimeter = 2L + 2W - 8r + 2πr = 2L + 2W - (8-2)πr
         (2 * width) + (2 * height) - ((8 - 2 * CGFloat.pi) * radius)
     }
 
