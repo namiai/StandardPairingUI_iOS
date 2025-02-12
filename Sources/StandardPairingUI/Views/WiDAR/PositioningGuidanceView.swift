@@ -1,10 +1,9 @@
 // Copyright (c) nami.ai
 
 import SwiftUI
-
-import DeviceConnections
-import NamiPairingFramework
-import DeviceConnections
+import SharedAssets
+import CommonTypes
+import Tomonari
 
 
 public struct PositioningGuidanceView: View {
