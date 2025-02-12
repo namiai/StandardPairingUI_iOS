@@ -179,6 +179,7 @@ public extension WordingProtocol {
     var pairingErrorDeserializationDescription: String { get { return I18n.errorsPairingMachineDeserializationError } }
     var pairingErrorEncryptionErrorDescription: String { get { return I18n.errorsPairingMachineEncryptionError } }
     var pairingErrorDeviceMismatchDescription: String { get { return I18n.pairingErrorsDeviceSetupErrorDeviceMismatchDescription } }
+    var pairingErrorKitDeviceMismatchDescription: String { get { return I18n.pairingErrorsThreadSetupErrorDeviceMismatchDescription } }
     var pairingErrorConnectionTimeoutDescription: String { get { return I18n.errorsPairingConnectionTimeOutDescription }}
     func pairingErrorBleDisconnectedDescription(deviceName: String) -> String { return I18n.errorsPairingBleDisconnectedDescription(deviceName) }
     var pairingErrorDeviceSecureSessionDescription: String { get { return I18n.errorsPairingErrorDeviceSecureSessionError } }

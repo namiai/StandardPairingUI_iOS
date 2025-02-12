@@ -134,8 +134,8 @@ public struct QRScannerView: View {
     // MARK: Private
     
     private func navigationBarTitle() -> String {
-        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty { 
-            return wordingManager.wordings.pairingNavigationBarTitle
+        if isSettingUpKit(wordings: wordingManager.wordings) {
+            return kitName(wordings: wordingManager.wordings)
         }
         
         return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle

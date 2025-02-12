@@ -178,6 +178,7 @@ public protocol WordingProtocol {
     var pairingErrorDeserializationDescription: String { get }
     var pairingErrorEncryptionErrorDescription: String { get }
     var pairingErrorDeviceMismatchDescription: String { get }
+    var pairingErrorKitDeviceMismatchDescription: String { get }
     var pairingErrorConnectionTimeoutDescription: String { get }
     func pairingErrorBleDisconnectedDescription(deviceName: String) -> String 
     var pairingErrorDeviceSecureSessionDescription: String { get }
