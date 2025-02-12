@@ -1,10 +1,10 @@
 // Copyright (c) nami.ai
 
-import DeviceConnections
+import I18n
 import SwiftUI
-import NamiPairingFramework
-
-import DeviceConnections
+import Tomonari
+import NamiSharedUIElements
+import CommonTypes
 
 // MARK: - QRScannerView
 
