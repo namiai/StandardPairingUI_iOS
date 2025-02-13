@@ -4,7 +4,7 @@ import SwiftUI
 import SharedAssets
 import CommonTypes
 import Tomonari
-
+import NamiSharedUIElements
 
 public struct PositioningGuidanceView: View {
     // MARK: Lifecycle

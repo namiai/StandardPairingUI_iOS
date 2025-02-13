@@ -58,7 +58,7 @@ public struct QRScannerView: View {
                     
                     if viewModel.state.deviceType != .unknown, let outletType = viewModel.state.outletType, outletType != .unknown {
                         HStack(alignment: .center, spacing: 8) {
-                            Image(shouldShowQRcodeLocation ? "Expand" : "Question", bundle: BundleProvider.bundle)
+                            Image(shouldShowQRcodeLocation ? "Expand" : "Question", bundle: .module)
                                 .resizable()
                                 .frame(width: 24, height: 24)
                                 .foregroundColor(themeManager.selectedTheme.white)
@@ -170,7 +170,7 @@ public struct QRScannerView: View {
     private func qrErrorSheet() -> some View {
         VStack(spacing: 0) {
             Spacer()
-            Image("Warning", bundle: BundleProvider.bundle)
+            Image("Warning", bundle: .module)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 40, height: 40)
