@@ -218,5 +218,5 @@ public extension WordingProtocol {
     
     // MARK: - FAQ terms
     var pairingScanningBleFaq: String { get { return I18n.pairingScanningBleFaq } }
-    var pairingScanningBleFaqDoorSensor: String { get { return "The LED light is not pulsing" } }
+    var pairingScanningBleFaqDoorSensor: String { get { return I18n.pairingScanDeviceTheLedLightIsNotPulsing } }
 }
