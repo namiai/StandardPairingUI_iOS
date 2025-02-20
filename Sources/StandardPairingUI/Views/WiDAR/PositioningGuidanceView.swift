@@ -1,11 +1,9 @@
 // Copyright (c) nami.ai
 
 import SwiftUI
-import BottomSheet
 import SharedAssets
 import CommonTypes
 import Tomonari
-import I18n
 import NamiSharedUIElements
 
 public struct PositioningGuidanceView: View {
@@ -13,6 +11,7 @@ public struct PositioningGuidanceView: View {
 
     public init(viewModel: PositioningGuidance.ViewModel) {
         self.viewModel = viewModel
+        self._onDismissErrorAction = State(initialValue: nil)
     }
 
     // MARK: Internal
@@ -24,6 +23,8 @@ public struct PositioningGuidanceView: View {
     @EnvironmentObject private var wordingManager: WordingManager
 
     @ObservedObject var viewModel: PositioningGuidance.ViewModel
+    
+    @State private var onDismissErrorAction: (() -> Void)? = {}
 
     public var body: some View {
         let cancelSheetBinding = Binding {
@@ -60,9 +61,7 @@ public struct PositioningGuidanceView: View {
             }
             .padding(.vertical)
         }
-        .bottomSheet(isPresented: cancelSheetBinding, height: 316, showTopIndicator: false) {
-            sheetContent()
-        }
+        .dynamicBottomSheet(isPresented: cancelSheetBinding, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { sheetContent() })
         .allowSwipeBackNavigation(false)
         .ignoresSafeArea(.keyboard)
     }
@@ -142,27 +141,33 @@ public struct PositioningGuidanceView: View {
         }
     }
 
+    @ViewBuilder
     private func sheetContent() -> some View {
         VStack {
             Text(wordingManager.wordings.cancelPopupTitle)
                 .font(themeManager.selectedTheme.headline4)
             Text(wordingManager.wordings.cancelPopupMessage)
                 .font(themeManager.selectedTheme.paragraph1)
-                .padding()
+                .padding(.top, 16)
+                .padding(.bottom, 32)
             Button(wordingManager.wordings.cancelPopupBackToPositioningButton) {
                 viewModel.send(.cancelViewDismissed)
             }
             .font(themeManager.selectedTheme.headline5)
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
+            .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToNextButton)
             .anyView
             Button(wordingManager.wordings.cancelPopupCancelButton) {
                 viewModel.send(.confirmPositioningCancel)
             }
             .font(themeManager.selectedTheme.headline5)
             .buttonStyle(themeManager.selectedTheme.secondaryActionButtonStyle)
+            .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
             .anyView
             
         }
-        .padding(.bottom, 16)
+        .frame(maxHeight: 300)
+        .ignoresSafeArea()
+        .anyView
     }
 }
