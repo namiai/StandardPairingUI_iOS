@@ -7,7 +7,7 @@ let package = Package(
     name: "StandardPairingUI",
     // The supported platform version here couldn't be lower than in Tomonari.
     platforms: [
-        .iOS("14.5.0"),
+        .iOS("16.0"),
         .macOS(.v10_15),
     ],
     products: [
@@ -21,7 +21,6 @@ let package = Package(
         .package(url: "https://github.com/namiai/NamiSharedUIElements_iOS.git", branch: "main"),
         .package(url: "https://github.com/namiai/SharedAssets_iOS", branch: "main"),
         .package(url: "https://github.com/namiai/Tomonari.git", branch: "main"),
-        .package(url: "https://github.com/weitieda/bottom-sheet", exact: "1.0.8"), // Matches the version of BottomSheet used in main app.
     ],
     targets: [
         .target(
@@ -31,7 +30,6 @@ let package = Package(
                 .product(name: "NamiSharedUIElements", package: "NamiSharedUIElements_iOS"),
                 .product(name: "SharedAssets", package: "SharedAssets_iOS"),
                 .product(name: "Tomonari", package: "Tomonari"),
-                .product(name: "BottomSheet", package: "bottom-sheet"),
             ]
         ),
     ]

@@ -79,8 +79,12 @@ extension PairingMachineError {
             return wordings.pairingErrorDeserializationDescription
         case .encryptionError:
             return wordings.pairingErrorEncryptionErrorDescription
-        case let .notSupportDeviceType(deviceType):
-            return wordings.pairingErrorDeviceMismatchDescription
+        case .notSupportDeviceType(_):
+            if isSettingUpKit(wordings: wordings) {
+                return wordings.pairingErrorKitDeviceMismatchDescription
+            } else {
+                return wordings.pairingErrorDeviceMismatchDescription
+            }
         case .connectionTimeOutError:
             return wordings.pairingErrorConnectionTimeoutDescription
         case let .bluetoothDisconnectedError(deviceType, canTryAgain):
