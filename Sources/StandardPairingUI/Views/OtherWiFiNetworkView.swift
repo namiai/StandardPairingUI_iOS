@@ -43,7 +43,7 @@ public struct OtherWiFiNetworkView: View {
                     subTextFont: themeManager.selectedTheme.small1
                 )
                 .padding([.top, .horizontal])
-                .onAppear {
+                .onTapGesture {
                     nameIsEditing = true
                 }
 
@@ -62,6 +62,9 @@ public struct OtherWiFiNetworkView: View {
                 )
                 .secureTextEntry(true)
                 .padding()
+                .onTapGesture {
+                    passwordIsEditing = true
+                }
                 Spacer()
                 Button(wordingManager.wordings.readyToConnectButton, action: { viewModel.send(event: .didConfirmName) })
                     .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
@@ -71,6 +74,10 @@ public struct OtherWiFiNetworkView: View {
             }
         }
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel, wordingManager: wordingManager)
+        .onAppear {
+            viewModel.state.networkName = ""
+            viewModel.state.password = ""
+        }
         .onChange(of: passwordIsEditing) { isEditing in
             if isEditing, viewModel.state.networkName.isEmpty == false, viewModel.state.password.isEmpty, startedEditingFirstTime == false {
                 startedEditingFirstTime = true
