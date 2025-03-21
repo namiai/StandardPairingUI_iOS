@@ -1,6 +1,5 @@
 // Copyright (c) nami.ai
 
-import BottomSheet
 import I18n
 import SwiftUI
 import Tomonari
@@ -14,6 +13,8 @@ public struct QRScannerView: View {
 
     public init(viewModel: QRScanner.ViewModel) {
         self.viewModel = viewModel
+        self._shouldShowError = State(initialValue: false)
+        self._onDismissErrorAction = State(initialValue: nil)
     }
 
     // MARK: Public
@@ -106,18 +107,18 @@ public struct QRScannerView: View {
             }
             
             viewModel.send(event: .reset)
-        }
-        .onPreferenceChange(ViewHeightKey.self) { newValue in
-            bottomSheetHeight = newValue * 0.44
+            onDismissErrorAction = { shouldShowError = false }
         }
         .onChange(of: viewModel.state.error) { error in
             if error != nil {
                 viewModel.send(event: .pauseScanning)
+                shouldShowError = true
             } else {
                 viewModel.send(event: .dismissScanError)
+                shouldShowError = false
             }
         }
-        .bottomSheet(item: $viewModel.state.error, height: bottomSheetHeight, content: { _ in qrErrorSheet() })
+        .dynamicBottomSheet(isPresented: $shouldShowError, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { qrErrorSheet() })
         .ignoresSafeArea(.keyboard)
     }
 
@@ -128,19 +129,21 @@ public struct QRScannerView: View {
     @Environment(\.wordingManager) private var wordingManager
     @State var bottomSheetHeight: CGFloat = 0
     @State var shouldShowQRcodeLocation = true
+    @State var shouldShowError = false
+    @State private var onDismissErrorAction: (() -> Void)?
 
     // MARK: Private
     
     private func navigationBarTitle() -> String {
-        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty { 
-            return wordingManager.wordings.pairingNavigationBarTitle
+        if isSettingUpKit(wordings: wordingManager.wordings) {
+            return kitName(wordings: wordingManager.wordings)
         }
         
         return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
     }
 
     private func roundedRectPerimeter(width: CGFloat, height: CGFloat, cornerRadius radius: CGFloat) -> CGFloat {
-        // Rounded rect perimeter = 2L + 2W - 8r + 2πr = 2L + 2W - (8-2π)r
+        // Rounded rect perimeter = 2L + 2W - 8r + 2πr = 2L + 2W - (8-2)πr
         (2 * width) + (2 * height) - ((8 - 2 * CGFloat.pi) * radius)
     }
 
@@ -164,27 +167,29 @@ public struct QRScannerView: View {
         )
     }
 
+    @ViewBuilder
     private func qrErrorSheet() -> some View {
         VStack(spacing: 0) {
             Spacer()
             Image("Warning", bundle: .module)
                 .resizable()
-                .frame(width: 33, height: 28)
                 .scaledToFill()
+                .frame(width: 40, height: 40)
             Text(wordingManager.wordings.qrCodeError)
                 .font(themeManager.selectedTheme.headline4)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.top, 8)
+                .padding(.top, 4)
             Text(wordingManager.wordings.qrCodeMismatchError)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.vertical, 16)
+                .padding(.top, 16)
+                .padding(.bottom, 32)
             Spacer()
             Button(wordingManager.wordings.tryAgainButton) {
                 viewModel.send(event: .dismissScanError)
             }
             .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)
-            .padding(.bottom, 4)
+            .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToNextButton)
             .anyView
             
             Button(wordingManager.wordings.exitSetupActionTitle) {
@@ -194,7 +199,9 @@ public struct QRScannerView: View {
             .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
             .anyView
         }
+        .frame(maxHeight: 330)
         .ignoresSafeArea()
+        .anyView
     }
 }
 

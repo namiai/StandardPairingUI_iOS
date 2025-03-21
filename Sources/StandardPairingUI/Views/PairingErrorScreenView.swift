@@ -109,8 +109,8 @@ public struct PairingErrorScreenView: View {
     // MARK: Private
 
     private func navigationBarTitle() -> String {
-        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty { 
-            return wordingManager.wordings.pairingNavigationBarTitle
+        if isSettingUpKit(wordings: wordingManager.wordings) {
+            return kitName(wordings: wordingManager.wordings)
         }
         
         return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
@@ -124,11 +124,11 @@ public struct PairingErrorScreenView: View {
             if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
                 // Hacky way of handling if this is a kit system is currently being set up
                 // Skip rendering if the action is `.restart` and `pairingNavigationBarTitle` is not empty
-                if action == .restart && !wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+                if action == .restart && isSettingUpKit(wordings: wordingManager.wordings) {
                     return EmptyView().anyView
                 }
                 
-                if action == .tryAgain && wordingManager.wordings.pairingNavigationBarTitle.isEmpty {
+                if action == .tryAgain && !isSettingUpKit(wordings: wordingManager.wordings) {
                     primaryButtonIndex += 1
                     return EmptyView().anyView
                 }
@@ -149,7 +149,11 @@ public struct PairingErrorScreenView: View {
         case .tryAgain:
             if case let .underlying(error) = viewModel.state.error {
                 if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
-                    return wordingManager.wordings.scanDeviceAgainActionTitle
+                    if isSettingUpKit(wordings: wordingManager.wordings) {
+                        return wordingManager.wordings.scanDeviceAgainActionTitle
+                    } else {
+                        return wordingManager.wordings.restartSetupActionTitle
+                    }
                 }
             } 
             

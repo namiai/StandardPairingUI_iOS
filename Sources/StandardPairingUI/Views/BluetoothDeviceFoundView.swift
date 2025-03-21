@@ -56,8 +56,8 @@ public struct BluetoothDeviceFoundView: View {
     @State private var isEditing: Bool = true
 
     private func navigationBarTitle() -> String {
-        if !wordingManager.wordings.pairingNavigationBarTitle.isEmpty { 
-            return wordingManager.wordings.pairingNavigationBarTitle
+        if isSettingUpKit(wordings: wordingManager.wordings) {
+            return kitName(wordings: wordingManager.wordings)
         }
         
         if let deviceModel = viewModel.state.deviceModel, deviceModel.deviceType != .unknown {
