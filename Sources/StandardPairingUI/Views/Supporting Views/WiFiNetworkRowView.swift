@@ -35,7 +35,7 @@ struct WiFiNetworkRowView: View {
 
     // MARK: Private
     
-    @EnvironmentObject private var themeManager: ThemeManager
+    @Environment(\.themeManager) private var themeManager
 
     private func wifiImage() -> some View {
         if network.rssi >= -45 {
