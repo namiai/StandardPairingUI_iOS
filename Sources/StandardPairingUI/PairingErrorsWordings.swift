@@ -26,8 +26,8 @@ public extension Pairing.Error {
                     return wordings.pairingThreadErrorDatasetMissingTitle
                 case .threadNetworkNotFound:
                     return wordings.pairingThreadErrorThreadNetworkNotFoundTitle
-                case .wifiIsDisconnected:
-                    return wordings.pairingErrorMobilePhoneIsNotConnectedToWifi
+//                case .wifiIsDisconnected:
+//                    return wordings.pairingErrorMobilePhoneIsNotConnectedToWifi
                 }
             }
             
@@ -143,8 +143,8 @@ extension Pairing.ThreadError {
             default:
                 return wordings.pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: zoneName)
             }
-        case .wifiIsDisconnected:
-            return wordings.pairingErrorMobilePhoneIsNotConnectedToWifiDescription
+//        case .wifiIsDisconnected:
+//            return wordings.pairingErrorMobilePhoneIsNotConnectedToWifiDescription
         }
     }
 }
