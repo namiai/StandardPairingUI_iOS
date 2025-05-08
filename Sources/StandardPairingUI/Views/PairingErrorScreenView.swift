@@ -32,6 +32,7 @@ public struct PairingErrorScreenView: View {
                 Text(viewModel.state.error.getErrorMessageTitle(wordings: wordingManager.wordings))
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .multilineTextAlignment(.center)
                     .padding(.horizontal)
                     .padding(.top, 4)
                     .fixedSize(horizontal: false, vertical: true)

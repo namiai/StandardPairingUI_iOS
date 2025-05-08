@@ -107,6 +107,8 @@ extension Pairing.ThreadError {
             default:
                 return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName)
             }
+        case .wifiIsDisconnected:
+            return I18n.pairingErrorMobilePhoneIsNotConnectedToWifi
         }
     }
 }

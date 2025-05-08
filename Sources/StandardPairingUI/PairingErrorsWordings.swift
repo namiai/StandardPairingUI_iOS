@@ -26,6 +26,8 @@ public extension Pairing.Error {
                     return wordings.pairingThreadErrorDatasetMissingTitle
                 case .threadNetworkNotFound:
                     return wordings.pairingThreadErrorThreadNetworkNotFoundTitle
+                case .wifiIsDisconnected:
+                    return wordings.pairingErrorMobilePhoneIsNotConnectedToWifi
                 }
             }
             
@@ -56,6 +58,7 @@ public extension Pairing.Error {
             if let error = error as? Pairing.ThreadError {
                 return error.getErrorMessageDescription(wordings: wordings)
             }
+
 //            return error.localizedDescription
             return ""
         }
@@ -140,6 +143,8 @@ extension Pairing.ThreadError {
             default:
                 return wordings.pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: zoneName)
             }
+        case .wifiIsDisconnected:
+            return wordings.pairingErrorMobilePhoneIsNotConnectedToWifiDescription
         }
     }
 }
