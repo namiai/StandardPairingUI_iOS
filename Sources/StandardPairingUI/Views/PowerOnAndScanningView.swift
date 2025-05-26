@@ -235,6 +235,8 @@ public struct PowerOnAndScanningView: View {
                 }
             case .unknown:
                 EmptyView()
+            case .keypad: 
+                LottieAnimationView(animation: \.doorSensorPulseWhite)
             case .widarSensor:
                 LottieAnimationView(animation: \.widarPulseDarkBlue)
                 
