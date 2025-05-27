@@ -188,6 +188,8 @@ public struct PowerOnAndScanningView: View {
             switch viewModel.state.deviceType {
             case .contactSensor:
                 LottieAnimationView(animation: \.doorSensorPulseWhite)
+            case .keypad: 
+                LottieAnimationView(animation: \.keypadPulseWhite)
             case .motionSensor: 
                 // TODO: Motion sensor - update animation
                 LottieAnimationView(animation: \.doorSensorPulseWhite)
