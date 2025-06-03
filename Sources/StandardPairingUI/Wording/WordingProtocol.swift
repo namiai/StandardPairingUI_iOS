@@ -195,12 +195,14 @@ public protocol WordingProtocol {
     // MARK: - Pairing Thread error - title
     var pairingThreadErrorDatasetMissingTitle: String { get }
     var pairingThreadErrorThreadNetworkNotFoundTitle: String { get }
+    var pairingErrorMobilePhoneIsNotConnectedToWifi: String { get }
     
     // MARK: - Pairing Thread error - description
     var pairingThreadErrorDatasetMissingDescription: String { get }
     func pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1(zoneName: String) -> String
     var pairingThreadErrorContactSensorNoThreadNetworksFoundDescription2: String { get }
     func pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: String) -> String
+    var pairingErrorMobilePhoneIsNotConnectedToWifiDescription: String { get }
     
     // MARK: - Positioning error view
     var positioningErrorTitle: String { get }

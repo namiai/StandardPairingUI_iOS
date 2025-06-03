@@ -36,8 +36,8 @@ public struct PowerOnAndScanningView: View {
 
     @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
     
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
     
     private func navigationBarTitle() -> String {
         if isSettingUpKit(wordings: wordingManager.wordings) {
@@ -187,6 +187,9 @@ public struct PowerOnAndScanningView: View {
         VStack {
             switch viewModel.state.deviceType {
             case .contactSensor:
+                LottieAnimationView(animation: \.doorSensorPulseWhite)
+            case .motionSensor: 
+                // TODO: Motion sensor - update animation
                 LottieAnimationView(animation: \.doorSensorPulseWhite)
             case .meshSensor:
                 if let outletType = viewModel.state.outletType {

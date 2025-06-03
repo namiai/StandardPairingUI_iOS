@@ -18,8 +18,8 @@ public struct InitialScreenView: View {
 
     @ObservedObject var viewModel: InitialScreen.ViewModel
     @Environment(\.colors) var colors: Colors
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
 
     public var body: some View {
         DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {

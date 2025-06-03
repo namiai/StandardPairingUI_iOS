@@ -19,8 +19,8 @@ public struct PositioningGuidanceView: View {
     @Environment(\.animations) var animations: Animations
     @Environment(\.colors) var colors: Colors
     @Environment(\.measurementSystem) var measurementSystem: MeasurementSystem
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
 
     @ObservedObject var viewModel: PositioningGuidance.ViewModel
     

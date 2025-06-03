@@ -44,8 +44,8 @@ public struct EnableCameraInSettingsView: View {
         .ignoresSafeArea(.keyboard)
     }
     
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
 
     // MARK: Private
 
