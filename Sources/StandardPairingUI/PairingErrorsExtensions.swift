@@ -102,6 +102,8 @@ extension Pairing.ThreadError {
             return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing
         case let .threadNetworkNotFound(zoneName, deviceType):
             return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName)
+        case .wifiIsDisconnected:
+            return I18n.pairingErrorMobilePhoneIsNotConnectedToWifi
         }
     }
 }

@@ -32,6 +32,7 @@ public struct PairingErrorScreenView: View {
                 Text(viewModel.state.error.getErrorMessageTitle(wordings: wordingManager.wordings))
                     .font(themeManager.selectedTheme.headline3)
                     .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .multilineTextAlignment(.center)
                     .padding(.horizontal)
                     .padding(.top, 4)
                     .fixedSize(horizontal: false, vertical: true)
@@ -94,8 +95,8 @@ public struct PairingErrorScreenView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: PairingErrorScreen.ViewModel
-    @EnvironmentObject private var themeManager: ThemeManager
-    @EnvironmentObject private var wordingManager: WordingManager
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
     @State private var primaryButtonIndex = 0
 
     // MARK: Private

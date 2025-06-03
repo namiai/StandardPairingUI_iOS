@@ -196,12 +196,14 @@ public extension WordingProtocol {
     // MARK: - Pairing Thread error - title
     var pairingThreadErrorDatasetMissingTitle: String { get { return I18n.pairingErrorsThreadSetupErrorMissingThreadCredentials } }
     var pairingThreadErrorThreadNetworkNotFoundTitle: String { get { return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundTitle } }
+    var pairingErrorMobilePhoneIsNotConnectedToWifi: String { get { return I18n.pairingErrorMobilePhoneIsNotConnectedToWifi } }
     
     // MARK: - Pairing Thread error - description
     var pairingThreadErrorDatasetMissingDescription: String { get { return I18n.errorsPairingThreadSetupErrorThreadOperationalDatasetMissing } }
     func pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1(zoneName: String) -> String { return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription1(zoneName) }
     var pairingThreadErrorContactSensorNoThreadNetworksFoundDescription2: String { get { return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription2 } }
     func pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: String) -> String { return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName) }
+    var pairingErrorMobilePhoneIsNotConnectedToWifiDescription: String { get { return I18n.pairingErrorMobilePhoneIsNotConnectedToWifiDescription } }
     
     // MARK: - Positioning error view
     var positioningErrorTitle: String { get { return I18n.widarErrorTitle } }
@@ -218,5 +220,5 @@ public extension WordingProtocol {
     
     // MARK: - FAQ terms
     var pairingScanningBleFaq: String { get { return I18n.pairingScanningBleFaq } }
-    var pairingScanningBleFaqDoorSensor: String { get { return "The LED light is not pulsing" } }
+    var pairingScanningBleFaqDoorSensor: String { get { return I18n.pairingScanDeviceTheLedLightIsNotPulsing } }
 }
