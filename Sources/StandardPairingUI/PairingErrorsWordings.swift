@@ -137,12 +137,7 @@ extension Pairing.ThreadError {
         case .threadOperationalDatasetMissing:
             return wordings.pairingThreadErrorDatasetMissingDescription
         case let .threadNetworkNotFound(zoneName, deviceType):
-            switch deviceType {
-            case .contactSensor:
-                return wordings.pairingThreadErrorContactSensorNoThreadNetworksFoundDescription1(zoneName: zoneName)
-            default:
-                return wordings.pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: zoneName)
-            }
+            return wordings.pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: zoneName)
         case .wifiIsDisconnected:
             return wordings.pairingErrorMobilePhoneIsNotConnectedToWifiDescription
         }
