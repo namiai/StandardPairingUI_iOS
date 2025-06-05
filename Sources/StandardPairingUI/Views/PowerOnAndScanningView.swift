@@ -189,8 +189,7 @@ public struct PowerOnAndScanningView: View {
             case .contactSensor:
                 LottieAnimationView(animation: \.doorSensorPulseWhite)
             case .motionSensor: 
-                // TODO: Motion sensor - update animation
-                LottieAnimationView(animation: \.doorSensorPulseWhite)
+                LottieAnimationView(animation: \.motionSensorPulseWhite)
             case .meshSensor:
                 if let outletType = viewModel.state.outletType {
                     switch outletType {
