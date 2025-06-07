@@ -21,17 +21,50 @@ public struct PowerOnAndScanningView: View {
         DeviceSetupScreen(
             title: navigationBarTitle()
         ) {
-            switch viewModel.state.deviceType {
-            case .contactSensor:
-                self.ContactSensorDeviceTypeScanning()
-            default:
-                self.GeneralDeviceTypeScanning()
-            }
+            self.GeneralDeviceTypeScanning()
         }
         .environment(\.hideBackButton, true)
         .ignoresSafeArea(.keyboard)
     }
     
+    private enum PairingLedColor {
+        case blue
+        case white
+    }
+    
+    private var pairingLedColor: PairingLedColor {
+        switch viewModel.state.deviceType {
+        case .contactSensor,
+                .motionSensor:
+            return .white
+        default:
+            return .blue
+        }
+    }
+    private var header: String {
+        return switch viewModel.state.deviceType {
+        case .contactSensor,
+                .motionSensor:
+            wordingManager.wordings.headerContactSensor
+        default:
+            wordingManager.wordings.headerConnectToPower
+        }
+    }
+    private var explanation: String {
+        return switch viewModel.state.deviceType {
+        case .contactSensor,
+                .motionSensor:
+            I18n.pairingBluetoothDeviceFoundExplainedReadyToPairContactSensor
+        default:
+            wordingManager.wordings.explainedReadyToPair
+        }
+    }
+    private var faqText: String {
+        return switch pairingLedColor {
+        case .blue: wordingManager.wordings.pairingScanningBleFaq
+        case .white: wordingManager.wordings.pairingScanningBleFaqDoorSensor
+        }
+    }
     // MARK: Internal
 
     @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
@@ -50,12 +83,12 @@ public struct PowerOnAndScanningView: View {
     @ViewBuilder
     private func GeneralDeviceTypeScanning() -> some View {
         VStack {
-            Text(wordingManager.wordings.headerConnectToPower)
+            Text(header)
                 .font(themeManager.selectedTheme.headline3)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Text(wordingManager.wordings.explainedReadyToPair)
+            Text(explanation)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
@@ -105,76 +138,7 @@ public struct PowerOnAndScanningView: View {
             
             Spacer()
             
-            NamiTextHyperLinkHelpers.hyperLink(text: wordingManager.wordings.pairingScanningBleFaq, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
-                .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.horizontal)
-                .padding(.bottom, 16)
-        }
-    }
-    
-    @ViewBuilder
-    private func ContactSensorDeviceTypeScanning() -> some View {
-        VStack {
-            Text(wordingManager.wordings.headerContactSensor)
-                .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding([.horizontal, .top])
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            // We don't need to have this in wordingManager yet
-            Text(I18n.pairingBluetoothDeviceFoundExplainedReadyToPairContactSensor)
-                .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.horizontal)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            switch viewModel.state.centralState.bluetoothState {
-            case .poweredOn:
-                // Bluetooth is ON, check authorization for new connections
-                switch viewModel.state.centralState.authorization {
-                case .notDetermined, .allowedAlways:
-                    darkPulseAnimation()
-                        .padding(.horizontal)
-                        .padding(.top, 16)
-                        .padding(.bottom, 16)
-                    
-                    Text(wordingManager.wordings.scanning)
-                        .font(themeManager.selectedTheme.headline3)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                        .padding(.horizontal)
-                    
-                    Text(wordingManager.wordings.askUserToWait)
-                        .font(themeManager.selectedTheme.paragraph1)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                        .padding(.horizontal)
-                    
-                    if viewModel.state.showsProgressIndicator {
-                        ProgressView()
-                            .padding()
-                    }
-                case .denied:
-                    Spacer()
-                    bluetoothNotAvailable()
-                case .restricted:
-                    Spacer()
-                    bluetoothRestricted()
-                @unknown default:
-                    EmptyView()
-                }
-            case .poweredOff:
-                Spacer()
-                bluetoothIsOff()
-            case .unauthorized: 
-                Spacer()
-                bluetoothRestricted()
-            default:
-                EmptyView()
-            }
-            
-            Spacer()
-            
-            NamiTextHyperLinkHelpers.hyperLink(text: wordingManager.wordings.pairingScanningBleFaqDoorSensor, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
+            NamiTextHyperLinkHelpers.hyperLink(text: faqText, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
                 .font(themeManager.selectedTheme.paragraph1)
                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
                 .padding(.horizontal)
