@@ -37,7 +37,7 @@ public struct QRScannerView: View {
                             .foregroundColor(themeManager.selectedTheme.primaryBlack)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding([.horizontal, .top])
-                        if viewModel.state.deviceType != .contactSensor {
+                        if !NamiDeviceType.allAccessoryDevices.contains(viewModel.state.deviceType) {
                             Text(wordingManager.wordings.scanQRsubtitle)
                                 .font(themeManager.selectedTheme.paragraph1)
                                 .foregroundColor(themeManager.selectedTheme.primaryBlack)
