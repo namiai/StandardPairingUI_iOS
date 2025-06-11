@@ -213,12 +213,12 @@ public extension WordingProtocol {
     
     // MARK: - URLs
     var urlNotPulsingBlue: String { get { return "https://support.nami.ai/hc/en-us/articles/33743569254809-My-device-s-LED-is-not-pulsing-during-setup" } }
-    var urlNamiThreadTopology: String { get { return "https://support.nami.ai/hc/en-us/articles/31306413218201-nami-Thread-topology" } }
+    var urlNamiThreadTopology: String { get { return "https://support.nami.ai/hc/en-us/articles/43618431475353-What-is-Thread" } }
     var urlNotConnectToThread: String { get { return "https://support.nami.ai/hc/en-us/articles/34191094200473-My-device-can-not-connect-to-the-Thread-network" } }
     
     
     
     // MARK: - FAQ terms
     var pairingScanningBleFaq: String { get { return I18n.pairingScanningBleFaq } }
-    var pairingScanningBleFaqDoorSensor: String { get { return "The LED light is not pulsing" } }
+    var pairingScanningBleFaqDoorSensor: String { get { return I18n.pairingScanDeviceTheLedLightIsNotPulsing } }
 }

@@ -37,22 +37,18 @@ public struct PairingErrorScreenView: View {
                     .padding(.top, 4)
                     .fixedSize(horizontal: false, vertical: true)
                 if viewModel.state.deviceType == .contactSensor {
-                    Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
-                        .font(themeManager.selectedTheme.paragraph1)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                        .padding(.top, 4)
-                        .lineLimit(4)
-                        .fixedSize(horizontal: false, vertical: true)
-                    Text(wordingManager.wordings.pairingThreadErrorContactSensorNoThreadNetworksFoundDescription2)
-                        .font(themeManager.selectedTheme.paragraph1)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal)
-                        .padding(.top, 2)
-                        .lineLimit(4)
-                        .fixedSize(horizontal: false, vertical: true)
+                    if case .underlying(PairingMachineError.unexpectedState) = viewModel.state.error {
+                        EmptyView()
+                    } else {
+                        Text(viewModel.state.error.getErrorMessageDescription(wordings: wordingManager.wordings))
+                            .font(themeManager.selectedTheme.paragraph1)
+                            .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
+                            .padding(.top, 4)
+                            .lineLimit(4)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
                 } else {
                     switch viewModel.state.error {
                     case .underlying(PairingMachineError.unexpectedState): 
