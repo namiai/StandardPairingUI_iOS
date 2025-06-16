@@ -191,8 +191,6 @@ public extension WordingProtocol {
     var pairingErrorsUnableJoinThreadNetworksDescription1: String { get { return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription1 } }
     func pairingErrorsUnableJoinThreadNetworksDescription2(zoneName: String) -> String { return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription2(zoneName) }
     var pairingErrorDeviceUnknownUnrecognizedDescription: String { get { return I18n.errorsPairingErrorDeviceUnknownUnrecognized } }
-    var pairingErrorNoThreadBorderRouterInPlace: String { get { return I18n.pairingErrorNoThreadBorderRouterInPlace } }
-    var pairingErrorAllBorderRouterOffline: String { get { return I18n.pairingErrorAllBorderRouterOffline } }
     
     // MARK: - Pairing Thread error
     // MARK: - Pairing Thread error - title
@@ -206,6 +204,8 @@ public extension WordingProtocol {
     var pairingThreadErrorContactSensorNoThreadNetworksFoundDescription2: String { get { return I18n.pairingErrorsContactSensorSetupErrorNoThreadNetworksFoundDescription2 } }
     func pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: String) -> String { return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName) }
     var pairingErrorMobilePhoneIsNotConnectedToWifiDescription: String { get { return I18n.pairingErrorMobilePhoneIsNotConnectedToWifiDescription } }
+    var pairingErrorNoThreadBorderRouterInPlace: String { get { return I18n.pairingErrorNoThreadBorderRouterInPlace } }
+    var pairingErrorAllBorderRouterOffline: String { get { return I18n.pairingErrorAllBorderRouterOffline } }
     
     // MARK: - Positioning error view
     var positioningErrorTitle: String { get { return I18n.widarErrorTitle } }
