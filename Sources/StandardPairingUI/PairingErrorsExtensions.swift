@@ -104,10 +104,6 @@ extension Pairing.ThreadError {
             return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName)
         case .wifiIsDisconnected:
             return I18n.pairingErrorMobilePhoneIsNotConnectedToWifi
-        case .noBorderRouter:
-            return I18n.pairingErrorNoThreadBorderRouterInPlace
-        case .allBorderRoutersOffline:
-            return I18n.pairingErrorAllBorderRouterOffline
         }
     }
 }

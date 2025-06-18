@@ -28,10 +28,6 @@ public extension Pairing.Error {
                     return wordings.pairingThreadErrorThreadNetworkNotFoundTitle
                 case .wifiIsDisconnected:
                     return wordings.pairingErrorMobilePhoneIsNotConnectedToWifi
-                case .noBorderRouter:
-                    return wordings.pairingErrorNoThreadBorderRouterInPlace
-                case .allBorderRoutersOffline:
-                    return wordings.pairingErrorAllBorderRouterOffline
                 }
             }
             
@@ -144,10 +140,6 @@ extension Pairing.ThreadError {
             return wordings.pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: zoneName)
         case .wifiIsDisconnected:
             return wordings.pairingErrorMobilePhoneIsNotConnectedToWifiDescription
-        case .noBorderRouter:
-            return wordings.pairingErrorNoThreadBorderRouterInPlace
-        case .allBorderRoutersOffline:
-            return wordings.pairingErrorAllBorderRouterOffline
         }
     }
 }
