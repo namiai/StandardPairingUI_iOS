@@ -14,7 +14,7 @@ public struct PongView: View {
                     .frame(width: Self.ballRadius * 2, height: Self.ballRadius * 2, alignment: .center)
                     // if animation finishes too early there is visible glitch when the ball stops for a second and continues later
                     // adding 10 ms to the animation duration smoothes it out
-                    .animation(.linear(duration: Double(Self.tickSpeed + 0.01)))
+                    .animation(.linear(duration: Double(Self.tickSpeed + 0.01)), value: ballCoords)
                     .position(CGPoint(x: ballCoords.x * geo.size.width, y: ballCoords.y * geo.size.height))
                     .onReceive(timer) { _ in
                         updateBallCoords(geo: geo)
@@ -29,7 +29,7 @@ public struct PongView: View {
                             userRequestedGameControl = true
                         }
                     })
-                    .animation(.linear(duration: Double(Self.tickSpeed + 0.01)))
+                    .animation(.linear(duration: Double(Self.tickSpeed + 0.01)), value: stickCoords)
                     .onReceive(timer) { _ in
                         if !userRequestedGameControl {
                             updateStickCoords(geo: geo)

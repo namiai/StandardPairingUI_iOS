@@ -20,12 +20,21 @@ public extension Pairing.Error {
                 }
             }
             
+            // TODO: FIX MISSING CASES!
             if let error = error as? Pairing.ThreadError {
                 switch error {
                 case .threadOperationalDatasetMissing:
                     return wordings.pairingThreadErrorDatasetMissingTitle
                 case .threadNetworkNotFound:
                     return wordings.pairingThreadErrorThreadNetworkNotFoundTitle
+                case .wifiIsDisconnected:
+                    return ""
+                case .noBorderRouter:
+                    return ""
+                case .allBorderRoutersOffline:
+                    return ""
+                @unknown default:
+                    return error.localizedDescription
                 }
             }
             
@@ -56,8 +65,9 @@ public extension Pairing.Error {
             if let error = error as? Pairing.ThreadError {
                 return error.getErrorMessageDescription(wordings: wordings)
             }
-//            return error.localizedDescription
-            return ""
+            return error.localizedDescription
+        @unknown default:
+            return wordings.errorOccurredTitle
         }
     }
 }
@@ -94,8 +104,9 @@ extension PairingMachineError {
                 }
                 
                 return wordings.pairingErrorBleDisconnectedDescription(deviceName: deviceType.localizedName)
-            } 
-    
+            }
+            return ""
+        @unknown default:
             return ""
         }
     }
@@ -130,6 +141,7 @@ extension Pairing_Error {
 
 extension Pairing.ThreadError {
     func getErrorMessageDescription(wordings: WordingProtocol) -> String {
+        // TODO: FIX MISSING CASES!
         switch self {
         case .threadOperationalDatasetMissing:
             return wordings.pairingThreadErrorDatasetMissingDescription
@@ -140,6 +152,14 @@ extension Pairing.ThreadError {
             default:
                 return wordings.pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: zoneName)
             }
+        case .wifiIsDisconnected:
+            return ""
+        case .noBorderRouter:
+            return ""
+        case .allBorderRoutersOffline:
+            return ""
+        @unknown default:
+            return ""
         }
     }
 }

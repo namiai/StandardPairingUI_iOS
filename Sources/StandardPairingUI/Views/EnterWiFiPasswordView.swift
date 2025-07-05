@@ -58,7 +58,9 @@ public struct EnterWiFiPasswordView: View {
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }
                     NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: .main) { _ in
-                        viewModel.send(event: .confirmPassword)
+                        Task { @MainActor in
+                            viewModel.send(event: .confirmPassword)
+                        }
                     }
                 })
                 .buttonStyle(themeManager.selectedTheme.primaryActionButtonStyle)

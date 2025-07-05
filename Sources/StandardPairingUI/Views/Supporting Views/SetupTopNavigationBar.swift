@@ -105,9 +105,3 @@ public struct SetupTopNavigationBar<LeadingGroup: View, TrailingGroup: View, Not
         )
     }
 }
-
-// struct NamiTopNavigationBar_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NamiTopNavigationBar()
-//    }
-// }

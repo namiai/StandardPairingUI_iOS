@@ -19,19 +19,14 @@ public struct ViewsContainer: PairingStepsContainer {
 
     // MARK: Public
 
-    public var powerOnAndScanning: (PowerOnAndScanning.ViewModel) -> PowerOnAndScanningView = PowerOnAndScanningView.init
-    public var enableCameraInSettings: (String) -> EnableCameraInSettingsView = EnableCameraInSettingsView.init
-    public var bluetoothDeviceFound: (BluetoothDeviceFound.ViewModel) -> BluetoothDeviceFoundView = BluetoothDeviceFoundView.init
-    public var qrCodeScanner: (QRScanner.ViewModel) -> QRScannerView = QRScannerView.init
-    public var listWiFiNetworks: (ListWiFiNetworks.ViewModel) -> ListWiFiNetworksView = ListWiFiNetworksView.init
-    public var otherWiFiNetwork: (OtherWiFiNetwork.ViewModel) -> OtherWiFiNetworkView = OtherWiFiNetworkView.init
-    public var enterWiFiPassword: (EnterWiFiPassword.ViewModel) -> EnterWiFiPasswordView = EnterWiFiPasswordView.init
-    public var finishingSetup: (String) -> FinishingSetupView = FinishingSetupView.init
-    public var howToPosition: (HowToPosition.ViewModel) -> HowToPositionView = HowToPositionView.init
-    public var initialPositioningScreen: (InitialScreen.ViewModel) -> InitialScreenView = InitialScreenView.init
-    public var positioningGuidance: (PositioningGuidance.ViewModel) -> PositioningGuidanceView = PositioningGuidanceView.init
-    public var positioningComplete: (PositioningComplete.ViewModel) -> PositioningCompleteView = PositioningCompleteView.init
-    public var positionError: (ErrorScreen.ViewModel) -> ErrorScreenView = ErrorScreenView.init
-    public var pairingError: (PairingErrorScreen.ViewModel) -> PairingErrorScreenView = PairingErrorScreenView.init
-    public var backButton: () -> CircleButton? = CircleButton.init
+    public var powerOnAndScanning: @MainActor @Sendable (PowerOnAndScanning.ViewModel) -> PowerOnAndScanningView = PowerOnAndScanningView.init
+    public var enableCameraInSettings: @MainActor @Sendable (String) -> EnableCameraInSettingsView = EnableCameraInSettingsView.init
+    public var bluetoothDeviceFound: @MainActor @Sendable (BluetoothDeviceFound.ViewModel) -> BluetoothDeviceFoundView = BluetoothDeviceFoundView.init
+    public var qrCodeScanner: @MainActor @Sendable (QRScanner.ViewModel) -> QRScannerView = QRScannerView.init
+    public var listWiFiNetworks: @MainActor @Sendable (ListWiFiNetworks.ViewModel) -> ListWiFiNetworksView = ListWiFiNetworksView.init
+    public var otherWiFiNetwork: @MainActor @Sendable (OtherWiFiNetwork.ViewModel) -> OtherWiFiNetworkView = OtherWiFiNetworkView.init
+    public var enterWiFiPassword: @MainActor @Sendable (EnterWiFiPassword.ViewModel) -> EnterWiFiPasswordView = EnterWiFiPasswordView.init
+    public var finishingSetup: @MainActor @Sendable (String) -> FinishingSetupView = FinishingSetupView.init
+    public var pairingError: @MainActor @Sendable (PairingErrorScreen.ViewModel) -> PairingErrorScreenView = PairingErrorScreenView.init
+    public var backButton: @MainActor @Sendable () -> CircleButton? = CircleButton.init
 }

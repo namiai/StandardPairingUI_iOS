@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 6.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -13,14 +13,15 @@ let package = Package(
     products: [
         .library(
             name: "StandardPairingUI",
+            type: .dynamic,
             targets: ["StandardPairingUI"]
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/namiai/I18n_iOS.git", branch: "main"),
-        .package(url: "https://github.com/namiai/NamiSharedUIElements_iOS.git", branch: "main"),
-        .package(url: "https://github.com/namiai/SharedAssets_iOS", branch: "main"),
-        .package(url: "https://github.com/namiai/Tomonari.git", branch: "main"),
+        .package(path: "../I18n_iOS"),
+        .package(path: "../NamiSharedUIElements_iOS"),
+        .package(path: "../SharedAssets_iOS"),
+        .package(path: "../Tomonari"),
     ],
     targets: [
         .target(

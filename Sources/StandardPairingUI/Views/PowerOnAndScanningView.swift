@@ -10,13 +10,13 @@ import SharedAssets
 
 public struct PowerOnAndScanningView: View {
     // MARK: Lifecycle
-
+    
     public init(viewModel: PowerOnAndScanning.ViewModel) {
         self.viewModel = viewModel
     }
-
+    
     // MARK: Public
-
+    
     public var body: some View {
         DeviceSetupScreen(
             title: navigationBarTitle()
@@ -33,7 +33,7 @@ public struct PowerOnAndScanningView: View {
     }
     
     // MARK: Internal
-
+    
     @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
     
     @Environment(\.themeManager) private var themeManager
@@ -96,7 +96,7 @@ public struct PowerOnAndScanningView: View {
             case .poweredOff:
                 Spacer()
                 bluetoothIsOff()
-            case .unauthorized: 
+            case .unauthorized:
                 Spacer()
                 bluetoothRestricted()
             default:
@@ -165,7 +165,7 @@ public struct PowerOnAndScanningView: View {
             case .poweredOff:
                 Spacer()
                 bluetoothIsOff()
-            case .unauthorized: 
+            case .unauthorized:
                 Spacer()
                 bluetoothRestricted()
             default:
@@ -199,10 +199,12 @@ public struct PowerOnAndScanningView: View {
                         LottieAnimationView(animation: \.sensePlugUKPulseDarkBlue)
                     case .typeB:
                         LottieAnimationView(animation: \.sensePlugUSPulseDarkBlue)
-                    case .typeA: 
+                    case .typeA:
                         LottieAnimationView(animation: \.sensePlugUSPulseDarkBlue)
-                    case .unknown: 
-                        EmptyView()    
+                    case .unknown:
+                        EmptyView()
+                    @unknown default:
+                        EmptyView()
                     }
                 } else {
                     EmptyView()
@@ -224,8 +226,10 @@ public struct PowerOnAndScanningView: View {
                         LottieAnimationView(animation: \.wifiSensorUSPulseDarkBlue)
                     case .typeA:
                         LottieAnimationView(animation: \.wifiSensorJPPulseDarkBlue)
-                    case .unknown: 
-                        EmptyView()   
+                    case .unknown:
+                        EmptyView()
+                    @unknown default:
+                        EmptyView()
                     }
                 } else {
                     EmptyView()
@@ -234,7 +238,13 @@ public struct PowerOnAndScanningView: View {
                 EmptyView()
             case .widarSensor:
                 LottieAnimationView(animation: \.widarPulseDarkBlue)
-                
+#warning("TODO: Fix missing views for cases below")
+            case .motionSensor:
+                EmptyView()
+            case .keypad:
+                EmptyView()
+            @unknown default:
+                EmptyView()
             }
         }
     }
@@ -261,7 +271,7 @@ public struct PowerOnAndScanningView: View {
         }
     }
     
-    @ViewBuilder 
+    @ViewBuilder
     private func bluetoothIsOff() -> some View {
         VStack(alignment: .center) {
             Image("Bluetooth", bundle: .module)
@@ -282,7 +292,7 @@ public struct PowerOnAndScanningView: View {
         }
     }
     
-    @ViewBuilder 
+    @ViewBuilder
     private func bluetoothRestricted() -> some View {
         VStack(alignment: .center) {
             Image("Bluetooth", bundle: .module)
@@ -310,7 +320,7 @@ public struct PowerOnAndScanningView: View {
         else {
             return
         }
-
+        
         UIApplication.shared.open(settings, completionHandler: nil)
     }
     

@@ -1,9 +1,10 @@
 // Copyright (c) nami.ai
 
+import Combine
 import SwiftUI
 import I18n
 
-public class WordingManager: ObservableObject {
+public final class WordingManager: ObservableObject {
     @Published public var wordings: WordingProtocol
     
     public init() {
@@ -28,7 +29,7 @@ public class WordingManager: ObservableObject {
 }
 
 private struct WordingManagerKey: EnvironmentKey {
-    static let defaultValue: WordingManager = WordingManager()
+    nonisolated(unsafe) static let defaultValue: WordingManager = WordingManager()
 }
 
 public extension EnvironmentValues {

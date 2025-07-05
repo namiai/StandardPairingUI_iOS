@@ -22,6 +22,8 @@ public extension Pairing.Error {
                 return error.localizedDescription
             }
             return error.localizedDescription
+        @unknown default:
+            return I18n.generalError
         }
     }
     
@@ -63,6 +65,8 @@ extension PairingMachineError {
             return I18n.errorsPairingConnectionTimeOutDescription
         case let .bluetoothDisconnectedError(deviceTpe, canTryAgain): 
             return canTryAgain ? I18n.errorsPairingBleDisconnectedDescription(deviceTpe.localizedName) : ""
+        @unknown default:
+            return I18n.generalError
         }
     }
 }
@@ -107,6 +111,14 @@ extension Pairing.ThreadError {
             default:
                 return I18n.pairingErrorsThreadSetupErrorNoThreadNetworksFoundDescription(zoneName)
             }
+        case .wifiIsDisconnected:
+            return I18n.deviceOverviewWifiDisconnected
+        case .noBorderRouter:
+            return I18n.pairingErrorNoThreadBorderRouterInPlace
+        case .allBorderRoutersOffline:
+            return I18n.pairingErrorAllBorderRouterOffline
+        @unknown default:
+            return I18n.generalError
         }
     }
 }

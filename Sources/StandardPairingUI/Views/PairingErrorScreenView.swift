@@ -164,7 +164,8 @@ public struct PairingErrorScreenView: View {
             return wordingManager.wordings.ignoreActionTitle
         case .exit:
             return wordingManager.wordings.exitSetupActionTitle
-
+        @unknown default:
+            return ""
         }
     }
 }

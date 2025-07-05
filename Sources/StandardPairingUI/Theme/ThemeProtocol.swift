@@ -34,8 +34,8 @@ public protocol ThemeProtocol {
     var success3: Color { get }
     var success4: Color { get }
     
-    var primaryActionButtonStyle: any ButtonStyle { get }
-    var secondaryActionButtonStyle: any ButtonStyle { get }
-    var tertiaryActionButtonStyle: any ButtonStyle { get }
-    var destructiveActionButtonStyle: any ButtonStyle { get }
+    @MainActor var primaryActionButtonStyle: any ButtonStyle { get }
+    @MainActor var secondaryActionButtonStyle: any ButtonStyle { get }
+    @MainActor var tertiaryActionButtonStyle: any ButtonStyle { get }
+    @MainActor var destructiveActionButtonStyle: any ButtonStyle { get }
 }

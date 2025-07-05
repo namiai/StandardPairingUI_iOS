@@ -28,7 +28,7 @@ public struct DeviceSetupScreen<LeadingGroup: View, Subview: View, BottomGroup: 
 
     public var body: some View {
         ZStack {
-            (themeManager ?? .namiDefault).selectedTheme.background
+            (themeManager).selectedTheme.background
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
                 subview()
@@ -43,8 +43,8 @@ public struct DeviceSetupScreen<LeadingGroup: View, Subview: View, BottomGroup: 
             ToolbarItem(placement: .principal) { 
                 VStack {
                     Text(title)
-                        .font((themeManager ?? .namiDefault).selectedTheme.headline5)
-                        .foregroundColor((themeManager ?? .namiDefault).selectedTheme.navigationTitleColor)
+                        .font((themeManager).selectedTheme.headline5)
+                        .foregroundColor((themeManager).selectedTheme.navigationTitleColor)
                 }
             }
         }
