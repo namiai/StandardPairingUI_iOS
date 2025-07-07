@@ -22,6 +22,8 @@ let package = Package(
         .package(path: "../NamiSharedUIElements_iOS"),
         .package(path: "../SharedAssets_iOS"),
         .package(path: "../Tomonari"),
+        .package(path: "../CommonTypes_iOS"),
+        .package(path: "../NamiProto_iOS"),
     ],
     targets: [
         .target(
@@ -31,6 +33,8 @@ let package = Package(
                 .product(name: "NamiSharedUIElements", package: "NamiSharedUIElements_iOS"),
                 .product(name: "SharedAssets", package: "SharedAssets_iOS"),
                 .product(name: "Tomonari", package: "Tomonari"),
+                .product(name: "CommonTypes", package: "CommonTypes_iOS"),
+                .product(name: "NamiProto", package: "NamiProto_iOS"),
             ]
         ),
     ]
