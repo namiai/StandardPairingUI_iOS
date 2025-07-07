@@ -1,6 +1,6 @@
 // Copyright (c) nami.ai
 import Foundation
-import I18n
+import NamiI18n
 
 // Define default value
 public extension WordingProtocol {

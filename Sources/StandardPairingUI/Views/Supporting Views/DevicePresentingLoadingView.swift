@@ -1,7 +1,7 @@
 // Copyright (c) nami.ai
 
 import CommonTypes
-import I18n
+import NamiI18n
 import SwiftUI
 
 // MARK: - DevicePresentingLoadingView

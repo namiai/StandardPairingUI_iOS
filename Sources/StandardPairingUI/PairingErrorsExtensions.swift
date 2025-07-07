@@ -1,7 +1,7 @@
 // Copyright (c) nami.ai
 
 import Foundation
-import I18n
+import NamiI18n
 import NamiProto
 import Tomonari
 import SharedAssets

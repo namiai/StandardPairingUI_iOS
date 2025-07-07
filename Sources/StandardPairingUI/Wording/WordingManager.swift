@@ -2,7 +2,7 @@
 
 import Combine
 import SwiftUI
-import I18n
+import NamiI18n
 
 public final class WordingManager: ObservableObject {
     @Published public var wordings: WordingProtocol

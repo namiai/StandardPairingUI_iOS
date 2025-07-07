@@ -29,7 +29,7 @@ let package = Package(
         .target(
             name: "StandardPairingUI",
             dependencies: [
-                .product(name: "I18n", package: "I18n_iOS"),
+                .product(name: "NamiI18n", package: "I18n_iOS"),
                 .product(name: "NamiSharedUIElements", package: "NamiSharedUIElements_iOS"),
                 .product(name: "SharedAssets", package: "SharedAssets_iOS"),
                 .product(name: "Tomonari", package: "Tomonari"),

@@ -1,6 +1,6 @@
 // Copyright (c) nami.ai
 
-import I18n
+import NamiI18n
 import SwiftUI
 import Tomonari
 import NamiSharedUIElements

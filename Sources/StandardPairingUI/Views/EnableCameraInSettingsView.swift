@@ -1,6 +1,6 @@
 
 import SwiftUI
-import I18n
+import NamiI18n
 
 public struct EnableCameraInSettingsView: View {
     // MARK: Public
