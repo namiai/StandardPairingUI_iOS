@@ -2,6 +2,7 @@
 
 import Lottie
 import SwiftUI
+import SharedAssets
 
 public struct AnimationView: View {
     // MARK: Lifecycle
