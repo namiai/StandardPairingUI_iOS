@@ -13,7 +13,6 @@ let package = Package(
     products: [
         .library(
             name: "StandardPairingUI",
-            type: .dynamic,
             targets: ["StandardPairingUI"]
         ),
     ],
