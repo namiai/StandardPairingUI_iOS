@@ -35,7 +35,8 @@ public struct PositioningGuidanceView: View {
             }
         }
 
-        DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
+        NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
+                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
             mainContent()
                 .padding()
                 .navigationPopGestureDisabled(true)
@@ -72,7 +73,7 @@ public struct PositioningGuidanceView: View {
         VStack {
             Text(wordingManager.wordings.positioningGuidanceTitle)
                 .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.bottom])
             

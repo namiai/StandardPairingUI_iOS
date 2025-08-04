@@ -5,6 +5,7 @@ import SharedAssets
 import NamiSharedUIElements
 
 public struct NamiTheme: ThemeProtocol {
+    
     public init() {
         
     }
@@ -32,37 +33,10 @@ public struct NamiTheme: ThemeProtocol {
     
     
     // Colors
-    public var primaryBlack: Color = Color.namiColors.neutral.primaryBlack
     
-    public var secondaryBlack: Color = Color.namiColors.neutral.secondaryBlack
-    
-    public var tertiaryBlack: Color = Color.namiColors.neutral.tertiaryBlack
-    
-    public var navigationTitleColor: Color = Color.namiColors.neutral.primaryBlack
-    
-    public var white: Color = Color.namiColors.neutral.white
-    
-    public var background: Color = Color.namiColors.neutral.background
-    
-    public var line: Color = Color.namiColors.neutral.line
-    
-    public var accent: Color = Color.namiColors.accent
-    
-    public var negative: Color = Color.namiColors.negative
-    
-    public var warning: Color = Color.namiColors.warning
-    
-    public var positive: Color = Color.namiColors.positive
-    
-    public var lowAttentionAlert: Color = Color.namiColors.lowAttentionAlert
-    
-    public var redAlert3: Color = Color.namiColors.redAlert3
-    
-    public var redAlert4: Color = Color.namiColors.redAlert4
-    
-    public var success3: Color = Color.namiColors.success3
-    
-    public var success4: Color = Color.namiColors.success4
+    public var navigationTitleColor: Color = Color.namiColors.textDefaultPrimary
+
+    public var navigationBarColor: Color = Color.namiColors.backgroundDefaultPrimary
     
     public var primaryActionButtonStyle: any ButtonStyle = NamiActionButtonStyle(rank: .primary)
     

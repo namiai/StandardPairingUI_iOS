@@ -3,6 +3,8 @@
 import I18n
 import SwiftUI
 import Tomonari
+import NamiSharedUIElements
+import SharedAssets
 
 // MARK: - FinishingSetupView
 
@@ -12,16 +14,18 @@ public struct FinishingSetupView: View {
     }
     
     public var body: some View {
-        DeviceSetupScreen(title: navigationBarTitle()) {
+        NamiTopNavigationScreen(title: navigationBarTitle(),
+                                colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                mainContent: {
             VStack {
                 Text(wordingManager.wordings.finishingSetupHeader)
                     .font(themeManager.selectedTheme.headline3)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .foregroundColor(colors.textDefaultPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                 Text(wordingManager.wordings.gameOfPongText)
                     .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .foregroundColor(colors.textDefaultPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
                 Spacer()
@@ -30,13 +34,14 @@ public struct FinishingSetupView: View {
                     .padding()
             }
             .padding(.bottom)
-        }
+        })
         .ignoresSafeArea(.keyboard)
         .allowSwipeBackNavigation(false)
     }
     
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
+    @Environment(\.colors) private var colors
     
     private var title: String
     

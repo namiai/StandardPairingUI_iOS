@@ -3,10 +3,12 @@
 import CommonTypes
 import I18n
 import SwiftUI
+import SharedAssets
 
 // MARK: - DevicePresentingLoadingView
 
 struct DevicePresentingLoadingView: View {
+    @Environment(\.colors) var colors: Colors
     // MARK: Lifecycle
 
     init(deviceName: String, deviceModel: NamiDeviceModel) {
@@ -27,7 +29,7 @@ struct DevicePresentingLoadingView: View {
 
             Text(wordingManager.wordings.connectingToDevice(deviceName: deviceName))
                 .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity)
 

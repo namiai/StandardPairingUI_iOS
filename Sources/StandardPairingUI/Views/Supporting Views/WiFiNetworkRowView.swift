@@ -3,28 +3,30 @@
 import NamiSharedUIElements
 import SwiftUI
 import Tomonari
+import SharedAssets
 
 // MARK: - WiFiNetworkRowView
 
 struct WiFiNetworkRowView: View {
+    @Environment(\.colors) var colors: Colors
     // MARK: Internal
 
     var network: NamiWiFiNetwork
 
     var body: some View {
-        RoundedRectContainerView(backgroundColor: themeManager.selectedTheme.white) {
+        RoundedRectContainerView(backgroundColor: colors.backgroundDefaultPrimary) {
             HStack {
                 wifiImage()
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .foregroundColor(colors.iconDefaultPrimary)
                 Text(network.ssid)
                     .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .foregroundColor(colors.textDefaultPrimary)
                     .lineLimit(1)
                     .truncationMode(.tail)
                 if network.open {
                     Image(systemName: "lock.open")
                         .font(themeManager.selectedTheme.paragraph1)
-                        .foregroundColor(Color.black)
+                        .foregroundColor(colors.iconDefaultPrimary)
                 }
                 Spacer()
             }

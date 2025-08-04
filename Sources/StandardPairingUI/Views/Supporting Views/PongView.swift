@@ -1,10 +1,12 @@
 // Copyright (c) nami.ai
 
 import SwiftUI
+import SharedAssets
 
 // MARK: - PongView
 
 public struct PongView: View {
+    @Environment(\.colors) var colors
     public var body: some View {
         ZStack {
             GeometryReader { geo in
@@ -21,6 +23,7 @@ public struct PongView: View {
                     }
                 // stick
                 RoundedRectangle(cornerRadius: 3.0)
+                    .foregroundColor(colors.iconDefaultPrimary)
                     .frame(width: Self.stickWidth, height: 10, alignment: .center)
                     .position(CGPoint(x: stickCoords.x * geo.size.width, y: stickCoords.y * geo.size.height))
                     .gesture(DragGesture().onChanged { value in

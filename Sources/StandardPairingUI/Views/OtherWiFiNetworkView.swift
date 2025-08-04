@@ -4,29 +4,32 @@ import I18n
 import SwiftUI
 import Tomonari
 import NamiSharedUIElements
+import SharedAssets
 
 // MARK: - OtherWiFiNetworkView
 
 public struct OtherWiFiNetworkView: View {
     // MARK: Lifecycle
-
+    
     public init(viewModel: OtherWiFiNetwork.ViewModel) {
         self.viewModel = viewModel
     }
-
+    
     // MARK: Public
-
+    
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.otherNetworkTitle) {
+        NamiTopNavigationScreen(title: wordingManager.wordings.otherNetworkTitle,
+                                colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                mainContent: {
             VStack {
                 Text(wordingManager.wordings.otherWifiNetworkTitle)
                     .font(themeManager.selectedTheme.headline3)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .foregroundColor(colors.textDefaultPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal])
                 Text(wordingManager.wordings.deviceConnectivityHint)
                     .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .foregroundColor(colors.textDefaultPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .bottom])
                 let networkNameBinding = Binding(get: {
@@ -39,14 +42,14 @@ public struct OtherWiFiNetworkView: View {
                     text: networkNameBinding,
                     isEditing: $nameIsEditing,
                     returnKeyType: .done,
-                    textFieldFont: themeManager.selectedTheme.paragraph1, 
+                    textFieldFont: themeManager.selectedTheme.paragraph1,
                     subTextFont: themeManager.selectedTheme.small1
                 )
                 .padding([.top, .horizontal])
                 .onAppear {
                     nameIsEditing = true
                 }
-
+                
                 let passwordBinding = Binding(get: {
                     viewModel.state.password
                 }, set: { value in
@@ -57,7 +60,7 @@ public struct OtherWiFiNetworkView: View {
                     text: passwordBinding,
                     isEditing: $passwordIsEditing,
                     returnKeyType: .done,
-                    textFieldFont: themeManager.selectedTheme.paragraph1, 
+                    textFieldFont: themeManager.selectedTheme.paragraph1,
                     subTextFont: themeManager.selectedTheme.small1
                 )
                 .secureTextEntry(true)
@@ -69,7 +72,7 @@ public struct OtherWiFiNetworkView: View {
                     .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
                     .anyView
             }
-        }
+        })
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.networkName, viewModel: viewModel, wordingManager: wordingManager)
         .onChange(of: passwordIsEditing) { isEditing in
             if isEditing, viewModel.state.networkName.isEmpty == false, viewModel.state.password.isEmpty, startedEditingFirstTime == false {
@@ -94,12 +97,13 @@ public struct OtherWiFiNetworkView: View {
             self.isKeyboardAppeared = false
         }
     }
-
+    
     // MARK: Internal
-
+    
     @ObservedObject var viewModel: OtherWiFiNetwork.ViewModel
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
+    @Environment(\.colors) private var colors: Colors
     @State var nameIsEditing = true
     @State var passwordIsEditing = false
     @State private var isKeyboardAppeared: Bool = false

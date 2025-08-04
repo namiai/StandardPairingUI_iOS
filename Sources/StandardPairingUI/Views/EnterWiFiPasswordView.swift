@@ -17,11 +17,13 @@ public struct EnterWiFiPasswordView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: navigationTitle()) {
+        NamiTopNavigationScreen(title: navigationTitle(),
+                                colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                mainContent: {
             VStack {
                 Text(wordingManager.wordings.enterPassword(for: viewModel.state.networkName))
                     .font(themeManager.selectedTheme.headline3)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .foregroundColor(colors.textDefaultPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                     .padding(.bottom, 8)
@@ -66,7 +68,7 @@ public struct EnterWiFiPasswordView: View {
                 .anyView
                 
             }
-        }
+        })
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
             self.isKeyboardAppeared = true
         }
@@ -87,6 +89,7 @@ public struct EnterWiFiPasswordView: View {
     @State private var isKeyboardAppeared: Bool = false
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
+    @Environment(\.colors) private var colors
     
     private func navigationTitle() -> String {
         if isSettingUpKit(wordings: wordingManager.wordings) {

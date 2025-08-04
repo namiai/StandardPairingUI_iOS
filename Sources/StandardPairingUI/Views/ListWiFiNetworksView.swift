@@ -18,11 +18,13 @@ public struct ListWiFiNetworksView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: navigationBarTitle()) {
+        NamiTopNavigationScreen(title: navigationBarTitle(),
+                                colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                mainContent: {
             VStack {
                 Text(wordingManager.wordings.connectWifiTitle)
                     .font(themeManager.selectedTheme.headline3)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .foregroundColor(colors.textDefaultPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding([.horizontal, .top])
                 
@@ -31,11 +33,11 @@ public struct ListWiFiNetworksView: View {
                         if viewModel.state.shouldShowNoNetworksHint {
                             Text(wordingManager.wordings.networkNotFound)
                                 .font(themeManager.selectedTheme.headline5)
-                                .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
+                                .foregroundColor(colors.textDefaultTertiary)
                         } else {
                             Text(wordingManager.wordings.availableNetworks)
                                 .font(themeManager.selectedTheme.headline5)
-                                .foregroundColor(themeManager.selectedTheme.tertiaryBlack)
+                                .foregroundColor(colors.textDefaultTertiary)
                         }
                         if viewModel.state.shouldShowProgressView {
                             ProgressView()
@@ -77,7 +79,7 @@ public struct ListWiFiNetworksView: View {
                     }
                 }
             }
-        }
+        })
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel, wordingManager: wordingManager)
         .ignoresSafeArea(.keyboard)
     }
@@ -87,6 +89,7 @@ public struct ListWiFiNetworksView: View {
     @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
+    @Environment(\.colors) private var colors
 
     // MARK: Private
     
@@ -99,7 +102,7 @@ public struct ListWiFiNetworksView: View {
     }
     
     private func otherNetworkRow() -> some View {
-        RoundedRectContainerView {
+        RoundedRectContainerView(backgroundColor: colors.backgroundDefaultPrimary) {
             HStack {
                 Spacer().frame(width: 24, height: 24)
                 Text(wordingManager.wordings.otherNetworkButton)

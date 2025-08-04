@@ -22,9 +22,13 @@ public struct InitialScreenView: View {
     @Environment(\.wordingManager) private var wordingManager
 
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
-            mainContent()
-                .padding(.horizontal)
+        NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
+                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
+            VStack {
+                mainContent()
+                    .padding(.horizontal)
+            }
+            .background(colors.backgroundDefaultSecondary)
         } bottomButtonsGroup: {
             Button(wordingManager.wordings.nextButton) {
                 viewModel.send(.howToPositionTapped)
@@ -45,13 +49,18 @@ public struct InitialScreenView: View {
                 HStack(alignment: .top) {
                     Text("∙")
                         .frame(width: 20, height: 20)
-                    Text(wordingManager.wordings.widarInfoMustOptimisePosition, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                        .foregroundColor(colors.textDefaultPrimary)
+                    Text(wordingManager.wordings.widarInfoMustOptimisePosition, font: themeManager.selectedTheme.paragraph1)
+                        .fillWidth()
+                        .foregroundColor(colors.textDefaultPrimary)
                 }
                 HStack(alignment: .top) {
                     Text("∙")
                         .frame(width: 20, height: 20)
-                        .foregroundColor(themeManager.selectedTheme.redAlert4)
-                    Text(wordingManager.wordings.widarInfoAvoidMovingWhenOptimized, font: themeManager.selectedTheme.paragraph1).fillWidth().foregroundColor(themeManager.selectedTheme.redAlert4)
+                        .foregroundColor(colors.textDangerPrimary)
+                    Text(wordingManager.wordings.widarInfoAvoidMovingWhenOptimized, font: themeManager.selectedTheme.paragraph1)
+                        .fillWidth()
+                        .foregroundColor(colors.textDangerPrimary)
                 }
             }
             Spacer()
