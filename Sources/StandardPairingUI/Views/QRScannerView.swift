@@ -88,7 +88,8 @@ public struct QRScannerView: View {
                         
                         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                             .stroke(
-                                viewModel.state.error == nil ? themeManager.selectedTheme.white : themeManager.selectedTheme.negative,
+                                // It is literally #FFFFFF in design, huh.
+                                viewModel.state.error == nil ? Color.white : colors.iconDangerPrimary,
                                 style: viewfinderStrokeStyle(cornerStrokeLength: cornerStrokeLength, width: frameWidth, height: frameWidth, cornerRadius: cornerRadius)
                             )
                             .position(centerPoint)
