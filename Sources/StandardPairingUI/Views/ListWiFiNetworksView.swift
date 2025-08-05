@@ -20,6 +20,7 @@ public struct ListWiFiNetworksView: View {
     public var body: some View {
         NamiTopNavigationScreen(title: navigationBarTitle(),
                                 colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                contentBehavior: .fixed,
                                 mainContent: {
             VStack {
                 Text(wordingManager.wordings.connectWifiTitle)
@@ -29,55 +30,59 @@ public struct ListWiFiNetworksView: View {
                     .padding([.horizontal, .top])
                 
                 ScrollView {
-                    HStack {
-                        if viewModel.state.shouldShowNoNetworksHint {
-                            Text(wordingManager.wordings.networkNotFound)
-                                .font(themeManager.selectedTheme.headline5)
-                                .foregroundColor(colors.textDefaultTertiary)
-                        } else {
-                            Text(wordingManager.wordings.availableNetworks)
-                                .font(themeManager.selectedTheme.headline5)
-                                .foregroundColor(colors.textDefaultTertiary)
+                    VStack {
+                        HStack {
+                            if viewModel.state.shouldShowNoNetworksHint {
+                                Text(wordingManager.wordings.networkNotFound)
+                                    .font(themeManager.selectedTheme.headline5)
+                                    .foregroundColor(colors.textDefaultTertiary)
+                            } else {
+                                Text(wordingManager.wordings.availableNetworks)
+                                    .font(themeManager.selectedTheme.headline5)
+                                    .foregroundColor(colors.textDefaultTertiary)
+                            }
+                            if viewModel.state.shouldShowProgressView {
+                                ProgressView()
+                                    .padding(.horizontal, 4)
+                            }
+                            Spacer()
                         }
-                        if viewModel.state.shouldShowProgressView {
-                            ProgressView()
-                                .padding(.horizontal, 4)
-                        }
-                        Spacer()
-                    }
-                    .padding([.horizontal, .bottom])
-                    
-                    if let networks = viewModel.state.networks, networks.isEmpty == false {
-                        RoundedRectContainerView {
-                            VStack {
-                                ForEach(Array(networks.enumerated()), id: \.offset) { item in
-                                    let i = item.offset
-                                    let network = item.element
-                                    VStack {
-                                        WiFiNetworkRowView(network: network)
-                                            .onTapGesture {
-                                                viewModel.send(event: .selectNetworkAndConfirm(network))
+                        .padding([.horizontal, .bottom])
+                        
+                        if let networks = viewModel.state.networks, networks.isEmpty == false {
+                            RoundedRectContainerView {
+                                VStack {
+                                    ForEach(Array(networks.enumerated()), id: \.offset) { item in
+                                        let i = item.offset
+                                        let network = item.element
+                                        VStack {
+                                            WiFiNetworkRowView(network: network)
+                                                .onTapGesture {
+                                                    viewModel.send(event: .selectNetworkAndConfirm(network))
+                                                }
+                                            if i < networks.count - 1 {
+                                                Divider()
+                                                    .foregroundStyle(colors.iconDefaultPrimary)
+                                                    .padding(.horizontal)
                                             }
-                                        if i < networks.count - 1 {
-                                            Divider()
-                                                .padding(.horizontal)
                                         }
                                     }
                                 }
+                                .padding(.vertical, 8)
                             }
-                            .padding(.vertical, 8)
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
-                    }
-                    
-                    if viewModel.state.couldShowAddOtherNetwork {
-                        if viewModel.state.networks?.isEmpty ?? true {
-                            Spacer().frame(height: 12)
+                        
+                        if viewModel.state.couldShowAddOtherNetwork {
+                            if viewModel.state.networks?.isEmpty ?? true {
+                                Spacer().frame(height: 12)
+                            }
+                            otherNetworkRow()
+                                .padding([.horizontal, .bottom])
                         }
-                        otherNetworkRow()
-                            .padding([.horizontal, .bottom])
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         })
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel, wordingManager: wordingManager)
@@ -102,12 +107,12 @@ public struct ListWiFiNetworksView: View {
     }
     
     private func otherNetworkRow() -> some View {
-        RoundedRectContainerView(backgroundColor: colors.backgroundDefaultPrimary) {
+        RoundedRectContainerView(backgroundColor: colors.backgroundDefaultSecondary) {
             HStack {
                 Spacer().frame(width: 24, height: 24)
                 Text(wordingManager.wordings.otherNetworkButton)
                     .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(Color.black)
+                    .foregroundColor(colors.textDefaultPrimary)
                     .lineLimit(1)
                     .truncationMode(.tail)
                     .frame(maxWidth: .infinity, alignment: .leading)

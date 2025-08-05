@@ -23,6 +23,7 @@ public struct QRScannerView: View {
     public var body: some View {
         NamiTopNavigationScreen(title: navigationBarTitle(),
                                 colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                contentBehavior: .fixed,
                                 mainContent: {
             ZStack {
                 // Hack to get the available view height to calculate the bottom sheet height.
