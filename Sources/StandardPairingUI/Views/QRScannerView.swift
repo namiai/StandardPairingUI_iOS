@@ -58,7 +58,7 @@ public struct QRScannerView: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .background(colors.backgroundDefaultSecondary)
+                    .background(colors.backgroundDefaultPrimary)
                     
                     if viewModel.state.deviceType != .unknown, let outletType = viewModel.state.outletType, outletType != .unknown {
                         HStack(alignment: .center, spacing: 8) {

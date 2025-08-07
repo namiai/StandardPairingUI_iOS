@@ -16,8 +16,9 @@ public protocol ThemeProtocol {
     var small1: Font { get }
     var small2: Font { get }
     
-    var navigationTitleColor: Color { get }
-    var navigationBarColor: Color { get }
+    // Only used for color overrides. Otherwise the defaults from Colors environment are used.
+    var navigationTitleColor: Color? { get }
+    var navigationBarColor: Color? { get }
     
     var primaryActionButtonStyle: any ButtonStyle { get }
     var secondaryActionButtonStyle: any ButtonStyle { get }

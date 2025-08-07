@@ -34,9 +34,9 @@ public struct NamiTheme: ThemeProtocol {
     
     // Colors
     
-    public var navigationTitleColor: Color = Color.namiColors.textDefaultPrimary
+    public var navigationTitleColor: Color? = nil
 
-    public var navigationBarColor: Color = Color.namiColors.backgroundDefaultPrimary
+    public var navigationBarColor: Color? = nil
     
     public var primaryActionButtonStyle: any ButtonStyle = NamiActionButtonStyle(rank: .primary)
     
