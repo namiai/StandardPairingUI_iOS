@@ -10,19 +10,20 @@ import SharedAssets
 
 public struct PowerOnAndScanningView: View {
     // MARK: Lifecycle
-
+    
     public init(viewModel: PowerOnAndScanning.ViewModel) {
         self.viewModel = viewModel
     }
-
+    
     // MARK: Public
-
+    
     public var body: some View {
-        DeviceSetupScreen(
-            title: navigationBarTitle()
-        ) {
-            self.GeneralDeviceTypeScanning()
-        }
+        NamiTopNavigationScreen(
+            title: navigationBarTitle(),
+            colorOverride: themeManager.selectedTheme.navigationBarColor,
+            mainContent: {
+                self.scanningForDevice()
+            })
         .environment(\.hideBackButton, true)
         .ignoresSafeArea(.keyboard)
     }
@@ -66,9 +67,9 @@ public struct PowerOnAndScanningView: View {
         }
     }
     // MARK: Internal
-
-    @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
     
+    @ObservedObject var viewModel: PowerOnAndScanning.ViewModel
+    @Environment(\.colors) private var colors
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
     
@@ -81,16 +82,16 @@ public struct PowerOnAndScanningView: View {
     }
     
     @ViewBuilder
-    private func GeneralDeviceTypeScanning() -> some View {
+    private func scanningForDevice() -> some View {
         VStack {
             Text(header)
                 .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity, alignment: .leading)
             Text(explanation)
                 .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .padding(.horizontal)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -106,11 +107,11 @@ public struct PowerOnAndScanningView: View {
                     
                     Text(wordingManager.wordings.scanning)
                         .font(themeManager.selectedTheme.headline3)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .foregroundColor(colors.textDefaultPrimary)
                         .padding(.horizontal)
                     Text(wordingManager.wordings.askUserToWait)
                         .font(themeManager.selectedTheme.paragraph1)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .foregroundColor(colors.textDefaultPrimary)
                         .padding(.horizontal)
                         .padding(.top, 4)
                     if viewModel.state.showsProgressIndicator {
@@ -129,7 +130,7 @@ public struct PowerOnAndScanningView: View {
             case .poweredOff:
                 Spacer()
                 bluetoothIsOff()
-            case .unauthorized: 
+            case .unauthorized:
                 Spacer()
                 bluetoothRestricted()
             default:
@@ -138,11 +139,15 @@ public struct PowerOnAndScanningView: View {
             
             Spacer()
             
-            NamiTextHyperLinkHelpers.hyperLink(text: faqText, link: wordingManager.wordings.urlNotPulsingBlue, linkColor: themeManager.selectedTheme.primaryBlack)
-                .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                .padding(.horizontal)
-                .padding(.bottom, 16)
+            NamiTextHyperLinkHelpers.hyperLink(
+                text: faqText,
+                link: wordingManager.wordings.urlNotPulsingBlue,
+                linkColor: colors.textDefaultPrimary
+            )
+            .font(themeManager.selectedTheme.paragraph1)
+            .foregroundColor(colors.textDefaultPrimary)
+            .padding(.horizontal)
+            .padding(.bottom, 16)
         }
     }
     
@@ -152,27 +157,25 @@ public struct PowerOnAndScanningView: View {
             switch viewModel.state.deviceType {
             case .contactSensor:
                 LottieAnimationView(animation: \.doorSensorPulseWhite)
-            case .keypad: 
+            case .keypad:
                 LottieAnimationView(animation: \.keypadPulseWhite)
-            case .motionSensor: 
+            case .motionSensor:
                 LottieAnimationView(animation: \.motionSensorPulseWhite)
             case .meshSensor:
-                if let outletType = viewModel.state.outletType {
-                    switch outletType {
-                    case .typeE:
-                        LottieAnimationView(animation: \.sensePlugFRPulseDarkBlue)
-                    case .typeF:
-                        LottieAnimationView(animation: \.sensePlugDEPulseDarkBlue)
-                    case .typeG:
-                        LottieAnimationView(animation: \.sensePlugUKPulseDarkBlue)
-                    case .typeB:
-                        LottieAnimationView(animation: \.sensePlugUSPulseDarkBlue)
-                    case .typeA: 
-                        LottieAnimationView(animation: \.sensePlugUSPulseDarkBlue)
-                    case .unknown: 
-                        EmptyView()    
-                    }
-                } else {
+                switch viewModel.state.outletType {
+                case .typeE:
+                    LottieAnimationView(animation: \.sensePlugFRPulseDarkBlue)
+                case .typeF:
+                    LottieAnimationView(animation: \.sensePlugDEPulseDarkBlue)
+                case .typeG:
+                    LottieAnimationView(animation: \.sensePlugUKPulseDarkBlue)
+                case .typeB:
+                    LottieAnimationView(animation: \.sensePlugUSPulseDarkBlue)
+                case .typeA:
+                    LottieAnimationView(animation: \.sensePlugUSPulseDarkBlue)
+                case .unknown, .none:
+                    EmptyView()
+                @unknown default:
                     EmptyView()
                 }
             case .securityPod:
@@ -180,29 +183,28 @@ public struct PowerOnAndScanningView: View {
             case .alarmPod:
                 LottieAnimationView(animation: \.alarmPodPulseDarkBlue)
             case .wifiSensor:
-                if let outletType = viewModel.state.outletType {
-                    switch outletType {
-                    case .typeE:
-                        LottieAnimationView(animation: \.wifiSensorFRPulseDarkBlue)
-                    case .typeF:
-                        LottieAnimationView(animation: \.wifiSensorDEPulseDarkBlue)
-                    case .typeG:
-                        LottieAnimationView(animation: \.wifiSensorUKPulseDarkBlue)
-                    case .typeB:
-                        LottieAnimationView(animation: \.wifiSensorUSPulseDarkBlue)
-                    case .typeA:
-                        LottieAnimationView(animation: \.wifiSensorJPPulseDarkBlue)
-                    case .unknown: 
-                        EmptyView()   
-                    }
-                } else {
+                switch viewModel.state.outletType  {
+                case .typeE:
+                    LottieAnimationView(animation: \.wifiSensorFRPulseDarkBlue)
+                case .typeF:
+                    LottieAnimationView(animation: \.wifiSensorDEPulseDarkBlue)
+                case .typeG:
+                    LottieAnimationView(animation: \.wifiSensorUKPulseDarkBlue)
+                case .typeB:
+                    LottieAnimationView(animation: \.wifiSensorUSPulseDarkBlue)
+                case .typeA:
+                    LottieAnimationView(animation: \.wifiSensorJPPulseDarkBlue)
+                case .unknown, .none:
+                    EmptyView()
+                @unknown default:
                     EmptyView()
                 }
-            case .unknown:
-                EmptyView()
             case .widarSensor:
                 LottieAnimationView(animation: \.widarPulseDarkBlue)
-                
+            case .unknown:
+                EmptyView()
+            @unknown default:
+                EmptyView()
             }
         }
     }
@@ -217,10 +219,10 @@ public struct PowerOnAndScanningView: View {
                 .frame(width: 128, height: 128)
             Text(wordingManager.wordings.bluetoothDisabled)
                 .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
             Text(wordingManager.wordings.enableBlueToothInSettingsHeader)
                 .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
             Button(wordingManager.wordings.buttonSettings, action: openSettings)
@@ -229,7 +231,7 @@ public struct PowerOnAndScanningView: View {
         }
     }
     
-    @ViewBuilder 
+    @ViewBuilder
     private func bluetoothIsOff() -> some View {
         VStack(alignment: .center) {
             Image("Bluetooth", bundle: .module)
@@ -238,10 +240,10 @@ public struct PowerOnAndScanningView: View {
                 .frame(width: 128, height: 128)
             Text(wordingManager.wordings.bluetoothIsOff)
                 .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
             Text(wordingManager.wordings.bluetoothIsOffDescription)
                 .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
             Button(wordingManager.wordings.buttonSettings, action: openBluetoothSettings)
@@ -250,7 +252,7 @@ public struct PowerOnAndScanningView: View {
         }
     }
     
-    @ViewBuilder 
+    @ViewBuilder
     private func bluetoothRestricted() -> some View {
         VStack(alignment: .center) {
             Image("Bluetooth", bundle: .module)
@@ -259,10 +261,10 @@ public struct PowerOnAndScanningView: View {
                 .frame(width: 128, height: 128)
             Text(wordingManager.wordings.bluetoothRestricted)
                 .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
             Text(wordingManager.wordings.bluetoothRestrictedDescription)
                 .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 32)
             Button(wordingManager.wordings.buttonSettings, action: openSettings)
@@ -278,7 +280,7 @@ public struct PowerOnAndScanningView: View {
         else {
             return
         }
-
+        
         UIApplication.shared.open(settings, completionHandler: nil)
     }
     

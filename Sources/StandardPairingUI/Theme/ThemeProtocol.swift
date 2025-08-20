@@ -16,23 +16,9 @@ public protocol ThemeProtocol {
     var small1: Font { get }
     var small2: Font { get }
     
-    var primaryBlack: Color { get }
-    var secondaryBlack: Color { get }
-    var tertiaryBlack: Color { get }
-    var navigationTitleColor: Color { get }
-    var white: Color { get }
-    var background: Color { get }
-    var line: Color { get }
-    var accent: Color { get }
-    var negative: Color { get }
-    var warning: Color { get }
-    var positive: Color { get }
-    var lowAttentionAlert: Color { get }
-
-    var redAlert3: Color { get }
-    var redAlert4: Color { get }
-    var success3: Color { get }
-    var success4: Color { get }
+    // Only used for color overrides. Otherwise the defaults from Colors environment are used.
+    var navigationTitleColor: Color? { get }
+    var navigationBarColor: Color? { get }
     
     var primaryActionButtonStyle: any ButtonStyle { get }
     var secondaryActionButtonStyle: any ButtonStyle { get }

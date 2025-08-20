@@ -9,6 +9,7 @@ import NamiSharedUIElements
 // MARK: - BluetoothDeviceFoundView
 
 public struct BluetoothDeviceFoundView: View {
+    @Environment(\.colors) var colors
     // MARK: Lifecycle
 
     public init(viewModel: BluetoothDeviceFound.ViewModel) {
@@ -18,21 +19,23 @@ public struct BluetoothDeviceFoundView: View {
     // MARK: Public
 
     public var body: some View {
-        DeviceSetupScreen(title: navigationBarTitle()) {
+        NamiTopNavigationScreen(title: navigationBarTitle(),
+                                colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                mainContent: {
             if let deviceModel = viewModel.state.deviceModel {
                 if viewModel.state.deviceType == .unknown || viewModel.state.deviceType == deviceModel.deviceType {
-                    if viewModel.state.deviceNameConfirmed && !viewModel.state.renameDevice {
-                        AnyView(DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: deviceModel)) 
-                    } else {
-                        AnyView(askToName(model: deviceModel))
-                    }
+                        if viewModel.state.deviceNameConfirmed && !viewModel.state.renameDevice {
+                            DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: deviceModel)
+                        } else {
+                            askToName(model: deviceModel)
+                        }
                 } else {
                     deviceDiscovered()
                 }
             } else {
                 deviceDiscovered()
             }
-        }
+        })
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
             self.isKeyboardAppeared = true
         }
@@ -73,13 +76,13 @@ public struct BluetoothDeviceFoundView: View {
 
             Text(wordingManager.wordings.deviceFoundHeader1)
                 .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .padding([.horizontal, .top])
                 .frame(maxWidth: .infinity)
 
             Text(wordingManager.wordings.deviceFoundHeader2)
                 .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal)
             ProgressView()
@@ -88,11 +91,12 @@ public struct BluetoothDeviceFoundView: View {
         }
     }
 
+    @ViewBuilder
     private func askToName(model: NamiDeviceModel) -> some View {
         VStack {
             Text(wordingManager.wordings.nameYourDevice)
                 .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .padding(.top, 8)
                 .padding(.horizontal)
                 .padding(.bottom, 4)
@@ -100,7 +104,7 @@ public struct BluetoothDeviceFoundView: View {
 
             Text(wordingManager.wordings.nameDeviceExplained)
                 .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
             NamiTextField(placeholder: viewModel.state.deviceName, text: $viewModel.state.deviceName, isEditing: $isEditing, returnKeyType: .done, subTextFont: themeManager.selectedTheme.paragraph2)

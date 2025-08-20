@@ -3,40 +3,41 @@
 import NamiSharedUIElements
 import SwiftUI
 import Tomonari
+import SharedAssets
 
 // MARK: - WiFiNetworkRowView
 
 struct WiFiNetworkRowView: View {
+    @Environment(\.colors) var colors: Colors
     // MARK: Internal
-
+    
     var network: NamiWiFiNetwork
-
+    
     var body: some View {
-        RoundedRectContainerView(backgroundColor: themeManager.selectedTheme.white) {
-            HStack {
-                wifiImage()
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                Text(network.ssid)
+        HStack {
+            wifiImage()
+                .foregroundColor(colors.iconDefaultPrimary)
+            Text(network.ssid)
+                .font(themeManager.selectedTheme.paragraph1)
+                .foregroundColor(colors.textDefaultPrimary)
+                .lineLimit(1)
+                .truncationMode(.tail)
+            if network.open {
+                Image(systemName: "lock.open")
                     .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
-                    .lineLimit(1)
-                    .truncationMode(.tail)
-                if network.open {
-                    Image(systemName: "lock.open")
-                        .font(themeManager.selectedTheme.paragraph1)
-                        .foregroundColor(Color.black)
-                }
-                Spacer()
+                    .foregroundColor(colors.iconDefaultPrimary)
             }
-            .padding(.horizontal)
-            .padding(.vertical, 8)
+            Spacer()
         }
+        .background(colors.backgroundDefaultSecondary)
+        .padding(.horizontal)
+        .padding(.vertical, 8)
     }
-
+    
     // MARK: Private
     
     @Environment(\.themeManager) private var themeManager
-
+    
     private func wifiImage() -> some View {
         if network.rssi >= -45 {
             return imageExists("Wifi") ? Image("Wifi") : Image(systemName: "wifi")

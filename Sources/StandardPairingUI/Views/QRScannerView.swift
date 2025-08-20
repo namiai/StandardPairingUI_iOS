@@ -5,22 +5,26 @@ import SwiftUI
 import Tomonari
 import NamiSharedUIElements
 import CommonTypes
+import SharedAssets
 
 // MARK: - QRScannerView
 
 public struct QRScannerView: View {
     // MARK: Lifecycle
-
+    
     public init(viewModel: QRScanner.ViewModel) {
         self.viewModel = viewModel
         self._shouldShowError = State(initialValue: false)
         self._onDismissErrorAction = State(initialValue: nil)
     }
-
+    
     // MARK: Public
     
     public var body: some View {
-        DeviceSetupScreen(title: navigationBarTitle()) {
+        NamiTopNavigationScreen(title: navigationBarTitle(),
+                                colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                contentBehavior: .fixed,
+                                mainContent: {
             ZStack {
                 // Hack to get the available view height to calculate the bottom sheet height.
                 GeometryReader { geometry in
@@ -34,13 +38,13 @@ public struct QRScannerView: View {
                     VStack {
                         Text(wordingManager.wordings.scanQRtitle)
                             .font(themeManager.selectedTheme.headline3)
-                            .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                            .foregroundColor(colors.textDefaultPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding([.horizontal, .top])
                         if !NamiDeviceType.allAccessoryDevices.contains(viewModel.state.deviceType) {
                             Text(wordingManager.wordings.scanQRsubtitle)
                                 .font(themeManager.selectedTheme.paragraph1)
-                                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                                .foregroundColor(colors.textDefaultPrimary)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding([.bottom, .horizontal])
                         }
@@ -54,17 +58,17 @@ public struct QRScannerView: View {
                         }
                     }
                     .frame(maxWidth: .infinity)
-                    .background(themeManager.selectedTheme.background)
+                    .background(colors.backgroundDefaultPrimary)
                     
                     if viewModel.state.deviceType != .unknown, let outletType = viewModel.state.outletType, outletType != .unknown {
                         HStack(alignment: .center, spacing: 8) {
                             Image(shouldShowQRcodeLocation ? "Expand" : "Question", bundle: .module)
                                 .resizable()
                                 .frame(width: 24, height: 24)
-                                .foregroundColor(themeManager.selectedTheme.white)
+                                .foregroundColor(colors.iconDefaultInvert)
                             Text(shouldShowQRcodeLocation ? wordingManager.wordings.scanQRexpandCamera : wordingManager.wordings.scanQRwhereIsQR)
                                 .font(themeManager.selectedTheme.headline5)
-                                .foregroundColor(themeManager.selectedTheme.white)
+                                .foregroundColor(colors.iconDefaultInvert)
                         }
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
@@ -85,7 +89,8 @@ public struct QRScannerView: View {
                         
                         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                             .stroke(
-                                viewModel.state.error == nil ? themeManager.selectedTheme.white : themeManager.selectedTheme.negative,
+                                // It is literally #FFFFFF in design, huh.
+                                viewModel.state.error == nil ? Color.white : colors.iconDangerPrimary,
                                 style: viewfinderStrokeStyle(cornerStrokeLength: cornerStrokeLength, width: frameWidth, height: frameWidth, cornerRadius: cornerRadius)
                             )
                             .position(centerPoint)
@@ -95,13 +100,13 @@ public struct QRScannerView: View {
                     .padding()
                 }
             }
-        }
+        })
         .onAppear {
             if UIDevice().userInterfaceIdiom == .phone {
                 switch UIScreen.main.nativeBounds.height {
-                case let h where h <= 1136: 
+                case let h where h <= 1136:
                     shouldShowQRcodeLocation = false
-                default: 
+                default:
                     shouldShowQRcodeLocation = true
                 }
             }
@@ -121,17 +126,18 @@ public struct QRScannerView: View {
         .dynamicBottomSheet(isPresented: $shouldShowError, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { qrErrorSheet() })
         .ignoresSafeArea(.keyboard)
     }
-
+    
     // MARK: Internal
-
+    
     @ObservedObject var viewModel: QRScanner.ViewModel
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
+    @Environment(\.colors) private var colors
     @State var bottomSheetHeight: CGFloat = 0
     @State var shouldShowQRcodeLocation = true
     @State var shouldShowError = false
     @State private var onDismissErrorAction: (() -> Void)?
-
+    
     // MARK: Private
     
     private func navigationBarTitle() -> String {
@@ -141,12 +147,12 @@ public struct QRScannerView: View {
         
         return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
     }
-
+    
     private func roundedRectPerimeter(width: CGFloat, height: CGFloat, cornerRadius radius: CGFloat) -> CGFloat {
         // Rounded rect perimeter = 2L + 2W - 8r + 2πr = 2L + 2W - (8-2)πr
         (2 * width) + (2 * height) - ((8 - 2 * CGFloat.pi) * radius)
     }
-
+    
     private func viewfinderStrokeStyle(cornerStrokeLength: CGFloat, width: CGFloat, height: CGFloat, cornerRadius radius: CGFloat) -> StrokeStyle {
         let fourCornersLen = cornerStrokeLength * 4
         let viewfinderPerimeter = roundedRectPerimeter(width: width, height: height, cornerRadius: radius)
@@ -166,7 +172,7 @@ public struct QRScannerView: View {
             dashPhase: phaseCorrection
         )
     }
-
+    
     @ViewBuilder
     private func qrErrorSheet() -> some View {
         VStack(spacing: 0) {
@@ -177,11 +183,11 @@ public struct QRScannerView: View {
                 .frame(width: 40, height: 40)
             Text(wordingManager.wordings.qrCodeError)
                 .font(themeManager.selectedTheme.headline4)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .padding(.top, 4)
             Text(wordingManager.wordings.qrCodeMismatchError)
                 .font(themeManager.selectedTheme.paragraph1)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .padding(.top, 16)
                 .padding(.bottom, 32)
             Spacer()
@@ -209,7 +215,7 @@ public struct QRScannerView: View {
 
 struct ViewHeightKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
-
+    
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = max(value, nextValue())
     }

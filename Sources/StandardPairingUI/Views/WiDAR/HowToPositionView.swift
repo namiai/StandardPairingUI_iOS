@@ -23,7 +23,8 @@ public struct HowToPositionView: View {
     @Environment(\.wordingManager) private var wordingManager
     
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
+        NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
+                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
             mainContent()
                 .padding()
         } leadingButtonsGroup: {

@@ -1,6 +1,8 @@
 
 import SwiftUI
 import I18n
+import NamiSharedUIElements
+import SharedAssets
 
 public struct EnableCameraInSettingsView: View {
     // MARK: Public
@@ -9,15 +11,17 @@ public struct EnableCameraInSettingsView: View {
     }
     
     public var body: some View {
-        DeviceSetupScreen(title: isSettingUpKit(wordings: wordingManager.wordings) ? kitName(wordings: wordingManager.wordings) : self.deviceType) {
+        NamiTopNavigationScreen(title: isSettingUpKit(wordings: wordingManager.wordings) ? kitName(wordings: wordingManager.wordings) : self.deviceType,
+                                colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                mainContent: {
             VStack {
                 Text(wordingManager.wordings.scanQRtitle)
                     .font(themeManager.selectedTheme.headline3)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .foregroundColor(colors.textDefaultPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Text(wordingManager.wordings.scanQRsubtitle)
                     .font(themeManager.selectedTheme.paragraph1)
-                    .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                    .foregroundColor(colors.textDefaultPrimary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
                 VStack(alignment: .center) {
@@ -27,10 +31,10 @@ public struct EnableCameraInSettingsView: View {
                         .frame(width: 128, height: 128)
                     Text(wordingManager.wordings.missingCameraPermissionTitle)
                         .font(themeManager.selectedTheme.headline3)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .foregroundColor(colors.textDefaultPrimary)
                     Text(wordingManager.wordings.missingCameraPermissionDescription)
                         .font(themeManager.selectedTheme.paragraph1)
-                        .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                        .foregroundColor(colors.textDefaultPrimary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 32)
                     Button(wordingManager.wordings.openSettings, action: openSettings)
@@ -40,12 +44,13 @@ public struct EnableCameraInSettingsView: View {
                 Spacer()
             }
             .padding()
-        }
+        })
         .ignoresSafeArea(.keyboard)
     }
     
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
+    @Environment(\.colors) private var colors
 
     // MARK: Private
 

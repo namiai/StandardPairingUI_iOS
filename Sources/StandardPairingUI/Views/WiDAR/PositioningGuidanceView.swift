@@ -35,7 +35,8 @@ public struct PositioningGuidanceView: View {
             }
         }
 
-        DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
+        NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
+                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
             mainContent()
                 .padding()
                 .navigationPopGestureDisabled(true)
@@ -72,7 +73,7 @@ public struct PositioningGuidanceView: View {
         VStack {
             Text(wordingManager.wordings.positioningGuidanceTitle)
                 .font(themeManager.selectedTheme.headline3)
-                .foregroundColor(themeManager.selectedTheme.primaryBlack)
+                .foregroundColor(colors.textDefaultPrimary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.bottom])
             
@@ -107,22 +108,22 @@ public struct PositioningGuidanceView: View {
                             switch quality {
                             case .unknown:
                                 ProgressView().frame(width: 16, height: 16)
-                                Text(wordingManager.wordings.statusChecking, font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
+                                Text(wordingManager.wordings.statusChecking, font: themeManager.selectedTheme.headline5).foregroundColor(colors.textDefaultTertiary)
                             case .poor:
-                                Circle().fill(Color.red).frame(width: 16, height: 16)
-                                Text(wordingManager.wordings.statusMispositioned, font: themeManager.selectedTheme.headline5).foregroundColor(colors.redAlert4)
+                                Circle().fill(colors.iconDangerPrimary).frame(width: 16, height: 16)
+                                Text(wordingManager.wordings.statusMispositioned, font: themeManager.selectedTheme.headline5).foregroundColor(colors.textDangerPrimary)
                             case .degraded:
-                                Circle().fill(Color.yellow).frame(width: 16, height: 16)
-                                Text(wordingManager.wordings.statusGettingBetter, font: themeManager.selectedTheme.headline5).foregroundColor(colors.lowAttentionAlert)
+                                Circle().fill(colors.iconSecuritymodeOrange).frame(width: 16, height: 16)
+                                Text(wordingManager.wordings.statusGettingBetter, font: themeManager.selectedTheme.headline5).foregroundColor(colors.textSecuritymodeOrange)
                             case .good:
-                                Circle().fill(Color.green).frame(width: 16, height: 16)
-                                Text(wordingManager.wordings.statusOptimized, font: themeManager.selectedTheme.headline5).foregroundColor(colors.success4)
+                                Circle().fill(colors.iconSecuritymodeGreen).frame(width: 16, height: 16)
+                                Text(wordingManager.wordings.statusOptimized, font: themeManager.selectedTheme.headline5).foregroundColor(colors.textSecuritymodeGreen)
                             }
                         }
                     } else {
                         HStack {
                             ProgressView().frame(width: 16, height: 16)
-                            Text(wordingManager.wordings.statusEstablishingConnection, font: themeManager.selectedTheme.headline5).foregroundColor(colors.neutral.tertiaryBlack)
+                            Text(wordingManager.wordings.statusEstablishingConnection, font: themeManager.selectedTheme.headline5).foregroundColor(colors.textDefaultTertiary)
                         }
                     }
                 }
@@ -132,7 +133,9 @@ public struct PositioningGuidanceView: View {
             VStack {
                 if quality == .degraded {
                     // TODO: Add this string to POEditor!
-                    Text(wordingManager.wordings.positioningTip, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    Text(wordingManager.wordings.positioningTip, font: themeManager.selectedTheme.paragraph1)
+                        .foregroundColor(colors.textDefaultPrimary)
+                        .fillWidth(alignment: .center)
                 }
             }
             .frame(height: 20)

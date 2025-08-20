@@ -6,6 +6,7 @@ import SharedAssets
 // MARK: - ScreenTitleTextView
 
 public struct SetupScreenTitleTextView: View {
+    @Environment(\.colors) var colors
     // MARK: Lifecycle
 
     init(title: String) {
@@ -20,6 +21,7 @@ public struct SetupScreenTitleTextView: View {
         VStack {
             Text(title)
                 .font(themeManager.selectedTheme.headline3)
+                .foregroundStyle(colors.textDefaultPrimary)
                 .lineLimit(5)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }

@@ -19,7 +19,8 @@ public struct ErrorScreenView: View {
     @Environment(\.wordingManager) private var wordingManager
 
     public var body: some View {
-        DeviceSetupScreen(title: wordingManager.wordings.positioningNavigationTitle) {
+        NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
+                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
             VStack {
                 Spacer()
                 VStack(alignment: .center) {
