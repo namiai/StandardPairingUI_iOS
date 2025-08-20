@@ -88,7 +88,7 @@ public struct PairingErrorScreenView: View {
             Spacer()
             VStack {
                 if viewModel.state.actions.isEmpty == false {
-                    ForEach(0..<viewModel.state.actions.count, id: \.self, content: buttonForAction)
+                    ForEach(viewModel.state.actions, id: \.self, content: buttonForAction)
                 }
             }
         })
@@ -114,10 +114,7 @@ public struct PairingErrorScreenView: View {
         return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
     }
     
-    private func buttonForAction(at index: Int) -> some View {
-        let actions = viewModel.state.actions
-        let action = actions[index]
-        
+    private func buttonForAction(_ action: Pairing.ActionOnError) -> some View {
         if case let .underlying(error) = viewModel.state.error {
             if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
                 // Hacky way of handling if this is a kit system is currently being set up
@@ -133,12 +130,12 @@ public struct PairingErrorScreenView: View {
             }
         }
         
-        let style = index == primaryButtonIndex ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.secondaryActionButtonStyle
+        let style = action != .exit ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.tertiaryActionButtonStyle
         
         return Button(titleForAction(action), action: { viewModel.send(event: .didChooseAction(action)) })
             .disabled(viewModel.state.chosenAction != nil)
             .buttonStyle(style)
-            .padding(.bottom, index == actions.count-1 ? NamiActionButtonStyle.ConstraintLayout.BottomToSuperView : NamiActionButtonStyle.ConstraintLayout.BottomToNextButton)
+            .padding(.bottom, 8)
             .anyView
     }
     

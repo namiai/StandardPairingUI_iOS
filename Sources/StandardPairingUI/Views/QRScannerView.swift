@@ -66,9 +66,8 @@ public struct QRScannerView: View {
                                 .resizable()
                                 .frame(width: 24, height: 24)
                                 .foregroundColor(colors.iconDefaultInvert)
-                            Text(shouldShowQRcodeLocation ? wordingManager.wordings.scanQRexpandCamera : wordingManager.wordings.scanQRwhereIsQR)
-                                .font(themeManager.selectedTheme.headline5)
-                                .foregroundColor(colors.iconDefaultInvert)
+                            Text(shouldShowQRcodeLocation ? wordingManager.wordings.scanQRexpandCamera : wordingManager.wordings.scanQRwhereIsQR, font: .headline5)
+                                .foregroundStyle(colors.iconDefaultPrimary)
                         }
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
