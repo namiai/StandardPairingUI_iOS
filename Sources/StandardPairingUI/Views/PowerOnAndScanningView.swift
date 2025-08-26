@@ -213,7 +213,7 @@ public struct PowerOnAndScanningView: View {
     @ViewBuilder
     private func bluetoothNotAvailable() -> some View {
         VStack(alignment: .center) {
-            Image("Bluetooth", bundle: .module)
+            Icons.bluetooth
                 .resizable()
                 .scaledToFit()
                 .frame(width: 128, height: 128)
@@ -234,7 +234,7 @@ public struct PowerOnAndScanningView: View {
     @ViewBuilder
     private func bluetoothIsOff() -> some View {
         VStack(alignment: .center) {
-            Image("Bluetooth", bundle: .module)
+            Icons.bluetooth
                 .resizable()
                 .scaledToFit()
                 .frame(width: 128, height: 128)
@@ -255,7 +255,7 @@ public struct PowerOnAndScanningView: View {
     @ViewBuilder
     private func bluetoothRestricted() -> some View {
         VStack(alignment: .center) {
-            Image("Bluetooth", bundle: .module)
+            Icons.bluetooth
                 .resizable()
                 .scaledToFit()
                 .frame(width: 128, height: 128)

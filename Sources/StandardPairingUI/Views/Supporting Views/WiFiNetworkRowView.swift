@@ -40,21 +40,13 @@ struct WiFiNetworkRowView: View {
     
     private func wifiImage() -> some View {
         if network.rssi >= -45 {
-            return imageExists("Wifi") ? Image("Wifi") : Image(systemName: "wifi")
+            return Icons.wifi
         } else if network.rssi < -45, network.rssi > -85 {
-            if #available(iOS 16.0, *) {
-                return imageExists("WifiMedium") ? Image("WifiMedium") : Image(systemName: "wifi", variableValue: 0.4)
-            } else {
-                return imageExists("WifiMedium") ? Image("WifiMedium") : Image(systemName: "wifi")
-            }
+            return Icons.wifimedium
         } else if network.rssi <= -85 {
-            if #available(iOS 16.0, *) {
-                return imageExists("WifiWeak") ? Image("WifiWeak") : Image(systemName: "wifi", variableValue: 0.2)
-            } else {
-                return imageExists("WifiWeak") ? Image("WifiWeak") : Image(systemName: "wifi")
-            }
+            return Icons.wifiweak
         }
-        return Image(systemName: "wifi")
+        return Icons.wifi
     }
     
     private func imageExists(_ name: String) -> Bool {

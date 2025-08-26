@@ -23,7 +23,7 @@ public struct PairingErrorScreenView: View {
                                 mainContent: {
             Spacer()
             VStack(alignment: .center) {
-                Image("Warning", bundle: .module)
+                Icons.warning
                     .resizable()
                     .scaledToFit()
                     .frame(width: 128, height: 128)

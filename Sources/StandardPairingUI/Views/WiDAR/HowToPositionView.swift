@@ -53,19 +53,19 @@ public struct HowToPositionView: View {
             
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
-                    Image("GreenTick", bundle: .module)
+                    Icons.greenTick
                         .resizable()
                         .frame(width: 24, height: 24)
                     Text(wordingManager.wordings.recommendationsInfoAttachBase, font: themeManager.selectedTheme.paragraph1).fillWidth()
                 }
                 HStack(alignment: .top) {
-                    Image("GreenTick", bundle: .module)
+                    Icons.greenTick
                         .resizable()
                         .frame(width: 24, height: 24)
                     Text(wordingManager.wordings.recommendationsInfoWireOnBack, font: themeManager.selectedTheme.paragraph1).fillWidth()
                 }
                 HStack(alignment: .top) {
-                    Image("GreenTick", bundle: .module)
+                    Icons.greenTick
                         .resizable()
                         .frame(width: 24, height: 24)
                     Text(wordingManager.wordings.recommendationsInfoKeepAreaClear, font: themeManager.selectedTheme.paragraph1).fillWidth()

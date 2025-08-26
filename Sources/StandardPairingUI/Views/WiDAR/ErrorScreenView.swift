@@ -4,6 +4,7 @@ import NamiSharedUIElements
 import SwiftUI
 import Tomonari
 import I18n
+import SharedAssets
 
 public struct ErrorScreenView: View {
     // MARK: Lifecycle
@@ -24,7 +25,7 @@ public struct ErrorScreenView: View {
             VStack {
                 Spacer()
                 VStack(alignment: .center) {
-                    Image("Warning", bundle: .module)
+                    Icons.warning
                         .resizable()
                         .scaledToFit()
                         .frame(width: 128, height: 128)
