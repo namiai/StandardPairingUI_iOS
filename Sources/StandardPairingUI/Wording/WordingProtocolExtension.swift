@@ -21,6 +21,7 @@ public extension WordingProtocol {
     var headerConnectToPower: String { get { return I18n.pairingBluetoothDeviceFoundHeaderConnectToPower } }
     var explainedReadyToPair: String { get { return I18n.pairingBluetoothDeviceFoundExplainedReadyToPair } }
     var headerContactSensor: String { get { return I18n.pairingScanningBleHeaderContactSensor } }
+    var headerKeypad: String { get { return I18n.pairingScanningBleHeaderKeypad }}
     
     // MARK: - Power On and Scanning View
     var scanning: String { get { return I18n.pairingPowerOnAndScanningScanning } }

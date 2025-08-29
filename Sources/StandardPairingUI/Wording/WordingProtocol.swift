@@ -20,6 +20,7 @@ public protocol WordingProtocol {
     var headerConnectToPower: String { get }
     var explainedReadyToPair: String { get }
     var headerContactSensor: String { get }
+    var headerKeypad: String { get }
     
     // MARK: - Power On and Scanning View
     var scanning: String { get }
