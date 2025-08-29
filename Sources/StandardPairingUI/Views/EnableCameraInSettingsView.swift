@@ -25,7 +25,7 @@ public struct EnableCameraInSettingsView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 Spacer()
                 VStack(alignment: .center) {
-                    Image("Camera", bundle: .module)
+                    Icons.camera
                         .resizable()
                         .scaledToFit()
                         .frame(width: 128, height: 128)
