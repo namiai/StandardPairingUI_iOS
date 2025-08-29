@@ -47,6 +47,8 @@ public struct PowerOnAndScanningView: View {
         case .contactSensor,
                 .motionSensor:
             wordingManager.wordings.headerContactSensor
+        case .keypad:
+            wordingManager.wordings.headerKeypad
         default:
             wordingManager.wordings.headerConnectToPower
         }
@@ -54,7 +56,8 @@ public struct PowerOnAndScanningView: View {
     private var explanation: String {
         return switch viewModel.state.deviceType {
         case .contactSensor,
-                .motionSensor:
+                .motionSensor, 
+                .keypad:
             I18n.pairingBluetoothDeviceFoundExplainedReadyToPairContactSensor
         default:
             wordingManager.wordings.explainedReadyToPair
