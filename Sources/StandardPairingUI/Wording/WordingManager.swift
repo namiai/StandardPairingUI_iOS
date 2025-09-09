@@ -22,8 +22,8 @@ public class WordingManager: ObservableObject {
         self.wordings = DefaultWordings()
     }
     
-    public func updatePairingTitle(to newTitle: String) {
-        self.wordings.pairingNavigationBarTitle = newTitle
+    public func updateKitNameTitle(to newTitle: String) {
+        self.wordings.kitNameNavigationBarTitle = newTitle
     }
 }
 
@@ -39,7 +39,7 @@ public extension EnvironmentValues {
 }
 
 private struct DefaultWordings: WordingProtocol {
-    var pairingNavigationBarTitle: String = I18n.pairingDeviceSetupNavigationTitle
+    var kitNameNavigationBarTitle: String = I18n.pairingDeviceSetupNavigationTitle
     
     public init() {
         

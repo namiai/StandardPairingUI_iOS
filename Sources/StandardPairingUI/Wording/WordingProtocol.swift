@@ -7,7 +7,8 @@ public protocol WordingProtocol {
     var ok: String { get }
     var next: String { get }
     var cancel: String { get }
-    var pairingNavigationBarTitle: String { get set }
+    var pairingNavigationBarTitle: String { get }
+    var kitNameNavigationBarTitle: String { get set }
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
     func connectingToDevice(deviceName: String) -> String
