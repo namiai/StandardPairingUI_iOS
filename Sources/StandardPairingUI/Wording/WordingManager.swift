@@ -39,7 +39,7 @@ public extension EnvironmentValues {
 }
 
 private struct DefaultWordings: WordingProtocol {
-    var kitNameNavigationBarTitle: String = I18n.pairingDeviceSetupNavigationTitle
+    var kitNameNavigationBarTitle: String = ""
     
     public init() {
         
