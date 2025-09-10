@@ -8,7 +8,8 @@ public extension WordingProtocol {
     var ok: String { get { return I18n.generalOk } }
     var next: String { get { return I18n.generalNext } }
     var cancel: String { get { return I18n.generalCancel } }
-    var pairingNavigationBarTitle: String { get { return "" } }
+    var pairingNavigationBarTitle: String { get { return I18n.pairingDeviceSetupNavigationTitle } }
+    var kitNameNavigationBarTitle: String { get { return "" }}
     /// Requires string index parameter
     ///  Example: "Establishing connection with  %@…"
     func connectingToDevice(deviceName: String) -> String { return I18n.pairingLoadingDeviceConnecting(deviceName) }
@@ -82,7 +83,7 @@ public extension WordingProtocol {
     var networkNotFound: String { get { return I18n.pairingListWifiNetworksNoNetworksFound } }
     var availableNetworks: String { get { return I18n.pairingListWifiNetworksAvailableNetworks } }
     var otherNetworkButton: String { get { return I18n.pairingListWifiNetworksButtonOtherNetwork } }
-    var otherNetworkTitle: String { get { return "Other network" }}
+    var otherNetworkTitle: String { get { return I18n.pairingOtherNetworkTitle }}
     
     // MARK: - Enter Wifi password
     func enterPassword(for networkName: String) -> String { return I18n.pairingEnterWifiPasswordEnterPasswordIos(networkName)}
