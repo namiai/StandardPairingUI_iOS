@@ -27,6 +27,7 @@ public struct PairingErrorScreenView: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 128, height: 128)
+                    .foregroundColor(colors.iconDangerPrimary)
                 // TODO: Switch to use `viewModel.state.error.errorMessageTitle` when there's the values for it in I18n but not hardcoded strings.
                 // The preparation is done in `PairingErrorsExtensions`.
                 Text(viewModel.state.error.getErrorMessageTitle(wordings: wordingManager.wordings))
