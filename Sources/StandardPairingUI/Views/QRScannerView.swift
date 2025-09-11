@@ -181,6 +181,7 @@ public struct QRScannerView: View {
                 .resizable()
                 .scaledToFill()
                 .frame(width: 40, height: 40)
+                .foregroundColor(colors.iconDangerPrimary)
             Text(wordingManager.wordings.qrCodeError)
                 .font(themeManager.selectedTheme.headline4)
                 .foregroundColor(colors.textDefaultPrimary)
