@@ -18,6 +18,7 @@ public struct ErrorScreenView: View {
     @ObservedObject var viewModel: ErrorScreen.ViewModel
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
+    @Environment(\.colors) private var colors: Colors
 
     public var body: some View {
         NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
@@ -29,6 +30,7 @@ public struct ErrorScreenView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 128, height: 128)
+                        .foregroundColor(colors.iconDangerPrimary)
                     Text(wordingManager.wordings.positioningErrorTitle)
                         .font(themeManager.selectedTheme.headline3)
                         .lineLimit(2)
