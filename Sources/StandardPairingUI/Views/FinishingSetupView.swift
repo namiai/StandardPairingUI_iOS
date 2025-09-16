@@ -16,6 +16,7 @@ public struct FinishingSetupView: View {
     public var body: some View {
         NamiTopNavigationScreen(title: navigationBarTitle(),
                                 colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                contentBehavior: .fixed,
                                 mainContent: {
             VStack {
                 Text(wordingManager.wordings.finishingSetupHeader)
