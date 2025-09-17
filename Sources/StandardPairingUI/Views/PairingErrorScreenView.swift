@@ -20,6 +20,7 @@ public struct PairingErrorScreenView: View {
     public var body: some View {
         NamiTopNavigationScreen(title: navigationBarTitle(),
                                 colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                contentBehavior: .fixed,
                                 mainContent: {
             Spacer()
             VStack(alignment: .center) {

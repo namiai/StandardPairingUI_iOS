@@ -21,7 +21,7 @@ public struct ErrorScreenView: View {
 
     public var body: some View {
         NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
-                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
+                                colorOverride: themeManager.selectedTheme.navigationBarColor, contentBehavior: .fixed) {
             VStack {
                 Spacer()
                 VStack(alignment: .center) {
