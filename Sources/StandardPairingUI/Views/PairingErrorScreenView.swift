@@ -134,7 +134,7 @@ public struct PairingErrorScreenView: View {
         
         let style = action != .exit ? 
             themeManager.selectedTheme.primaryActionButtonStyle 
-        : viewModel.state.actions.count == 1 ? themeManager.selectedTheme.secondaryActionButtonStyle : themeManager.selectedTheme.tertiaryActionButtonStyle
+        : viewModel.state.actions.count == 1 ? themeManager.selectedTheme.primaryActionButtonStyle : themeManager.selectedTheme.tertiaryActionButtonStyle
         
         return Button(titleForAction(action), action: { viewModel.send(event: .didChooseAction(action)) })
             .disabled(viewModel.state.chosenAction != nil)
