@@ -2,13 +2,12 @@
 
 import CommonTypes
 import I18n
-import SwiftUI
 import SharedAssets
+import SwiftUI
 
 // MARK: - DevicePresentingLoadingView
 
 struct DevicePresentingLoadingView: View {
-    @Environment(\.colors) var colors: Colors
     // MARK: Lifecycle
 
     init(deviceName: String, deviceModel: NamiDeviceModel) {
@@ -17,6 +16,8 @@ struct DevicePresentingLoadingView: View {
     }
 
     // MARK: Internal
+
+    @Environment(\.colors) var colors: Colors
 
     var body: some View {
         VStack {
@@ -39,9 +40,10 @@ struct DevicePresentingLoadingView: View {
     }
 
     // MARK: Private
-    
+
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
+
     private var deviceName: String
     private var deviceModel: NamiDeviceModel
 }

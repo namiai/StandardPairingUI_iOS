@@ -1,10 +1,10 @@
 // Copyright (c) nami.ai
 
+import I18n
 import NamiSharedUIElements
+import SharedAssets
 import SwiftUI
 import Tomonari
-import I18n
-import SharedAssets
 
 public struct ErrorScreenView: View {
     // MARK: Lifecycle
@@ -13,16 +13,13 @@ public struct ErrorScreenView: View {
         self.viewModel = viewModel
     }
 
-    // MARK: Internal
-
-    @ObservedObject var viewModel: ErrorScreen.ViewModel
-    @Environment(\.themeManager) private var themeManager
-    @Environment(\.wordingManager) private var wordingManager
-    @Environment(\.colors) private var colors: Colors
+    // MARK: Public
 
     public var body: some View {
-        NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
-                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
+        NamiTopNavigationScreen(
+            title: wordingManager.wordings.positioningNavigationTitle,
+            colorOverride: themeManager.selectedTheme.navigationBarColor
+        ) {
             VStack {
                 Spacer()
                 VStack(alignment: .center) {
@@ -67,4 +64,14 @@ public struct ErrorScreenView: View {
         }
         .ignoresSafeArea(.keyboard)
     }
+
+    // MARK: Internal
+
+    @ObservedObject var viewModel: ErrorScreen.ViewModel
+
+    // MARK: Private
+
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
+    @Environment(\.colors) private var colors: Colors
 }

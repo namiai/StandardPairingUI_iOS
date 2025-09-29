@@ -1,30 +1,20 @@
 // Copyright (c) nami.ai
 
-import SwiftUI
-import SharedAssets
 import CommonTypes
-import Tomonari
 import NamiSharedUIElements
+import SharedAssets
+import SwiftUI
+import Tomonari
 
 public struct PositioningGuidanceView: View {
     // MARK: Lifecycle
 
     public init(viewModel: PositioningGuidance.ViewModel) {
         self.viewModel = viewModel
-        self._onDismissErrorAction = State(initialValue: nil)
+        _onDismissErrorAction = State(initialValue: nil)
     }
 
-    // MARK: Internal
-
-    @Environment(\.animations) var animations: Animations
-    @Environment(\.colors) var colors: Colors
-    @Environment(\.measurementSystem) var measurementSystem: MeasurementSystem
-    @Environment(\.themeManager) private var themeManager
-    @Environment(\.wordingManager) private var wordingManager
-
-    @ObservedObject var viewModel: PositioningGuidance.ViewModel
-    
-    @State private var onDismissErrorAction: (() -> Void)? = {}
+    // MARK: Public
 
     public var body: some View {
         let cancelSheetBinding = Binding {
@@ -35,8 +25,10 @@ public struct PositioningGuidanceView: View {
             }
         }
 
-        NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
-                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
+        NamiTopNavigationScreen(
+            title: wordingManager.wordings.positioningNavigationTitle,
+            colorOverride: themeManager.selectedTheme.navigationBarColor
+        ) {
             mainContent()
                 .padding()
                 .navigationPopGestureDisabled(true)
@@ -67,7 +59,19 @@ public struct PositioningGuidanceView: View {
         .ignoresSafeArea(.keyboard)
     }
 
+    // MARK: Internal
+
+    @Environment(\.animations) var animations: Animations
+    @Environment(\.colors) var colors: Colors
+    @Environment(\.measurementSystem) var measurementSystem: MeasurementSystem
+    @ObservedObject var viewModel: PositioningGuidance.ViewModel
+
     // MARK: Private
+
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
+
+    @State private var onDismissErrorAction: (() -> Void)? = {}
 
     private func mainContent() -> some View {
         VStack {
@@ -76,7 +80,7 @@ public struct PositioningGuidanceView: View {
                 .foregroundColor(colors.textDefaultPrimary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding([.bottom])
-            
+
             switch measurementSystem {
             case .metric:
                 Text(wordingManager.wordings.guideMetric, font: themeManager.selectedTheme.paragraph1).fillWidth()
@@ -85,7 +89,6 @@ public struct PositioningGuidanceView: View {
             case .us:
                 Text(wordingManager.wordings.guideImperial, font: themeManager.selectedTheme.paragraph1).fillWidth()
             }
-            
 
             let quality = viewModel.state.positioningQuality
 
@@ -167,7 +170,6 @@ public struct PositioningGuidanceView: View {
             .buttonStyle(themeManager.selectedTheme.secondaryActionButtonStyle)
             .padding(.bottom, NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
             .anyView
-            
         }
         .frame(maxHeight: 300)
         .ignoresSafeArea()

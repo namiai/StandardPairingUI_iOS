@@ -1,8 +1,8 @@
 // Copyright (c) nami.ai
 
 import Foundation
-import Tomonari
 import NamiProto
+import Tomonari
 
 public extension Pairing.Error {
     func getErrorMessageTitle(wordings: WordingProtocol) -> String {
@@ -19,7 +19,7 @@ public extension Pairing.Error {
                     break
                 }
             }
-            
+
             if let error = error as? Pairing.ThreadError {
                 switch error {
                 case .threadOperationalDatasetMissing:
@@ -34,22 +34,22 @@ public extension Pairing.Error {
                     return wordings.pairingErrorAllBorderRouterOffline
                 }
             }
-            
-            if let error = error as? PairingMachineError, case .notSupportDeviceType(_) = error {
+
+            if let error = error as? PairingMachineError, case .notSupportDeviceType = error {
                 return wordings.pairingErrorDeviceMismatchTitle
             }
-            
+
             if let error = error as? PairingMachineError, case .connectionTimeOutError = error {
                 return wordings.pairingErrorConnectionTimeoutTitle
             }
-            
-            if let error = error as? PairingMachineError, case .bluetoothDisconnectedError(_, _) = error {
+
+            if let error = error as? PairingMachineError, case .bluetoothDisconnectedError = error {
                 return wordings.pairingErrorBleDisconnectedTitle
             }
         }
         return wordings.pairingErrorOccurredTitle
     }
-    
+
     func getErrorMessageDescription(wordings: WordingProtocol) -> String {
         switch self {
         case let .underlying(error):
@@ -86,7 +86,7 @@ extension PairingMachineError {
             return wordings.pairingErrorDeserializationDescription
         case .encryptionError:
             return wordings.pairingErrorEncryptionErrorDescription
-        case .notSupportDeviceType(_):
+        case .notSupportDeviceType:
             if isSettingUpKit(wordings: wordings) {
                 return wordings.pairingErrorKitDeviceMismatchDescription
             } else {
@@ -99,10 +99,10 @@ extension PairingMachineError {
                 if deviceType == .unknown {
                     return wordings.pairingErrorBleDisconnectedDescription(deviceName: "device")
                 }
-                
+
                 return wordings.pairingErrorBleDisconnectedDescription(deviceName: deviceType.localizedName)
-            } 
-    
+            }
+
             return ""
         }
     }
@@ -126,9 +126,9 @@ extension Pairing_Error {
             return wordings.pairingErrorDeviceWifiJoinPasswordDescription
         case .threadJoinError:
             return wordings.pairingErrorsUnableJoinThreadNetworksDescription1
-            + "\n\n"
-            // TODO: input zone name later
-            + wordings.pairingErrorsUnableJoinThreadNetworksDescription2(zoneName: "")
+                + "\n\n"
+                // TODO: input zone name later
+                + wordings.pairingErrorsUnableJoinThreadNetworksDescription2(zoneName: "")
         default:
             return wordings.pairingErrorDeviceUnknownUnrecognizedDescription
         }

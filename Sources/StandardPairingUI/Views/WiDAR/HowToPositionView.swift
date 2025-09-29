@@ -1,30 +1,26 @@
 // Copyright (c) nami.ai
 
+import I18n
 import Lottie
+import NamiSharedUIElements
 import SharedAssets
 import SwiftUI
 import Tomonari
-import I18n
-import NamiSharedUIElements
 
 public struct HowToPositionView: View {
     // MARK: Lifecycle
-    
+
     public init(viewModel: HowToPosition.ViewModel) {
         self.viewModel = viewModel
     }
-    
-    // MARK: Internal
-    
-    @Environment(\.animations) var animations: Animations
-    
-    @ObservedObject var viewModel: HowToPosition.ViewModel
-    @Environment(\.themeManager) private var themeManager
-    @Environment(\.wordingManager) private var wordingManager
-    
+
+    // MARK: Public
+
     public var body: some View {
-        NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
-                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
+        NamiTopNavigationScreen(
+            title: wordingManager.wordings.positioningNavigationTitle,
+            colorOverride: themeManager.selectedTheme.navigationBarColor
+        ) {
             mainContent()
                 .padding()
         } leadingButtonsGroup: {
@@ -41,16 +37,25 @@ public struct HowToPositionView: View {
         }
         .ignoresSafeArea(.keyboard)
     }
-    
+
+    // MARK: Internal
+
+    @Environment(\.animations) var animations: Animations
+
+    @ObservedObject var viewModel: HowToPosition.ViewModel
+
     // MARK: Private
-    
+
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
+
     private func mainContent() -> some View {
         VStack(alignment: .center) {
             AnimationView(animation: \.widarPositioningRec)
-            
+
             Text(wordingManager.wordings.recommendationsTitle, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
                 .padding(.vertical)
-            
+
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     Icons.greenTick

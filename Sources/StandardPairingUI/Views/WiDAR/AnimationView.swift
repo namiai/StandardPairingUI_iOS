@@ -10,10 +10,13 @@ public struct AnimationView: View {
         lottieAnimationPath = animation
     }
 
+    // MARK: Public
+
+    public var body: some View { animations[keyPath: lottieAnimationPath].animationView() }
+
     // MARK: Internal
 
     @Environment(\.animations) var animations: Animations
-    let lottieAnimationPath: KeyPath<Animations, LottieAnimation>
 
-    public var body: some View { animations[keyPath: lottieAnimationPath].animationView() }
+    let lottieAnimationPath: KeyPath<Animations, LottieAnimation>
 }

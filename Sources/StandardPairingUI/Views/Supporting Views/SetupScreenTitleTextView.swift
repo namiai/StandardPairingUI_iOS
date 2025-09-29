@@ -1,21 +1,18 @@
 // Copyright (c) nami.ai
 
-import SwiftUI
 import SharedAssets
+import SwiftUI
 
-// MARK: - ScreenTitleTextView
+// MARK: - SetupScreenTitleTextView
 
 public struct SetupScreenTitleTextView: View {
-    @Environment(\.colors) var colors
     // MARK: Lifecycle
 
     init(title: String) {
         self.title = title
     }
 
-    // MARK: Internal
-
-    var title: String
+    // MARK: Public
 
     public var body: some View {
         VStack {
@@ -27,11 +24,19 @@ public struct SetupScreenTitleTextView: View {
         }
         .frame(minWidth: 200)
     }
-    
+
+    // MARK: Internal
+
+    @Environment(\.colors) var colors
+
+    var title: String
+
+    // MARK: Private
+
     @Environment(\.themeManager) private var themeManager
 }
 
-// MARK: - ScreenTitleTextView_Previews
+// MARK: - SetupScreenTitleTextView_Previews
 
 struct SetupScreenTitleTextView_Previews: PreviewProvider {
     static var previews: some View {

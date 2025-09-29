@@ -4,7 +4,7 @@ import I18n
 import SwiftUI
 import Tomonari
 
-extension View {    
+extension View {
     @ViewBuilder
     func passwordRetrievalAlert(isPresented: Binding<Bool>, networkName: String, viewModel: any StoredPasswordRetrievingViewModel, wordingManager: WordingManager) -> some View {
         alert(isPresented: isPresented) {
@@ -14,14 +14,14 @@ extension View {
                 primaryButton:
                 .destructive(
                     Text(wordingManager.wordings.forget),
-                    action: { 
-                        viewModel.forgetPassword() 
+                    action: {
+                        viewModel.forgetPassword()
                     }
                 ),
                 secondaryButton:
                 .default(
                     Text(wordingManager.wordings.ok),
-                    action: { viewModel.usePassword() 
+                    action: { viewModel.usePassword()
                     }
                 )
             )

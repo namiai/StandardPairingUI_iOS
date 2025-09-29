@@ -3,8 +3,8 @@
 import Foundation
 import I18n
 import NamiProto
-import Tomonari
 import SharedAssets
+import Tomonari
 
 // Upper level of matryoshka.
 public extension Pairing.Error {
@@ -24,7 +24,7 @@ public extension Pairing.Error {
             return error.localizedDescription
         }
     }
-    
+
     func getFAQLink(wordings: WordingProtocol) -> String? {
         if case let .underlying(error) = self {
             if let error = error as? Pairing.ThreadError {
@@ -61,7 +61,7 @@ extension PairingMachineError {
             return I18n.pairingErrorsThreadSetupErrorDeviceMismatchDescription
         case .connectionTimeOutError:
             return I18n.errorsPairingConnectionTimeOutDescription
-        case let .bluetoothDisconnectedError(deviceTpe, canTryAgain): 
+        case let .bluetoothDisconnectedError(deviceTpe, canTryAgain):
             return canTryAgain ? I18n.errorsPairingBleDisconnectedDescription(deviceTpe.localizedName) : ""
         }
     }
@@ -85,9 +85,9 @@ extension Pairing_Error {
             return I18n.errorsPairingIncorrectWifiPasswordTitle
         case .threadJoinError:
             return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription1
-            + "\n\n"
-            // TODO: input zone name later
-            + I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription2("")
+                + "\n\n"
+                // TODO: input zone name later
+                + I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription2("")
         default:
             return I18n.errorsPairingErrorDeviceUnknownUnrecognized
         }

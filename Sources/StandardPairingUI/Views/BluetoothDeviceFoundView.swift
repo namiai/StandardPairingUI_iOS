@@ -2,14 +2,13 @@
 
 import CommonTypes
 import I18n
+import NamiSharedUIElements
 import SwiftUI
 import Tomonari
-import NamiSharedUIElements
 
 // MARK: - BluetoothDeviceFoundView
 
 public struct BluetoothDeviceFoundView: View {
-    @Environment(\.colors) var colors
     // MARK: Lifecycle
 
     public init(viewModel: BluetoothDeviceFound.ViewModel) {
@@ -19,23 +18,25 @@ public struct BluetoothDeviceFoundView: View {
     // MARK: Public
 
     public var body: some View {
-        NamiTopNavigationScreen(title: navigationBarTitle(),
-                                colorOverride: themeManager.selectedTheme.navigationBarColor,
-                                mainContent: {
-            if let deviceModel = viewModel.state.deviceModel {
-                if viewModel.state.deviceType == .unknown || viewModel.state.deviceType == deviceModel.deviceType {
-                        if viewModel.state.deviceNameConfirmed && !viewModel.state.renameDevice {
+        NamiTopNavigationScreen(
+            title: navigationBarTitle(),
+            colorOverride: themeManager.selectedTheme.navigationBarColor,
+            mainContent: {
+                if let deviceModel = viewModel.state.deviceModel {
+                    if viewModel.state.deviceType == .unknown || viewModel.state.deviceType == deviceModel.deviceType {
+                        if viewModel.state.deviceNameConfirmed, !viewModel.state.renameDevice {
                             DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: deviceModel)
                         } else {
                             askToName(model: deviceModel)
                         }
+                    } else {
+                        deviceDiscovered()
+                    }
                 } else {
                     deviceDiscovered()
                 }
-            } else {
-                deviceDiscovered()
             }
-        })
+        )
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
             self.isKeyboardAppeared = true
         }
@@ -50,26 +51,18 @@ public struct BluetoothDeviceFoundView: View {
 
     // MARK: Internal
 
-    @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel       
+    @Environment(\.colors) var colors
+
+    @ObservedObject var viewModel: BluetoothDeviceFound.ViewModel
+
+    // MARK: Private
+
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
 
-    // MARK: Private
-    @State private var isKeyboardAppeared: Bool = false
-    @State private var isEditing: Bool = true
+    @State private var isKeyboardAppeared = false
+    @State private var isEditing = true
 
-    private func navigationBarTitle() -> String {
-        if isSettingUpKit(wordings: wordingManager.wordings) {
-            return kitName(wordings: wordingManager.wordings)
-        }
-        
-        if let deviceModel = viewModel.state.deviceModel, deviceModel.deviceType != .unknown {
-            return deviceModel.deviceType.localizedName
-        }
-        
-        return I18n.pairingDeviceSetupNavigationTitle
-    }
-    
     private func deviceDiscovered() -> some View {
         VStack {
             Spacer()
@@ -92,7 +85,7 @@ public struct BluetoothDeviceFoundView: View {
     }
 
     @ViewBuilder
-    private func askToName(model: NamiDeviceModel) -> some View {
+    private func askToName(model _: NamiDeviceModel) -> some View {
         VStack {
             Text(wordingManager.wordings.nameYourDevice)
                 .font(themeManager.selectedTheme.headline3)
@@ -117,7 +110,7 @@ public struct BluetoothDeviceFoundView: View {
                     isEditing = true
                 }
                 .onDisappear {
-                    isEditing = false 
+                    isEditing = false
                 }
             Spacer()
             Button(wordingManager.wordings.nextButton) {
@@ -129,5 +122,17 @@ public struct BluetoothDeviceFoundView: View {
             .padding(.bottom, isKeyboardAppeared ? NamiActionButtonStyle.ConstraintLayout.BottomTokeyboard : NamiActionButtonStyle.ConstraintLayout.BottomToSuperView)
             .anyView
         }
+    }
+
+    private func navigationBarTitle() -> String {
+        if isSettingUpKit(wordings: wordingManager.wordings) {
+            return kitName(wordings: wordingManager.wordings)
+        }
+
+        if let deviceModel = viewModel.state.deviceModel, deviceModel.deviceType != .unknown {
+            return deviceModel.deviceType.localizedName
+        }
+
+        return I18n.pairingDeviceSetupNavigationTitle
     }
 }

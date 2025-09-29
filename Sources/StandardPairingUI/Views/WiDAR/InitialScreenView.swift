@@ -1,11 +1,11 @@
 // Copyright (c) nami.ai
 
+import I18n
 import Lottie
+import NamiSharedUIElements
 import SharedAssets
 import SwiftUI
 import Tomonari
-import I18n
-import NamiSharedUIElements
 
 public struct InitialScreenView: View {
     // MARK: Lifecycle
@@ -14,16 +14,13 @@ public struct InitialScreenView: View {
         self.viewModel = viewModel
     }
 
-    // MARK: Internal
-
-    @ObservedObject var viewModel: InitialScreen.ViewModel
-    @Environment(\.colors) var colors: Colors
-    @Environment(\.themeManager) private var themeManager
-    @Environment(\.wordingManager) private var wordingManager
+    // MARK: Public
 
     public var body: some View {
-        NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
-                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
+        NamiTopNavigationScreen(
+            title: wordingManager.wordings.positioningNavigationTitle,
+            colorOverride: themeManager.selectedTheme.navigationBarColor
+        ) {
             VStack {
                 mainContent()
                     .padding(.horizontal)
@@ -40,7 +37,15 @@ public struct InitialScreenView: View {
         .ignoresSafeArea(.keyboard)
     }
 
+    // MARK: Internal
+
+    @ObservedObject var viewModel: InitialScreen.ViewModel
+    @Environment(\.colors) var colors: Colors
+
     // MARK: Private
+
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
 
     private func mainContent() -> some View {
         VStack(alignment: .center) {

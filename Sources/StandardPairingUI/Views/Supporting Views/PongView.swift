@@ -1,7 +1,7 @@
 // Copyright (c) nami.ai
 
-import SwiftUI
 import SharedAssets
+import SwiftUI
 
 // MARK: - PongView
 

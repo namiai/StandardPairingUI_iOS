@@ -1,10 +1,10 @@
 // Copyright (c) nami.ai
 
 import I18n
-import SwiftUI
-import Tomonari
 import NamiSharedUIElements
 import SharedAssets
+import SwiftUI
+import Tomonari
 
 // MARK: - ListWiFiNetworksView
 
@@ -18,73 +18,75 @@ public struct ListWiFiNetworksView: View {
     // MARK: Public
 
     public var body: some View {
-        NamiTopNavigationScreen(title: navigationBarTitle(),
-                                colorOverride: themeManager.selectedTheme.navigationBarColor,
-                                contentBehavior: .fixed,
-                                mainContent: {
-            VStack {
-                Text(wordingManager.wordings.connectWifiTitle)
-                    .font(themeManager.selectedTheme.headline3)
-                    .foregroundColor(colors.textDefaultPrimary)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding([.horizontal, .top])
-                
-                ScrollView {
-                    VStack {
-                        HStack {
-                            if viewModel.state.shouldShowNoNetworksHint {
-                                Text(wordingManager.wordings.networkNotFound)
-                                    .font(themeManager.selectedTheme.headline5)
-                                    .foregroundColor(colors.textDefaultTertiary)
-                            } else {
-                                Text(wordingManager.wordings.availableNetworks)
-                                    .font(themeManager.selectedTheme.headline5)
-                                    .foregroundColor(colors.textDefaultTertiary)
+        NamiTopNavigationScreen(
+            title: navigationBarTitle(),
+            colorOverride: themeManager.selectedTheme.navigationBarColor,
+            contentBehavior: .fixed,
+            mainContent: {
+                VStack {
+                    Text(wordingManager.wordings.connectWifiTitle)
+                        .font(themeManager.selectedTheme.headline3)
+                        .foregroundColor(colors.textDefaultPrimary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding([.horizontal, .top])
+
+                    ScrollView {
+                        VStack {
+                            HStack {
+                                if viewModel.state.shouldShowNoNetworksHint {
+                                    Text(wordingManager.wordings.networkNotFound)
+                                        .font(themeManager.selectedTheme.headline5)
+                                        .foregroundColor(colors.textDefaultTertiary)
+                                } else {
+                                    Text(wordingManager.wordings.availableNetworks)
+                                        .font(themeManager.selectedTheme.headline5)
+                                        .foregroundColor(colors.textDefaultTertiary)
+                                }
+                                if viewModel.state.shouldShowProgressView {
+                                    ProgressView()
+                                        .padding(.horizontal, 4)
+                                }
+                                Spacer()
                             }
-                            if viewModel.state.shouldShowProgressView {
-                                ProgressView()
-                                    .padding(.horizontal, 4)
-                            }
-                            Spacer()
-                        }
-                        .padding([.horizontal, .bottom])
-                        
-                        if let networks = viewModel.state.networks, networks.isEmpty == false {
-                            RoundedRectContainerView {
-                                VStack {
-                                    ForEach(Array(networks.enumerated()), id: \.offset) { item in
-                                        let i = item.offset
-                                        let network = item.element
-                                        VStack {
-                                            WiFiNetworkRowView(network: network)
-                                                .onTapGesture {
-                                                    viewModel.send(event: .selectNetworkAndConfirm(network))
+                            .padding([.horizontal, .bottom])
+
+                            if let networks = viewModel.state.networks, networks.isEmpty == false {
+                                RoundedRectContainerView {
+                                    VStack {
+                                        ForEach(Array(networks.enumerated()), id: \.offset) { item in
+                                            let i = item.offset
+                                            let network = item.element
+                                            VStack {
+                                                WiFiNetworkRowView(network: network)
+                                                    .onTapGesture {
+                                                        viewModel.send(event: .selectNetworkAndConfirm(network))
+                                                    }
+                                                if i < networks.count - 1 {
+                                                    Divider()
+                                                        .foregroundStyle(colors.iconDefaultPrimary)
+                                                        .padding(.horizontal)
                                                 }
-                                            if i < networks.count - 1 {
-                                                Divider()
-                                                    .foregroundStyle(colors.iconDefaultPrimary)
-                                                    .padding(.horizontal)
                                             }
                                         }
                                     }
+                                    .padding(.vertical, 8)
                                 }
-                                .padding(.vertical, 8)
+                                .padding(.horizontal)
                             }
-                            .padding(.horizontal)
-                        }
-                        
-                        if viewModel.state.couldShowAddOtherNetwork {
-                            if viewModel.state.networks?.isEmpty ?? true {
-                                Spacer().frame(height: 12)
+
+                            if viewModel.state.couldShowAddOtherNetwork {
+                                if viewModel.state.networks?.isEmpty ?? true {
+                                    Spacer().frame(height: 12)
+                                }
+                                otherNetworkRow()
+                                    .padding([.horizontal, .bottom])
                             }
-                            otherNetworkRow()
-                                .padding([.horizontal, .bottom])
                         }
                     }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-        })
+        )
         .passwordRetrievalAlert(isPresented: $viewModel.state.shouldAskAboutSavedPassword, networkName: viewModel.state.selectedNetwork?.ssid ?? "", viewModel: viewModel, wordingManager: wordingManager)
         .ignoresSafeArea(.keyboard)
     }
@@ -92,20 +94,13 @@ public struct ListWiFiNetworksView: View {
     // MARK: Internal
 
     @ObservedObject var viewModel: ListWiFiNetworks.ViewModel
+
+    // MARK: Private
+
     @Environment(\.themeManager) private var themeManager
     @Environment(\.wordingManager) private var wordingManager
     @Environment(\.colors) private var colors
 
-    // MARK: Private
-    
-    private func navigationBarTitle() -> String {
-        if isSettingUpKit(wordings: wordingManager.wordings) {
-            return kitName(wordings: wordingManager.wordings)
-        }
-        
-        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
-    }
-    
     private func otherNetworkRow() -> some View {
         RoundedRectContainerView(backgroundColor: colors.backgroundDefaultSecondary) {
             HStack {
@@ -123,5 +118,13 @@ public struct ListWiFiNetworksView: View {
         .onTapGesture {
             viewModel.send(event: .tappedOtherNetwork)
         }
+    }
+
+    private func navigationBarTitle() -> String {
+        if isSettingUpKit(wordings: wordingManager.wordings) {
+            return kitName(wordings: wordingManager.wordings)
+        }
+
+        return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
     }
 }

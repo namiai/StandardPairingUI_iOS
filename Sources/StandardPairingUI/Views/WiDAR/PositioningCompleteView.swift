@@ -1,9 +1,9 @@
 // Copyright (c) nami.ai
 
-import SwiftUI
-import Tomonari
 import I18n
 import NamiSharedUIElements
+import SwiftUI
+import Tomonari
 
 public struct PositioningCompleteView: View {
     // MARK: Lifecycle
@@ -12,17 +12,13 @@ public struct PositioningCompleteView: View {
         self.viewModel = viewModel
     }
 
-    // MARK: Internal
-
-    @Environment(\.animations) var animations: Animations
-
-    @ObservedObject var viewModel: PositioningComplete.ViewModel
-    @Environment(\.themeManager) private var themeManager
-    @Environment(\.wordingManager) private var wordingManager
+    // MARK: Public
 
     public var body: some View {
-        NamiTopNavigationScreen(title: wordingManager.wordings.positioningNavigationTitle,
-                                colorOverride: themeManager.selectedTheme.navigationBarColor) {
+        NamiTopNavigationScreen(
+            title: wordingManager.wordings.positioningNavigationTitle,
+            colorOverride: themeManager.selectedTheme.navigationBarColor
+        ) {
             VStack {
                 VStack {
                     AnimationView(animation: \.widarPositioningDone)
@@ -47,4 +43,15 @@ public struct PositioningCompleteView: View {
         .allowSwipeBackNavigation(false)
         .ignoresSafeArea(.keyboard)
     }
+
+    // MARK: Internal
+
+    @Environment(\.animations) var animations: Animations
+
+    @ObservedObject var viewModel: PositioningComplete.ViewModel
+
+    // MARK: Private
+
+    @Environment(\.themeManager) private var themeManager
+    @Environment(\.wordingManager) private var wordingManager
 }

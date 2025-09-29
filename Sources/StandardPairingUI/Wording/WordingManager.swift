@@ -1,34 +1,42 @@
 // Copyright (c) nami.ai
 
-import SwiftUI
 import I18n
+import SwiftUI
+
+// MARK: - WordingManager
 
 public class WordingManager: ObservableObject {
-    @Published public var wordings: WordingProtocol
-    
+    // MARK: Lifecycle
+
     public init() {
-        self.wordings = DefaultWordings()
+        wordings = DefaultWordings()
     }
-    
+
     public init(wordings: WordingProtocol) {
         self.wordings = wordings
     }
-    
+
+    // MARK: Public
+
+    @Published public var wordings: WordingProtocol
+
     public func setWordings(_ wordings: WordingProtocol) {
         self.wordings = wordings
     }
-    
+
     public func resetWordings() {
-        self.wordings = DefaultWordings()
+        wordings = DefaultWordings()
     }
-    
+
     public func updateKitNameTitle(to newTitle: String) {
-        self.wordings.kitNameNavigationBarTitle = newTitle
+        wordings.kitNameNavigationBarTitle = newTitle
     }
 }
 
+// MARK: - WordingManagerKey
+
 private struct WordingManagerKey: EnvironmentKey {
-    static let defaultValue: WordingManager = WordingManager()
+    static let defaultValue = WordingManager()
 }
 
 public extension EnvironmentValues {
@@ -38,10 +46,14 @@ public extension EnvironmentValues {
     }
 }
 
+// MARK: - DefaultWordings
+
 private struct DefaultWordings: WordingProtocol {
-    var kitNameNavigationBarTitle: String = ""
-    
-    public init() {
-        
-    }
+    // MARK: Lifecycle
+
+    init() {}
+
+    // MARK: Internal
+
+    var kitNameNavigationBarTitle = ""
 }

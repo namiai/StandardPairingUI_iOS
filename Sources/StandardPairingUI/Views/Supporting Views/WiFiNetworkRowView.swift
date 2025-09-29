@@ -1,18 +1,19 @@
 // Copyright (c) nami.ai
 
 import NamiSharedUIElements
+import SharedAssets
 import SwiftUI
 import Tomonari
-import SharedAssets
 
 // MARK: - WiFiNetworkRowView
 
 struct WiFiNetworkRowView: View {
-    @Environment(\.colors) var colors: Colors
     // MARK: Internal
-    
+
+    @Environment(\.colors) var colors: Colors
+
     var network: NamiWiFiNetwork
-    
+
     var body: some View {
         HStack {
             wifiImage()
@@ -33,11 +34,11 @@ struct WiFiNetworkRowView: View {
         .padding(.horizontal)
         .padding(.vertical, 8)
     }
-    
+
     // MARK: Private
-    
+
     @Environment(\.themeManager) private var themeManager
-    
+
     private func wifiImage() -> some View {
         if network.rssi >= -45 {
             return Icons.wifi
@@ -48,7 +49,7 @@ struct WiFiNetworkRowView: View {
         }
         return Icons.wifi
     }
-    
+
     private func imageExists(_ name: String) -> Bool {
         guard let _ = UIImage(named: name) else {
             return false

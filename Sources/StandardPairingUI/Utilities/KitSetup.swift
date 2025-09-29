@@ -1,9 +1,4 @@
-//
-//  KitSetup.swift
-//  StandardPairingUI
-//
-//  Created by Gleb Vodovozov on 10/2/25.
-//
+// Copyright (c) nami.ai
 
 func isSettingUpKit(wordings: WordingProtocol) -> Bool {
     return !wordings.pairingNavigationBarTitle.isEmpty
