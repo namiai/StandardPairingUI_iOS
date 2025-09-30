@@ -96,6 +96,10 @@ public struct EnterWiFiPasswordView: View {
             return kitName(wordings: wordingManager.wordings)
         }
         
+        if viewModel.state.setupType == .updateWiFiCreds {
+            return I18n.updateWifiTitle
+        }
+        
         return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
     }
 }

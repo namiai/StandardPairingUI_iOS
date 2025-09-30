@@ -63,6 +63,10 @@ public struct BluetoothDeviceFoundView: View {
             return kitName(wordings: wordingManager.wordings)
         }
         
+        if viewModel.state.setupType == .updateWiFiCreds {
+            return I18n.updateWifiTitle
+        }
+        
         if let deviceModel = viewModel.state.deviceModel, deviceModel.deviceType != .unknown {
             return deviceModel.deviceType.localizedName
         }
