@@ -50,10 +50,6 @@ public struct FinishingSetupView: View {
             return kitName(wordings: wordingManager.wordings)
         }
         
-        if viewModel.state.setupType == .updateWiFiCreds {
-            return I18n.updateWifiTitle
-        }
-        
         return self.title.isEmpty ? I18n.pairingDeviceSetupNavigationTitle : self.title
     }
 }
