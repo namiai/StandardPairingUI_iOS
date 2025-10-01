@@ -99,12 +99,12 @@ public struct ListWiFiNetworksView: View {
     // MARK: Private
     
     private func navigationBarTitle() -> String {
-        if isSettingUpKit(wordings: wordingManager.wordings) {
-            return kitName(wordings: wordingManager.wordings)
-        }
-        
         if viewModel.state.setupType == .updateWiFiCreds {
             return I18n.updateWifiTitle
+        }
+        
+        if isSettingUpKit(wordings: wordingManager.wordings) {
+            return kitName(wordings: wordingManager.wordings)
         }
         
         return viewModel.state.deviceType != .unknown ? viewModel.state.deviceType.localizedName : I18n.pairingDeviceSetupNavigationTitle
