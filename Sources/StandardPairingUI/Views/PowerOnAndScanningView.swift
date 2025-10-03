@@ -175,7 +175,7 @@ public struct PowerOnAndScanningView: View {
                 case .typeB:
                     LottieAnimationView(animation: \.sensePlugUSPulseDarkBlue)
                 case .typeA:
-                    LottieAnimationView(animation: \.sensePlugUSPulseDarkBlue)
+                    LottieAnimationView(animation: \.sensePlugJPPulseDarkBlue)
                 case .unknown, .none:
                     EmptyView()
                 @unknown default:
