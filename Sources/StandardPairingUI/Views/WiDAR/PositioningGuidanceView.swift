@@ -6,6 +6,7 @@ import SharedAssets
 import SwiftUI
 import Tomonari
 
+@MainActor
 public struct PositioningGuidanceView: View {
     // MARK: Lifecycle
 
@@ -31,7 +32,7 @@ public struct PositioningGuidanceView: View {
         ) {
             mainContent()
                 .padding()
-                .navigationPopGestureDisabled(true)
+                .namiNavigationPopGestureDisabled(true)
         } leadingButtonsGroup: {
             NamiNavBackButton {
                 viewModel.send(.wantToDismiss)
@@ -54,7 +55,7 @@ public struct PositioningGuidanceView: View {
             }
             .padding(.vertical)
         }
-        .dynamicBottomSheet(isPresented: cancelSheetBinding, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { sheetContent() })
+        .namiDynamicBottomSheet(isPresented: cancelSheetBinding, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { sheetContent() })
         .namiAllowSwipeBackNavigation(false)
         .ignoresSafeArea(.keyboard)
     }

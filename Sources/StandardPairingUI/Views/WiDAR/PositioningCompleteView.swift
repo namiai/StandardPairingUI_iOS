@@ -5,6 +5,7 @@ import NamiSharedUIElements
 import SwiftUI
 import Tomonari
 
+@MainActor
 public struct PositioningCompleteView: View {
     // MARK: Lifecycle
 
@@ -30,7 +31,7 @@ public struct PositioningCompleteView: View {
 
                 Spacer()
             }
-            .navigationPopGestureDisabled(true)
+            .namiNavigationPopGestureDisabled(true)
         } bottomButtonsGroup: {
             Button(wordingManager.wordings.doneButton) {
                 viewModel.send(.confirmPositioningComplete)

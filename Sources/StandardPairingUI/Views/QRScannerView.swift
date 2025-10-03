@@ -9,6 +9,7 @@ import Tomonari
 
 // MARK: - QRScannerView
 
+@MainActor
 public struct QRScannerView: View {
     // MARK: Lifecycle
 
@@ -68,12 +69,12 @@ public struct QRScannerView: View {
                                     .resizable()
                                     .frame(width: 24, height: 24)
                                     .foregroundColor(Color.white)
-                                Text(shouldShowQRcodeLocation ? wordingManager.wordings.scanQRexpandCamera : wordingManager.wordings.scanQRwhereIsQR, font: .headline5)
+                                Text(shouldShowQRcodeLocation ? wordingManager.wordings.scanQRexpandCamera : wordingManager.wordings.scanQRwhereIsQR, font: themeManager.selectedTheme.headline5)
                                     .foregroundStyle(Color.white)
                             }
                             .padding(.horizontal, 16)
                             .padding(.vertical, 8)
-                            .background(Color(red: 0.2, green: 0.23, blue: 0.27).opacity(0.6))
+                            .background(Color(red: 0.2, green: 0.23, blue: 0.27, opacity: 0.6))
                             .cornerRadius(100)
                             .onTapGesture {
                                 shouldShowQRcodeLocation.toggle()
@@ -125,7 +126,7 @@ public struct QRScannerView: View {
                 shouldShowError = false
             }
         }
-        .dynamicBottomSheet(isPresented: $shouldShowError, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { qrErrorSheet() })
+        .namiDynamicBottomSheet(isPresented: $shouldShowError, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { qrErrorSheet() })
         .ignoresSafeArea(.keyboard)
     }
 
