@@ -49,14 +49,14 @@ public struct InitialScreenView: View {
 
     private func mainContent() -> some View {
         VStack(alignment: .center) {
-            Text(wordingManager.wordings.widarInfoTitle, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
+            Text(wordingManager.wordings.widarInfoTitle, font: themeManager.selectedTheme.headline3).namiFillWidth(alignment: .center)
             VStack(alignment: .leading) {
                 HStack(alignment: .top) {
                     Text("∙")
                         .frame(width: 20, height: 20)
                         .foregroundColor(colors.textDefaultPrimary)
                     Text(wordingManager.wordings.widarInfoMustOptimisePosition, font: themeManager.selectedTheme.paragraph1)
-                        .fillWidth()
+                        .namiFillWidth()
                         .foregroundColor(colors.textDefaultPrimary)
                 }
                 HStack(alignment: .top) {
@@ -64,7 +64,7 @@ public struct InitialScreenView: View {
                         .frame(width: 20, height: 20)
                         .foregroundColor(colors.textDangerPrimary)
                     Text(wordingManager.wordings.widarInfoAvoidMovingWhenOptimized, font: themeManager.selectedTheme.paragraph1)
-                        .fillWidth()
+                        .namiFillWidth()
                         .foregroundColor(colors.textDangerPrimary)
                 }
             }

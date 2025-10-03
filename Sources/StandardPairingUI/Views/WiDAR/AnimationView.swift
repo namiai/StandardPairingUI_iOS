@@ -12,7 +12,7 @@ public struct AnimationView: View {
 
     // MARK: Public
 
-    public var body: some View { animations[keyPath: lottieAnimationPath].animationView() }
+    public var body: some View { animations[keyPath: lottieAnimationPath].namiAnimationView() }
 
     // MARK: Internal
 

@@ -42,7 +42,7 @@ public struct FinishingSetupView: View {
             }
         )
         .ignoresSafeArea(.keyboard)
-        .allowSwipeBackNavigation(false)
+        .namiAllowSwipeBackNavigation(false)
     }
 
     // MARK: Private

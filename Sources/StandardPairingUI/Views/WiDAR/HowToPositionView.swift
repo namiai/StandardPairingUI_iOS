@@ -53,7 +53,7 @@ public struct HowToPositionView: View {
         VStack(alignment: .center) {
             AnimationView(animation: \.widarPositioningRec)
 
-            Text(wordingManager.wordings.recommendationsTitle, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
+            Text(wordingManager.wordings.recommendationsTitle, font: themeManager.selectedTheme.headline3).namiFillWidth(alignment: .center)
                 .padding(.vertical)
 
             VStack(alignment: .leading) {
@@ -61,19 +61,19 @@ public struct HowToPositionView: View {
                     Icons.greenTick
                         .resizable()
                         .frame(width: 24, height: 24)
-                    Text(wordingManager.wordings.recommendationsInfoAttachBase, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                    Text(wordingManager.wordings.recommendationsInfoAttachBase, font: themeManager.selectedTheme.paragraph1).namiFillWidth()
                 }
                 HStack(alignment: .top) {
                     Icons.greenTick
                         .resizable()
                         .frame(width: 24, height: 24)
-                    Text(wordingManager.wordings.recommendationsInfoWireOnBack, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                    Text(wordingManager.wordings.recommendationsInfoWireOnBack, font: themeManager.selectedTheme.paragraph1).namiFillWidth()
                 }
                 HStack(alignment: .top) {
                     Icons.greenTick
                         .resizable()
                         .frame(width: 24, height: 24)
-                    Text(wordingManager.wordings.recommendationsInfoKeepAreaClear, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                    Text(wordingManager.wordings.recommendationsInfoKeepAreaClear, font: themeManager.selectedTheme.paragraph1).namiFillWidth()
                 }
             }
             .padding(.horizontal)

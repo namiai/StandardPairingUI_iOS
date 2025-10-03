@@ -55,7 +55,7 @@ public struct PositioningGuidanceView: View {
             .padding(.vertical)
         }
         .dynamicBottomSheet(isPresented: cancelSheetBinding, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { sheetContent() })
-        .allowSwipeBackNavigation(false)
+        .namiAllowSwipeBackNavigation(false)
         .ignoresSafeArea(.keyboard)
     }
 
@@ -83,11 +83,11 @@ public struct PositioningGuidanceView: View {
 
             switch measurementSystem {
             case .metric:
-                Text(wordingManager.wordings.guideMetric, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                Text(wordingManager.wordings.guideMetric, font: themeManager.selectedTheme.paragraph1).namiFillWidth()
             case .uk:
-                Text(wordingManager.wordings.guideImperial, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                Text(wordingManager.wordings.guideImperial, font: themeManager.selectedTheme.paragraph1).namiFillWidth()
             case .us:
-                Text(wordingManager.wordings.guideImperial, font: themeManager.selectedTheme.paragraph1).fillWidth()
+                Text(wordingManager.wordings.guideImperial, font: themeManager.selectedTheme.paragraph1).namiFillWidth()
             }
 
             let quality = viewModel.state.positioningQuality
@@ -105,7 +105,7 @@ public struct PositioningGuidanceView: View {
 
             RoundedRectContainerView {
                 VStack {
-                    Text(wordingManager.wordings.statusLabel, font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    Text(wordingManager.wordings.statusLabel, font: themeManager.selectedTheme.paragraph1).namiFillWidth(alignment: .center)
                     if viewModel.state.positioningState == .started {
                         HStack {
                             switch quality {
@@ -138,7 +138,7 @@ public struct PositioningGuidanceView: View {
                     // TODO: Add this string to POEditor!
                     Text(wordingManager.wordings.positioningTip, font: themeManager.selectedTheme.paragraph1)
                         .foregroundColor(colors.textDefaultPrimary)
-                        .fillWidth(alignment: .center)
+                        .namiFillWidth(alignment: .center)
                 }
             }
             .frame(height: 20)

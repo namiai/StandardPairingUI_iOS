@@ -95,7 +95,7 @@ public struct PairingErrorScreenView: View {
                 }
             }
         )
-        .allowSwipeBackNavigation(false)
+        .namiAllowSwipeBackNavigation(false)
         .ignoresSafeArea(.keyboard)
     }
 

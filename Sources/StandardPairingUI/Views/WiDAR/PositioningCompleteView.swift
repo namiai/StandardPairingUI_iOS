@@ -23,8 +23,8 @@ public struct PositioningCompleteView: View {
                 VStack {
                     AnimationView(animation: \.widarPositioningDone)
                         .padding(.vertical)
-                    Text(wordingManager.wordings.successTitle, font: themeManager.selectedTheme.headline3).fillWidth(alignment: .center)
-                    Text(wordingManager.wordings.sucessContentMessage(deviceName: viewModel.state.deviceName), font: themeManager.selectedTheme.paragraph1).fillWidth(alignment: .center)
+                    Text(wordingManager.wordings.successTitle, font: themeManager.selectedTheme.headline3).namiFillWidth(alignment: .center)
+                    Text(wordingManager.wordings.sucessContentMessage(deviceName: viewModel.state.deviceName), font: themeManager.selectedTheme.paragraph1).namiFillWidth(alignment: .center)
                 }
                 .padding(.horizontal)
 
@@ -40,7 +40,7 @@ public struct PositioningCompleteView: View {
             .padding(.vertical)
             .anyView
         }
-        .allowSwipeBackNavigation(false)
+        .namiAllowSwipeBackNavigation(false)
         .ignoresSafeArea(.keyboard)
     }
 
