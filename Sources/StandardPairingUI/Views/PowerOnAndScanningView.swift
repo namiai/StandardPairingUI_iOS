@@ -21,6 +21,7 @@ public struct PowerOnAndScanningView: View {
         NamiTopNavigationScreen(
             title: navigationBarTitle(),
             colorOverride: themeManager.selectedTheme.navigationBarColor,
+            contentBehavior: .fixed,
             mainContent: {
                 self.scanningForDevice()
             })
