@@ -21,10 +21,11 @@ public struct BluetoothDeviceFoundView: View {
     public var body: some View {
         NamiTopNavigationScreen(title: navigationBarTitle(),
                                 colorOverride: themeManager.selectedTheme.navigationBarColor,
+                                contentBehavior: .fixed,
                                 mainContent: {
             if let deviceModel = viewModel.state.deviceModel {
                 if viewModel.state.deviceType == .unknown || viewModel.state.deviceType == deviceModel.deviceType {
-                        if viewModel.state.deviceNameConfirmed && !viewModel.state.renameDevice {
+                        if viewModel.state.deviceNameConfirmed {
                             DevicePresentingLoadingView(deviceName: viewModel.state.deviceName, deviceModel: deviceModel)
                         } else {
                             askToName(model: deviceModel)
