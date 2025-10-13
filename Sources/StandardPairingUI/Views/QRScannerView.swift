@@ -66,13 +66,13 @@ public struct QRScannerView: View {
                             icon
                                 .resizable()
                                 .frame(width: 24, height: 24)
-                                .foregroundColor(Color.white)
+                                .foregroundColor(ColorPrimitive.white900.color) // stays same for light & dark
                             Text(shouldShowQRcodeLocation ? wordingManager.wordings.scanQRexpandCamera : wordingManager.wordings.scanQRwhereIsQR, font: .headline5)
-                                .foregroundStyle(Color.white)
+                                .foregroundStyle(ColorPrimitive.white900.color) // stays same for light & dark
                         }
                         .padding(.horizontal, 16)
                         .padding(.vertical, 8)
-                        .background(Color(red: 0.2, green: 0.23, blue: 0.27).opacity(0.6))
+                        .background(ColorPrimitive.black900.color.opacity(0.6)) // stays same for light & dark
                         .cornerRadius(100)
                         .onTapGesture {
                             shouldShowQRcodeLocation.toggle()
@@ -90,7 +90,7 @@ public struct QRScannerView: View {
                         RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                             .stroke(
                                 // It is literally #FFFFFF in design, huh.
-                                viewModel.state.error == nil ? Color.white : colors.iconDangerPrimary,
+                                viewModel.state.error == nil ? colors.iconDefaultInvert : colors.iconDangerPrimary,
                                 style: viewfinderStrokeStyle(cornerStrokeLength: cornerStrokeLength, width: frameWidth, height: frameWidth, cornerRadius: cornerRadius)
                             )
                             .position(centerPoint)
@@ -123,7 +123,7 @@ public struct QRScannerView: View {
                 shouldShowError = false
             }
         }
-        .dynamicBottomSheet(isPresented: $shouldShowError, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, content: { qrErrorSheet() })
+        .dynamicBottomSheet(isPresented: $shouldShowError, dragIndicatorVisible: false, onDismiss: $onDismissErrorAction, backgroundColor: colors.backgroundDefaultSecondary, content: { qrErrorSheet() })
         .ignoresSafeArea(.keyboard)
     }
     
