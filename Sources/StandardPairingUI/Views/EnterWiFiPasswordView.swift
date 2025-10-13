@@ -92,6 +92,10 @@ public struct EnterWiFiPasswordView: View {
     @Environment(\.colors) private var colors
     
     private func navigationTitle() -> String {
+        if viewModel.state.setupType == .updateWiFiCreds {
+            return I18n.updateWifiTitle
+        }
+        
         if isSettingUpKit(wordings: wordingManager.wordings) {
             return kitName(wordings: wordingManager.wordings)
         }

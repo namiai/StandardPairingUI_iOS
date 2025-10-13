@@ -78,6 +78,10 @@ public struct PowerOnAndScanningView: View {
     @Environment(\.wordingManager) private var wordingManager
     
     private func navigationBarTitle() -> String {
+        if viewModel.state.setupType == .updateWiFiCreds {
+            return I18n.updateWifiTitle
+        }
+        
         if isSettingUpKit(wordings: wordingManager.wordings) {
             return kitName(wordings: wordingManager.wordings)
         }
