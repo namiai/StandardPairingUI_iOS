@@ -190,6 +190,8 @@ public struct PowerOnAndScanningView: View {
                 LottieAnimationView(animation: \.alarmPodPulseDarkBlue)
             case .alarmPod:
                 LottieAnimationView(animation: \.alarmPodPulseDarkBlue)
+            case .sensePod:
+                LottieAnimationView(animation: \.sensePodPulseDarkBlue)
             case .wifiSensor:
                 switch viewModel.state.outletType  {
                 case .typeE:
