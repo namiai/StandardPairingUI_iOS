@@ -41,7 +41,7 @@ struct NamiNavBar: ViewModifier {
 }
 
 extension View {
-    var anyView: AnyView {
+    public var anyView: AnyView {
         AnyView(self)
     }
     
