@@ -3,7 +3,7 @@
 import I18n
 import SwiftUI
 import Tomonari
-import NamiSharedUIElements
+@_implementationOnly import NamiSharedUIElements
 import SharedAssets
 
 // MARK: - ListWiFiNetworksView

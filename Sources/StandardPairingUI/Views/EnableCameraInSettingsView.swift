@@ -1,7 +1,7 @@
 
 import SwiftUI
 import I18n
-import NamiSharedUIElements
+@_implementationOnly import NamiSharedUIElements
 import SharedAssets
 
 public struct EnableCameraInSettingsView: View {

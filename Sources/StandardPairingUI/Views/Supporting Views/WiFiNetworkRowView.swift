@@ -1,6 +1,6 @@
 // Copyright (c) nami.ai
 
-import NamiSharedUIElements
+@_implementationOnly import NamiSharedUIElements
 import SwiftUI
 import Tomonari
 import SharedAssets

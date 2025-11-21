@@ -2,7 +2,7 @@
 
 import SwiftUI
 import SharedAssets
-import NamiSharedUIElements
+@_implementationOnly import NamiSharedUIElements
 
 public struct NamiTheme: ThemeProtocol {
     
