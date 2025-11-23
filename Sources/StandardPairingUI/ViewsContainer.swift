@@ -1,14 +1,7 @@
 // Copyright (c) nami.ai
 
-import CommonTypes
-@_implementationOnly import NamiSharedUIElements
-import SharedAssets
+import NamiPairingFramework
 import SwiftUI
-import Tomonari
-
-typealias NamiTextStyle = NamiSharedUIElements.NamiTextStyle
-typealias DeviceImages = SharedAssets.DeviceImages
-typealias DeviceQRCodeLocationImages = SharedAssets.DeviceQRCodeLocationImages
 
 // MARK: - ViewsContainer
 

@@ -4,7 +4,6 @@ import CommonTypes
 import I18n
 import SwiftUI
 import Tomonari
-@_implementationOnly import NamiSharedUIElements
 
 // MARK: - BluetoothDeviceFoundView
 
