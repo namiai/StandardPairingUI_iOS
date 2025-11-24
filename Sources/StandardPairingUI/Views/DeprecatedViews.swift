@@ -1,5 +1,4 @@
 import SwiftUI
-import Tomonari
 
 // Stub types for deprecated positioning namespaces
 @available(*, deprecated)
