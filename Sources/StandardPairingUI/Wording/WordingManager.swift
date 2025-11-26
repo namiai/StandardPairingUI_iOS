@@ -1,7 +1,7 @@
 // Copyright (c) nami.ai
 
+import Combine
 import SwiftUI
-import I18n
 
 public class WordingManager: ObservableObject {
     @Published public var wordings: WordingProtocol

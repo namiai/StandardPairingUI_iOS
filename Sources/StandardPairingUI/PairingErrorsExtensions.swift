@@ -2,9 +2,7 @@
 
 import Foundation
 import I18n
-import NamiProto
 import Tomonari
-import SharedAssets
 
 // Upper level of matryoshka.
 public extension Pairing.Error {
@@ -22,10 +20,12 @@ public extension Pairing.Error {
                 return error.localizedDescription
             }
             return error.localizedDescription
+        @unknown default:
+            return "Unknown Pairing Error"
         }
     }
     
-    func getFAQLink(wordings: WordingProtocol) -> String? {
+    internal func getFAQLink(wordings: WordingProtocol) -> String? {
         if case let .underlying(error) = self {
             if let error = error as? Pairing.ThreadError {
                 switch error {
@@ -49,7 +49,7 @@ extension PairingMachineError {
             return I18n.errorsPairingMachineUnexpectedMessage
         case .seanceError:
             return I18n.errorsPairingMachineSeanceError
-        case let .pairingError(pairingError): // Pairing_Error.
+        case let .pairingError(pairingError): // PublicPairingError.
             return pairingError.localizedDescription
         case .serializationError:
             return I18n.errorsPairingMachineSerializationError
@@ -63,14 +63,16 @@ extension PairingMachineError {
             return I18n.errorsPairingConnectionTimeOutDescription
         case let .bluetoothDisconnectedError(deviceTpe, canTryAgain): 
             return canTryAgain ? I18n.errorsPairingBleDisconnectedDescription(deviceTpe.localizedName) : ""
+        @unknown default:
+            return I18n.errorsPairingErrorDeviceUnknownUnrecognized
         }
     }
 }
 
 // Inner level of PairingMachineError.pairingError case.
-extension Pairing_Error {
+extension PublicPairingError {
     var localizedDescription: String {
-        switch error {
+        switch self.error {
         case .secureSessionError:
             return I18n.errorsPairingErrorDeviceSecureSessionError
         case .cloudChallengeError:
@@ -82,7 +84,7 @@ extension Pairing_Error {
         case .wifiJoinPasswordError:
             return I18n.errorsPairingErrorDeviceWifiJoinPasswordError
         case .wifiJoinIpError:
-            return I18n.errorsPairingIncorrectWifiPasswordTitle
+            return I18n.errorsPairingErrorDeviceWifiJoinIpError
         case .threadJoinError:
             return I18n.pairingErrorsContactSensorSetupErrorUnableJoinThreadNetworksDescription1
             + "\n\n"
@@ -108,6 +110,8 @@ extension Pairing.ThreadError {
             return I18n.pairingErrorNoThreadBorderRouterInPlace
         case .allBorderRoutersOffline:
             return I18n.pairingErrorAllBorderRouterOffline
+        @unknown default:
+            return I18n.errorsPairingErrorDeviceUnknownUnrecognized
         }
     }
 }
