@@ -1,30 +1,9 @@
 import SwiftUI
+import Tomonari
 
-// Stub types for deprecated positioning namespaces
-@available(*, deprecated)
-public enum HowToPosition {
-    public struct ViewModel {}
-}
-
-@available(*, deprecated)
-public enum InitialScreen {
-    public struct ViewModel {}
-}
-
-@available(*, deprecated)
-public enum PositioningGuidance {
-    public struct ViewModel {}
-}
-
-@available(*, deprecated)
-public enum PositioningComplete {
-    public struct ViewModel {}
-}
-
-@available(*, deprecated)
-public enum ErrorScreen {
-    public struct ViewModel {}
-}
+// Note: HowToPosition, InitialScreen, PositioningGuidance, PositioningComplete, ErrorScreen
+// types and their ViewModels are now provided by Tomonari. Do not redeclare them here
+// to avoid type shadowing when StandardPairingUI is compiled against NamiPairingFramework.
 
 @available(*, deprecated, message: "`HowToPositionView` is deprecated and replaced with empty view as a placeholder")
 public struct HowToPositionView: View {

@@ -43,10 +43,10 @@ public struct ViewsContainer: PairingStepsContainer {
     public var finishingSetup: (String) -> FinishingSetupView = FinishingSetupView.init
     public var pairingError: (PairingErrorScreen.ViewModel) -> PairingErrorScreenView = PairingErrorScreenView.init
 
-    // Deprecated fields.
-    public var howToPosition: (HowToPosition.ViewModel) -> HowToPositionView = { _ in HowToPositionView(viewModel: HowToPosition.ViewModel()) }
-    public var initialPositioningScreen: (InitialScreen.ViewModel) -> InitialScreenView = { _ in InitialScreenView(viewModel: InitialScreen.ViewModel()) }
-    public var positioningGuidance: (PositioningGuidance.ViewModel) -> PositioningGuidanceView = { _ in PositioningGuidanceView(viewModel: PositioningGuidance.ViewModel()) }
-    public var positioningComplete: (PositioningComplete.ViewModel) -> PositioningCompleteView = { _ in PositioningCompleteView(viewModel: PositioningComplete.ViewModel()) }
-    public var positionError: (ErrorScreen.ViewModel) -> ErrorScreenView = { _ in ErrorScreenView(viewModel: ErrorScreen.ViewModel()) }
+    // Deprecated fields
+    public var howToPosition: (HowToPosition.ViewModel) -> HowToPositionView = HowToPositionView.init
+    public var initialPositioningScreen: (InitialScreen.ViewModel) -> InitialScreenView = InitialScreenView.init
+    public var positioningGuidance: (PositioningGuidance.ViewModel) -> PositioningGuidanceView = PositioningGuidanceView.init
+    public var positioningComplete: (PositioningComplete.ViewModel) -> PositioningCompleteView = PositioningCompleteView.init
+    public var positionError: (ErrorScreen.ViewModel) -> ErrorScreenView = ErrorScreenView.init
 }
