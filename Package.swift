@@ -22,6 +22,7 @@ let package = Package(
         .package(path: "../NamiSharedUIElements_iOS"),
         .package(path: "../SharedAssets_iOS"),
         .package(path: "../Tomonari"),
+        .package(url: "https://github.com/airbnb/lottie-spm.git", from: "4.6.0"),
     ],
     targets: [
         .target(
@@ -29,9 +30,13 @@ let package = Package(
             dependencies: [
                 .product(name: "I18n", package: "I18n_iOS"),
                 .product(name: "Log", package: "Log_iOS"),
+                .product(name: "Lottie", package: "lottie-spm"),
                 .product(name: "NamiSharedUIElements", package: "NamiSharedUIElements_iOS"),
                 .product(name: "SharedAssets", package: "SharedAssets_iOS"),
                 .product(name: "Tomonari", package: "Tomonari"),
+            ],
+            resources: [
+                .process("Resources"),
             ]
         ),
     ]
