@@ -205,7 +205,10 @@ public protocol WordingProtocol {
     var pairingThreadErrorContactSensorNoThreadNetworksFoundDescription2: String { get }
     func pairingThreadErrorNoThreadNetworksFoundDescription(zoneName: String) -> String
     var pairingErrorMobilePhoneIsNotConnectedToWifiDescription: String { get }
-    
+    var pairingErrorAllBorderRouterOffline: String { get }
+    func pairingErrorAllBorderRouterOfflineDescription(devices: String) -> String
+    func pairingErrorAllBorderRouterOfflineDeviceInZone(zoneName: String, deviceName: String) -> String
+
     // MARK: - Positioning error view
     var positioningErrorTitle: String { get }
     var deviceNotFoundMessage: String { get }

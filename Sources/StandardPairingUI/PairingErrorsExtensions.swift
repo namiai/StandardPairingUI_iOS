@@ -106,8 +106,13 @@ extension Pairing.ThreadError {
             return I18n.pairingErrorMobilePhoneIsNotConnectedToWifi
         case .noBorderRouter:
             return I18n.pairingErrorNoThreadBorderRouterInPlace
-        case .allBorderRoutersOffline:
-            return I18n.pairingErrorAllBorderRouterOffline
+        case let .allBorderRoutersOffline(zones):
+            let descriptions = zones.flatMap { zone in
+                zone.borderRouters.map { br in
+                    I18n.pairingErrorAllBorderRouterOfflineDeviceInZone(zone.zoneName, br.name)
+                }
+            }.joined(separator: ", ")
+            return I18n.pairingErrorAllBorderRouterOfflineDescription(descriptions)
         }
     }
 }

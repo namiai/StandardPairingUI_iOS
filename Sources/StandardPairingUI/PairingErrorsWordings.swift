@@ -30,7 +30,7 @@ public extension Pairing.Error {
                     return wordings.pairingErrorMobilePhoneIsNotConnectedToWifi
                 case .noBorderRouter:
                     return wordings.pairingErrorNoThreadBorderRouterInPlace
-                case .allBorderRoutersOffline:
+                case .allBorderRoutersOffline(_):
                     return wordings.pairingErrorAllBorderRouterOffline
                 }
             }
@@ -146,8 +146,13 @@ extension Pairing.ThreadError {
             return wordings.pairingErrorMobilePhoneIsNotConnectedToWifiDescription
         case .noBorderRouter:
             return wordings.pairingErrorNoThreadBorderRouterInPlace
-        case .allBorderRoutersOffline:
-            return wordings.pairingErrorAllBorderRouterOffline
+        case let .allBorderRoutersOffline(zones):
+            let descriptions = zones.flatMap { zone in
+                zone.borderRouters.map { br in
+                    wordings.pairingErrorAllBorderRouterOfflineDeviceInZone(zoneName: zone.zoneName, deviceName: br.name)
+                }
+            }.joined(separator: ", ")
+            return wordings.pairingErrorAllBorderRouterOfflineDescription(devices: descriptions)
         }
     }
 }
