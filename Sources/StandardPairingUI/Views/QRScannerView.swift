@@ -83,7 +83,7 @@ public struct QRScannerView: View {
                         let h = geometry.size.height
                         let w = geometry.size.width
                         let centerPoint = CGPoint(x: w / 2, y: h / 2)
-                        let frameWidth = min(h, w) - 20
+                        let frameWidth = max(min(h, w) - 20, 0) // preventing "Invalid frame dimension (negative or non-finite)."
                         let cornerStrokeLength = frameWidth / 5
                         let cornerRadius: CGFloat = 25
                         
