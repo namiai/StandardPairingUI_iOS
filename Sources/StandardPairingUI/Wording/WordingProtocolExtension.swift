@@ -208,7 +208,9 @@ public extension WordingProtocol {
     var pairingErrorMobilePhoneIsNotConnectedToWifiDescription: String { get { return I18n.pairingErrorMobilePhoneIsNotConnectedToWifiDescription } }
     var pairingErrorNoThreadBorderRouterInPlace: String { get { return I18n.pairingErrorNoThreadBorderRouterInPlace } }
     var pairingErrorAllBorderRouterOffline: String { get { return I18n.pairingErrorAllBorderRouterOffline } }
-    
+    func pairingErrorAllBorderRouterOfflineDescription(devices: String) -> String { return I18n.pairingErrorAllBorderRouterOfflineDescription(devices) }
+    func pairingErrorAllBorderRouterOfflineDeviceInZone(zoneName: String, deviceName: String) -> String { return I18n.pairingErrorAllBorderRouterOfflineDeviceInZone(zoneName, deviceName) }
+
     // MARK: - Positioning error view
     var positioningErrorTitle: String { get { return I18n.widarErrorTitle } }
     var deviceNotFoundMessage: String { get { return I18n.widarErrorDeviceNotFoundMessage } }
